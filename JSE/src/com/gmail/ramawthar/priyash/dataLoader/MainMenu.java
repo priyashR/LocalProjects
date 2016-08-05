@@ -163,7 +163,7 @@ public class MainMenu {
             ex.infoLog("2 -> Load daily file.", ExceptionFlags.SHOW);
             ex.infoLog("3 -> Query data.", ExceptionFlags.SHOW);
             ex.infoLog("4 -> Remove a batch for an instrument.", ExceptionFlags.SHOW);
-            ex.infoLog("5 -> Remove a batch for all instruments.", ExceptionFlags.SHOW);
+            ex.infoLog("5 -> Remove a full batch.", ExceptionFlags.SHOW);
             ex.infoLog("6 -> Create structures.", ExceptionFlags.SHOW);
             ex.infoLog("7 -> Show current log.", ExceptionFlags.SHOW);
             ex.infoLog("8 -> Exit application.", ExceptionFlags.SHOW);
