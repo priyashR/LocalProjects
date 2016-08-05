@@ -2,5 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/GITProjects/MySQL/mysql-connector-java-5.1.28-bin.jar"/>
+	<classpathentry kind="lib" path="C:/GITProjects/TALib/TALib.jar"/>
+	<classpathentry kind="lib" path="C:/GITProjects/jfreechart-1.0.17/jfreechart-1.0.17/lib/jfreechart-1.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/GITProjects/jfreechart-1.0.17/jfreechart-1.0.17/lib/jcommon-1.0.21.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

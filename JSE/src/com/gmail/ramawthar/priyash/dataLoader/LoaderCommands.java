@@ -20,7 +20,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import oracle.jbo.server.util.SQLExceptionConverter;
+//import oracle.jbo.server.util.SQLExceptionConverter;
 
 public class LoaderCommands {
     
