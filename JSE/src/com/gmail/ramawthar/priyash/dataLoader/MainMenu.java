@@ -153,7 +153,12 @@ public class MainMenu {
     
     
     public void menuInput(){
-        
+    	
+        class menuOptions{
+        	void optionThree(){
+        		ex.infoLog("Data Queries are not available yet.", ExceptionFlags.SHOW);
+        	}
+        }
         boolean runMain = true;
         String mainPrompt = "";
         String additionalInfo = "";
@@ -369,7 +374,8 @@ public class MainMenu {
                     }
                 }
             }else if (mainPrompt.equalsIgnoreCase("3")){
-                ex.infoLog("Data Queries are not available yet.", ExceptionFlags.SHOW);
+                //ex.infoLog("Data Queries are not available yet.", ExceptionFlags.SHOW);
+            	new menuOptions().optionThree();
             }else if (mainPrompt.equalsIgnoreCase("4")){
                 String instrument = "";
                 ex.infoLog("Please enter batch id.", ExceptionFlags.SHOW);
@@ -474,8 +480,9 @@ public class MainMenu {
             }else{
                 ex.infoLog("Invalid input, please select a value between 1 and 8.", ExceptionFlags.SHOW);
             }
-        }       
-        
+        }    
+
+
     }
 
     public static void main(String [] args){
