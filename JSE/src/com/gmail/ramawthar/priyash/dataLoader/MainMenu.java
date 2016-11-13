@@ -156,7 +156,30 @@ public class MainMenu {
     	
         class menuOptions{
         	void optionThree(){
-        		ex.infoLog("Data Queries are not available yet.", ExceptionFlags.SHOW);
+        		
+        		boolean runThree = true;
+                String ThreePrompt = "";
+                while (runThree) {
+                    ex.infoLog("Please select an option: ", ExceptionFlags.SHOW);
+                    ex.infoLog("1 -> List all instruments available.", ExceptionFlags.SHOW);
+                    ex.infoLog("2 -> List instrument data(date, price).", ExceptionFlags.SHOW);
+                    ex.infoLog("3 -> List all batches.", ExceptionFlags.SHOW);
+                    ex.infoLog("4 -> Exit query menu.", ExceptionFlags.SHOW);
+                    //add an option to see the current log of errors
+                    Scanner scn = new Scanner(System.in);
+                    ThreePrompt = scn.nextLine();
+                    if (ThreePrompt.equalsIgnoreCase("1")){   
+                    	ex.infoLog("List all instruments available.", ExceptionFlags.SHOW);
+                    }else if (ThreePrompt.equalsIgnoreCase("2")){
+                    	ex.infoLog("List instrument data(date, price).", ExceptionFlags.SHOW);
+                    }else if (ThreePrompt.equalsIgnoreCase("3")){
+                    	ex.infoLog("List all batches.", ExceptionFlags.SHOW);
+                    }else if (ThreePrompt.equalsIgnoreCase("4")){
+                    	ex.infoLog("Till we meet again, bye.", ExceptionFlags.SHOW);
+                    	runThree = false;
+                    }
+                    
+                }
         	}
         }
         boolean runMain = true;
