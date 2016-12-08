@@ -14,7 +14,7 @@ public class TestClass {
 	 public void testLoadGames() {
 	     List<Game> games = (ArrayList<Game>) gameRepository.findAll();
 	 }
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("hi");
 		TestClass t = new TestClass();
@@ -22,6 +22,6 @@ public class TestClass {
 		t.testLoadGames();
 		System.out.println("bye");
 		
-	}
+	}*/
 
 }
