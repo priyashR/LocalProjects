@@ -7,8 +7,9 @@ import javax.persistence.PersistenceContext;
 import com.gmail.ramawthar.priyash.model.Game1;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class GameDao {
 	@PersistenceContext
 	private EntityManager em;
