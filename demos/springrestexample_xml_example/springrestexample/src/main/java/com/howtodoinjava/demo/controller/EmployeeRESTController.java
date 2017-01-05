@@ -13,6 +13,10 @@ import com.howtodoinjava.demo.model.EmployeeVO;
 import com.howtodoinjava.demo.model.Greeting;
  
 /*
+ * 
+ * Original example:
+ * http://howtodoinjava.com/spring/spring-restful/spring-rest-hello-world-xml-example/
+ * 
  * To convert to JSON response see:
  * http://howtodoinjava.com/spring/spring-restful/spring-rest-hello-world-json-example/
  */
