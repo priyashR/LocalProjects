@@ -6,15 +6,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
- 
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
 import com.howtodoinjava.demo.model.EmployeeListVO;
 import com.howtodoinjava.demo.model.EmployeeVO;
+import com.howtodoinjava.demo.model.Greeting;
  
+/*
+ * To convert to JSON response see:
+ * http://howtodoinjava.com/spring/spring-restful/spring-rest-hello-world-json-example/
+ */
 @RestController
+@EnableWebMvc
 public class EmployeeRESTController 
 {
-    @RequestMapping(value = "/employees")
-    public @ResponseBody EmployeeListVO getAllEmployees() 
+    @RequestMapping("/employees")
+    public @ResponseBody Greeting  getAllEmployees() 
     {
         EmployeeListVO employees = new EmployeeListVO();
          
@@ -26,8 +33,9 @@ public class EmployeeRESTController
         employees.getEmployees().add(empOne);
         employees.getEmployees().add(empTwo);
         employees.getEmployees().add(empThree);
-         
-        return employees;
+        
+        Greeting g = new Greeting(1,"hello");
+        return g;
     }
      
     @RequestMapping(value = "/employees/{id}")
