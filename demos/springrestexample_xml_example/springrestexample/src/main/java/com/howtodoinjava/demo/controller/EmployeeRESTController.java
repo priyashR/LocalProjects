@@ -19,6 +19,9 @@ import com.howtodoinjava.demo.model.Greeting;
  * 
  * To convert to JSON response see:
  * http://howtodoinjava.com/spring/spring-restful/spring-rest-hello-world-json-example/
+ * 
+ * http://localhost:8080/springrestexample/employees
+ * 
  */
 @RestController
 @EnableWebMvc
