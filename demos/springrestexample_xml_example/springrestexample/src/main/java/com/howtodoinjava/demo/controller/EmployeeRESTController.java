@@ -1,5 +1,5 @@
 package com.howtodoinjava.demo.controller;
- 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +40,11 @@ public class EmployeeRESTController
         employees.getEmployees().add(empOne);
         employees.getEmployees().add(empTwo);
         employees.getEmployees().add(empThree);
+        //Doesnt work
         
+        //com.gmail.ramawthar.priyash.TestInsertSMS t = new com.gmail.ramawthar.priyash.TestInsertSMS();
+        //t.testInsert("TEST SMS message", "priyash.ramawthar@gmail.com", (new Timestamp(System.currentTimeMillis())).toString());
+
         Greeting g = new Greeting(1,"hello");
         return g;
     }
