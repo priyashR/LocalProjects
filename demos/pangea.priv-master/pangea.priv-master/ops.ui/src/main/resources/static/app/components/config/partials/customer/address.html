@@ -1,0 +1,75 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <h3>Address</h3>
+
+        <div class="form-group">
+            <label class="control-label">Id:</label>
+            {{data.activeCustomer.activeAddress.id}}
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-5">Address:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAddress.addressLine1" />
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAddress.addressLine2" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-xs-5">Suburb:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAddress.suburb" />
+            </div>
+        </div>
+ 		
+ 		<div class="form-group">
+            <label class="control-label col-xs-5">City:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAddress.city" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-xs-5">State:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAddress.state" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+        	<label class="control-label col-xs-5">Country: </label> 
+        	<div class="col-xs-7">
+		    	<select id="country" ng-options="country.code as country.description for country in allCountries" ng-model="data.activeCustomer.activeAddress.country" class="form-control" >
+					<option value="">-- choose country --</option>
+				</select>
+			</div> 
+		</div>
+		
+		<div class="form-group">
+            <label class="control-label col-xs-5">Zip Code:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAddress.zipCode" />
+            </div>
+        </div>
+		
+		<div class="form-group">
+        	<label class="control-label col-xs-5">Address Type: </label> 
+        	<div class="col-xs-7">
+		    	<select id="addressType" ng-options="addressType.code as addressType.description for addressType in allAddressTypes" ng-model="data.activeCustomer.activeAddress.addressType" class="form-control" >
+					<option value="">-- choose type --</option>
+				</select>
+			</div> 
+		</div>
+		
+				
+ 		<div class="form-group">
+            <button class="btn btn-sm btn-default" ng-click="saveAddress()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditAddress()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

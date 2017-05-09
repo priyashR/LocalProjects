@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\GITProjects\demos\springrestexample_xml_example\springrestexample"/>
+		<item value="C:\GITProjects\demos\Tutorial-SpringORMwithDataJPA\Tutorial-SpringORMwithDataJPA"/>
+		<item value="C:\GITProjects\demos\gs-accessing-data-jpa-master\gs-accessing-data-jpa-master\complete"/>
+		<item value="C:\GITProjects\budgetAppV4_1"/>
+		<item value="C:\GITProjects\JSE"/>
+	</list>
+	<section name="ExternalProjectImportWizard">
+	</section>
+	<section name="ResourceNavigator">
+		<item value="Aggregate for window 1479018601407" key="ResourceWorkingSetFilter.STORE_WORKING_SET"/>
+		<item value="1" key="ResourceViewer.STORE_SORT_TYPE"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+</section>

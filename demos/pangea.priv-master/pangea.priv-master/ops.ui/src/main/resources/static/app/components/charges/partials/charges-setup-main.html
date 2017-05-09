@@ -1,0 +1,31 @@
+<style>
+	.typeahead-result {
+		position: static;
+		float: none;
+		display: block;
+		min-width: 160px;
+		background-color: transparent;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+	}
+</style>
+
+<div class="container-fluid typeahead-result">
+
+	<form class="form-horizontal" role="form" ng-init="init()" ng-submit="save()">
+		<h3>Charge setup</h3>
+	
+		<div class="form-group">
+		<uib-tabset>
+			<uib-tab ng-repeat="tab in tabs" heading="{{tab.heading}}">
+				<div ng-include="tab.uri"></div>
+			</uib-tab>
+		</uib-tabset>
+		</div>
+
+			
+
+	</form>
+
+</div>

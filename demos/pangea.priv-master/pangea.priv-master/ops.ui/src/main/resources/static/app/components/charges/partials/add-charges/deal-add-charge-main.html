@@ -1,0 +1,26 @@
+<div class="container-fluid typeahead-result">
+	<div class="modal-header">
+        <h3 class="modal-title">
+        Add Charges
+        <div class="pull-right font-size f11">
+        	<span class="pr10">Type</span>
+        
+            <div class="btn-group">
+                <label class="btn btn-small btn-info" ng-model="radioModel" ng-click="swapTemplate('optional');" uib-btn-radio="'Optional'">Optional</label>
+                <label class="btn btn-small btn-info" ng-model="radioModel" ng-click="swapTemplate('customer-specific');"  uib-btn-radio="'Customer'">Deal</label>
+             
+            </div>
+        </div>
+
+
+        </h3>
+    </div>
+
+
+    <div class="modal-body">
+		<form editable-form class="form-horizontal" role="form"  ng-submit="save()" >				 	
+				<div ng-include="chargeTypeTemplate.url" ng-init="init()"></div>
+			 
+		</form>
+	</div>
+</div>

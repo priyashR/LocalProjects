@@ -1,0 +1,103 @@
+<div ng-show="!isIssuingparty(step)">
+	
+	<div class="form-group " ng-show="!step.party.registrationNumber">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Name:</span> <span class="col-xs-6 col-md-6"> {{step.name}}  </span>
+	</div>
+	<div class="form-group " ng-show="!step.party.registrationNumber">
+		<span class="col-xs-6 col-md-6 spanull-left">Surname
+			:</span> <span class="col-xs-6 col-md-6"> {{step.surname }} </span>
+	</div>
+
+	<div class="form-group " ng-show="step.party.registrationNumber">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Trade Name:</span> <span class="col-xs-6 col-md-6">
+			{{step.name}} </span>
+	</div>
+
+	<div class="form-group " ng-show="step.party.registrationNumber">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Registration No</span> <span class="col-xs-6 col-md-6">
+			{{step.registrationNumber}} </span>
+	</div>
+
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Street Address line 1:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.addressLine1}} </span>
+	</div>
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+		 Street Address line 2:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.addressLine2}} </span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Suburb:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.suburb}} </span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			City:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.city}} </span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Country:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.country}} </span>
+	</div>
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Account No:</span> <span class="col-xs-6 col-md-6">
+			{{step.accountNo}} </span>
+	</div>
+</div>
+<div ng-show="isIssuingparty(step)">
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Name</span> <span class="col-xs-6 col-md-6"> {{step.name}} </span>
+	</div>
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">Swift Address</span> <span
+			class="col-xs-6 col-md-6"> {{step.swiftKey}} </span>
+	</div>
+
+	<div class="form-group " ng-show="step.party.registrationNumber">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			KYC Indicator: </span> <span class="col-xs-6 col-md-6">
+			{{step.kycStatus}} </span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Street Address:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.addressLine1}} </span>
+	</div>
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Building Address:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.addressLine2}} </span>
+	</div>
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Suburb:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.suburb}} </span>
+	</div>
+
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			City:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.city}} </span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">
+			Country:</span> <span class="col-xs-6 col-md-6">
+			{{step.address.country}} </span>
+	</div>
+</div>

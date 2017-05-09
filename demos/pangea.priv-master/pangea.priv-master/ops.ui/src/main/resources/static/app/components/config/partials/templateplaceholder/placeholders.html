@@ -1,0 +1,41 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box col-xs-12 col-lg-12">
+        <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Data Type</th>
+                    <th>Resolve Pattern</th>
+                    <th>Locked</th>
+                    <th><div class="col-xs-12 pull-right">
+                        <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="addPlaceholder()" title="Add">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="placeholder in data.placeholders">
+
+                    <td>{{placeholder.code}}</td>
+                    <td>{{placeholder.description}}</td>
+                    <td>{{placeholder.dataType}}</td>
+                    <td>{{placeholder.resolvePattern}}</td>
+                    <td><input type="checkbox" ng-model="placeholder.system" ng-disabled="true"/></td>
+                    <td>
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="editPlaceholder(placeholder)" title="Edit">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

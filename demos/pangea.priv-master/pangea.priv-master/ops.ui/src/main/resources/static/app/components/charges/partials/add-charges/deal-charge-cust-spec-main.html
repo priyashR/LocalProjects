@@ -1,0 +1,114 @@
+<div class="application_box mt10">
+
+	<div class="form-group">
+		<label class="control-label col-xs-5">Charge Code:</label>
+		<!--div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.chargeCode">
+		</div-->
+		
+		<div class='col-xs-6 col-xs-6'>
+			<select ng-model="charge.productTypeCode" class="form-control"
+				ng-options="option.id as option.description for option in allChargeCodes"></select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Long Description:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.longDescription">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Charge Type:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.chargeChargeType">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Product:</label>
+		<div class='col-xs-6 col-xs-6'>
+			<select ng-model="charge.productCode" class="form-control"
+				ng-options="option.id as option.description for option in allProducts"></select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Product Type:</label>
+		<div class='col-xs-6 col-xs-6'>
+			<select ng-model="charge.productTypeCode" class="form-control" ng-change="productTypeSelected(deal.productTypeCode)"
+				ng-options="option.id as option.description for option in allProductTypes | productTypebyProductCode:deal.productCode"></select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Step:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.step">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Tax:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.taxCode">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Reposted Currency:</label>
+		<div class='col-xs-6 col-xs-6'>
+			<select id="chargeCurrencyCode" ng-options="currency.code as currency.code for currency in allCurrencyTypes" ng-model="charge.chargeCurrencyCode" class="form-control">
+				<option value="">-- choose --</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Base Code:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.baseCode">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Effective Date:</label>
+		<div class="col-xs-6 ">
+			<input type="text" class="col-xs-8 mr10 pull-left" uib-datepicker-popup="{{dateFormat}}" ng-model="charge.effectiveDate"
+					is-open="status.opened" /> 
+				<span class="input-group-btn ">
+					<button type="button" class="btn btn-default" ng-click="open($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button>
+				</span>				
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5 ">Expiry Date:</label>
+		<div class="col-xs-6">
+			<input type="text" class="col-xs-8 mr10 pull-left" uib-datepicker-popup="{{dateFormat}}" ng-model="charge.expiryDate"
+					is-open="status2.opened" /> 
+				<span class="input-group-btn ">
+					<button type="button" class="btn btn-default" ng-click="open($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button>
+				</span>			
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Bank:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.bankCode">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Customer:</label>
+		<div class="col-xs-6 col-xs-6">
+			<input class="form-control " type="text" ng-model="charge.customerId">
+		</div>
+	</div>
+</div>

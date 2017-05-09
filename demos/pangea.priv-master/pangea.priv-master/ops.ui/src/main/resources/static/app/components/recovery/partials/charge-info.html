@@ -1,0 +1,18 @@
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td>Description</td>
+					<td>Party</td>
+					<!--td>Charge</td-->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="charge in charges track by $index" ng-click="selectCharge($index)" ng-class="{'active': charge.selected}"> 
+					<td>{{charge.description}}</td>
+					<td>{{charge.party}}</td>
+					<!-- td>{{charge.total | number:2}} {{charge.currency}}</td-->
+				</tr>
+			</tbody>
+		</table>
+	</div>

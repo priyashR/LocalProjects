@@ -1,0 +1,84 @@
+<div class="container-fluid">
+
+    <div class="form">
+
+        <div class="form-group row">
+            <h3>Term</h3>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Code:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeTerm.code" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Description:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeTerm.description" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Section type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeTerm.sectionType" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allSectionTypes">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product Classification:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeTerm.productClassification" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allProductClassificationTypes">
+                </select>
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <label class="form-control-label">Clauses</label>
+
+            <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Product Type</th>
+                    <th><div class="col-xs-12 pull-right">
+                        <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="addClause()" title="Add">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="clause in data.activeTerm.clauses">
+
+                    <td>{{clause.description}}</td>
+                    <td>{{getProductType(clause)}}</td>
+                    <td>
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="editClause(clause)" title="Edit">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveTerm()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditTerm()">Cancel</button>
+        </div>
+
+    </div>
+
+
+</div>

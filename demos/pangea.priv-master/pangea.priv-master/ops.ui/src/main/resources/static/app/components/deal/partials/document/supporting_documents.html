@@ -1,0 +1,17 @@
+ <h5 class="pull-left"><strong>{{docs.heading}}</strong></h5>
+<div class="row-docs" >
+    <div class="col-docs"><strong>Name</strong></div>
+    <div class="col-docs"><strong>Type</strong></div>
+</div>
+
+ <div class="row-docs" ng-repeat="doc in docs.subitems">
+    <div class="col-docs"><a ng-href="{{selectedDocument.link}}" target="_block" ng-click="viewContent(doc)">{{doc.name}}</a></div>
+    <div class="col-docs">{{doc.type}}</div>
+</div>
+
+ <div class="row-docs pt20" >
+    <div class="col-docs">
+        <span class="pull-left col-xs-4"><strong>Upload Document</strong></span>
+         <div class="pull-left"><input type="file" value="Upload Document"  ng-model="supporting_doc" /></div>
+    </div>
+</div>

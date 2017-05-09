@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class greeting {
 
     @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
+    public String index() {
+        return "Greetings from Spring Boot!";
     }
-
-    //public static void main(String[] args) throws Exception {
-    //    SpringApplication.run(greeting.class, args);
-    //}
 }

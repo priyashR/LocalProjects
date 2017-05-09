@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="quick-poll-ch4-final"/>
+<aop-project name="budgetAppV4_2"/>
+<aop-project name="budgetAppV5"/>
+</aop-reference-model>

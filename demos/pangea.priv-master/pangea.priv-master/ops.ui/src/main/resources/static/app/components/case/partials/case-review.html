@@ -1,0 +1,38 @@
+<div class="application_box no-border">
+
+	<h4>Case Review</h4>
+
+	<form name="form">
+		<div class="form-group">
+			<label class="control-label col-xs-5">Step </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="case.stepDescription" readonly>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Product </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="case.productId" readonly>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Customer Name </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="case.name" readonly>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Account Number </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="case.accountNumber" readonly>
+			</div>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-sm btn-default" href="" ng-click="backPage()">BACK</button>
+			<button class="btn btn-sm btn-success" href="" ng-click="nextPage()">
+				NEXT <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+			</button>
+		</div>
+	</form>
+
+</div>

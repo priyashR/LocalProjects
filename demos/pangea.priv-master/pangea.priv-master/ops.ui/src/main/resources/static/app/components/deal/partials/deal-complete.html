@@ -1,0 +1,59 @@
+<div class="col-xs-12">
+	<div class="case-content-box" ng-init="init()">
+		<h3>Deal Summary</h3>
+
+		<div class="panel-group review-accordion" role="tablist"
+			aria-multiselectable="true">
+			<uib-accordion close-others="true"> 
+				<uib-accordion-group
+					heading="Swift" is-open="true">
+					<img src="/assets/images/ajax-loader.gif" ng-show="!swiftStatus" />
+					<h3 ng-show="swiftStatus">{{swiftStatus}}</h3>
+				 </uib-accordion-group> 
+			</uib-accordion>
+		</div>
+		<div class="panel-group review-accordion" role="tablist"
+			aria-multiselectable="true">
+			<uib-accordion close-others="true"> 
+				<uib-accordion-group
+					heading="Financial Posting" is-open="true">
+				  <div>
+				<div class="application_box">
+
+		<div class="form-group" ng-repeat="item in deal.financialPosting">
+			<div class="col-xs-12 col-sm-6 pull-left no-padding">
+				<p>
+					<strong> CR</strong>
+				</p>
+				<table class="financial-posting">
+					<tr ng-repeat="subitem in item.credit">
+						<td>{{subitem.creditDescription}}</td>
+						<td>{{subitem.creditAmount | number:2}}</td>
+						<td>{{subitem.creditAccountNo}}</td>
+						<td>{{subitem.creditStatus}}</td>
+					</tr>
+				</table>
+				<p><strong>CR Total Amount : {{item.creditTotalAmount}}</strong></p>
+			</div>
+			<div class="col-xs-12 col-sm-6 pull-right no-padding">
+				<p>
+					<strong> DR</strong>
+				</p>
+				<table class="financial-posting">
+					<tr ng-repeat="subitem2 in item.debit">
+						<td>{{subitem2.debitDescription}}</td>
+						<td>{{subitem2.debitAmount | number:2}}</td>
+						<td>{{subitem2.debitAccountNo}}</td>
+						<td>{{subitem2.debitStatus}}</td>
+					</tr>
+				</table>
+				<p><strong>DR Total Amount: {{item.debitTotalAmount}}</strong></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+			
+
+
+

@@ -1,0 +1,33 @@
+
+<div class="container-fluid form-horizontal">
+
+	<div class="case-content-box">
+		<h3>Documentation</h3>
+		<!--supporting docs -->
+		<div class="customer-search">
+			<div class="col-xs-12 col-lg-12 container-docs">
+				<h5 class="pull-left">
+					<strong>Supporting Documentation</strong>
+				</h5>
+
+				<div class="row-docs">
+					<div class="col-docs">
+						<strong>Name</strong>
+					</div>
+					<div class="col-docs">
+						<strong>Type</strong>
+					</div>
+				</div>
+
+				<div class="row-docs" ng-repeat="attachment in attachments">
+					<div class="col-docs">
+						<a href="{{attachment.url}}" target="_block">{{attachment.description}}</a>
+					</div>
+					<div class="col-docs">{{attachment.name}}</div>
+				</div>
+
+			</div>
+
+		<!--//supporting docs-->
+	</div>
+</div>

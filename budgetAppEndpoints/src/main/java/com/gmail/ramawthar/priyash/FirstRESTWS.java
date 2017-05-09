@@ -17,7 +17,7 @@ public class FirstRESTWS
 	@Produces("text/html")
 	public Response getStartingPage()
 	{
-		String output = "<h1>Hello World!<h1>" +
+		String output = "<h1>Hello World<h1>" +
 				"<p>RESTful Service is running ... <br>Ping @ " + new Date().toString() + "</p<br>";
 		return Response.status(200).entity(output).build();
 	}

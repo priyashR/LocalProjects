@@ -1,0 +1,31 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <h3>Section Type</h3>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Section Type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeMessageType.activeMessageSection.sectionType" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allSectionTypes">
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">N-ST FreeText:</label>
+            <div class="col-xs-9">
+                <input type="checkbox" ng-model="data.activeMessageType.activeMessageSection.freeText"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveMessageType()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditMessageType()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

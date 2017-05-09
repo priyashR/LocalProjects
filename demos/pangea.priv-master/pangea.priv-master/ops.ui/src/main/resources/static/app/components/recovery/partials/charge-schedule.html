@@ -1,0 +1,43 @@
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+			<tr>
+				<td>Event</td>
+				<td>From</td>
+				<td>To</td>
+				<td>Basis</td>
+				<td>Charge</td>
+				<td>Details</td>
+			</tr>
+		</thead>
+		<tbody ng-repeat="schedule in selectedPeriod.schedule">
+			<tr>
+				<td colspan="6">{{schedule.description}} <span ng-show="schedule.waived">(Waived)</span></td>
+				
+			</tr>
+			<div></div>
+			<tr>
+				<td>{{schedule.chargeName}}</td>
+				<td>{{schedule.start}}</td>
+				<td>{{schedule.end}}</td>
+				<td>{{schedule.basisAmount | number:2}} {{schedule.basisCurrency}}</td>
+				<td>{{schedule.chargeAmount | number:2}} {{schedule.chargeCurrency}}</td>
+				<!-- <td><div>
+Charge calculated on amount {{schedule.basisAmount | number:2}} {{schedule.basisCurrency}}
+Period {{schedule.start}} - {{schedule.end}} {{schedule.days}} Days
+{{schedule.percentage | percentage:2}} &times; {{schedule.basisAmount | number:2}} {{schedule.basisCurrency}} = {{selectedCharge.total | number:2}} {{schedule.chargeCurrency}}
+&times; {{schedule.days}}/{{selectedPeriod.days}} = {{schedule.chargeAmount | number:2}} {{schedule.chargeCurrency}}
+Charge Amount {{schedule.chargeAmount | number:2}} {{schedule.chargeCurrency}}
+Receivable charge amount {{schedule.chargeAmount | number:2}} {{schedule.chargeCurrency}}
+										</div></td> -->
+			<td><div>
+Charge calculated on amount {{schedule.basisAmount | number:2}} {{schedule.basisCurrency}}
+Period {{schedule.start}} - {{schedule.end}} {{schedule.days}} Days
+(0.001/100) &times; {{schedule.basisAmount | number:2}} {{schedule.basisCurrency}} = 180 USD &times; (14.5 /100) = {{schedule.chargeAmount | number:2}} ZAR
+Receivable charge amount {{schedule.chargeAmount | number:2}} ZAR
+										</div></td>
+			</tr>
+				
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,9 @@
+<div class="container-fluid" ng-controller="RecoveryMainCtrl">
+	<uib-accordion close-others="false">  <uib-accordion-group is-open="tab.open" ng-repeat="tab in tabs">
+	<uib-accordion-heading> {{tab.heading}}<i
+		class="pull-right glyphicon"
+		ng-class="{'glyphicon-chevron-down': tab.open, 'glyphicon-chevron-right': !tab.open}"></i>
+	</uib-accordion-heading>
+	<div ng-include="tab.uri"></div>
+	</uib-accordion-group> </uib-accordion>
+</div>

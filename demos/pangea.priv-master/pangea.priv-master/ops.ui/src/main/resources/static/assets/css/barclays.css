@@ -1,0 +1,97 @@
+.applicationtitle {
+	color: #00acee;
+}
+.applicationtitle:before {
+	content : "";
+}
+a{
+	color: #00acee;
+}
+.applicationtitle-image {
+	background-image: url("../images/pangea3.png");
+	background-repeat: no-repeat;
+	width: 200px;
+	height: 45px;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #fff;
+  font-size: 12px ;
+  background-color: #00acee;
+  background:#00acee
+}
+.nav-pills > li a {
+  font-size: 12px ;
+  
+}
+.btn-primary {
+    color: #fff;
+    background-color: #00acee;
+    background:#00acee
+    border-color: #2e6da4;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #00acee;
+  background:#00acee
+  border-color: #2e6da4;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #286090;
+  background:#286090;
+  border-color: #122b40;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #286090;
+  background:#286090;
+  border-color: #204d74;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #286090;
+  background:#286090;
+  border-color: #204d74;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #fff;
+  background-color: #204d74;
+  background:#204d74;
+  border-color: #122b40;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #00acee;
+  background: #00acee;
+  border-color: #2e6da4;
+}
+.btn-primary .badge {
+  color: #00acee;
+  background-color: #fff;
+  background:#fff;
+}

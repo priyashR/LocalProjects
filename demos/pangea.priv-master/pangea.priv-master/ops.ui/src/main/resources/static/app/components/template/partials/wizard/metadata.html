@@ -1,0 +1,53 @@
+<div class="container">
+	<br>
+	<h3>Step {{currentStep}} - Metadata setup</h3>
+	<br>
+	<form class="form">
+
+		<div class="form-group row">
+			<label class="form-control-label col-xs-2">Delivery method</label>
+			<div class="col-xs-3">
+				<select class="form-control input-sm"
+						ng-model="document.deliveryMethod"
+						ng-options="deliveryMethod.description for deliveryMethod in deliveryMethods">
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="form-control-label col-xs-2">Message type</label>
+			<div class="col-xs-3">
+				<select class="form-control input-sm"
+						ng-model="document.messageType"
+						ng-options="messageType.description for messageType in messageTypes">
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="form-control-label col-xs-2">Product</label>
+			<div class="col-xs-3">
+				<select class="form-control input-sm"
+					ng-model="document.productId"
+					ng-options="product.id as product.description for product in products"
+					required>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="form-control-label col-xs-2">Document name</label>
+			<div class="col-xs-3">
+				<input type="text" id="name" class="form-control input-sm" ng-model="document.name">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<div class="col-xs-8">
+				<button ng-show="currentStep > 1" ng-disabled="currentStep <= 1" class="btn btn-primary" name="previous" type="button" ng-click="gotoStep(currentStep - 1)">Previous</button>
+				<button ng-show="currentStep < steps.length" ng-disabled="!isValid()" class="btn btn-primary" name="next" type="button" ng-click="gotoStep(currentStep + 1)">Next</button>
+				<button ng-show="currentStep == steps.length" ng-disabled="currentStep != steps.length" class="btn btn-success" name="next" type="button" ng-click="save()"> <i class="fa fa-floppy-o"></i> Save</button>
+			</div>
+		</div>
+	</form>
+</div>

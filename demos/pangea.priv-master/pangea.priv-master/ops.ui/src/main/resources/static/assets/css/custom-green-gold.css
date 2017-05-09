@@ -1,0 +1,87 @@
+.applicationtitle {
+	color: green;
+}
+.applicationtitle:before {
+	content : "ANTS";
+}
+a{
+	color: green;
+}
+.applicationtitle-image {
+	background-image: url("../images/ant_logo.png");
+	background-repeat: no-repeat;
+	height:30px;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #fff;
+/*   background-color: #a94442; */
+  background: green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(green, gold); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(green, gold); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(green, gold); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(green, gold); /* Standard syntax */
+}
+.btn-primary {
+    color: #fff;
+    background-color: #008040;
+    border-color: #004000;
+    background: green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(green, gold); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(green, gold); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(green, gold); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(green, gold); /* Standard syntax */
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #008000;
+  border-color: #004000;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #008040;
+  border-color: #004000;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #008040;
+  border-color: #004000;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #fff;
+  background-color: #008040;
+  border-color: #004000;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #008040;
+  border-color: #004000;
+}
+.btn-primary .badge {
+  color: green;
+  background-color: #fff;
+}

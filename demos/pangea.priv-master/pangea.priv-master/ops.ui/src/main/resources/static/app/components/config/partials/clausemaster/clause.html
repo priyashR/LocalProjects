@@ -1,0 +1,45 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <h3>Clause</h3>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Description:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control input-sm" ng-model="data.activeTerm.activeClause.description" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Product Type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeTerm.activeClause.productType" class="form-control input-sm"
+                        ng-options="option.id as option.description+'('+option.product.description+')' for option in allProductTypes | productTypebyProductClassification:data.activeTerm.productClassification">
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Template:</label>
+            <div class="col-xs-8">
+                <textarea id="causeText" rows="8" cols="2" style="width:95%" ng-model="data.activeTerm.activeClause.text">
+
+                </textarea>
+            </div>
+            <div class="col-xs-1" ng-hide="placeholder.system">
+                <button type="button" class="btn btn-sm btn-primary" ng-click="openModalSelect('#causeText')" title="Select">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveTerm()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditClause()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

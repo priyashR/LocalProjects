@@ -1,0 +1,101 @@
+.breadcrumbs { 
+    list-style: none; 
+    overflow: hidden; 
+    background: none;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    padding: 0;
+}
+.breadcrumbs li { 
+    float: left; 
+    display: block;
+    background: #fff;
+}
+.breadcrumbs.case li:nth-child(1){
+    width: 20%
+}
+.breadcrumbs.case li:nth-child(2){
+    width: 26%
+}
+.breadcrumbs.case li:nth-child(3){
+    width: 26%
+}
+.breadcrumbs.case li:nth-child(4){
+    width: 28%
+}
+.breadcrumbs li.disabled a {
+    color: #ccc;
+    cursor: default;
+    pointer-events: none;
+}
+.breadcrumbs li.inactive a {
+    color: #ccc;
+    cursor: pointer;
+}
+.breadcrumbs li a {
+    color: #666;
+    text-decoration: none; 
+    padding: 10px 10px 10px 30px;
+    text-align: center;
+    position: relative; 
+    display: block;
+    float: left;
+    background: #fff;
+    font-size: 11px;
+    width: 100%
+}
+
+.breadcrumbs li.active a {
+    background: #f1f1f1;    
+}
+
+.breadcrumbs li.active a:after {
+    border-left: 20px solid  #f1f1f1;;
+}
+
+.breadcrumbs li a:after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 20px solid transparent;         
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid  #fff;;
+    position: absolute;
+    top: 0px;
+    left: 100%;
+    z-index: 2; 
+}   
+.breadcrumbs li a:before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 20px solid transparent;          
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #ccc;
+    position: absolute;
+    top: 0px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+}   
+@media  (min-width: 768px) and (max-width: 1025px) {
+    .breadcrumbs li {
+        height: 37px;
+        line-height: 37px;
+        border-right: 1px solid #f1f1f1;
+    }
+     .breadcrumbs li:last-child {
+         border-right: none
+     }
+    .breadcrumbs li a {
+        padding: 0 10px;
+    }
+    .breadcrumbs li a:before, .breadcrumbs li a:after {
+          display: none;  
+        }
+
+
+}

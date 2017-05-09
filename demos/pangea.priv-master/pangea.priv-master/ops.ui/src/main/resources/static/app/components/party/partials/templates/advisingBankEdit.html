@@ -1,0 +1,116 @@
+<form name="dealPartyForm">
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Legal
+			Entity Name: <span class="note pl10 fontsize f12">*</span>
+		</label>
+		<div class="col-xs-6 col-md-6">
+			<input class="form-control" type="text"
+				ng-model="step.party.legalEntityName" ng-maxlength="45" required />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Trade
+			Name: </label>
+		<div class="col-xs-6 col-md-6">
+			<input type="text" id="tradeName" ng-model="step.party.tradeName"
+				ng-maxlength="45" class="form-control">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Swift
+			Address: <span class="note pl10 fontsize f12">*</span></label>
+		<div class="col-xs-6 col-md-6">
+			<input type="text" id="tradeName" ng-model="step.party.swiftKey"
+				ng-maxlength="45" class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">KYC
+			Indicator:<span class="note pl10 fontsize f12">*</span> </label>
+		<div class="col-xs-6 col-md-6">
+			<input type="text" id="tradeName" ng-model="step.party.kycStatus"
+				ng-maxlength="45" class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Address
+			Type</label>
+		<div class="col-xs-6 col-md-6">
+			<select ng-model="step.party.address.addressType">
+				<option value="">-- choose type --</option>
+				<option value="STREET">Street Address</option>
+				<option value="POSTAL">Postal Address</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Address
+			line 1:</label>
+		<div class="col-xs-6 col-md-6">
+			<input class="form-control " type="text"
+				ng-model="step.party.address.addressLine1" ng-maxlength="45">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Address
+			line 2:</label>
+		<div class="col-xs-6 col-md-6">
+			<input class="form-control " type="text"
+				ng-model="step.party.address.addressLine2" ng-maxlength="45">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Suburb:</label>
+		<div class="col-xs-6 col-md-6">
+			<input class="form-control " type="text"
+				ng-model="step.party.address.suburb" ng-maxlength="45">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">City:</label>
+		<div class="col-xs-6 col-md-6">
+			<input class="form-control " type="text"
+				ng-model="step.party.address.city" ng-maxlength="45">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Country
+			of Residence:<span class="note pl10 fontsize f12">*</span>
+		</label>
+		<div class="col-xs-6 col-md-6">
+			<select id="countryOfResidence"
+				ng-options="countryOfResidence.code as countryOfResidence.description for countryOfResidence in $root.allCountries  | orderBy:'description'"
+				ng-model="step.party.address.country" class="form-control">
+				<option value="">-- choose country --</option>
+			</select>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="pull-right">
+			<button type="button" class="btn btn-sm btn-danger"
+				update-step>SAVE</button>
+			<button type="button" class="btn btn-sm btn-default"
+			ng-if="!viewAddParty"
+			party-action 
+      		party-type="view"
+      		deal-party= {{step}}
+			>CANCEL</button>
+
+		<button type="button" class="btn btn-sm btn-default"
+			ng-if="viewAddParty"
+			cancel-action 
+			>CANCEL</button>
+		</div>
+	</div>
+
+</form>

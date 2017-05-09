@@ -1,0 +1,18 @@
+<label for="barclaysCustomer">Barclays Customer : </label>
+<label>
+    <input type="radio" ng-model="customer.barclaysCustomer" value="true">
+    	Yes
+</label>
+<label>
+    <input type="radio" ng-model="customer.barclaysCustomer" value="false" ng-value="specialValue">
+    No
+</label><br/>
+
+<div class="btn-group-horizontal" role="group" aria-label="...">
+	<h3>Customer</h3>
+	<div ng-repeat="customerType in  allCustomerTypes">
+		<a href="#{{customerType.description.replace(' ', '-')}}"
+			class="btn btn-info btn-lg btn-block">{{customerType.description}}</a>
+		<li ng-show="!allCustomerTypes.length">No Customer Types to show</li>
+	</div>
+</div>

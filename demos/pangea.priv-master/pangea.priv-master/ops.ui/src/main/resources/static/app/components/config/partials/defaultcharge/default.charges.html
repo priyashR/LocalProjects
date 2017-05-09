@@ -1,0 +1,41 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box col-xs-12 col-lg-12">
+
+        <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+            <thead>
+                <tr>
+                    <th>Charge Code</th>
+                    <th>Credit Posting Classification</th>
+                    <th>Debit Posting Classification</th>
+                    <th>Product Group</th>
+                    <th><div class="col-xs-12 pull-right">
+                        <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="addDefaultCharge()" title="Add">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="defaultCharge in data.defaultCharges">
+
+                <td>{{defaultCharge.chargeCode}}</td>
+                <td>{{arrayFilter(allPostingClassificationCodes,{code:defaultCharge.creditPostingClassificationCode},'description')}}</td>
+                <td>{{arrayFilter(allPostingClassificationCodes,{code:defaultCharge.debitPostingClassificationCode},'description')}}</td>
+      			<td>{{arrayFilter(allProductGroups,{id:defaultCharge.productGroupId},'description')}}c</td>
+                          
+                <td>
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="editDefaultCharge(defaultCharge)" title="Edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

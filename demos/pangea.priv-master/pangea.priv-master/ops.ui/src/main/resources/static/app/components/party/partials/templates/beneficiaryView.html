@@ -1,0 +1,188 @@
+<div class="form-group">
+<label class="control-label col-xs-3 col-md-6 pull-left">Beneficiary
+			Type: </label>
+		<div class="col-xs-6 col-md-6">{{step.partyTypeCode}}</div>
+</div>
+ <div class="form-group" ng-show="step.partyTypeCode =='INDIVIDUAL'">
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Name:</label>
+		<div class="col-xs-6 col-md-6" >
+			{{step.name}} 
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Surname:</label>
+		<div class="col-xs-6 col-md-6">
+			{{step.surname}} 
+			
+		</div>
+	</div>
+</div>
+
+<div class="form-group" ng-show="step.partyTypeCode == 'CORPORATE'  || step.partyTypeCode == 'FI'">
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Legal
+			Entity Name: </label>
+		<div class="col-xs-6 col-md-6">
+			{{step.legalEntityName}} 
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Trade
+			Name: </label>
+		<div class="col-xs-6 col-md-6">
+		{{step.tradeName}} 
+			
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Contact
+			Person</label>
+		<div class="col-xs-6 col-md-6">
+		   {{step.contact.contactPerson}} 
+			
+				
+		</div>
+	</div>
+	
+</div>
+
+<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Contact
+			Email</label>
+		<div class="col-xs-6 col-md-6">
+			{{step.contact.email}} 
+			
+
+		</div>
+	</div>
+<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Contact
+			Telephone</label>
+		<div class="col-xs-6 col-md-6">
+			{{step.contact.officeNumber}} 
+
+				
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Contact
+			Mobile</label>
+		<div class="col-xs-6 col-md-6">
+			{{step.contact.mobileNumber}} 
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Contact
+			Fax</label>
+		<div class="col-xs-6 col-md-6">
+			{{step.contact.faxNumber}} 
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Preferred
+			Contact Method</label>
+		<div class="col-xs-6 col-md-6">
+			{{step.contact.preferredCommunicationType}} 
+		</div>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Address
+		Type</label>
+	<div class="col-xs-6 col-md-6">
+		{{step.address.addressType}} 
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Address
+		line 1:</label>
+	<div class="col-xs-6 col-md-6">
+		{{step.address.addressLine1}} 
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Address
+		line 2:</label>
+	<div class="col-xs-6 col-md-6">
+		{{step.address.addressLine2}} 
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Suburb:</label>
+	<div class="col-xs-6 col-md-6">
+		{{step.address.suburb}} 
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">City:</label>
+	<div class="col-xs-6 col-md-6">
+		{{step.address.city}} 
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Province:</label>
+	<div class="col-xs-6 col-md-6">
+		{{step.address.state}} 
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Country
+		of Residence:</label>
+	<div class="col-xs-6 col-md-6">
+		{{getCountry( step.address.country ) }}  
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Country
+		of Origin:</label>
+	<div class="col-xs-6 col-md-6">
+		{{getCountry( step.originCountryCode ) }} 
+
+	</div>
+</div>
+
+<div ng-show="step.partyTypeCode =='CORPORATE' || step.partyTypeCode == 'FI'">
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Economic
+		Sector Type:</label>
+	<div class="col-xs-6 col-md-6">
+		{{getSectorType( step.economicSectorId )}} 
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-3 col-md-6 pull-left">Industry
+		Classification: </label>
+	<div class="col-xs-6 col-md-6">
+		{{getIndustryType( step.industryTypeId )}} 
+
+	</div>
+</div>
+</div>
+
+<div class="form-group">
+		<label class="control-label col-xs-3 col-md-6 pull-left">Sanction Status</label>
+		<div class="col-xs-6 col-md-6">
+			{{getSanctionCode( step.sanctionStatusCode )}} 
+
+		</div>
+</div>
+
+

@@ -1,0 +1,8 @@
+<li ng-show="isLoggedIn()" class="dropdown">
+	<a href="#" target="_self" class="dropdown-toggle" data-toggle="dropdown">Themes <b class="caret"></b></a>
+	<ul class="dropdown-menu">
+		<li ng-repeat="(key,value) in themes">
+			<a href="#" target="_self" data-theme="{{key}}" class="theme-link">{{value.desc}}</a>
+		</li>
+	</ul>
+</li>

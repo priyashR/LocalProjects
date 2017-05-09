@@ -1,0 +1,84 @@
+<div class="application_box">
+	<div class="form-group">
+		<strong>Financial Posting</strong>
+	</div>
+	<div class="form-group" ng-repeat="item in deal.financialPosting">
+		<div style="float: left; width: 50%;">
+			<p>
+				<strong> CR</strong>
+			</p>
+			<table class="table.financial-posting">
+				<tr ng-repeat="subitem in item.credit">
+					<td>{{subitem.creditDescription}}</td>
+					<td>{{subitem.creditAmount | number:2}}</td>
+					<td>{{subitem.creditAccountNo}}</td>
+					<td>{{subitem.creditStatus}}</td>
+				</tr>
+			</table>
+			<p>CR Total Amount : {{item.creditTotalAmount}}</p>
+		</div>
+		<div style="float: left; width: 50%;">
+			<p>
+				<strong> DR</strong>
+			</p>
+			<table class="table.financial-posting">
+				<tr ng-repeat="subitem2 in item.debit">
+					<td>{{subitem2.debitDescription}}</td>
+					<td>{{subitem2.debitAmount | number:2}}</td>
+					<td>{{subitem2.debitAccountNo}}</td>
+					<td>{{subitem2.debitStatus}}</td>
+				</tr>
+			</table>
+			<p>DR Total Amount: {{item.debitTotalAmount}}</p>
+		</div>
+	</div>
+</div>
+
+<!-- Format Displayed
+<div class="application_box">
+		<div class="form-group">
+			<strong>Financial Posting</strong>
+		</div>
+		<div class="form-group" ng-repeat="item in deal.financialPosting">
+			<div style="float: left; width: 50%;">
+				<table class="financial-posting">
+					<tr>
+						<td>DR</td>
+						<td>Customer</td>
+						<td>CR</td>
+						<td>Status</td>
+					</tr>
+					<tr>
+						<td>{{item.dealReferenceNo}}</td>
+						<td>{{item.debitTotalAmount | number:2}}</td>
+						<td></td>
+						<td>PASSED</td>
+					</tr>
+				</table>
+
+			</div>
+			<div style="float: right; width: 50%;">
+				<table class="financial-posting">
+					<tr>
+						<td>DR</td>
+						<td>ABSA</td>
+						<td>CR</td>
+						<td>Status</td>
+					</tr>
+					<tr ng-repeat="subitem in item.credit">
+						<td></td>
+						<td> {{subitem.creditAccountNo}} - {{subitem.creditDescription}} </td>
+						<td>{{subitem.creditAmount | number:2}}</td>
+						<td>{{subitem.creditStatus}}</td>
+					</tr>
+					<tr>
+						<td colspan="4">Total Amount : {{item.creditTotalAmount |
+							number:2}}</td>
+					</tr>
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+ -->

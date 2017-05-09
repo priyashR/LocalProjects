@@ -1,0 +1,14 @@
+
+	<div ng-init="cus=deals.customer">
+		<div ng-repeat="contact in cus.contacts">
+			<fieldset>
+				<legend>{{contact.contactType}}</legend>
+				<div ng-show="key != 'contactType' && key != 'id'" ng-repeat="(key,value) in contact" class="form-group row">
+					<label class="control-label col-sm-3">{{key}}</label>
+					<div class='col-sm-9'>
+						<input type="text" class="form-control" ng-model="value">
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</div>

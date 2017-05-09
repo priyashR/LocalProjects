@@ -1,0 +1,22 @@
+<div class="typeahead-result">
+	<div class="case-content-box col-xs-12" >
+		<h3>Settlement of charges</h3>
+		<form editable-form class="form-horizontal" role="form" ng-init="init()" ng-submit="save()">
+			<div class="form-group">
+				<uib-tabset class="nav nav-tabs charge-tabs">
+					<uib-tab ng-repeat="tab in $root.deals.charge.tabs" heading="{{tab.heading}}" active="tab.active" disable="tab.disabled" ng-click="tabPreProcessor(tab)">
+						<div ng-include="tab.uri"></div>
+					</uib-tab>
+				</uib-tabset>
+			</div>
+
+			<div class='form-group'>
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-default font-size f11">Submit</button>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+
+</div>

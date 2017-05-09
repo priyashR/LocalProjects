@@ -1,0 +1,48 @@
+
+<div class="container-fluid">
+	<div class="form-group row">
+		<label class="form-control-label col-xs-6">{{section.type}}</label>
+	</div>
+	<div class="form-group row">
+		<label class="form-control-label col-xs-3">Product Classification:</label>
+		<div class="col-xs-8">
+			<select ng-model="section.productClassification" class="form-control input-sm"
+					ng-options="option.id as option.description for option in allProductClassificationTypes">
+			</select>
+
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="form-control-label col-xs-3">Select term</label>
+		<div class="col-xs-8">
+			<select class="form-control input-sm"
+				ng-model="section.selectedTerm"
+				ng-options="term.code for term in terms | filter:{ productClassification : section.productClassification, sectionType:section.sectionType }"
+				required>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="form-control-label col-xs-3">Product Type:</label>
+		<div class="col-xs-8">
+			<select ng-model="section.productType" class="form-control input-sm"
+					ng-options="option.id as option.description+'('+option.product.description+')' for option in allProductTypes | productTypebyProductClassification:section.productClassification">
+			</select>
+
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="form-control-label col-xs-3">Select clause</label>
+		<div class="col-xs-8">
+			<select class="form-control input-sm"
+				ng-model="section.selectedClause"
+				ng-options="clause.description for clause in section.selectedTerm.clauses | filter:{productType:section.productType} "
+				required>
+			</select>
+		</div>
+	</div>
+
+</div>

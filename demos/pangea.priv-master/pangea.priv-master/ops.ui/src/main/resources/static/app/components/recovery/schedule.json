@@ -1,0 +1,79 @@
+[
+		{
+			"description": "Commission",
+			"party": "The Company Ltd",
+			"total": 8640.00,
+			"currency": "ZAR",
+			"period": [{
+				"start": "06/10/2016",
+				"end": "04/01/2017",
+				"days": 90,
+				"collectionType": "Periodic-Adv",
+				"type": "Quarterly",
+				"schedule": [
+				{
+					"description": "Original charge",
+					"chargeName": "Perf.Gtee Commission",
+					"waived": false,
+					"start": "06/10/2016",
+					"end": "04/01/2017",
+					"days": 90,
+					"percentage": 0.001,
+					"basisAmount": 1800000.00 ,
+					"basisCurrency": "USD",
+					"chargeAmount": 2160.00 ,
+					"chargeCurrency": "USD",
+					"chargeIncrease": 0.00,
+					"chargeIncreaseCurrency": "USD"
+				}
+			]
+			},			
+			{
+				"start": "05/01/2017",
+				"end": "05/04/2017",
+				"days": 90,
+				"collectionType": "Periodic-Adv",
+				"type": "Quarterly",
+				"schedule": [
+				{
+					"description": "Original charge",
+					"chargeName": "Perf.Gtee Commission",
+					"waived": false,
+					"start": "05/01/2017",
+					"end": "05/04/2017",
+					"days": 90,
+					"percentage": 0.001,
+					"basisAmount": 1800000.00 ,
+					"basisCurrency": "USD",
+					"chargeAmount": 2160.00 ,
+					"chargeCurrency": "USD",
+					"chargeIncrease": 0.00,
+					"chargeIncreaseCurrency": "USD"
+				}
+			]},
+			{
+				"start": "06/04/2017",
+				"end": "05/07/2017",
+				"days": 90,
+				"collectionType": "Periodic-Adv",
+				"type": "Quarterly",
+				"schedule": [
+				{
+					"description": "Original charge",
+					"chargeName": "Perf.Gtee Commission",
+					"waived": false,
+					"start": "06/04/2017",
+					"end": "05/07/2017",
+					"days": 90,
+					"percentage": 0.001,
+					"basisAmount": 1800000.00 ,
+					"basisCurrency": "USD",
+					"chargeAmount": 2160.00 ,
+					"chargeCurrency": "USD",
+					"chargeIncrease": 0.00,
+					"chargeIncreaseCurrency": "USD"
+				}
+			]}
+			]
+		}			
+]

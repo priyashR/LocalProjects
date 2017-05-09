@@ -1,0 +1,76 @@
+<!--customer search-->
+<div class="customer-search search" ng-show="!customer.id">
+    <h4 class="pull-left pr10">Customer Search</h4>
+    <div class="pull-left col-xs-8">
+       <div class="float-right col-xs-12 searchbox">
+          <div class="input-group col-xs-12">
+          <input type="text" class="form-control" placeholder="Enter Search Details" ng-model="case.reference"
+                uib-typeahead="combine(result) for result in customerSearchFilter($viewValue)"
+                typeahead-on-select="selectCustomer($item, $model, $label)"
+                uib-tooltip="Mandatory"
+                tooltip-placement="top-left">
+              <div class="input-group-btn">
+                  <button type="button" class="btn btn-default" tabindex="-1">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </button>
+              </div>
+          </div>
+      </div>
+        
+    </div>
+</div>
+<!--customer search-->
+<!-- customer-search-results -->
+<div class="case-content-box col-xs-12 col-lg-12">
+
+    <table class="table table-bordered table-striped table-hover customer-search" width="100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Identification</th>
+            <th>Contact Person</th>
+            <th>Contact Tel</th>
+            <th>Contact Email</th>
+            <th>Account</th>
+            <th>&nbsp</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="customer in customers">
+
+            <td>{{customer.name}} {{customer.surname}}</td>
+            <td>{{customer.idNumber ? customer.idNumber : customer.registration}}</td>
+            <td>{{customer.contactPerson}}</td>
+            <td>{{customer.contactPhone}}</td>
+            <td>{{customer.contactEmail}}</td>
+            <td ng-class="customer.accountNo ? 'alert-success' : 'alert alert-danger'">
+
+                <span ng-class="customer.accountNo ? 'glyphicon glyphicon-ok-circle' : 'glyphicon glyphicon-exclamation-sign'"
+                      aria-hidden="true"></span>
+
+                <select ng-model="customer.accountNo"
+                        ng-options="option as option.accountNumber for option in customer.accounts"
+                        class="customer-account-select input-xs-nopadding">
+                    <option value="">Select Account</option>
+                </select>
+
+            </td>
+            <td>
+                <button type="button" ng-disabled="!customer.accountNo" class="btn btn-default btn-xs"
+                        ng-click="selectCaseCustomer(customer)" ng-attr-title="{{name}}">
+                    NEXT
+                </button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="form-group">
+			<button class="btn btn-sm btn-default" ng-click="backPage()">BACK</button>
+		</div>
+        
+</div>
+<!-- //customer-search-results -->
+
+

@@ -1,0 +1,42 @@
+<div class="container-fluid form-horizontal">
+	<fieldset>
+		<h3>Contact</h3>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Contact Person</label> 
+			<div class="col-sm-10">						
+				<input type="text" id="contactPerson" ng-model="customerContact.contactPerson" class="form-control" ng-readonly="customer.barclaysCustomer" /> 
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">Mobile Number: </label> 
+			<div class="col-sm-10">						
+				<input type="text" id="mobileNumber" ng-model="customerContact.mobileNumber" class="form-control" ng-readonly="customer.barclaysCustomer"> 
+			</div>
+		</div>
+		
+		<div class="form-group">		
+			<label class="control-label col-sm-2">Office Number: </label> 
+			<div class="col-sm-10">									
+				<input type="text" id="officeNumber" ng-model="customerContact.officeNumber" class="form-control" ng-readonly="customer.barclaysCustomer"> 
+			</div>
+		</div>
+	
+		<div class="form-group">						
+			<label class="control-label col-sm-2">Email:</label> 
+			<div class="col-sm-10">									
+				<input type="text" id="email" ng-model="customerContact.email" class="form-control" ng-readonly="customer.barclaysCustomer">
+			</div>
+		</div>
+		
+		<div class="form-group">								
+			<label class="control-label col-sm-2">Alternative Email: </label> 
+			<div class="col-sm-10">									
+				<input type="email" id="alternativeEmail" ng-model="customerContact.alternativeEmail" class="form-control" ng-readonly="customer.barclaysCustomer">
+			</div>
+		</div>									
+		
+		<a ng-click="goBack()"  class="btn btn-info">Back</a>
+		<a ng-click="processForm()"  class="btn btn-info">Finish</a>
+	</fieldset>
+</div>

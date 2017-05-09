@@ -1,0 +1,33 @@
+<div id="menu1" class="tab-pane ">
+	<div class="case-content-box">
+		<table width="100%" border="1" class="charges-table table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Charge code</th>
+					<th>Charge Descr</th>
+					<th>Debit party</th>
+					<th>Credit party</th>
+					<th>DR Settlement Currency</th>
+					<th>DR Settlement Amount</th>
+					<th>CR Settlement Currency</th>
+					<th>CR Settlement Amount</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="settlement in deal.dealCharge  | filter:{chargesWhen:'LATER'}"
+					ng-include="getArrearChargeTableTemplate(settlement)">
+			</tbody>
+		</table>
+	</div>
+	<div class='col-xs-12 p0'>
+       <button type="button" class="btn btn-sm btn-default pull-left font-size f12 mr20"   ng-click="selectChargesContent($root.deals.charge.tabs[1])">
+       		BACK
+       </button>
+      
+		<button type="submit" class="btn btn-sm btn-success font-size f12 pull-left" ng-click="selectChargesContent($root.deals.charge.tabs[3])">
+			NEXT
+			<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+		</button>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <h3>Placeholder</h3>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Code:</label>
+            <div class="col-xs-9">
+                <input type="text" ng-disabled="placeholder.system" class="form-control input-sm" ng-model="data.activePlaceholder.code" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Description:</label>
+            <div class="col-xs-9">
+                <input type="text" ng-disabled="placeholder.system" class="form-control input-sm" ng-model="data.activePlaceholder.description" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Data type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activePlaceholder.dataType" class="form-control input-sm"
+                        ng-options="option for option in dataTypes">
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">Pattern:</label>
+            <div class="col-xs-8">
+                <input type="text" ng-disabled="placeholder.system" class="form-control input-sm" ng-model="data.activePlaceholder.resolvePattern" />
+            </div>
+            <div class="col-xs-1" ng-hide="placeholder.system">
+                <button type="button" class="btn btn-sm btn-primary" ng-click="openmodal(data.activePlaceholder)" title="Tree">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2">System:</label>
+            <div class="col-xs-9">
+                <input type="checkbox" ng-model="data.activePlaceholder.system" ng-disabled="true"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="savePlaceholder()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditPlaceholder()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

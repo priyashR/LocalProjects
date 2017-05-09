@@ -1,0 +1,214 @@
+.mb40 {
+  margin-bottom: 40px;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.mt5 {
+  margin-top: 5px;
+}
+.pt20 {
+  margin-top: 20px;
+}
+
+.container-docs {
+  height: 150px;
+  overflow: auto;
+  padding: 5px 0px;
+}
+
+.container-docs .row-docs {
+  width: 95%;
+  margin: 0 auto;
+  border-bottom: 1px dotted #ccc;
+  overflow: hidden;
+  padding: 5px 0;
+}
+
+.container-docs .row-docs .col-docs {
+  float: left;
+}
+
+.container-docs .row-docs .col-docs:first-child {
+  width: 70%;
+}
+
+.container-docs .row-docs:last-child {
+  border-bottom: none;
+}
+
+table.task-table {
+  width: 100%;
+}
+.task-table th,
+.task-table td {
+  padding: 6px;
+}
+
+.add-another-contact {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+table.add-another-contact {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.case-content-box {
+  padding-left: 0;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+.case-content-box h4 {
+  margin: 20px 0;
+  font-weight: 500 ;
+}
+.case-content-box table {
+  border: 1px solid #ccc;
+}
+.case-content-box table th,
+.case-content-box table td {
+  border: 1px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 12px;
+}
+.case-content-box table select {
+  padding: 3px;
+  font-size: 12px;
+  margin-right: 20px;
+}
+.case-content-box table.case-customer-results {
+  border: none;
+}
+.case-content-box table.case-customer-results td {
+  border-bottom: 1px dotted #ccc;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  height: 40px;
+}
+.case-content-box table.case-customer-results td .radioblock {
+  margin-right: 10px;
+  float: left;
+}
+.case-content-box table.case-customer-results td:first-child {
+  width: 40%;
+}
+.case-content-box table.case-customer-results tr:last-child td {
+  border-bottom: none;
+}
+.case-content-box table.case-checks {
+  border: none;
+}
+.case-content-box table.case-checks th,
+.case-content-box table.case-checks td {
+  border-bottom: 1px dotted #ccc;
+  border-top: 1px dotted #ccc;
+  border-left: none;
+  border-right: none;
+}
+.case-content-box input[type="radio"] {
+  margin-right: 10px;
+  padding-top: 5px;
+  width: 15px;
+  height: 15px;
+}
+.case-content-box input[type="radio"]:nth-child(2) {
+  margin-left: 20px;
+}
+.case-content-box .application_box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+.case-content-box .application_box table {
+  width: 100%;
+}
+.case-content-box .application_box table th {
+  border-top: none;
+}
+.case-content-box .application_box table tr:last-child td {
+  border-bottom: none;
+}
+.case-content-box .application_box table td:first-child {
+  width: 40%;
+}
+.case-content-box .application_box label {
+  float: left;
+  text-align: left;
+  font-weight: 100;
+}
+.case-content-box .application_box .form-group {
+  border-bottom: 1px dotted #ccc;
+  margin: 0 !important;
+  padding: 5px;
+}
+.case-content-box .application_box .form-group:last-child {
+  border-bottom: none;
+}
+.case-content-box .application_box .form-group > div {
+  float: left;
+}
+.case-content-box .application_box .form-group > div select {
+  font-size: 12px;
+  padding: 5px;
+}
+.case-content-box .application_box .form-group > div input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.case-content-box .application_box .form-group .btn-small {
+  padding: 3px 7px !important;
+  font-size: 12px !important;
+}
+.case-content-box .application_box .form-group select.default {
+  margin-right: 20px;
+}
+.case-content-box .application_box .form-group .default-product {
+  float: left;
+  margin-right: 20px;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: #e7e7e7;
+  background-color: #e7e7e7;
+}
+.footer-left {
+  float: left;
+  width: 50%;
+  text-align: left;
+  padding: 10px;
+}
+.footer-right {
+  float: right;
+  width: 50%;
+  text-align: right;
+  padding: 10px;
+}
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  display: block!important;
+}
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}

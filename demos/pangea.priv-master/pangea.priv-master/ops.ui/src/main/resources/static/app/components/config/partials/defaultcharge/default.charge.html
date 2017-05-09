@@ -1,0 +1,69 @@
+<div class="container-fluid">
+
+    <div class="form">
+
+        <div class="form-group row">
+            <h3>Default Charge</h3>
+        </div>
+		
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Id:</label>
+             <div class="col-xs-9">
+            {{data.activeDefaultCharge.id}}
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Charge Code:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeDefaultCharge.chargeCode" class="form-control input-sm"
+                        ng-options="option.code as option.code+':'+option.shortDescription for option in allChargeCodes">
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Credit Posting Classification:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeDefaultCharge.creditPostingClassificationCode" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allPostingClassificationCodes">
+                </select>
+            </div>
+        </div>
+		
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Debit Posting Classification:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeDefaultCharge.debitPostingClassificationCode" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allPostingClassificationCodes">
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product Group:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeDefaultCharge.productGroupId" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allProductGroups">
+                </select>
+			</div>
+        </div>
+
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Condition Function:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeDefaultCharge.conditionFunctionId" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allConditionFunctions">
+                </select>
+			</div>
+        </div>
+              
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveDefaultCharge()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditDefaultCharge()">Cancel</button>
+        </div>
+
+    </div>
+
+
+</div>

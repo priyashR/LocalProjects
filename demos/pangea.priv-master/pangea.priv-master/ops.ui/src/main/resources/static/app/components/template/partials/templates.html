@@ -1,0 +1,42 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box col-xs-12 col-lg-12">
+
+        <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Delivery Method</th>
+                    <th>Message Type</th>
+                    <th>Product</th>
+                    <th>Section Qty</th>
+                    <th><div class="col-xs-12 pull-right">
+                        <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="addDocument()" title="Add">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="document in data.documents">
+
+                <td>{{document.name}}</td>
+                <td>{{arrayFilter(deliveryMethods,{code:document.deliveryMethod},'description',true)}}</td>
+                <td>{{arrayFilter(messageTypes,{code:document.messageType},'description',true)}}</td>
+                <td>{{arrayFilter(allProducts,{id:document.productId},'description',true)}}</td>
+                <td>{{document.sections.length}}</td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="editDocument(document)" title="Edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

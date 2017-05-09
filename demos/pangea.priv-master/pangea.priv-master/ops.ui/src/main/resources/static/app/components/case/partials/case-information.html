@@ -1,0 +1,60 @@
+<div class="application_box no-border">
+	<h4>Case Information</h4>
+	
+	<form name="form">
+
+		<div class="form-group">
+			<label class="control-label col-xs-5">Step</label>
+			<div class="col-xs-7">
+				<select name="step" 
+					class="form-control"
+					ng-model="case.stepDescription"
+					ng-options="option.description as option.description for option in allSteps"
+					uib-tooltip="Mandatory"
+					tooltip-placement="top-left">
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Product</label>
+			<div class="col-xs-7">
+				<select name="product"
+					class="form-control"
+					ng-model="case.productId"
+					ng-options="option.description as option.description for option in allProducts"
+					uib-tooltip="Mandatory"
+					tooltip-placement="top-left"
+					required>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-xs-5">Customer Name </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="case.name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Account Number </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="case.accountNumber">
+			</div>
+		</div>
+			
+		<div class="form-group">
+			<button type="submit" class="btn btn-sm btn-info"
+				ng-disabled=!form.$valid
+				ng-click="save()">
+				SAVE <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+			</button>
+			<button type="submit" class="btn btn-sm btn-success"
+				ng-disabled=!form.$valid
+				ng-click="nextPage()">
+				NEXT <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+			</button>
+
+		</div>
+	</form>
+
+</div>

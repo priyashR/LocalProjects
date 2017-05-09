@@ -1,0 +1,97 @@
+
+Keycloak Security Documentation
+===============================
+
+[role='lead']
+Steps to setup and configure Keycloak for Pangea
+
+== Installation ==
+.	Download and install keycloak 2.5.0.Final in {keycloakhome}
+    http://www.keycloak.org/downloads.html
+
+== Configuration ==
+.	Edit {keycloakhome}\standalone\configuration\standalone.xml
+    and add –b=0.0.0.0 to the JBOSS startup parameter
+.	Start-up keycloak
+.	Create admin account
+..	http://localhost:8095/auth/
+.	Create new REALM
+..	E.g.: Pangea_Realm
+.	Add Client
+..	Pangea_app
+.	Add roles
+..	If required composite roles
+.	Add groups
+..	Link roles into groups
+.	Add test users
+..	Jack:jack
+... 	Reset password(Permanent) : jack
+...	Link to group : CheckerGroup
+..	John:john
+...	Reset password(Permanent) : john
+...	Link to group : MakerGroup and tradeops
+.	Test Realm using Postman or something similar
+..	localhost:8095/auth/realms/Pangea_Realm/protocol/openid-connect/token
+...	Body:x-www-form-urlencoded
+...	username:jack
+...	password:jack
+...	grant_type:password
+...	client_id:Pangea_app
+...	RESULT should be similar:
+....
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJSU2M5RFFhS0ZiOXZvRHhCYjZGRjd6TzMzeE1ac0xjVlViNzVpQU5zbzJRIn0.eyJqdGkiOiI1NTdhNmU5MC01OTgyLTRjNjItODk1ZC1mMDNiYzkzNjU1ODUiLCJleHAiOjE0ODM5NjQ1MzAsIm5iZiI6MCwiaWF0IjoxNDgzOTY0MjMwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwOTUvYXV0aC9yZWFsbXMvUGFuZ2VhX1JlYWxtIiwiYXVkIjoicGFuZ2VhX2FwcCIsInN1YiI6ImZmNTAwMTEwLTI2ZjAtNDMyOS1iYWUxLWYzYWM2MTk0ZTY0OSIsInR5cCI6IkJlYXJlciIsImF6cCI6InBhbmdlYV9hcHAiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiI5ZDc4MjJlYi1mOWUxLTQ5NjgtYWU1ZC1lNjczYjU5ZDljZjEiLCJhY3IiOiIxIiwiY2xpZW50X3Nlc3Npb24iOiI2ZWE5YzU3Yi03MmI3LTQ3MmEtODBhNC04ZTE1YTFjZDNmZjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQ2hlY2tlciIsIkN1c3RvbV9DaGVja19yb2xlXzEiLCJDdXN0b21fQ2hlY2tfcm9sZV8yIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50Iiwidmlldy1wcm9maWxlIl19fSwibmFtZSI6IkphY2sgQ2hlY2tlciIsInByZWZlcnJlZF91c2VybmFtZSI6ImphY2siLCJnaXZlbl9uYW1lIjoiSmFjayIsImZhbWlseV9uYW1lIjoiQ2hlY2tlciIsImVtYWlsIjoiamFubmllLnBpZXRlcnNlQGdtYWlsLmNvbSJ9.dQPbcYA0TZByrIkbSKriVUdG5dnipj43etnscu_y51UoU6gwG3sz98LtbntZrXNidww89W9UlpsLBqRcx0SSjTQke4lbsKe-V0f76SZD_54I4Efdz-i0YDdhKnDBZljaW3IDh0ijl7NgusISOcIEvdam_HDgi3u5YIe4rYJ6_3XigSuHEjXnz6zjIheNx3_qk4MYi9DsmJjyFaeBY1UDIy40CFFgOC7nuh0ApmQ-1L70GG0wlM1KmKE3iIwmYQpA7BKVugDDD37b2CCnFZdIznVRmri7I1rWUMbzZyrf319tNsV3lZPbicmK6Md0GH6TslzQuDwC7yz7IlFm4Wg8bg",
+  "expires_in": 300,
+  "refresh_expires_in": 1800,
+  "refresh_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJSU2M5RFFhS0ZiOXZvRHhCYjZGRjd6TzMzeE1ac0xjVlViNzVpQU5zbzJRIn0.eyJqdGkiOiI4OGUyNjhkNS1lODQ2LTRkODctYmJiNC0wM2MxMDdhMWMwOGMiLCJleHAiOjE0ODM5NjYwMzAsIm5iZiI6MCwiaWF0IjoxNDgzOTY0MjMwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwOTUvYXV0aC9yZWFsbXMvUGFuZ2VhX1JlYWxtIiwiYXVkIjoicGFuZ2VhX2FwcCIsInN1YiI6ImZmNTAwMTEwLTI2ZjAtNDMyOS1iYWUxLWYzYWM2MTk0ZTY0OSIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJwYW5nZWFfYXBwIiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiOWQ3ODIyZWItZjllMS00OTY4LWFlNWQtZTY3M2I1OWQ5Y2YxIiwiY2xpZW50X3Nlc3Npb24iOiI2ZWE5YzU3Yi03MmI3LTQ3MmEtODBhNC04ZTE1YTFjZDNmZjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQ2hlY2tlciIsIkN1c3RvbV9DaGVja19yb2xlXzEiLCJDdXN0b21fQ2hlY2tfcm9sZV8yIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50Iiwidmlldy1wcm9maWxlIl19fX0.AtJbm0f3jhqG9BFVQO-hfo7qVvOEco1JR723h2LEcJuUH8dpn_kFXIFqpEN5PiuFnN4OWjdWu60uBj4munIr22cXd6FUnSkuc6xGUW6SLZbFZmZkUkgayZIZi2IPqrZjiCDxECYuJVOJrb3DstePr6vPx6F-EmMcTQGgk1ICBPZhPb7hyKV2toIv7q-Evzf_8dF8UGMBZSx9KYelHYDKrLKW3XOGi0D5ZC7oesl9-HJmrMSVBhBMLspt8hQg9hwVaQinsuA96wJQhJ0SUKurc9E-7OJYegWR9eYJnBf5YtCP6Q8DRs5TZrEck0cos9VJSaHt1ObpDqPibZLnsEK4_Q",
+  "token_type": "bearer",
+  "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJSU2M5RFFhS0ZiOXZvRHhCYjZGRjd6TzMzeE1ac0xjVlViNzVpQU5zbzJRIn0.eyJqdGkiOiJjMGZlYTc1Ny05OTZhLTQyMjgtOGY0MC05ODg5OGY4MjA3NTgiLCJleHAiOjE0ODM5NjQ1MzAsIm5iZiI6MCwiaWF0IjoxNDgzOTY0MjMwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwOTUvYXV0aC9yZWFsbXMvUGFuZ2VhX1JlYWxtIiwiYXVkIjoicGFuZ2VhX2FwcCIsInN1YiI6ImZmNTAwMTEwLTI2ZjAtNDMyOS1iYWUxLWYzYWM2MTk0ZTY0OSIsInR5cCI6IklEIiwiYXpwIjoicGFuZ2VhX2FwcCIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6IjlkNzgyMmViLWY5ZTEtNDk2OC1hZTVkLWU2NzNiNTlkOWNmMSIsImFjciI6IjEiLCJuYW1lIjoiSmFjayBDaGVja2VyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiamFjayIsImdpdmVuX25hbWUiOiJKYWNrIiwiZmFtaWx5X25hbWUiOiJDaGVja2VyIiwiZW1haWwiOiJqYW5uaWUucGlldGVyc2VAZ21haWwuY29tIn0.CP8sF-ZwWyvbZnEsVn_G03avvRpWFg-ebOkbUaN4eKBiSlHN51Y8A_WetGSct4FAO7gLPQWlYknaljhebI2fF4stnHb4icCrVntafT0x5jJbSqzpBzyd3n528uL_aMTjBcnBoklfP9T8Rx0nRc1tbc6wFMtVbBoQAimov19YgFs6h8EBAkeOd8MNFUo-UUGjzYvgK50C2SQE52o8KWRFqputrMsSdrpxxxoMFVkxzZr7qN5SDVhy1-XBU1U8peUuse0MX4hp6tQ06pEV-huKJSsk9LL2lWo8V1PXGYP7D5vgKBsDE7m0pqhWqpd68_Wu1ahBHEvcZEyV6gZlkdEgOw",
+  "not-before-policy": 0,
+  "session_state": "9d7822eb-f9e1-4968-ae5d-e673b59d9cf1"
+}
+....
+
+..	Token can be decoded and tested on http://jwt.io
+..	localhost:8095/auth/realms/Pangea_Realm/protocol/openid-connect/userinfo
+.	Headers:
+..	Authorization: Bearer {access_token from token}
+...	RESULT should be similar:
+....
+{
+  "sub": "ff500110-26f0-4329-bae1-f3ac6194e649",
+  "name": "Jack Checker",
+  "preferred_username": "jack",
+  "given_name": "Jack",
+  "family_name": "Checker",
+  "email": "jannie.pieterse@gmail.com"
+}
+....
+
+== Integration ==
+
+.	Configure projects (workflow, service, UI)(Default will load Keycloak, alternative profiles should be explicit e.g.:ci)
+..	Update .properties:
+....
+config.developerTesting=true/false (basic vs keycloak)
+config.keycloak.realm=Pangea_Realm
+config.keycloak.realm-public-key=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh2pr2Dy3qpSi0gTO51GiPXYnCutzNo/GIj5/d7GPjbMfgEm5FgEZ78LAV4zSwkni4WQ9X0yoESC8VUKGOzuwNsuzSLAQX3pNTEnQIpgoKQT70w8AAh7cU+OrUZ549Iay9yk2hUa5RUDhsRjSoTaD8xg/9ooeH2ysYKALRRUDHNSCnQuHncSs1Z7uSq+LQkya/XVnV9he9VRJd2Ni2OSZxne6FeXT2tF6fFIGeLcl60g1AHjQJmSFScRS62TdO16Xhu10r2FlsNeKZc9RdC9VubSLg9z55UImdWXsjsjLH1zEs+8r5rXg6/okawIzyN+R29A7udrVzYUtHY/aF3+fcQIDAQAB
+config.keycloak.auth-server-url=http://localhost:8095/auth
+config.keycloak.ssl-required=external
+config.keycloak.resource=pangea_app
+config.keycloak.public-client=true
+config.keycloak.use-resource-role-mappings=false
+config.keycloak.enable-cors=true
+
+config.keycloak.useradmin.username=admin
+config.keycloak.useradmin.password=qwerty
+....
+
+..	Update Configuration beans where required:
+...	@Profile(“newProfile”) if new profile is required
+...	@Profile(“default”) will trigger if no active profile is defined
+..	Update keycloak POM version
+...	Currently on <keycloak.version>2.5.0.Final</keycloak.version>
+
+
+
+

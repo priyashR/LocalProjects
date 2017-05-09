@@ -1,0 +1,145 @@
+
+
+<form name="dealProductForm">
+	<!--expiry info-->
+	<div class="application_box">
+		<div class="form-group"><strong>Expiry Information</strong> <span class="note pull-right">Please note all fields with an asterisk(*) are mandatory</span></div>
+		
+		<div class="form-group">
+			<label class="control-label col-xs-5">Expiry Type: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select id="expiryTypeSelect" class="form-control input-sm"
+					ng-model="deal.expiryTypeCode"
+					ng-options="option.code as option.description for option in allExpiryTypes" 
+					required></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Expiry Date: <span ng-show="deal.expiryTypeCode == '03'" class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<div class="input-group">
+				<span ng-show="deal.expiryTypeCode == '03' &&  deal.expiryDate.$invalid">Expiry date is required.</span>
+				<input type="text" class="form-control input-sm" ng-model="deal.expiryDate" uib-datepicker-popup="{{dateFormat}}"
+					id="expiryDateInput" ng-disabled="deal.expiryTypeCode != '03'" ng-required="deal.expiryTypeCode == '03'" is-open="status.opened">
+					<span class="input-group-btn">
+					<button type="button" class="btn btn-sm btn-default" ng-click="open($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button>
+				</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Location of Expiry: <span ng-show="deal.expiryTypeCode!='03'" class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select id="expiryLocation" class="form-control input-sm"
+						ng-model="deal.expiryLocation"
+						ng-options="option.description as option.description  for option in allExpirylocations">
+						ng-required="deal.expiryTypeCode!='03'">
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Expiry Event Detail: <span ng-show="deal.expiryTypeCode!='03'" class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control input-sm" id="expiryDetailInput"
+					ng-model="deal.expiryEventDetails" ng-disabled="deal.expiryTypeCode=='03'" ng-required="deal.expiryTypeCode!='03'">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Review Date:</label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control input-sm" id="reviewDateInput" uib-datepicker-popup="{{dateFormat}}"
+					ng-model="deal.reviewDate" disabled>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Claim Date:</label>
+			<div class="col-xs-7">
+				<div class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="deal.claimDate"
+						   is-open="status2.opened" /> <span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open2($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group" ng-show="deal.expiryTypeCode!='03'">
+			<label class="control-label col-xs-5">Escape Clause: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select id="escapeCause" class="form-control input-sm"
+						ng-model="deal.escapeCause"
+						ng-options="option as option for option in allEscapeCauses"
+						ng-required="deal.expiryTypeCode!='03'">
+				</select>
+			</div>
+		</div>
+		<div ng-show="escapeClause">
+			<div class="form-group">
+				<label class="control-label col-xs-5">Notice Period: <span class="note pl10">*</span></label>
+				<div class=" col-xs-7">
+					<select id="noticePeriod" class="form-control input-sm"
+							ng-model="deal.noticePeriod"
+							ng-options="option as option for option in allNoticePeriods"
+							ng-required="escapeClause">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-5">Other Notice Period: <span class="note pl10">*</span></label>
+				<div class=" col-xs-7">
+					<input id="allOtherNoticePeriods" class="form-control input-sm"
+							ng-model="deal.otherNoticePeriod" ng-required="deal.noticePeriod==='Other'" ng-disabled="deal.noticePeriod!='Other'"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--//expiry info-->
+	<!--scheduled reductions-->
+	<div class="application_box">
+		<div class="form-group"><strong>Scheduled Reductions</strong> </div>
+
+		<div class="form-group">
+			<label class="control-label col-xs-5">Scheduled Reduction: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<label  ng-repeat="option in allYesNos">
+					<input type="radio" name="pageSet" ng-model="deal.scheduledReduction" ng-value="option" />{{option}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+		<div ng-show="scheduledReductionYes">
+			<div class="form-group">
+				<label class="control-label col-xs-5">Scheduled Reduction Date: <span class="note pl10">*</span></label>
+				<div class="col-xs-7">
+					<div class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="deal.scheduledReductionDate"
+							   is-open="status3.opened"  ng-required="scheduledReductionYes"/> <span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open3($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-5">Scheduled Reduction Percentage: <span class="note pl10">*</span></label>
+				<div class=" col-xs-7">
+					<input id="scheduledReductionPercentage" class="form-control input-sm" ui-percentage-mask
+						   ng-model="deal.scheduledReductionPercentage" ng-required="scheduledReductionYes"/>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div class='form-group'>
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-sm  btn-success" ng-disabled=!dealProductForm.$valid ng-click="navigate()">
+				NEXT
+				<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+</form>	
+<!--//misc info-->
+

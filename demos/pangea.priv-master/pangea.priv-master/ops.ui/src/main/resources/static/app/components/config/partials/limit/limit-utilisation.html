@@ -1,0 +1,45 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box col-xs-12 col-lg-12">
+        <h3>Credit Limits Utilization</h3>
+        <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+            <thead>
+            <tr>
+                <th>Customer name</th>
+                <th>Deal amount</th>
+                <th>Currency</th>
+                <th>Deal reference</th>
+                <th>Product</th>
+                <th>Product classification</th>
+                <th>Step</th>
+                <th>Limit Owner</th>
+                <th>Limit Period</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Status</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="utilisation in data.utilisations">
+                <td>{{utilisation.customerName}}</td>
+                <td>{{utilisation.dealAmount}}</td>
+                <td>{{utilisation.currenyCode}}</td>
+                <td>{{utilisation.dealReference}}</td>
+                <td>{{utilisation.productDesc}}</td>
+                <td>{{utilisation.productClassificationDesc}}</td>
+                <td>{{utilisation.step}}</td>
+                <td>{{utilisation.limitOwner}}</td>
+                <td>{{utilisation.limitPeriod}}</td>
+                <td>{{utilisation.reservedStartDate}}</td>
+                <td>{{utilisation.reservedEndDate}}</td>
+                <td>{{utilisation.status}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <button class="btn btn-sm btn-primary" ng-click="cancelLimit()">Back</button>
+</div>

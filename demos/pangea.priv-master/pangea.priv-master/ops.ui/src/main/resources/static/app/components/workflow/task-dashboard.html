@@ -1,0 +1,65 @@
+
+<div class="container-fluid no-gutter-left" ng-init="initView()">
+	
+    
+  <div class="col-xs-12 col-lg-12">
+        <h3>Task list</h3>
+ 		<div class="col-xs-12">
+	        <div class="inner-addon right-addon pull-right" style="width:200px;">
+	    		<i class="glyphicon glyphicon-search"></i>
+	  			<input type="text" class="form-control" placeholder="Search" ng-model="searchFilter" ng-change="filter()">
+			</div>
+		
+			<div class="pull-right">
+				<a ng-click="startProcess()"><span class="glyphicon glyphicon-plus"></span></a>
+				<a ng-click="startProcessSwift()"><span class="glyphicon glyphicon-plus" style="color:darkred;"></span></a>
+			</div>
+		</div>
+         <ul class="nav nav-tabs">
+            <li ng-class="{active : isSelected(tab)}" ng-repeat="tab in taskTabs"><a data-toggle="tab" target="_self" ng-click="showTab(tab)" href="#taskMain">{{tab.heading}}</a></li>
+           
+        </ul>
+        <div class="tab-content">
+           <!--new tasks-->
+            <div id="taskMain" class="tab-pane fade in active">
+				<table class="task-table">
+					<tr>
+						<th>Reference</th>
+						<th ng-show="selectedTab.status != 'new'">Owner</th>
+						<th ng-show="selectedTab.status == 'new'">Sender</th>
+						<th>Created Date<span class="glyphicon glyphicon-chevron-down pull-right" style="color:grey"></span></th>
+						<th>Due Date</th>
+						<th>Task Status</th>
+						<!--  th>Product Status</th-->
+						<th>Action</th>
+					</tr>
+					<tr ng-repeat="task in tasks">
+						<td>{{getTaskRef(task)}}</td>
+						<td ng-show="selectedTab.status != 'new'">{{task.assignee}}</td>
+						<td ng-show="selectedTab.status == 'new'">{{task.owner}}</td>
+						<td>{{task.createTime | date:'yyyy-MM-dd'}}</td>
+						<td>{{task.dueDate | date:'yyyy-MM-dd'}}</td>
+						<td>{{task.name}}</td>
+						<!-- td></td -->
+						<td><a target="_self" href="" type="button" class="btn btn-primary"
+							ng-click="claim(task, selectedTab.status)" ng-show="selectedTab.status != 'completed' && selectedTab.status != 'unsuccessful'">Claim this task</a>
+							<a target="_self" href="" type="button" class="btn btn-primary"
+							ng-click="view(task, selectedTab.status)" ng-show="selectedTab.status == 'completed' || selectedTab.status == 'unsuccessful'">View Detail</a>
+						</td>
+					</tr>
+					<tr ng-show="selectedTab.total > numPerPage">
+						<td colspan="7">
+    						<uib-pagination items-per-page="numPerPage" total-items="selectedTab.total" ng-model="selectedTab.pageIndex" ng-change="showTab(selectedTab, selectedTab.pageIndex)" max-size="10" class="pagination-sm pull-right" direction-links="true" boundary-links="true" boundary-link-numbers="true" rotate="true" force-ellipses="true"></uib-pagination>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+        </div>    
+    </div>
+
+    
+</div>
+
+
+ 

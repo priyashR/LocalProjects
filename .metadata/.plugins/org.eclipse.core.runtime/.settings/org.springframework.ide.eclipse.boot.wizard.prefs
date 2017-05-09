@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.data-jpa=4
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.mysql=4
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=budgetAppV4_2
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.bootVersion=1.3.8.RELEASE
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.description=budget applicaiton version 4_2
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.groupId=com.gmail.ramawathar.priyash
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.javaVersion=1.8
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.language=java
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.name=budgetAppV4_2
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.packageName=com.gmail.ramawathar.priyash
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.packaging=jar
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.type=MAVEN
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.version=0.0.1-SNAPSHOT

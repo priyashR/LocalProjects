@@ -1,0 +1,98 @@
+= Development Guidelines =
+
+The goal of this document is to provide technical guidelines on the Pangea Program to ensure consistent and productive outcomes from the
+development team.
+The primary components used in the Pangea tech stack are AngularJS for the UI and Spring for the back end so developers are required to have
+good knowledge of both.
+
+== REST ==
+The primary mode of communication between the AngularJS front-end and the backend is REST. Developers are required to understand REST
+well and model the services/uri/etc according to good REST design.
+REST Level 2 is desired for the Pangea application. To get an understanding of REST level 2 please refer to the following http://martinfowler.com/
+articles/richardsonMaturityModel.html
+
+== Java ==
+The backend services are all developed in Java. It is an object orientated language so developers have to be well versed in the concept.
+Essentially, code should be modular and conform to good OO practices like loose coupling and high cohesion. Just be aware that in business
+systems the desired outcome is to build functional systems that have a high level of re-use where possible. Developers should leverage off widely
+adopted frameworks and libraries to ensure that the pace of delivery is maximised (don't try to re-invent the wheel).
+
+== Maven ==
+The build tool of choice is Maven. The tool supports dependency management and a standard build lifecycle of compiling, unit testing and
+installing code into a repository.
+
+== Spring ==
+Spring is an Inversion Of Control (IOC) framework for developing applications in Java. The idea behind IOC is to keep components loosely
+coupled and inject them as the application requires. This makes the application components configurable and adaptable which in turn should
+make developers more productive. The IOC principle has also introduced a myriad of libraries/components that can be re-used by developers to
+accelerate development.
+
+== Spring+REST ==
+Developers are required to stick with the out of the box annotations that Spring provides (like @Controller, @RequestMapping, etc.). We are not
+making use of Rest Data repositories as it is aligned with HATEOAS which is not compatible with AngularJS. Furthermore, a Rest resource will in
+most cases not perfectly map to a persistent object but rather a domain which could consist of multiple POs and lots of domain logic mixed in. You
+are also required to expose endpoints with DTOs and make use of a simple POJO mapping class.
+
+=== REST Data ===
+Make use of DTOs for REST data and not domain object, as it has been established that that using domain objects introduces risk when the domain changes
+Keep it simple and work toward "lean" DTOs
+Use "id" fields for refernced object, and use related REST calls to get releated data
+	e.g.:
+		private Long customerId:
+		call GET /customer/{id}
+
+=== REST 2 API ===
+Use pragmatic VERB based REST endpoints.
+
+Plurals vs Singular: keep-it-simple rule applies here
+GET should be idempotent and NO state change should happen to ANY data
+
+Example:
+....
+GET /deals - Retrieves a list of deals
+GET /deal/10 - Retrieves a specific deal
+POST /deal - Creates a new deal
+PUT /deal/10 - Updates deal #10
+PATCH /deal/10 - Partially updates deal #10
+DELETE /deal/10 - Deletes deal #10
+....
+Non CRUD actions:
+
+* define action as resource as best possible
+* if no data is changed use GET
+* if data changes use POST
+
+== Spring+Data ==
+The standard applied here is spring-data with JPA(Java Persistence Architecture). All persistent objects should make use of JPA annotations.
+JPA is an industry led java specification and hence should be supported for a very long time. The entities should be accessed through a
+repository which in turn should limit the amount of boilerplate code required for CRUD operations and querying data.
+
+== Spring+Transactions ==
+The application should contain services that serve as an entrypoint to a transactional environment. Make use of the @Service and
+@Transactional annotations. This is to ensure that services are atomic.
+
+== Spring-Boot @Composition vs Inheritance extends Abstract implements Interface and CDI vs Singletons ==
+Instead of using complex inheritance structures with abstract or interface markers, rather opt for specialized annotations with spring observers and decorators.
+
+* Simple example to follow:
+
+Spring offers optimal benefits and features for bean injections, try avoid such complexities such as singleton maps/registries,
+and a simple @Bean, and @Autowired can include the exact implementation of a bean that is required.
+
+
+== Promotion to INTegration TEST Environment ==
+- Checkout Branch: PANGEA_INT
+- Merge last Commit from Master/Sprint into PANGEA_INT
+- Tag the commit with PANGEA_INT_Sprint_{number of sprint}
+- Log into Jenkins
+- Select "Pangea.Int" project
+- Select "Configue"
+- Add "db.reset=true" to Properties Content (THis is temporary until FlyWay is active)
+- Save the Configuration
+- Select "Build Now"
+- ...Wait...
+- Once complete
+- Select "Configue"
+- REMOVE "db.reset=true" to Properties Content (THis is temporary until FlyWay is active)
+- MAKE SURE THAT YOU REMOVED "db.reset=true" to Properties Content (THis is temporary until FlyWay is active)
+- Save the Configuration

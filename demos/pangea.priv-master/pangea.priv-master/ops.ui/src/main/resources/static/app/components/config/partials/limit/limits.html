@@ -1,0 +1,150 @@
+<div class="container-fluid form-horizontal">
+	<div class="case-content-box col-xs-12 col-lg-12">
+		<h3>Credit Limits</h3>
+		<div class="form-group" >
+		</div>						
+		<div class="panel-group review-accordion" role="tablist"
+			aria-multiselectable="true">
+			<uib-accordion close-others="true"> <uib-accordion-group
+				heading="Trade Limit">
+			<div class="panel-body application_box">
+				<div class="form-group">
+					<table
+						class="table table-bordered table-striped table-hover customer-search"
+						width="100%">
+						<tr>
+							<th>Customer Name</th>
+							<th>Credit amount</th>
+							<th>Available amount</th>
+							<th>Start date</th>
+							<th>End date</th>
+							<th>Limit status</th>
+							<th>
+								<button type="button" class="btn btn-xs btn-primary" ng-click="addLimit()" title="Add">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							</th>
+						</tr>
+						<tr  ng-repeat="limit in data.limits"  ng-if="limit.limitLevel == 'TL'">
+						
+							<td>{{limit.customerName}}</td>
+							<td>{{limit.tradeLimitAmount | currency :
+								limit.currencyCode + ' '}}</td>
+							<td>{{limit.availableTradeLimitAmount | currency :
+								limit.currencyCode + ' '}}</td>
+							<td>{{limit.startDate}}</td>
+							<td>{{limit.endDate}}</td>
+							<td>{{limit.limitStatusDesc}}</td>
+							<td>
+								<button type="button" class="btn btn-xs btn-primary"
+									ng-click="editLimit(limit)" title="Edit">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</button> &nbsp;
+								<button type="button" class="btn btn-xs btn-primary"
+									ng-click="getUtilisations(limit.customerId)"
+									title="Utilisations">
+									<span class="glyphicon glyphicon-option-horizontal"></span>
+								</button>
+							</td>
+						</tr>
+					</table>
+
+
+				</div>
+			</div>
+			</uib-accordion-group> <uib-accordion-group heading="Product Limit">
+			<div class="panel-body application_box">
+				<div class="form-group">
+					<table
+						class="table table-bordered table-striped table-hover customer-search"
+						width="100%">
+						<tr >
+						    <th>Customer Name</th>
+							<th>Product</th>
+							<th>Credit amount</th>
+							<th>Available amount</th>
+							<th>Start date</th>
+							<th>End date</th>
+							<th>Limit status</th>
+							<th>
+								<button type="button" class="btn btn-xs btn-primary" ng-click="addLimit()" title="Add">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							</th>
+							<tr  ng-repeat="limit in data.limits"  ng-if="limit.limitLevel == 'PR'">
+							<td>{{limit.customerName}}</td>
+							<td>{{limit.productDesc}}</td>
+							<td>{{limit.productLimitAmount | currency :
+								limit.currencyCode + ' '}}</td>
+							<td>{{limit.availableProductLimitAmount | currency :
+								limit.currencyCode + ' '}}</td>
+							<td>{{limit.startDate}}</td>
+							<td>{{limit.endDate}}</td>
+							<td>{{limit.limitStatusDesc}}</td>
+							<td>
+								<button type="button" class="btn btn-xs btn-primary"
+									ng-click="editLimit(limit)" title="Edit">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</button> &nbsp;
+								<button type="button" class="btn btn-xs btn-primary"
+									ng-click="getUtilisations(limit.customerId)"
+									title="Utilisations">
+									<span class="glyphicon glyphicon-option-horizontal"></span>
+								</button>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+			</uib-accordion-group> <uib-accordion-group heading="Period Limit">
+			<div class="panel-body application_box">
+				<div class="form-group">
+					<table
+						class="table table-bordered table-striped table-hover customer-search"
+						width="100%">
+						<tr >
+						    <th>Customer Name</th>
+							<th>Product</th>
+						    <th>Limit Period</th>
+							<th>Credit amount</th>
+							<th>Available amount</th>
+							<th>Start date</th>
+							<th>End date</th>
+							<th>Limit status</th>
+							<th>
+								<button type="button" class="btn btn-xs btn-primary" ng-click="addLimit()" title="Add">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							</th>
+						</tr>
+						<tr ng-repeat="limit in data.limits"  ng-if="limit.limitLevel == 'PE'">
+							<td>{{limit.customerName}}</td>
+							<td>{{limit.productDesc}}</td>
+							<td>{{limit.limitPeriodDesc}}</td>
+							<td>{{limit.creditLimitAmount | currency :
+								limit.currencyCode + ' '}}</td>
+							<td>{{limit.availableLimitAmount | currency :
+								limit.currencyCode + ' '}}</td>
+							<td>{{limit.startDate}}</td>
+							<td>{{limit.endDate}}</td>
+							<td>{{limit.limitStatusDesc}}</td>
+							<td>
+								<button type="button" class="btn btn-xs btn-primary"
+									ng-click="editLimit(limit)" title="Edit">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</button> &nbsp;
+								<button type="button" class="btn btn-xs btn-primary"
+									ng-click="getUtilisations(limit.customerId)"
+									title="Utilisations">
+									<span class="glyphicon glyphicon-option-horizontal"></span>
+								</button>
+							</td>
+						</tr>
+					</table>
+				
+				</div>
+			</div>
+			</uib-accordion-group> </uib-accordion>
+		</div>
+	</div>

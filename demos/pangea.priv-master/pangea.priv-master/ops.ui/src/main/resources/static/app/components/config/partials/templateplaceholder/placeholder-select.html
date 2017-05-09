@@ -1,0 +1,44 @@
+<div ng-init="initTreeView()" >
+
+    <div class="modal-header">
+        <h3 class="modal-title">Select Placeholder Pattern</h3>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid form-horizontal">
+
+            <div class="case-content-box col-xs-12 col-lg-12">
+                <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Data Type</th>
+                            <th>Resolve Pattern</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="placeholder in data.placeholders" ng-class="{highlight: isSelected(placeholder)}" ng-click="selectRow(placeholder)">
+                            <td>{{placeholder.code}}</td>
+                            <td>{{placeholder.description}}</td>
+                            <td>{{placeholder.dataType}}</td>
+                            <td>{{placeholder.resolvePattern}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <style>
+                    .table-striped tr.highlight td{
+                        background-color: #204d74;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="okModal()">Select</button>
+        <button class="btn btn-default" type="button" ng-click="cancelModal()">Cancel</button>
+    </div>
+
+</div>

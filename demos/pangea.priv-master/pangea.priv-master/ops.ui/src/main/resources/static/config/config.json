@@ -1,0 +1,23 @@
+{
+	"baseServicesUrl": "http://localhost:8081",
+	"baseWorkFlowUrl": "http://localhost:9090",
+	"applicationTitle": "Pangea",
+	"applicationVersion": "0.1-alpha",
+	"buildNumber": "0.1.0",
+	"env": "WORKSTATION",
+	"jenBuildId": "2016-12-23_23-59-59",
+	"jenBuildNum": "XX",
+	"gitCommit": "0a4558cb705245181d50c89590edcc36921297e7",
+	"developerTesting": "true",
+	"keycloak": 
+	{
+		"realm": "pangea-realm",
+		"realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1jdop1nmNOPdROUK96BmdaMtoBj0B1Yq2oNL1VJnFnSG/st9uN72LQjHHgKekSbzeeUzeR/RnZZ5gQAihiXlllSlUpfyGGY0FiyGNfaH1Y36Qb7BCYaN0RG8sQggc8BFFzErkuegfWWnQBjwsDXe3Lh0egqYFPh8+QpZqk7IAycnogGL2es8ITc0bku+zsMSMBFUqeSpxdpniE/ojNQcLo8Qc0/NbC2+9SrYmVpIPxSS4yU3MbI8yXjCgR90hMEGzuImI6KVElZUmJBjODJBfI3l9Cm4BfJgcVk9mPkS0nDTr6wzBZKJDAKwuIn7SkCaJ3133ZiXahPZQsphcSet5wIDAQAB",
+		"url": "http://pangea-keycloak-dev.eu-west-1.elasticbeanstalk.com/auth",
+		"ssl-required": "external",
+		"clientId": "pangea-app",
+		"public-client": "true",
+		"use-resource-role-mappings": "false",
+		"enable-cors": "true"
+	}
+}

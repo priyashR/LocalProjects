@@ -1,0 +1,35 @@
+<div class="container">
+
+	<form class="form">
+
+		<div class="form-group row">
+			<h3>Template Setup</h3>
+		</div>
+
+		<div  ng-repeat="section in sections">
+			<div class="form-group row">
+				<label class="form-control-label">Section Name &nbsp;</label>
+				<select ng-model="section.type" ng-options="sectionType for sectionType in sectionTypes"></select>
+			</div>
+
+			<div class="form-group row">
+				<textarea class="form-control" maxlength="225" rows="4" ng-model="section.description"></textarea>
+			</div>
+
+			<div class="form-group row">
+				<button type="button" class="btn btn-xs btn-primary-spacing" ng-class="{'btn-primary' : true}" ng-click="removeSection($index)">
+					<span class="glyphicon glyphicon-minus"></span>
+				</button>
+			</div>
+
+		</div>
+
+		<div class="form-group row">
+			<button class="btn btn-info" ng-click="addSection()">Add Section</button>
+			<button class="btn btn-success" ng-show="sections.length > 0" ng-click="saveDocument()">Save Template</button>
+		</div>
+
+	</form>
+
+
+</div>

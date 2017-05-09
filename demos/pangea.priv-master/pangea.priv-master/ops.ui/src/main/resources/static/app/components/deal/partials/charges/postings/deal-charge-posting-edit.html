@@ -1,0 +1,36 @@
+<td>{{settlement.chargeCode}}</td>
+<td class="no-wrap-parent">{{settlement.description}}</td>
+<td>{{settlement.debitSettlementPosting}}</td>
+<td>{{settlement.creditSettlementPosting}}</td>
+<td>{{settlement.debitCurrency }}</td>
+<td>{{settlement.debitAmount }}</td>
+<td>{{settlement.creditCurrency }}</td>
+<td>{{settlement.creditAmount }}</td>
+<td>
+<select id="debitAccountId" ng-model="settlement.debitAccountId" class="form-control input-xs-nopadding"
+        ng-options="account.accountNumber as (account.accountNumber + '   - (' + account.accountType + ')') 
+		for account in allCustomerAccounts | filter:{currencyCode : settlement.debitCurrency} : true"> 
+	<option value="">-- choose --</option>
+</select>
+</td>
+<td>
+<div ng-show="!isCreditPartyIBA(settlement)">
+<select id="creditAccountId" ng-model="settlement.creditAccountId" class="form-control input-xs-nopadding"
+	ng-options="account.accountNumber as (account.accountNumber + '   - (' + account.accountType + ')') for account in allCustomerAccounts"
+	ng-model="settlement.creditAccountId">
+	<option value="">-- choose --</option>
+</select>
+</div>
+
+<div ng-show="isCreditPartyIBA(settlement)"> {{settlement.creditAccountId}}</div>		
+
+</td>
+
+<td style="white-space: nowrap">
+	<div class="buttons">
+		<a class="btn btn-xs btn-danger font-size f11"
+			ng-click="saveAccPosting(settlement)">SAVE</a> <a
+			class="btn btn-xs btn-default font-size f11"
+			ng-click="resetEditAccPosting(settlement)">CANCEL</a>
+	</div>
+</td>

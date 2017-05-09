@@ -1,0 +1,42 @@
+
+<div>
+
+    <div class="case-content-box">
+
+        <div class="application_box ">
+            <div class="form-group">
+                <label class="control-label col-xs-5">Application Type</label>
+                <div class="col-xs-7 no-margin">
+                    <label class="vertical-padded" ng-repeat="type in statusTypes">
+                        <input type="radio" ng-model="deal.documentStatusCode" name="applicationType" ng-value="type.code">{{type.description}}
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-5">Select Contract Wording</label>
+                <div class="col-xs-7 no-margin">
+                    <label class="vertical-padded" ng-repeat="option in allGuaranteeWordingTypes">
+                        <input type="radio" ng-click="selectContractWording(deal.standardTemplateCode)" name="standardTemplateCode" ng-model="deal.standardTemplateCode" ng-value="option.code">{{option.description}}
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-5">Delivery Method</label>
+                <div class="col-xs-7 no-margin">
+                     <label class="vertical-padded" ng-repeat="option in allDeliveryMethods">
+                         <input type="radio" name="deliveryTypeCode" ng-model="deal.deliveryTypeCode" value="{{option.code}}">{{option.description}}
+                     </label>
+                </div>
+            </div>
+
+        </div>
+
+       <div class="mb40">
+           <button type="submit" class="btn btn-sm btn-success mt20" ng-click="nextDocumentTab()">NEXT <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+       </div>
+
+    </div>
+
+</div>

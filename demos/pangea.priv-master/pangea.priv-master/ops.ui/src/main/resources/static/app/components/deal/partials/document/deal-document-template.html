@@ -1,0 +1,82 @@
+<!--document search box-->
+<div class="document-search" ng-show="!dealDocumentTemplates">
+
+    <div class="form-group"><strong>Search</strong></div>
+
+    <div class="form-group input-group">
+        <select class="input-sm" ng-model="searchType">
+            <option value="SEARCH_BY_TEMPLATE">Template No.</option>
+            <option value="SEARCH_BY_PRODUCT">Product Type</option>
+            <option value="SEARCH_BY_CUSTOMER">Customer</option>
+        </select>
+        <input class="form-control input-sm" type="text" ng-model="searchValue" placeholder="Name">
+        <span class="input-group-btn pull-left">
+            <button class="btn btn-sm btn-default" type="submit" ng-click="getDocuments()">SEARCH</button>
+        </span>
+    </div>
+</div>
+<!--//document search box -->
+
+
+<!-- document search results -->
+<div class="case-content-box" class="col-xs-12 col-lg-12" ng-show="contract_search_results">
+    <h4>Search Results</h4>
+    <table class="col-xs-12 col-lg-12">
+        <tbody>
+        <tr>
+            <th>Template Name.</th>
+            <th>Message Type</th>
+            <th>Delivery Method</th>
+            <th>Status</th>
+            <th>Version</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="doc in document_search_results">
+            <td>{{doc.name}}</td>
+            <td>{{doc.messageType}}</td>
+            <td>{{doc.deliveryMethod}}</td>
+            <td>{{doc.status}}</td>
+            <td>{{doc.version}}</td>
+
+            <td>
+                <button class="mr20 btn btn-small btn-success" ng-click="viewRawPreview(doc)">Preview</button>
+                <button type="button" ng-disabled="contractDocumentsExists()" ng-click="selectDocumentTemplate(doc)" class="btn btn-small btn-default">Select</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- //document search results -->
+
+<!-- deal document templates -->
+<div class="case-content-box" class="col-xs-12 col-lg-12" ng-show="dealDocumentTemplates">
+    <h4>Deal Document Template</h4>
+    <table class="col-xs-12 col-lg-12">
+        <tbody>
+        <tr>
+            <th>Template Name.</th>
+            <th>Message Type</th>
+            <th>Delivery Method</th>
+            <th>Status</th>
+            <th>Version</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="doc in dealDocumentTemplates">
+            <td>{{doc.name}}</td>
+            <td>{{doc.messageType}}</td>
+            <td>{{doc.deliveryMethod}}</td>
+            <td>{{doc.status}}</td>
+            <td>{{doc.version}}</td>
+
+            <td>
+                <button class="mr20 btn btn-small btn-success" ng-click="viewPreviewST(doc)">Preview</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- //deal document templates -->
+
+
+
+

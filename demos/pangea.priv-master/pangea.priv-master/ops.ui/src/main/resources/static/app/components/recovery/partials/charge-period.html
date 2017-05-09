@@ -1,0 +1,26 @@
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<td>Start Date</td>
+				<td>End Date</td>
+				<td>Collection</td>
+				<td>Period Type</td>
+				<td>Due Date</td>
+			</tr>
+		</thead>
+		<tbody> 	
+			<tr ng-repeat="period in selectedCharge.period | itemDateRangeFilter"
+				ng-click="selectPeriod(period)"
+				ng-class="{'active': period.selected}">
+				<td>{{period.start | date : format }}</td>
+				<td>{{period.end | date : format }}</td>
+				<td>{{period.collectionType}}</td>
+				<td>{{period.type}}</td>
+				<td>{{period.dueDate | date : format }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+

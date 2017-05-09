@@ -1,0 +1,21 @@
+<div class="container-fluid typeahead-result form-horizontal">
+
+		<div class="case-content-box" class="col-xs-12 col-lg-12">
+			
+			<!--breadcrumbs-->
+			<ul class="breadcrumbs">
+				<li ng-repeat="tab in $root.deals.charge.tabs"
+					ng-class="selectTabClass(tab)">
+					<a ng-click="selectChargesContent(tab)"> 
+						<span aria-hidden="true"></span>
+						 {{tab.heading}}
+					</a>
+				</li>
+			</ul>
+			<!--//breadcrumbs-->
+
+			<div ng-include src="getChargesContent()"></div>
+
+		</div>
+
+</div>

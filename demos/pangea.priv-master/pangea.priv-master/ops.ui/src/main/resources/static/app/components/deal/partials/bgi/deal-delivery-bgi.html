@@ -1,0 +1,63 @@
+<form name="dealDeliveryForm">
+<!--product info-->
+<div class="application_box">
+	
+	<!-- general info -->
+
+		<div class="form-group">
+			<strong>Further Delivery Instructions</strong>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-xs-5">Delivery Type: </label>
+			<div class="col-xs-7">
+				<select id="deliveryType" class="form-control input-sm"
+					ng-model="deal.deliveryType"
+					ng-options="option as option for option in allDeliveryTypes">
+				</select>
+			</div>
+		</div>
+		<div class="form-group" ng-show="deal.deliveryType=='Courier'">
+			<label class="control-label col-xs-5">Courier Type: </label>
+			<div class="col-xs-7">
+				<select id="courierType" class="form-control input-sm"
+					ng-model="deal.courierType"
+					ng-options="option as option for option in allCourierTypes">
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Delivery Instructions:</label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control input-sm" ng-model="deal.deliveryTypeDetails">
+			</div>
+		</div>
+		<div class="form-group" ng-show="deal.deliveryType=='Courier'">
+			<label class="control-label col-xs-5">Airway Bill Reference Number: </label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control input-sm" ng-model="deal.airwayBillReference">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Delivery To: </label>
+			<div class="col-xs-7">
+				<select id="deliveryTo" class="form-control input-sm"
+						ng-model="deal.deliveryTo"
+						ng-options="option.description as option.description for option in productParties">
+				</select>
+			</div>
+		</div>
+
+</div>
+	<!--//general info-->
+
+	<div class='form-group'>
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-sm  btn-success" ng-disabled=!dealDeliveryForm.$valid ng-click="navigate()">
+				NEXT
+				<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+</div>
+</form>

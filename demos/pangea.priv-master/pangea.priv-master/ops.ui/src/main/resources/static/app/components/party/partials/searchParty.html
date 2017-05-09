@@ -1,0 +1,44 @@
+
+<div class="container-fluid">
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="control-label col-xs-4 ">Search By: </label>
+			<div class="col-xs-5">
+				<select ng-model="search.criteria" 	class="customer-search-select">
+					<option value="">Search By</option>
+					<option value="name">Name</option>
+					<option value="surname">Surname</option>
+					<option value="tradeName">Trade Name</option>
+					<option value="legalEntityName">Legal Entity Name</option>
+					<option value="swiftAddress">Swift Address</option>
+				</select>
+				<input type="text" class="form-control"
+					ng-model="search.value" placeholder="Value">
+			</div>
+</div>
+			<div class="row form-group">
+				<div class="pull-right">
+					<button type="button" class="btn btn-info" ng-click="searchParties()">Search</button>
+					<button type="button" class="btn btn-info"
+						ng-click="resetParties()">Clear</button>
+				</div>
+			</div>
+
+			<div class="" ng-show="searchResult">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="party in searchResults" ng-click="select(party)">
+							<td>{{party.name}} {{party.surname}} {{party.tradeName}} {{party.legalEntityName}}</td>
+							<td>{{party.partyTypeCode}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>

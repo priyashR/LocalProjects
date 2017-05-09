@@ -1,0 +1,40 @@
+<div class="container-fluid">
+
+	<h3>Customer Search</h3>
+	<div class="col-xs-12">
+		<div class="checkbox"></div>
+		<fieldset class="form-group">
+			<label for="fg1">Customer name</label> <input type="text" class="form-control" id="fg1" placeholder="Name"
+				ng-model="query.name">
+		</fieldset>
+		<fieldset class="form-group">
+			<label for="fg2">Customer surname</label> <input type="text" class="form-control" id="fg2" placeholder="Surname"
+				ng-model="query.surname">
+		</fieldset>
+		<fieldset class="form-group">
+			<label>ID number</label> <input type="text" class="form-control" placeholder="ID nr" ng-model="query.idNumber">
+		</fieldset>
+		<fieldset class="form-group">
+			<label>Passport number</label> <input type="text" class="form-control" placeholder="Passport nr"
+				ng-model="query.passportNumber">
+		</fieldset>
+		<fieldset class="form-group">
+			<label>Registration number</label> <input type="text" class="form-control" placeholder="Registration nr"
+				ng-model="query.registrationNo">
+		</fieldset>
+		<fieldset class="form-group">
+			<label>Trade name</label> <input type="text" class="form-control" placeholder="Trade name" ng-model="query.tradeName">
+		</fieldset>
+
+	</div>
+	
+	<div class="col-sm-12" >
+		<div class="pull-right">
+			<button type="button" class="btn btn-default" ng-model="reset" ng-click="resetForm()">Clear</button>
+			<button type="button" class="btn btn-primary" ng-click="search()">Search</button>
+		</div>
+	</div>
+
+	<div ng-include="'/app/components/customer/customerSearchResult.html'" ng-show="searchResult"></div>
+
+</div>

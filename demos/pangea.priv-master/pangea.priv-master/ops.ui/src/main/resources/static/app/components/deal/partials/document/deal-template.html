@@ -1,0 +1,36 @@
+
+<div>
+
+    <div class="case-content-box">
+
+        <div ng-show="contractIsAttached">
+            <div class="application_box">
+
+                <h3>Not Standard Wording</h3>
+                <div class="form-group">
+                    <label class="control-label col-xs-5">Document already linked</label>
+                </div>
+            </div>
+        </div>
+
+        <!--NST-->
+        <div ng-show="upload_docs && !contractIsAttached">
+            <div ng-include="'/app/components/deal/partials/document/deal-document-non-standard-wording.html'"></div>
+        </div>
+        <!--//NST-->
+
+        <!--DealDocumentTemplate-->
+        <div ng-show="contract_search && !contractIsAttached">
+            <div ng-include="'/app/components/deal/partials/document/deal-document-template.html'"></div>
+        </div>
+        <!--//DealDocumentTemplate-->
+
+
+
+        <div class="mb40">
+            <button type="submit" class="btn btn-sm btn-success mt20" ng-click="nextDocumentTab()">NEXT <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+        </div>
+
+    </div>
+
+</div>

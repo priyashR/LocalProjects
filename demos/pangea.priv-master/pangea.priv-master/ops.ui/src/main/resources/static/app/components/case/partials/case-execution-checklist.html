@@ -1,0 +1,42 @@
+<!-- case content box -->
+<div class="case-content-box" data-ng-init="initChecks()">
+	<div class="application_box no-border">
+
+		<h4>Deal Review</h4>
+
+	<div ng-repeat="(key,precheckitems) in preChecks" class="application_box">
+		<div class="form-group"><strong>{{key}}</strong></div>
+		<div ng-repeat="pre in precheckitems" class="form-group no-padding-i ">
+			<label class="control-label col-xs-5">{{pre.description}}</label>
+			<div class="col-xs-7 no-margin" ng-class="validateSinglePreCheck(pre) ? 'alert alert-success no-padding' : 'alert alert-danger no-padding'">
+				<label class="vertical-padded" ng-repeat="option in pre.options | orderBy:'-code'"> 
+					<input type="radio" ng-disabled="getDisabled(pre)"
+ 					ng-model="pre.selectedvalue" name="{{pre.code}}" value="{{option.code}}"> {{option.description}}
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+		<div class="application_box warning">
+			<div class="form-group">
+				<label class="control-label col-xs-5">MARK AS UNSUCCESFUL?</label>	
+				<div class="col-xs-7 no-margin">
+					<label class="vertical-padded "><input type="radio" name="optionRelease" ng-model="release.valid" ng-value="false"/> YES</label>
+					<label class="vertical-padded "><input type="radio" name="optionRelease" ng-model="release.valid" ng-value="true"/> NO</label>
+				</div>
+			</div>
+		</div>
+
+	
+			<div class='form-group'>
+				<div class="col-xs-12">
+					<button type="submit" class="btn btn-success" ng-disabled="isPrecheckOk()" ng-click="complete()">PROCEED <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+				</div>
+			</div>
+			
+	</div>
+</div>
+
+<!-- //case content box -->
+

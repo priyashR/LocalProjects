@@ -1,0 +1,73 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <h3>Message Type</h3>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Code:</label>
+            <div class="col-xs-9">
+                    <input type="text" class="form-control input-sm" ng-model="data.activeMessageType.code" readonly />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Description:</label>
+            <div class="col-xs-9">
+                    <input type="text" class="form-control input-sm" ng-model="data.activeMessageType.description" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product</label>
+            <div class="col-xs-9">
+                <select class="form-control input-sm"
+                        ng-model="data.activeMessageType.productId"
+                        ng-options="product.id as product.description for product in products"
+                        required>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Section Types</label>
+
+            <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+                <thead>
+                <tr>
+                    <th>Section Type</th>
+                    <th>N-ST FreeText</th>
+                    <th>
+                        <div class="col-xs-12 pull-right">
+                            <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="addMessageSection()" title="Add">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="messageSection in data.activeMessageType.messageSectionDTOList">
+
+                    <td>{{arrayFilter(allSectionTypes,{code:messageSection.sectionType},'description')}}</td>
+                    <td><input type="checkbox" ng-model="messageSection.freeText" ng-disabled="true"/></td>
+                    <td>
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="editMessageSection(messageSection)" title="Edit">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveMessageType()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditMessageType()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

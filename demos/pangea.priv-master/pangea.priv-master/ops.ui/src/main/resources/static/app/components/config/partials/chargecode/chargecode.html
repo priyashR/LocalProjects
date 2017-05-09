@@ -1,0 +1,53 @@
+<div class="container-fluid">
+
+     <div class="form">
+     	
+     	<div class="form-group row">
+        <h3>ChargeCode</h3>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label col-xs-2">Code:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control input-sm" ng-model="data.activeChargeCode.code" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label col-xs-2">Short Description:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control input-sm" ng-model="data.activeChargeCode.shortDescription" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-control-label col-xs-2">Long Description:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control input-sm" ng-model="data.activeChargeCode.longDescription" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-control-label col-xs-2">Long Description:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control input-sm" ng-model="data.activeChargeCode.longDescription" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product Group:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeCode.productGroupId" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allProductGroups">
+                </select>
+			</div>
+        </div>   
+               
+         <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveChargeCode()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditChargeCode()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

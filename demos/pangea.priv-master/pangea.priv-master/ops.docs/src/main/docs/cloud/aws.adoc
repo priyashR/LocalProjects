@@ -1,0 +1,45 @@
+
+AWS Setup Documentation
+=======================
+
+[role='lead']
+Steps to setup and configure AWS for Pangea
+
+== Important Stuff ==
+.	All AWS related keys and config information is contained in the pangea.env project under source control
+.	Familiarize yourself with the concept of images (docker or AMI), load balancers and AWS technologies like EC2, S3, RDS 		and Elastic Beanstalk
+.	To connect to an EC2 instance you will need to run ssh with the pangea.pem file contained in the aforementioned project
+	ex. ssh -i ~/pangea.pem  ec2-user@ec2-54-229-146-56.eu-west-1.compute.amazonaws.com
+
+== Automated builds ==
+.	Makes use of the link:http://docs.aws.amazon.com/codepipeline/latest/userguide/getting-started.html[AWS CodePipeline] 
+product 
+.	The pipeline checks out code and pushes it to Jenkins i.s.o. Jenkins doing to checkout. This has the benefit of re-using the same build setup for all branches
+.	There is an AWS CodePipeline agent running on the Jenkins EC2 instance so there is no need to setup credentials to access anything in AWS
+
+== Regression ==
+.	All regression tests are run on jenkins
+.	The database setup is stored in an S3 bucket. If an update is required, just export the schema and data with pg_dump (files named schema.dump and data.dump), zip it up and upload it to s3://pangea-test-suite/pg_dump.zip
+.	Same goes with the Auto_Test jars s3://pangea-test-suite/Auto_Test.zip
+.	The Pangea-Regression project executes the regression tests
+
+== Applications ==
+.	There's an Elastic Beanstalk environment for each branch of the application (dev, test, sandbox and int)
+.	Each environment consists of the ui, services and workflow components where services and workflow have an RDS database attached.
+.	The database is securely linked and properties exposed through RDS_HOSTNAME, RDS_USERNAME, etc. refer to the link:http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/java-rds.html#java-rds-javase[Documentation]
+.	All of them are setup with an HA Proxy instance so that the server complexity is hidden from the ui
+.	The HA proxy instance is built from a docker image. Refer to the pangea.env git project for more information. The proxy requires a few environment variables that point to the location of the backend and ui components (API_URL, WORKFLOW_URL, UI_URL)
+.	There is a single Keycloak docker environment that serves all of these environments (source is also contained in pangea.env)
+
+== Environments ==
+.	Everything is deployed to eu-west-1 (Ireland)
+.	link:https://eu-west-1.console.aws.amazon.com/codepipeline/home?region=eu-west-1#/dashboard[The Pipeline]
+.	link:https://console.aws.amazon.com/s3/home?region=eu-west-1[S3]
+.	link:https://eu-west-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-west-1#/applications[Elastic Beanstalk]
+.	link:http://ec2-54-229-146-56.eu-west-1.compute.amazonaws.com/job/Pangea-Regression/[Jenkins]
+.	link:https://eu-west-1.console.aws.amazon.com/rds/home?region=eu-west-1[RDS]
+
+== Troubleshooting ==
+.	Jenkins doesn't trigger a build although the pipeline is waiting on a Jenkins step - Check the AWS Polling log for that build. It is usually a credential issue to make sure all credentials are left blank on the project config page
+.	The pipeline is stuck - Wait until the job times out
+.	The wrong app is deployed to elastic beanstalk (ex. ui to workflow). Check the console output in jenkins to determine the component deployed to which output artifact.

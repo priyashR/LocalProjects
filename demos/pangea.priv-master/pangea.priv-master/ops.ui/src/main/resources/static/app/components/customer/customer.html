@@ -1,0 +1,465 @@
+<!doctype html>
+<html>
+<head>
+<title>Customer on boarding</title>
+<link href="../../../assets/css/bootstrap.css" rel="stylesheet">
+
+<style type="text/css">
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+.tabsdemoDynamicHeight md-content {
+	background-color: transparent !important;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs {
+	background: #f6f6f6;
+	border: 1px solid #e1e1e1;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+	background: white;
+}
+
+.tabsdemoDynamicHeight md-content h1:first-child {
+	margin-top: 0;
+}
+</style>
+<script src="../../../assets/js/angular.js"></script>
+<script src="../../../assets/js/angular-resource.js"></script>
+<script src="../../../assets/js/angular-sanitize.js"></script>
+<script src="../../../assets/js/ui-bootstrap-1.1.0.js"
+	type="text/javascript"></script>
+<script src="../../config.js"></script>
+<script src="../../shared/services.js"></script>
+<script src="../../shared/controllers.js"></script>
+
+<script src="../../app.js"></script>
+
+
+</head>
+<body ng-app="pangea">
+	<div class="container-fluid">
+		<h1>Customer on boarding</h1>
+		<div ng-cloak class="ng-cloak">
+			<form role="something-form">
+				<div class="form-group">
+					<label for="customerType">Customer Type: </label> <select
+						id="customerType"
+						ng-options="customer.description for customer in allCustomerTypes"
+						ng-model="selectedCustomerType" class="form-control">
+						<option value="">-- choose type --</option>
+					</select>
+					
+					<label for="barclaysCustomer">Barclays Customer : </label>
+					<label>
+    				<input type="radio" ng-model="customer.barclaysCustomer" value="true">
+    				Yes
+  					</label>
+  					<label>
+    					<input type="radio" ng-model="customer.barclaysCustomer" value="false" ng-value="specialValue">
+    					No
+  					</label><br/>
+					<div
+						ng-if="selectedCustomerType.description == 'Private Individual'"
+						ng-cloak class="ng-cloak">
+
+						<ul class="nav nav-tabs">
+
+							<li><a href="#"
+								onclick="addressTab.hidden=true;addressTab.class='';customerMainTab.hidden=false;customerMainTab.class='active';contactTab.hidden=true;contactTab.class='';">Customer
+									Details</a>
+								<div id="customerMainTab" class="container-fluid" >
+
+									<label>Name: </label> 
+										<input type="text" id="customerName" ng-model="customer.name" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Surname: </label> <input type="text"
+										id="customerSurnameName" ng-model="customer.surname"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>ID Type: </label> <select
+										id="idType"
+										ng-options="idType.description for idType in allIdentificationTypes"
+										ng-model="customer.idType" class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose type --</option>
+									</select> <label>Passport Number: </label> <input type="text"
+										id="passportNumber"
+										ng-model="customer.passportNumber"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Passport Country:
+									</label> <select id="passportCountry"
+										ng-options="passportCountry.description for passportCountry in allCountries"
+										ng-model="customer.passportCountry"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose country --</option>
+									</select> <label>Temp Permit Number: </label> <input type="text"
+										id="tempResPermitNumber"
+										ng-model="customer.tempResPermitNumber"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Date Of Birth: </label> <input
+										type="text" id="dateOfBirth"
+										ng-model="customer.dateOfBirth" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Gender: </label> <select id="gender"
+										ng-options="gender.description for gender in allGenderTypes"
+										ng-model="customer.gender" class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose type --</option>
+									</select> <label>Country Of Residence: </label> <select
+										id="countryOfResidence"
+										ng-options="countryOfResidence.description for countryOfResidence in allCountries"
+										ng-model="customer.countryOfResidence"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose country --</option>
+									</select> <label>Country Of Nationality: </label> <select
+										id="countryOfNationality"
+										ng-options="countryOfNationality.description for countryOfNationality in allCountries"
+										ng-model="customer.countryOfNationality"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose country --</option>
+									</select> <label>Preferred Communication Language: </label> <select
+										id="preferredCommunicationLanguage"
+										ng-options="preferredCommunicationLanguage.description for preferredCommunicationLanguage in allCountries"
+										ng-model="customer.preferredCommunicationLanguage"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose country --</option>
+									</select> <label>Institutional Sector: </label> <select
+										id="institutionalSector"
+										ng-options="institutionalSector.description for institutionalSector in allSectorTypes"
+										ng-model="customer.institutionalSector"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose sector --</option>
+									</select> <label>Industrial Classification: </label> <select
+										id="industrialClassification"
+										ng-options="industrialClassification.description for industrialClassification in allIndustryTypes"
+										ng-model="customer.industrialClassification"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose classification --</option>
+									</select>
+
+								</div></li>
+
+							<li><a href="#"
+								onclick="addressTab.hidden=false;addressTab.class='active';customerMainTab.hidden=true;customerMainTab.class='';contactTab.hidden=true;contactTab.class='';">Address</a>
+								<div id="addressTab" hidden="true" ng-cloak class="ng-cloak">
+									
+									<h4>Physical Address</h4>
+									<label>Address Line 1: </label> <input type="text"
+										id="addressLine1" ng-model="customer.address[0].addressLine1"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Address Line 2: </label>
+									<input type="text" id="addressLine2"
+										ng-model="customer.address[0].addressLine2" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Suburb: </label> <input type="text" id="suburb"
+										ng-model="customer.address[0].suburb" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>City: </label> <input type="text" id="city"
+										ng-model="customer.address[0].city" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Province: </label> 
+										<select
+										id="state"
+										ng-options="state.description for state in allProvinces"
+										ng-model="customer.address[0].state"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose province --</option>
+									</select>
+								
+									<h4>Postal Address</h4>
+									<label>Address Line 1: </label> <input type="text"
+										id="addressLine1" ng-model="customer.address[1].addressLine1"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Address Line 2: </label>
+									<input type="text" id="addressLine2"
+										ng-model="customer.address[1].addressLine2" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Suburb: </label> <input type="text" id="suburb"
+										ng-model="customer.address[1].suburb" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>City: </label> <input type="text" id="city"
+										ng-model="customer.address[1].city" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Province: </label> 
+										<select
+										id="state"
+										ng-options="state.description for state in allProvinces"
+										ng-model="customer.address[1].state"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose province --</option>
+									</select>
+									
+								</div></li>
+							<li><a class="active" href="#"
+								onclick="addressTab.hidden=true;addressTab.class='';customerMainTab.hidden=true;customerMainTab.class='';contactTab.hidden=false;contactTab.class='active';">Contacts</a>
+								<div id="contactTab" hidden="true" ng-cloak class="ng-cloak">
+
+									<label>Contact Person</label> <input type="text"
+										id="contactPerson" ng-model="customerContact.contactPerson"
+										class="form-control"  ng-readonly="customer.barclaysCustomer"/> <label>Mobile Number: </label> <input
+										type="text" id="mobileNumber"
+										ng-model="customerContact.mobileNumber" class="form-control" ng-readonly="customer.barclaysCustomer"
+
+									<label>Office Number: </label> <input type="text"
+										id="officeNumber" ng-model="customerContact.officeNumber"
+										class="form-control"> <label>Email: </label> <input
+										type="text" id="email" ng-model="customerContact.email"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Alternative
+										Email: </label> <input type="text" id="alternativeEmail"
+										ng-model="customerContact.alternativeEmail"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+
+
+
+
+								</div></li>
+						</ul>
+
+					</div>
+
+
+					<div ng-if="selectedCustomerType.description == 'Business Entity'"
+						ng-cloak class="ng-cloak">
+									
+						<ul class="nav nav-tabs">
+
+							<li>
+							
+							<a href="#"
+								onclick="businessAddressTab.hidden=true;businessAddressTab.class='';customerMainTab.hidden=false;customerMainTab.class='active';businessContactTab.hidden=true;businessContactTab.class='';">Business
+									Details</a> 
+							
+							<div id="customerMainTab" class="container-fluid">
+							
+							<label>Legal Entity
+							Name: </label> <input type="text" id="legalEntityName"
+							ng-model="customer.legalEntityName" class="form-control" ng-readonly="customer.barclaysCustomer">
+
+						<label>Trade Name: </label> <input type="text" id="tradeName"
+							ng-model="customer.tradeName" class="form-control" ng-readonly="customer.barclaysCustomer">
+						<label>Country Of Residence: </label> <select
+							id="countryOfResidence"
+							ng-options="countryOfResidence.description for countryOfResidence in allCountries"
+							ng-model="customer.countryOfResidence" class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose country --</option>
+						</select> <label>Preferred Communication Language: </label> <select
+							id="preferredCommunicationLanguage"
+							ng-options="preferredCommunicationLanguage.description for preferredCommunicationLanguage in allCountries"
+							ng-model="customer.preferredCommunicationLanguage"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose country --</option>
+						</select> <label>Institutional Sector: </label> <select
+							id="institutionalSector"
+							ng-options="institutionalSector.description for institutionalSector in allSectorTypes"
+							ng-model="customer.institutionalSector"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose sector --</option>
+						</select> <label>Industrial Classification: </label> <select
+							id="industrialClassification"
+							ng-options="industrialClassification.description for industrialClassification in allIndustryTypes"
+							ng-model="customer.industrialClassification"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose classification --</option>
+						</select>
+						
+						</div>
+						</li>
+						
+						
+						<li>
+							<a href="#"
+								onclick="businessAddressTab.hidden=false;businessAddressTab.class='active';customerMainTab.hidden=true;customerMainTab.class='';businessContactTab.hidden=true;businessContactTab.class='';">Address
+									</a>
+								<div id="businessAddressTab" ng-cloak class="ng-cloak" hidden=true>
+									<h4>Physical Address</h4>
+									<label>Address Line 1: </label> <input type="text"
+										id="addressLine1" ng-model="customer.address[0].addressLine1"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Address Line 2: </label>
+									<input type="text" id="addressLine2"
+										ng-model="customer.address[0].addressLine2" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Suburb: </label> <input type="text" id="suburb"
+										ng-model="customer.address[0].suburb" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>City: </label> <input type="text" id="city"
+										ng-model="customer.address[0].city" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Province: </label> 
+										<select
+										id="state"
+										ng-options="state.description for state in allProvinces"
+										ng-model="customer.address[0].state"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose province --</option>
+									</select>
+								
+									<h4>Postal Address</h4>
+									<label>Address Line 1: </label> <input type="text"
+										id="addressLine1" ng-model="customer.address[1].addressLine1"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Address Line 2: </label>
+									<input type="text" id="addressLine2"
+										ng-model="customer.address[1].addressLine2" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Suburb: </label> <input type="text" id="suburb"
+										ng-model="customer.address[1].suburb" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>City: </label> <input type="text" id="city"
+										ng-model="customer.address[1].city" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Province: </label> 
+										<select
+										id="state"
+										ng-options="state.description for state in allProvinces"
+										ng-model="customer.address[1].state"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose province --</option>
+									</select>
+								</div>
+						</li>
+						<li>
+						<a href="#"
+								onclick="businessAddressTab.hidden=true;businessAddressTab.class='';customerMainTab.hidden=true;customerMainTab.class='';businessContactTab.hidden=false;businessContactTab.class='active';">Contact
+									</a>
+							<div id="businessContactTab" hidden="true" ng-cloak class="ng-cloak">
+
+									<label>Contact Person</label> <input type="text"
+										id="contactPerson" ng-model="customerContact.contactPerson"
+										class="form-control" /> <label>Mobile Number: </label> <input
+										type="text" id="mobileNumber"
+										ng-model="customerContact.mobileNumber" class="form-control" ng-readonly="customer.barclaysCustomer">
+
+									<label>Office Number: </label> <input type="text"
+										id="officeNumber" ng-model="customerContact.officeNumber"
+										class="form-control"> <label>Email: </label> <input
+										type="text" id="email" ng-model="customerContact.email"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Alternative
+										Email: </label> <input type="text" id="alternativeEmail"
+										ng-model="customerContact.alternativeEmail"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+
+								</div>
+						</li>
+						</ul>
+						
+					</div>
+
+
+					<div 
+						ng-if="selectedCustomerType.description == 'Financial Institution'">
+<ul class="nav nav-tabs">
+
+							<li>
+							
+							<a href="#"
+								onclick="fiAddressTab.hidden=true;fiAddressTab.class='';fiMainTab.hidden=false;fiMainTab.class='active';fiContactTab.hidden=true;fiContactTab.class='';">Financial Institution
+									Details</a> 
+							
+							<div id="fiMainTab" class="container-fluid">
+							
+							<label>Legal Entity
+							Name: </label> <input type="text" id="legalEntityName"
+							ng-model="customer.legalEntityName" class="form-control" ng-readonly="customer.barclaysCustomer">
+
+						<label>Trade Name: </label> <input type="text" id="tradeName"
+							ng-model="customer.tradeName" class="form-control" ng-readonly="customer.barclaysCustomer">
+						<label>Registration Number: </label> <input type="text" id="registrationNumber"
+							ng-model="customer.registrationNumber" class="form-control" ng-readonly="customer.barclaysCustomer">
+						
+						<label>Registration Date: </label> <input type="text" id="registrationDate"
+							ng-model="customer.registrationDate" class="form-control" ng-readonly="customer.barclaysCustomer">
+							
+						<label>Country Of Residence: </label> <select
+							id="countryOfResidence"
+							ng-options="countryOfResidence.description for countryOfResidence in allCountries"
+							ng-model="customer.countryOfResidence" class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose country --</option>
+						</select> <label>Preferred Communication Language: </label> <select
+							id="preferredCommunicationLanguage"
+							ng-options="preferredCommunicationLanguage.description for preferredCommunicationLanguage in allCountries"
+							ng-model="customer.preferredCommunicationLanguage"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose country --</option>
+						</select> <label>Institutional Sector: </label> <select
+							id="institutionalSector"
+							ng-options="institutionalSector.description for institutionalSector in allSectorTypes"
+							ng-model="customer.institutionalSector"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose sector --</option>
+						</select> <label>Industrial Classification: </label> <select
+							id="industrialClassification"
+							ng-options="industrialClassification.description for industrialClassification in allIndustryTypes"
+							ng-model="customer.industrialClassification"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+							<option value="">-- choose classification --</option>
+						</select>
+						
+						</div>
+						</li>
+						
+						
+						<li>
+							<a href="#"
+								onclick="fiAddressTab.hidden=false;fiAddressTab.class='active';fiMainTab.hidden=true;fiMainTab.class='';fiContactTab.hidden=true;fiContactTab.class='';">Address
+									</a>
+								<div id="fiAddressTab" ng-cloak class="ng-cloak" hidden=true>
+									<h4>Physical Address</h4>
+									<label>Address Line 1: </label> <input type="text"
+										id="addressLine1" ng-model="customer.address[0].addressLine1"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Address Line 2: </label>
+									<input type="text" id="addressLine2"
+										ng-model="customer.address[0].addressLine2" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Suburb: </label> <input type="text" id="suburb"
+										ng-model="customer.address[0].suburb" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>City: </label> <input type="text" id="city"
+										ng-model="customer.address[0].city" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Province: </label> 
+										<select
+										id="state"
+										ng-options="state.description for state in allProvinces"
+										ng-model="customer.address[0].state"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose province --</option>
+									</select>
+								
+									<h4>Postal Address</h4>
+									<label>Address Line 1: </label> <input type="text"
+										id="addressLine1" ng-model="customer.address[1].addressLine1"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Address Line 2: </label>
+									<input type="text" id="addressLine2"
+										ng-model="customer.address[1].addressLine2" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Suburb: </label> <input type="text" id="suburb"
+										ng-model="customer.address[1].suburb" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>City: </label> <input type="text" id="city"
+										ng-model="customer.address[1].city" class="form-control" ng-readonly="customer.barclaysCustomer">
+									<label>Province: </label> 
+										<select
+										id="state"
+										ng-options="state.description for state in allProvinces"
+										ng-model="customer.address[1].state"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+										<option value="">-- choose province --</option>
+									</select>
+								</div>
+						</li>
+						<li>
+						<a href="#"
+								onclick="fiAddressTab.hidden=true;fiAddressTab.class='';fiMainTab.hidden=true;fiMainTab.class='';fiContactTab.hidden=false;fiContactTab.class='active';">Contact
+									</a>
+							<div id="fiContactTab" hidden="true" ng-cloak class="ng-cloak">
+
+									<label>Contact Person</label> <input type="text"
+										id="contactPerson" ng-model="customerContact.contactPerson"
+										class="form-control" ng-readonly="customer.barclaysCustomer"/> <label>Mobile Number: </label> <input
+										type="text" id="mobileNumber"
+										ng-model="customerContact.mobileNumber" class="form-control" ng-readonly="customer.barclaysCustomer">
+
+									<label>Office Number: </label> <input type="text"
+										id="officeNumber" ng-model="customerContact.officeNumber"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Email: </label> <input
+										type="text" id="email" ng-model="customerContact.email"
+										class="form-control" ng-readonly="customer.barclaysCustomer"> <label>Alternative
+										Email: </label> <input type="text" id="alternativeEmail"
+										ng-model="customerContact.alternativeEmail"
+										class="form-control" ng-readonly="customer.barclaysCustomer">
+
+								</div>
+						</li>
+						</ul>
+						
+					</div>
+
+				</div>
+				
+				<button class="btn btn-primary">Submit</button>
+			</form>
+			<hr>
+			<tt></tt>
+			<br />
+
+		</div>
+	</div>
+</body>
+</html>
+
+

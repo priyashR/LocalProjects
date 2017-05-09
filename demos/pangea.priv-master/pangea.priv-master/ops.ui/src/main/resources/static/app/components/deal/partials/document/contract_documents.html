@@ -1,0 +1,19 @@
+ <div class="col-xs-12 col-lg-12 container-docs">
+    <div class="row-docs" ><h5 class="pull-left"><strong>Contract Documents</strong></h5></div>        
+        <div class="row-docs" >
+            <div class="col-docs"><strong>Name</strong></div>
+            <div class="col-docs"><strong>Type</strong></div>
+        </div>
+
+         <div class="row-docs" ng-repeat="docs in contract_documents">
+            <div class="col-docs"><a ng-href="{{selectedDocument.link}}" target="_block" ng-click="viewContent(doc)">{{docs.name}}</a></div>
+            <div class="col-docs">{{docs.type}}</div>
+        </div>
+
+         <div class="row-docs pt20" >
+            <div class="col-docs">
+                <span class="pull-left col-xs-4"><strong>Upload Document</strong></span>
+                 <div class="pull-left"><input type="file" value="Upload Document"  ng-model="supporting_doc" /></div>
+            </div>
+        </div>
+</div>

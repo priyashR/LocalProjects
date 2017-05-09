@@ -1,0 +1,40 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box col-xs-12 col-lg-12">
+
+        <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Product Classification</th>
+                    <th>Clause Qty</th>
+                    <th><div class="col-xs-12 pull-right">
+                        <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="addTerm()" title="Add">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="term in data.terms">
+
+                <td>{{term.code}}</td>
+                <td>{{term.description}}</td>
+                <td>{{arrayFilter(allProductClassificationTypes,{id:term.productClassification},'description',true)}}</td>
+                <td>{{term.clauses.length}}</td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="editTerm(term)" title="Edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

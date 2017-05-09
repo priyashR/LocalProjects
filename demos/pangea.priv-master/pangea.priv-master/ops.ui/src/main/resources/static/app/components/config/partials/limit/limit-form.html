@@ -1,0 +1,114 @@
+<div class="container-fluid">
+
+    <div class="form">
+
+        <div class="form-group row">
+            <h3>Credit Limit</h3>
+        </div>
+        
+
+        <input type="hidden" ng-model="data.activeLimit.id">
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Customer name:<span class="note pl10 fontsize f12">*</span></label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.customerId" ng-disabled="data.update" class="form-control input-sm"
+                        ng-options="customer.id as customer.name for customer in customers">
+                </select>
+            </div>
+        </div>
+        
+         <div class="form-group row">
+            <label class="form-control-label col-xs-2">Limit Level: <span class="note pl10 fontsize f12">*</span></label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.limitLevel" class="form-control input-sm"
+                        ng-options="limitLevel.code as limitLevel.description for limitLevel in allLimitLevel">
+                </select>
+            </div>
+        </div>
+         <div class="form-group row">
+            <label class="form-control-label col-xs-2">Trade limit amount:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeLimit.tradeLimitAmount" currency-input/>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.productId" class="form-control input-sm"
+                        ng-options="product.id as product.description for product in allProducts">
+                </select>
+            </div>
+        </div>
+         <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product limit amount:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeLimit.productLimitAmount" currency-input/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Limit period:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.limitPeriodCode" class="form-control input-sm"
+                        ng-options="limitPeriod.code as limitPeriod.description for limitPeriod in allLimitPeriod">
+                </select>
+            </div>
+        </div>
+       <div class="form-group row">
+            <label class="form-control-label col-xs-2">Credit period amount:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeLimit.creditLimitAmount" currency-input/>
+            </div>
+        </div>
+        <!-- 
+         <div class="form-group row">
+            <label class="form-control-label col-xs-2">Available amount:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-disabled="data.update" ng-model="data.activeLimit.availableLimitAmount" currency-input/>
+            </div>
+        </div> -->
+         <div class="form-group row">
+            <label class="form-control-label col-xs-2">Currency:<span class="note pl10 fontsize f12">*</span></label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.currencyCode" class="form-control input-sm"
+                       ng-options="option.code as (option.code + ' - ' + option.description) for option in allCurrencyTypes">
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Start date:<span class="note pl10 fontsize f12">*</span></label>
+            <div class="col-xs-9">
+                <input type="date" class="form-control" ng-model="data.activeLimit.startDate" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">End date:</label>
+            <div class="col-xs-9">
+                <input type="date" class="form-control" ng-model="data.activeLimit.endDate" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Limit owner:<span class="note pl10 fontsize f12">*</span></label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.limitOwnerCode" ng-disabled="data.update" class="form-control input-sm"
+                        ng-options="limitOwner.code as limitOwner.description for limitOwner in allLimitOwner">
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Limit status:<span class="note pl10 fontsize f12">*</span></label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeLimit.limitStatusCode" class="form-control input-sm"
+                        ng-options="limitStatus.code as limitStatus.description for limitStatus in allLimitStatus">
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <button class="btn btn-sm btn-primary" ng-click="saveLimit()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelLimit()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

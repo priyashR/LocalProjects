@@ -1,0 +1,87 @@
+.applicationtitle {
+	color: red;
+}
+.applicationtitle:before {
+	content : "Super-BATS";
+}
+a{
+	color: red;
+}
+.applicationtitle-image {
+	background-image: url("../images/bats_logo3.png");
+	background-repeat: no-repeat;
+	height:30px;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #fff;
+/*   background-color: #a94442; */
+  background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, #AC0D1C); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, #AC0D1C); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, #AC0D1C); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, #AC0D1C); /* Standard syntax */
+}
+.btn-primary {
+    color: #fff;
+    background-color: #a94442;
+    border-color: #8b2e2e;
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, #AC0D1C); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, #AC0D1C); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, #AC0D1C); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, #AC0D1C); /* Standard syntax */
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #a94442;
+  border-color: #4b1818;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #a94442;
+  border-color: #4b1818;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #a94442;
+  border-color: #4b1818;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #fff;
+  background-color: #8b2e2e;
+  border-color: #4b1818;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #8b2e2e;
+  border-color: #4b1818;
+}
+.btn-primary .badge {
+  color: red;
+  background-color: #fff;
+}

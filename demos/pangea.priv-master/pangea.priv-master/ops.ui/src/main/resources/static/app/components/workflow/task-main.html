@@ -1,0 +1,52 @@
+<!-- case content box -->
+<div class="container-fluid form-horizontal">
+	<div class="case-content-box" class="col-xs-12 col-lg-12">
+		<div class="application_box no-border">
+			<h4>Action Task</h4>
+
+			<div class="form-group">
+				<label class="control-label col-xs-5">Name</label>
+				<div class="col-xs-7">{{task.name}}</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-xs-5">Owner</label>
+				<div class="col-xs-7">{{task.assignee}}</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-xs-5">Task Status</label>
+				<div class="col-xs-7">{{task.delegationState}}</div>
+			</div>
+
+			<div class="form-group" ng-repeat="field in form.formProperties">
+				<label class="control-label col-xs-5">{{field.name}}</label>
+				<div class="col-xs-7">{{field.value}}</div>
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-success" ng-click="sendToQuery(task)">Send to Query</button>
+				<button class="btn btn-success" ng-click="startCase(task)">
+					Start Case <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+				</button>
+			</div>
+
+			<h4>Attachments</h4>
+
+			<div class="form-group" ng-repeat="attachment in attachments">
+				<label class="control-label col-xs-5"><a
+					ng-click="viewAttachment(attachment)">{{attachment.name}}</a></label>
+				<div class="col-xs-7">{{attachment.description}}</div>
+			</div>
+
+
+			<h4>Preview</h4>
+
+			<div class="col-xs-12" ng-show="selectedAttachment">
+				<iframe style="width: 100%; height: 500px;"
+					src="{{selectedAttachment.url}}">
+				</iframe>
+			</div>
+		</div>
+	</div>
+</div>

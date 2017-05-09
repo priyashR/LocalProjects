@@ -1,0 +1,63 @@
+{
+	"tarrifCode":"openCharge",
+	"reference":"ZA01010201001",
+	"charges":[
+		{
+			"id":"802011",
+			"description":"Perf Gua Commiss",
+			"amount": 250.00,
+			"currency": "ZAR",
+			"when":"N",
+			"debitType":"CST",
+			"debitCurrency.code": "USD",
+			"creditType": "CST",
+			"creditCurrency.code": "USD",
+			"status": "Active"
+		},		{
+			"id":"890001",
+			"description":"Vat  - Standard",
+			"amount": 35.00,
+			"currency": "ZAR",
+			"when":"N",
+			"debitType":"CST",
+			"debitCurrency": "USD",
+			"creditType": "CST",
+			"creditCurrency.code": "USD",
+			"status": "Active"
+		},		{
+			"id":"999991",
+			"description":"60 D Perf Guarantee",
+			"amount":1000.00,
+			"currency": "ZAR",
+			"when":"N",
+			"debitType":"CST",
+			"debitCurrency.code": "USD",
+			"creditType": "CST",
+			"creditCurrency.code": "USD",
+			"status": "Active"
+		},		{
+			"id":"9000021",
+			"description":"(+) Guarantee",
+			"amount": 1000.00,
+			"currency": "ZAR",
+			"when":"N",
+			"debitType":"CST",
+			"debitCurrency.code": "USD",
+			"creditType": "CST",
+			"creditCurrency": "USD",
+			"status": "Active"
+		},		{
+			"id":"999992",
+			"description":"90 D Perf Guarantee",
+			"amount": 1000.00,
+			"currency": "ZAR",
+			"when":"N",
+			"debitType":"CST",
+			"debitCurrency.code": "USD",
+			"creditType": "CST",
+			"creditCurrency.code": "USD",
+			"status": "Active"
+		}
+		
+	]
+}

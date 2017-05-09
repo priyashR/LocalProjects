@@ -1,0 +1,42 @@
+<div ng-init="initCustomerSelect()" >
+
+    <div class="modal-header">
+        <h3 class="modal-title">Select Customer</h3>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid form-horizontal">
+
+            <div class="case-content-box col-xs-12 col-lg-12">
+                <table class="table table-bordered table-striped table-hover customer-search" width="100%" >
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+		                    <th>Surname</th>
+		                    <th>Country</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="customer in data.customers" ng-class="{highlight: isSelected(customer)}" ng-click="selectRow(customer)">
+                            <td>{{customer.name}}</td>
+			                <td>{{customer.surname}}</td>
+			                <td>{{arrayFilter(allCountries,{code:customer.countryOfResidence},'description')}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <style>
+                    .table-striped tr.highlight td{
+                        background-color: #204d74;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="okModal()">Select</button>
+        <button class="btn btn-default" type="button" ng-click="cancelModal()">Cancel</button>
+    </div>
+
+</div>

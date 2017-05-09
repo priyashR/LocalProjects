@@ -1,0 +1,47 @@
+<div class="container-fluid">
+
+	<h3>Matching Customer(s):</h3>
+	<div class="col-xs-12" ng-repeat="customer in customers">
+		<hr>
+		<div class="col-xs-4">
+			<strong>CIF Key</strong>
+		</div>
+		<div class="col-xs-8">{{customer.cifkey}}&nbsp;</div>
+
+		<div class="col-xs-4">
+			<strong>Customer Name</strong>
+		</div>
+		<div class="col-xs-8">{{customer.name}}&nbsp;</div>
+
+		<div class="col-xs-4">
+			<strong>ID number</strong>
+		</div>
+		<div class="col-xs-8">{{customer.idNumber}}&nbsp;</div>
+
+		<div class="col-xs-4">
+			<strong>Passport number</strong>
+		</div>
+		<div class="col-xs-8">{{customer.passportNumber}}&nbsp;</div>
+
+		<div class="col-xs-4">
+			<strong>Registration number</strong>
+		</div>
+		<div class="col-xs-8">{{customer.registrationNumber}}&nbsp;</div>
+
+		<div class="col-xs-4">
+			<strong>Tradename</strong>
+		</div>
+		<div class="col-xs-8">{{customer.tradeName}}&nbsp;</div>
+
+		<div class="col-xs-4">
+			<strong>KYC</strong>
+		</div>
+		<div class="col-xs-8">{{customer.kycStatus}}&nbsp;</div>
+		<div class="col-xs-12">
+			<div class="pull-right">
+				<button type="button" class="btn btn-primary" ng-click="select(customer)">Retrieve Customer Data</button>
+			</div>
+		</div>
+	</div>
+
+</div>

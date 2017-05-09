@@ -1,0 +1,47 @@
+
+<div class="application_box bg-grey">
+	<div class="form-group">
+		<strong>{{uploadType.description}} Documents</strong>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-5">Document Description</label>
+		<div class="col-xs-7">
+			<input type="text" class="form-control input-sm"
+				ng-model="f.description" name="applicationType">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-5">Filename</label>
+		<div class="col-xs-7 no-margin">
+			<div class="input-group">
+				<input type="text" ng-model="f.name" name="fileName" disabled="true">
+				<span class="input-group-btn">
+					<button type="file" class="btn btn-sm btn-default"
+						ngf-select="uploadFile($file, $invalidFiles)"
+						ngf-max-height="1000" ngf-max-size="10MB">
+						<i class="glyphicon glyphicon-upload"></i>
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-xs-12">
+			<div class="progress" ng-show="f.progress >= 0">
+				<div class="progress-bar progress-bar-success progress-bar-striped"
+					role="progressbar" aria-valuenow="40" aria-valuemin="0"
+					aria-valuemax="100" style="width: {{f.progress}}%">{{f.progress}} %</div>
+			</div>
+		</div>
+	</div>
+	<!-- br>
+						<br> File:
+						<div style="font: smaller">
+							{{f.name}} {{errFile.name}} {{errFile.$error}}
+							{{errFile.$errorParam}} <span class="progress"
+								ng-show="f.progress >= 0">
+								<div style="width: {{f.progress" ng-bind="f.progress + '%'"></div>
+							</span>
+						</div>
+						{{errorMsg}} -->
+</div>

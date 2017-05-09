@@ -1,0 +1,11 @@
+<a ng-show="tab.subMenu" ng-attr-href="{{tab.route ? tab.route :undefined}}" class="dropdown-toggle" data-toggle="dropdown">
+	{{tab.heading}}&nbsp
+	<b class="caret"></b>
+</a>
+<ul ng-show="tab.subMenu" class="dropdown-menu">
+	<li ng-include="'menu-recursive.html'" ng-class="{active: isActiveTab(tab.name),disabled: tab.disabled(),hidden:tab.hidden(),'vertical-divided':tab.hasDivider(),'dropdown':tab.subMenu}" ng-repeat="tab in tab.subMenu">
+</ul>
+<a ng-show="!tab.subMenu" href="{{tab.route}}">
+	{{tab.heading}}&nbsp 
+	<span ng-show="tab.notify" class="label label-danger">{{tab.notify()}}</span>
+</a>

@@ -1,0 +1,19 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <!--breadcrumbs-->
+        <ul class="breadcrumbs">
+            <li ng-repeat="tab in tabs" ng-class="selectTabClass(tab)">
+                <a ng-click="selectCrumb(tab)">
+                    <span aria-hidden="true"></span>
+                    {{tab.heading}}
+                </a>
+            </li>
+        </ul>
+        <!--//breadcrumbs-->
+
+        <div ng-include src="getCrumbContent()"></div>
+    </div>
+
+</div>

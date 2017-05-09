@@ -1,0 +1,21 @@
+<div ng-controller="PartyCtrl" class="container-fluid typeahead-result form-horizontal">
+
+		<div class="case-content-box" class="col-xs-12 col-lg-12">
+			
+			<!--breadcrumbs-->
+			<ul class="breadcrumbs">
+				<li ng-repeat="tab in partySteps"
+					ng-class="selectTabClass(tab)">
+					<a ng-click="selectPartyContent(tab)">
+						<span aria-hidden="true"></span>
+						 {{tab.heading}}
+					</a>
+				</li>
+			</ul>
+			<!--//breadcrumbs-->
+
+			<div ng-include src="getPartyContent()"></div>
+
+		</div>
+
+</div>

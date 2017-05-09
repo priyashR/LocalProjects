@@ -1,0 +1,49 @@
+<nav class="navbar no-mobile">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div>
+			<div class="col-xs-12 col-sm-4 no-wrap-parent">
+				<div class="applicationtitle col-xs-12">
+					<a href="#"><span class="applicationtitle-image verticlecenter-25"></span></a>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-8 no-wrap-parent">
+				<ul class="nav navbar-nav navbar-right">
+					<a class="navbar-brand no-mobile" href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+					
+					<li ng-show="isLoggedIn()"><a ng-click="">{{userprofile.firstName + ' ' + userprofile.lastName}}</a></li>
+					
+					<li ng-hide="isBasicLoggedIn()">
+						<input class="input-xs-nopadding navbar-text no-hor-margin" ng-model="post.username" placeholder="Username">
+						<input class="input-xs-nopadding navbar-text no-hor-margin" ng-model="post.password" placeholder="Password" type="password">
+					</li>
+					
+					<li ng-hide="isLoggedIn()">
+						<a ng-click="login()">Login</a>
+					</li>
+ 					
+ 					<li ng-show="isLoggedIn()">
+ 						<a ng-click="logout()" >Logout</a>
+ 					</li>
+					
+					<li ng-show="false"><a href="#">Notifications <span class="label label-primary">1</span></a></li>
+					
+					<li ng-show="isLoggedIn()" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">Config <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+
+							<li ng-include="'menu-recursive.html'" ng-class="{active: isActiveTab(tab.name),'vertical-divided':tab.hasDivider(),'dropdown':tab.subMenu}" ng-disabled="tab.disabled()" ng-hidden="tab.hidden()" ng-repeat="tab in adminMenuTabs">
+						</ul>
+					</li>
+
+					
+					<!-- <div ng-show="isLoggedIn()" ng-include="'theme-switcher.html'" include-replace></div>  -->
+				</ul>
+			</div>
+			<!--/.container-->
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav>

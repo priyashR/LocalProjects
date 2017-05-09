@@ -1,0 +1,73 @@
+					<div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <table width="100%" border="1" class="charges-table table table-bordered table-striped">
+                                <tbody>
+                                <tr>
+                                    <th>Charge code</th>
+                                    <th>Charge Descr</th>
+                                    <th>Debit party</th>
+                                    <th>Credit party</th>
+                                    <th>Charge Currency</th>
+                                    <th>Charge Amount</th>
+                                    <th>When</th>
+                                    <th></th>
+                                    
+                                </tr>
+                                <tr ng-repeat="charge in deal.dealCharge"  ng-include="getChargeTableTemplate(charge)" >
+								</tr>
+    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class='col-xs-12 p0'>
+								
+		                       <button type="button" class="btn btn-sm btn-info pull-left  mr20"  ng-show="!win2visible" ng-click="openAddChargesModal()">
+		                       		ADD CHARGES
+		                      		 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+		                       </button>
+			                  
+								<button type="submit" class="btn btn-sm btn-success  pull-left" ng-click="selectChargesContent($root.deals.charge.tabs[1])">
+									NEXT
+									<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+								</button>
+							
+						</div>
+                        
+                                  
+             	</div>
+             	
+             
+    					
+				<script type="text/ng-template" id="add-charge">
+				<td>
+					<div class="col-sm-12 no-padding">												
+						<select id="charge.chargeCode" ng-options="chargeStructure  as (chargeStructure.chargeCode + '   - (' + chargeStructure.description + ')') for chargeStructure  in allChargeStructures  "  ng-change="selectedChargeStructure(selectedChargeStructureObj)" ng-model="selectedChargeStructureObj" class="form-control input-xs-nopadding">
+							<option value="">-- choose --</option>
+						</select>
+					</div>
+				</td>
+				<td class="no-wrap-parent">{{charge.description}}</td>
+				<td>{{charge.debitPostingClassification}}</td>
+				<td>{{charge.creditPostingClassification}}</td>
+				<td>{{charge.debitCreditCurrencyTypeCode}}</td>
+				<td>{{ charge.amount | number:2 || '0.00' }}</td>
+				<td>
+					<selected>
+						<div class="col-xs-11">												
+	
+							<select id="chargesWhen" ng-options="chargewhen for chargewhen in allChargesWhen" ng-model="charge.chargesWhen" class="form-control input-xs-nopadding">
+								<option value="">-- choose --</option>
+							</select>
+						</div>
+
+
+				</td>						
+				<td style="white-space: nowrap">
+					
+			        <div class="buttons">
+					          	<a class="btn btn-xs btn-primary" ng-click="saveDealCharge([charge],false)" type="button">Save</a>
+    					<a class="btn btn-xs btn-primary" ng-click="resetEditCharge(charge)">Cancel</a>
+			        </div>  
+			    </td>
+				</script>

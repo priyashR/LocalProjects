@@ -1,0 +1,39 @@
+<form name="dealFinancialsForm">
+	<div class="application_box">
+		<div class="form-group"><strong>Financial Information</strong> <span class="note pull-right">Please note all fields with an asterisk(*) are mandatory</span></div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Amount: <span class="note pl10 fontsize f12">*</span></label>
+			<div class="col-xs-7 input-group">
+				<span class="input-group-addon">{{deal.principalCurrencyCode}}</span>
+			    <input type="text" class="form-control input-sm text-align-right" ng-model="deal.principalAmount" currency-input required>
+				
+				 <!--<input type="text" class="form-control input-sm fin-number" ng-model="deal.principalAmount" required>-->
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Currency Type: <span class="note pl10 fontsize f12">*</span></label>
+			<div class="col-xs-7 input-group">
+				<select ng-model="deal.principalCurrencyCode" class="form-control input-sm"
+					ng-options="option.code as (option.code + ' - ' + option.description) for option in allCurrencyTypes"
+					required></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Balance:</label> 
+			<div class="col-xs-7 input-group">
+			    <span class="input-group-addon">{{deal.principalCurrencyCode}}</span>
+				<input type="text" class="form-control input-sm" ng-model="deal.balance" >
+			</div>
+		</div>
+	</div>
+	<div class='form-group'>
+		<div class="col-xs-12">
+			<button type="submit" class="btn btn-sm btn-success" 
+			ng-disabled=!dealFinancialsForm.$valid 
+			ng-click="navigate()">
+			PROCEED <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+		</div>
+	</div>
+	
+</form>
+

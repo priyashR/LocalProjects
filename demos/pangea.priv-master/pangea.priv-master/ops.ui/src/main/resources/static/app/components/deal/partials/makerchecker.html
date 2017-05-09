@@ -1,0 +1,181 @@
+<div class="case-content-box col-xs-12" >
+    <h3>Checker Review</h3>
+
+    <div class="panel-group review-accordion" role="tablist" aria-multiselectable="true">
+   		 <!--product info-->
+		    <uib-accordion close-others="true">
+		    	<uib-accordion-group 
+		    	
+		    	ng-repeat="item in items" class="{{getItemPanelClass(item)}}" panel-class=""
+				is-open="item.status.open"  ng-click="groupClick($event,item)">
+		    	<uib-accordion-heading >
+			    	<span class="pull-left">{{item.name}}</span>
+					<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': item.status.open, 'glyphicon-chevron-right': !item.status.open}"></i>
+				</uib-accordion-heading>
+
+		    	<div class="panel-body application_box" ng-click="groupClick($event,item)">
+						 <!--if section is Product Information or financial info-->
+						<div class="form-group" 
+							ng-if="item.name != 'Parties' 
+							&& item.name != 'Recovery Schedule'
+							&& item.name.indexOf('Documents') < 0
+							"
+							ng-repeat="subitem in item.subitems">
+
+							<span {{subitem.name}} 
+							ng-if="
+								subitem.name != 'Amount' &&
+								subitem.name != 'Expiry Date' &&
+								subitem.name != 'Address'
+							">
+								<label class="control-label col-xs-3">{{subitem.name}}:</label>
+								<div class="col-xs-4">{{subitem.desc}}</div>	
+
+								<div class="col-xs-5 pull-right font12 itemcheck">
+									<span ng-show="!subitem.query"><input type="checkbox" ng-model="subitem.approved" ng-show="!subitem.query"/> Approve</span>
+									<button class="btn btn-small btn-warning ml10" type="submit" ng-show="!(subitem.approved || subitem.query)" ng-click="subitem.query = true">Query</button>
+									<textarea class='col-xs-7 mr10' ng-show="subitem.query" ng-model="subitem.queryval"></textarea>
+									<input type='button' value='CANCEL' class='btn btn-small btn-default mr10' ng-show="subitem.query" ng-click="subitem.query = false; subitem.queryval = ''"/>
+									<input type='button' value='SAVE' class='btn btn-small btn-warning' ng-show="subitem.query" ng-click="subitem.query = false"/>
+								</div>		
+							</span>
+							
+							<span ng-if="subitem.name == 'Amount'">
+								<label class="control-label col-xs-3">{{subitem.name}}:</label>
+								<div class="col-xs-4" >
+									<span id="finance_amount">
+										<input type="text"  id="finance_amount_input" ng-model="verifyAmount"/>
+										<input type="submit" ng-click="verifyFinanceAmount(verifyAmount)"  class="btn btn-small btn-warning" />
+									</span>
+									
+								</div>	
+
+								<div class="col-xs-5 pull-right font12 itemcheck">
+									<input type="checkbox" 
+									 ng-disabled="!subitem.approved" ng-model="subitem.approved" /> Approve
+
+								</div>		
+							</span>
+
+							<span ng-if="subitem.name == 'Expiry Date'">
+								<label class="control-label col-xs-3">{{subitem.name}}:</label>
+								<div class="col-xs-4" >
+									<span id="expiry_date">
+									
+										 <input type="text" 
+										 id="expirydate_val" 
+										 class="col-xs-8 mr10" 
+										 uib-datepicker-popup="{{dateFormat}}"
+										 ng-model="expiryDate.value" 
+										 is-open="popup1.opened" 
+										 datepicker-options="dateOptions" 
+										 ng-required="true" 
+										 close-text="Close" 
+										 ng-click="open1()"
+										 alt-input-formats="altInputFormats" 
+										 />
+								         
+										<input type="submit" ng-click="verifyExpiryDate(expiryDate.value)"  class="btn btn-small btn-warning" />
+									</span>
+								</div>	
+
+								<div class="col-xs-5 pull-right font12 itemcheck">
+									<input type="checkbox"  ng-disabled="!subitem.approved" ng-model="subitem.approved"/> Approve
+								</div>		
+							</span>
+
+																		
+						</div>
+
+						 <!--if section is settlement charges-->
+						<div ng-if="item.name == 'Settlement Instructions' ">
+								 <div ng-include="item.uri"></div>
+						</div>
+						<!--//if section is settlement charges-->	
+
+
+						<!--if section is parties-->
+						<div ng-if="item.name == 'Parties' ">
+							
+								<div class="form-group-column col-xs-12 col-lg-5"
+									ng-repeat="subitem in item.subitems" ng-if="subitem.subitemsvalues.length > 0">
+									
+										<div class="col-xs-12 form-group itemcheck">
+											<span ng-show="!subitem.query"><input type="checkbox" ng-model="subitem.approved" ng-show="!subitem.query" /> Approve</span>
+											<button class="btn btn-small btn-warning ml10" type="submit" ng-show="!(subitem.approved || subitem.query)" ng-click="subitem.query = true">Query</button>
+											<textarea class='col-xs-7 mr10' ng-show="subitem.query" ng-model="subitem.queryval"></textarea>
+											<input type='button' value='CANCEL' cancel-query class='btn btn-small btn-default mr10' ng-show="subitem.query" ng-click="subitem.query = false; subitem.queryval = ''" />
+											<input type='button' value='SAVE' save-item class='btn btn-small btn-warning' ng-show="subitem.query" ng-click="subitem.query = false" />
+										</div>
+										 
+										 <h4 >{{subitem.subitemname}}</h4>
+										
+										<div class="form-group col-xs-12" 
+											ng-repeat="subvalues in subitem.subitemsvalues">
+												<label class="control-label col-xs-5" ng-if="!subvalues.values">{{subvalues.name}}<span ng-show="subvalues.name != ''">:</span><span ng-show="subvalues.name == ''">&nbsp;</span></label>
+												<div class="col-xs-7" ng-if="!subvalues.values">{{subvalues.value}}</div>
+										</div>
+										
+									
+								</div>
+						</div>
+						<!--//if section is parties-->	
+
+
+						<!--if section is Applicable Charges-->
+						<div ng-if="item.name == 'Applicable Charges'">
+							<div class="col-xs-12 col-lg-12 form-group itemcheck">
+								<span ng-show="!item.query"><input type="checkbox" ng-model="item.approved" /> Approve</span>
+								<button class="btn btn-small btn-warning ml10" type="submit" ng-show="!(item.approved || item.query)" ng-click="subitem.query = true">Query</button>
+								<textarea class='col-xs-7 mr10' ng-show="item.query" ng-model="item.queryval"></textarea>
+								<input type='button' value='CANCEL' class='btn btn-small btn-default mr10' ng-show="item.query" ng-click="subitem.query = false; subitem.queryval = ''" />
+								<input type='button' value='SAVE' class='btn btn-small btn-warning' ng-show="item.query" ng-click="subitem.query = false"/>
+							</div>
+							<div>
+								<strong> {{item.name}} </strong>
+								<div ng-include="item.maker_uri"></div>	
+							</div>	
+						</div>
+						<!--//if section is Applicable Charges-->	
+
+
+						<!--if section is recovery schedule-->
+						<div ng-if="item.name == 'Recovery Schedule'">
+							
+							<div class="col-xs-12 col-lg-12 form-group itemcheck">
+								<span ng-show="!item.query"><input type="checkbox" ng-model="item.approved" /> Approve</span>
+								<button class="btn btn-small btn-warning ml10" type="submit" ng-show="!(item.approved || item.query)" ng-click="subitem.query = true">Query</button>
+								<textarea class='col-xs-7 mr10' ng-show="item.query" ng-model="item.queryval"></textarea>
+								<input type='button' value='CANCEL' class='btn btn-small btn-default mr10' ng-show="item.query" ng-click="subitem.query = false; subitem.queryval = ''" />
+								<input type='button' value='SAVE' class='btn btn-small btn-warning' ng-show="item.query" ng-click="subitem.query = false"/>
+							</div>	
+							<div ng-repeat="tab in item.subitems">
+								
+								<strong>{{tab.heading}}</strong>
+								<div ng-include="tab.uri"></div>
+							</div>
+						</div>
+						<!--//if section is recovery schedule-->
+
+						<!--if section is documents-->
+						<div ng-if="item.name.indexOf('Documents')>=0">
+							<div class="customer-search">							           
+					            <div class="col-xs-12 col-lg-12 container-docs" >
+					                <div ng-include="item.maker_uri"></div>
+					            </div>
+					        </div>
+						</div>
+						<!--//if section is documents-->							
+			    </div>
+		    	</uib-accordion-group>
+		    </uib-accordion>
+
+			<div class='form-group'>
+				<div class="col-xs-12">
+					<button type="submit" class="btn btn-success" ng-click="submitDealReview()">PROCEED <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+				</div>
+			</div>
+	</div>
+</div>
+
+

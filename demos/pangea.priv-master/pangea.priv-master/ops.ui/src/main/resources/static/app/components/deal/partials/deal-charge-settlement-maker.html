@@ -1,0 +1,76 @@
+
+<td>{{settlement.chargeCode}}</td>
+<td class="no-wrap-parent">{{settlement.description}}</td>
+<td> 
+	<select id="debitPostingClassification"
+			ng-model="settlement.debitSettlementPosting" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+			<option ng-repeat="option in settlementPartyCodes" value="{{option}}">{{option}}</option>
+		</select>
+</td>
+<td>
+<div ng-show="!isCreditPartyIBA(settlement)">
+<select id="creditPostingClassification"
+			ng-model="settlement.creditSettlementPosting" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+			<option ng-repeat="option in settlementPartyCodes" value="{{option}}">{{option}}</option>
+		</select>
+</div>
+<div ng-show="isCreditPartyIBA(settlement)">{{settlement.creditPostingClassification}}	</div>	
+</td>
+
+<td>
+   	<select id="debitCurrencyCode"
+			ng-options="currency.code as currency.code for currency in allSettlementCurrencyTypes"
+			ng-model="settlement.debitCurrency" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+		</select>
+</td>
+<td>{{ settlement.amount | number:2  }}</td>
+<td>
+<div ng-show="!isCreditPartyIBA(settlement)">
+		<select id="creditCurrencyCode"
+			ng-options="currency.code as currency.code for currency in allSettlementCurrencyTypes"
+			ng-model="settlement.creditCurrency" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+		</select>
+</div>
+<div ng-show="isCreditPartyIBA(settlement)">
+{{ settlement.creditCurrencyCode  ||  settlement.debitCreditCurrencyTypeCode}} </div>
+</td>
+
+<td>{{ settlement.amount | number:2 }}</td>
+
+<td>
+	<select id="debitRateCodeCode" ng-options="ratecode.code as ratecode.description for ratecode in allRateCodes"
+	ng-model="settlement.debitRateCodeCode" class="form-control input-xs-nopadding">
+		<option value="">-- choose --</option>
+</select>
+</td>
+<td>
+	<div ng-show="debitRateIsEditable(settlement)">
+		<input type="text" class="form-control input-xs-nopadding"
+			ng-model="settlement.debitCoverNumber">
+	</div>
+	<div ng-show="!debitRateIsEditable(settlement)">
+		{{settlement.debitRate}}</div>
+</td>
+<td>
+<div ng-show="!isCreditPartyIBA(settlement)">
+<select id="creditRateCodeCode"
+	ng-options="ratecode.code as ratecode.description for ratecode in allRateCodes"
+	ng-model="settlement.creditRateCodeCode" class="form-control input-xs-nopadding">
+		<option value="">-- choose --</option>
+</select>
+</div>
+<div ng-show="isCreditPartyIBA(settlement)">
+{{settlement.creditRateCodeCode}}
+</td>
+<td>
+
+<div ng-show="!isCreditPartyIBA(settlement)">
+		<input type="text" class="form-control input-xs-nopadding" 	ng-model="settlement.creditRate">
+</div>
+<div ng-show="isCreditPartyIBA(settlement)">	{{settlement.creditRate}}</div>
+</td>
+

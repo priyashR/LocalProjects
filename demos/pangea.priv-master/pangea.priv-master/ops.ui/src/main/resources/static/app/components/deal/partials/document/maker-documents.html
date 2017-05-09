@@ -1,0 +1,21 @@
+
+<div class="row-docs" >
+    <div class="col-docs col-lg-4"><strong>Name</strong></div>
+    <div class="col-docs col-lg-3"><strong>Type</strong></div>
+    <div class="col-docs col-lg-5"></div>
+</div>
+
+<div class="row-docs" ng-repeat="doc in item.subitems">
+    <div class="col-docs col-lg-4"><a ng-href="{{selectedDocument.link}}" target="_block" ng-click="viewContent(doc)">{{doc.name}}</a></div>
+    <div class="col-docs col-lg-3">{{doc.type}}</div>
+    <div class="col-docs col-lg-5">
+    	<div class="col-xs-12 col-lg-12 pull-left form-group itemcheck">
+			<span ng-show="!item.query"><input type="checkbox" ng-model="doc.approved" /> Approve</span>
+			<button class="btn btn-small btn-warning ml10" type="submit" ng-show="!(doc.approved || doc.query)" ng-click="doc.query = true">Query</button>
+			<textarea class='col-xs-7 mr10' ng-show="item.query" ng-model="doc.queryval"></textarea>
+			<input type='button' value='CANCEL' class='btn btn-small btn-default mr10' ng-show="doc.query" ng-click="doc.query = false; doc.queryval = ''" />
+			<input type='button' value='SAVE' class='btn btn-small btn-warning' ng-show="doc.query" ng-click="doc.query = false"/>
+		</div>	
+    </div>
+</div>
+

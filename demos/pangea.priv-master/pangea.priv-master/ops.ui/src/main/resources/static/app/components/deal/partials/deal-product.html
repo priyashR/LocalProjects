@@ -1,0 +1,194 @@
+<!--product info-->
+<div class="application_box">
+	<div class="form-group"><strong>Product Detail</strong></div>
+
+	<div class="form-group">
+		<label class="control-label col-xs-5">Product:</label>
+
+		<div class="col-xs-7"  ng-show="!edit_product">
+			<div class="default-product">{{arrayFilter(allProducts,{id:deal.productCode},'description')}}</div>
+		</div>
+		
+		<div class="col-xs-7" ng-show="edit_product">
+			<select ng-model="deal.productCode" class="form-control input-sm"
+				ng-options="option.id as option.description for option in allProducts"></select>
+		</div>
+
+	</div>
+
+
+	<div class="form-group">
+		<label class="control-label col-xs-5">Product Type:</label>
+
+		<div class="col-xs-7"  ng-show="!edit_product_type">
+			<div class="default-product">{{arrayFilter(allProductTypes,{id:deal.productTypeCode},'description')}}</div>
+			 <button type="button" class="btn btn-xs btn-primary" ng-click="edit_product_type=!edit_product_type" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+		</div>
+
+		<div class="col-xs-7" ng-show="edit_product_type">
+			<select ng-model="deal.productTypeCode" class="form-control input-sm" ng-change="productTypeSelected(deal.productTypeCode)"
+				ng-options="option.id as option.description for option in allProductTypes | productTypebyProductCode:deal.productCode"></select>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label class="control-label col-xs-5">Product Classification:</label>
+		
+		<div class="col-xs-7" ng-show="!edit_product_class">
+			<div class="default-product">{{arrayFilter(allProductClassificationTypes,{id:deal.productClassificationTypeCode},'description')}}</div>
+			<button type="button" class="btn btn-xs btn-primary" ng-click="edit_product_class=!edit_product_class" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+		</div>
+		
+		<div class="col-xs-7" ng-show="edit_product_class">
+			<select ng-model="deal.productClassificationTypeCode" class="form-control input-sm"
+				ng-options="option.id as option.description for option in allProductClassificationTypes | productClassbyProductType:{'productTypes':allProductTypes,'productTypeCode':deal.productTypeCode}" disabled></select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-xs-5">Goods Description:</label>
+		<div class="col-xs-7">
+			<input type="text" class="form-control input-sm" ng-model="deal.goodsDescription"  disabled/>
+		</div>
+	</div>
+
+</div>
+
+
+<form name="dealProductForm">
+	<!--misc info-->
+	<div class="application_box">
+		<div class="form-group"><strong>Miscellaneous Information</strong> <span class="note pull-right" ng-show="case.instance.deliveryTypeCode=='SWIFT'">Please note all fields with an asterisk(*) are mandatory</span></div>
+		
+		<div class="form-group" ng-show="case.instance.deliveryTypeCode!='SWIFT'">
+			<label class="control-label col-xs-5">Further Identification:</label>
+			<div class="col-xs-7">
+				<select class="form-control input-sm"
+						ng-options="option for option in allFurtherIdentification"
+						ng-model="deal.furtherIdentificationType" ng-disabled=""></select>
+			</div>
+		</div>
+		<div class="form-group" ng-show="case.instance.deliveryTypeCode=='SWIFT'">
+			<label class="control-label col-xs-5">Further Identification: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select class="form-control input-sm"
+						ng-options="option for option in allFurtherIdentification"
+						ng-model="deal.furtherIdentificationType" ng-disabled="" ng-required="case.instance.deliveryTypeCode=='SWIFT'"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-show="case.instance.deliveryTypeCode!='SWIFT'">
+			<label class="control-label col-xs-5">Applicable Rules:</label>
+			<div class="col-xs-7">
+				<select class="form-control input-sm"
+					ng-options="option.code as option.description for option in allGuaranteeRules"
+					ng-model="deal.applicableRulesTypeCode">
+				</select>
+			</div>
+		</div>
+		<div class="form-group" ng-show="case.instance.deliveryTypeCode=='SWIFT'">
+			<label class="control-label col-xs-5">Applicable Rules: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select class="form-control input-sm"
+					ng-options="option.code as option.description for option in allGuaranteeRules"
+					ng-model="deal.applicableRulesTypeCode"
+					ng-required="case.instance.deliveryTypeCode=='SWIFT'">
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Narrative:</label>
+
+			<div class="col-xs-7">
+				<input class="form-control input-sm" type="text"
+					ng-model="deal.applicableRulesNarrative" disabled>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Other Bank's Reference Number:</label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control input-sm" ng-model="deal.otherBankReference" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Customer's Reference:</label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control input-sm" ng-model="deal.customerReference" >
+			</div>
+		</div>
+		<div class="form-group" ng-show="deal.productCode == '111' || deal.productCode == '112'">
+			<label class="control-label col-xs-5">Advance Payment Clause: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select id="advancePayment" class="form-control input-sm"
+						ng-model="deal.advancePayment"
+						ng-options="option as option for option in allYesNos"
+						>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-xs-5">Applicable Sub Applicant: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<select id="applicableSubApplicant" class="form-control input-sm"
+						ng-model="deal.applicableSubApplicant"
+						ng-options="option as option for option in applicableSubApplicants"
+						required>
+				</select>
+			</div>
+		</div>
+	</div>
+	<!--//misc info-->
+
+	<div class="application_box">
+		<div class="form-group"><strong>Counter Guarantee Information</strong></div>
+
+
+		<div class="form-group">
+			<label class="control-label col-xs-5">Counter Guarantee: <span class="note pl10">*</span></label>
+			<div class="col-xs-7">
+				<label  ng-repeat="option in allYesNos">
+					<input type="radio" name="pageSet" ng-model="deal.counterGuarantee" ng-value="option" />{{option}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+
+		<div ng-show="counterGuaranteeShow">
+			<div class="form-group">
+				<label class="control-label col-xs-5">Counter Guarantee Amount: <span class="note pl10">*</span></label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm text-align-right" ng-model="deal.counterGuaranteeAmount" currency-input ng-required="counterGuaranteeShow">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-5">Counter Guarantee Expiry Date: <span class="note pl10">*</span></label>
+				<div class="col-xs-7">
+					<div class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="deal.counterGuaranteeExpiryDate"
+							   is-open="status2.opened" /> <span class="input-group-btn" ng-required="counterGuaranteeShow">
+						<button type="button" class="btn btn-default" ng-click="open2($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-5">Counter Guarantee Reference: <span class="note pl10">*</span></label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm" ng-model="deal.counterGuaranteeReference" ng-required="counterGuaranteeShow">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-sm  btn-success" ng-disabled=!dealProductForm.$valid ng-click="navigate()">
+				NEXT
+				<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+</form>	
+<!--//misc info-->
+

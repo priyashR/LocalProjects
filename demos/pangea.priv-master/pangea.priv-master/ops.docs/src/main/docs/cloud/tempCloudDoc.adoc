@@ -1,0 +1,6 @@
+
+Cloud Documentation can go here
+================================
+
+[role='lead']
+i.e. Documenting of the steps to setup AWS for Pangea.

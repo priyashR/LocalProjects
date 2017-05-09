@@ -1,0 +1,25 @@
+
+ 	<td>{{charge.chargeCode}}</td>
+	<td class="no-wrap-parent">{{charge.description}}</td>
+	<td>{{charge.debitPostingClassification}}</td>
+	<td>{{charge.creditPostingClassification}}</td>
+	<td>{{charge.debitCreditCurrencyTypeCode}}</td>
+	<td>{{ charge.amount | number:2 || '0.00' }}</td>
+	<td>
+		<selected>
+			<div class="col-xs-11">												
+
+				<select id="chargesWhen" ng-options="chargewhen for chargewhen in allChargesWhen" ng-model="charge.chargesWhen" class="form-control input-xs-nopadding">
+					<option value="">-- choose --</option>
+				</select>
+			</div>
+
+
+	</td>						
+	<td style="white-space: nowrap">
+   					
+        <div class="buttons">
+          	<a class="btn btn-xs btn-danger font-size f11" ng-click="saveDealCharge([charge],false)" type="button">SAVE</a>
+       					<a class="btn btn-xs btn-default font11" ng-click="resetEditCharge(charge)">CANCEL</a>
+        </div>  
+    </td>

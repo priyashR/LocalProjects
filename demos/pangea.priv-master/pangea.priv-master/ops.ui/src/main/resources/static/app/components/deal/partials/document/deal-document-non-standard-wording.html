@@ -1,0 +1,57 @@
+<div class="application_box">
+
+	<h3>Not Standard Wording</h3>
+
+	<div class="form-group">
+		<label class="control-label col-xs-5">Select process</label>
+		<div class="col-xs-7 no-margin">
+			<label class="vertical-padded" ng-repeat="option in allNSTOptions" ng-disabled="dealNonStandardTemplates">
+				<input type="radio" ng-disabled="!isConfigurable()" name="standardTemplateCode" ng-model="deal.nonStandardTemplateProcess" ng-value="option.code">{{option.description}}
+			</label>
+		</div>
+	</div>
+
+
+</div>
+
+<!--upload docs-->
+<div ng-show="getShowBuilder()">
+	<div ng-include="'/app/components/deal/partials/document/deal-document-builder.html'"></div>
+</div>
+<!--//upload docs-->
+
+
+<!--upload docs-->
+<div ng-show="getShowUploads()">
+	<div ng-include="'/app/components/deal/partials/document/deal-document-upload.html'"></div>
+</div>
+<!--//upload docs-->
+
+<!-- deal NS templates -->
+<div class="case-content-box" class="col-xs-12 col-lg-12" ng-show="dealNonStandardTemplates">
+	<h4>Deal Non Standard Wording</h4>
+	<table class="col-xs-12 col-lg-12">
+		<tbody>
+		<tr>
+			<th>Template Name.</th>
+			<th>Message Type</th>
+			<th>Delivery Method</th>
+			<th>Status</th>
+			<th>Version</th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="doc in dealNonStandardTemplates">
+			<td>{{doc.name}}</td>
+			<td>{{doc.messageType}}</td>
+			<td>{{doc.deliveryMethod}}</td>
+			<td>{{doc.status}}</td>
+			<td>{{doc.version}}</td>
+
+			<td>
+				<button class="mr20 btn btn-small btn-success" ng-click="viewPreviewST(doc)">Preview</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<!-- //deal NS templates -->

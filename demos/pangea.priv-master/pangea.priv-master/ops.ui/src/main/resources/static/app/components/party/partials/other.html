@@ -1,0 +1,85 @@
+<div class="case-content-box" >
+	<h3>Other Parties</h3>			
+	
+    <!--party info-->
+  	<div class="application_box bordernone">
+      	<div class="form-group">
+        <div class="float-left col-lg-3 col-sm-4 row font-size f14"><strong>Other Parties</strong></div>
+        <div class="float-left col-xs-12 col-lg-8 col-sm-8 searchbox">
+           	<div class="col-lg-11 col-sm-10">
+                <div class="input-group">
+                   <input type="text" class="form-control" placeholder="Search for Other Parties" 
+                   	ng-model="searchparty"
+	                uib-typeahead="result.legalEntityName for result in otherSearchResults($viewValue)"
+	                typeahead-on-select="addSelectOtherParty( $item, 'OTHER' )"
+	                uib-tooltip="Search for Other Parties"
+	                tooltip-placement="top-left">
+                  	<span class="input-group-btn">
+                    	<button class="btn btn-default" type="button" 
+                       ng-click="addSearchParty( getselectedparty, $event )">ADD</button>
+                  	</span>
+                </div>
+           	</div>
+           	<div class="float-right col-lg-1 col-sm-2">
+              	<button type="button" class="icon add float-left tooltip-button" 
+              		ng-click="addOtherParty( 'OTHER' )" data-placement="top" title="Add Other"></button>
+           </div>
+            <!-- /input-group -->
+          </div><!-- /.col-lg-6 -->         
+        </div>
+  	</div>
+    <!--party info-->
+
+    <div class="application_box ng-scope parties" ng-show="viewAddParty">
+    	<div class="form-group"><strong>Add Other Parties</strong></div>
+		  <div ng-include="getNewTemplate"></div> 	
+    </div>
+  	  
+   <!-- view party -->
+  	<span ng-show="viewParty">
+  	    <div ng-repeat="party in otherParties" class="activeparties" ng-if="otherParties.length > 0">
+  	    	<div class="accordionbox__trigger" >		  	    		
+	    			<h4 class="col-lg-9 trigger">{{party.name}} &nbsp {{party.surname}} {{party.tradeName}} {{party.legalEntityName}}</h4>
+	    			<div class="accordionbox__trigger--actions col-lg-3">
+                  
+                  		<button type="button"  class="icon view float-left tooltip-button" 
+                  		party-action 
+                  		party-type="view"
+                  		deal-party= {{party}}
+                  		data-placement="top" title="View {{party.name}} &nbsp {{party.surname}} {{party.tradeName}} {{party.legalEntityName}}"></button>
+                  
+
+                  	<span ng-show="editDealParty">
+                  		<button type="button"  class="icon edit float-left tooltip-button" 
+                  		party-action 
+                  		party-type="edit"
+                  		deal-party= {{party}}
+                  		data-placement="top" title="Edit{{party.name}} &nbsp {{party.surname}} {{party.tradeName}} {{party.legalEntityName}}"></button>
+                  		
+                  	</span>
+
+                  	<span ng-show="editDealParty">
+                  		<button type="button" class="icon delete float-left tooltip-button" ng-click="openConfirmModal()" data-placement="top" title="Delete {{party.name}} &nbsp {{party.surname}} {{party.tradeName}} {{party.legalEntityName}}"></button>
+                  	</span>
+	  	   		</div>
+  	    	</div>
+  	    	<div class="accordionbox__toggle toggle">
+  	    		<div class="application_box bordernone hook">
+  	    			<div ng-include="getTemplate( party, 'view')"></div>
+  	    		</div>
+  	    	</div>
+  	    </div>
+  	</span>
+  	<!--//view party-->
+
+
+  	<div class="form-group" ng-show="nextbtn">
+		<div class="col-xs-12 pt20">
+			<button type="button" class="btn btn-sm  btn-success" 
+			ng-click="nextToSanctions( 2 )">
+				NEXT
+				<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+</div>

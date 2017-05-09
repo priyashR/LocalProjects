@@ -1,0 +1,226 @@
+ <!-- Beneficiary , Advising, Other -->
+ <div ng-show ="step.partyTypeCode =='OTHER'">
+
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Name & Surname:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.name}}  {{step.surname}} 
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} TradeName:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.tradeName}} 
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Legal Entity Name:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.legalEntityName}} 
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Contact
+			Person:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.contact.contactPerson}} 
+		</span>
+	</div>
+		<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Contact
+			Email:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.contact.email}} 
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Contact
+			Telephone:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.contact.officeNumber}} 
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Contact
+			Mobile:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.contact.mobileNumber}} 
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Contact
+			Fax:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.contact.faxNumber}} 
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Preferred
+			Contact Method</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.contact.preferredCommunicationType}} 
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Address Type:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.addressType}} 
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Street Address line 1 :</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.addressLine1}}
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Street Address line 2:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.addressLine2}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Suburb:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.suburb}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} City:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.city}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Country:</span>
+		<span class="col-xs-6 col-md-6">
+			{{arrayFilter(allCountries,{code:step.address.country},'description')}}
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Country of Origin:</span>
+		<span class="col-xs-6 col-md-6">
+			{{arrayFilter(allCountries,{code:step.originCountryCode},'description')}}
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Economic
+		Sector Type:</span>
+		<span class="col-xs-6 col-md-6">
+			{{arrayFilter(allSectorTypes,{id:step.economicSectorId},'description')}}
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Industry
+		Classification:</span>
+		<span class="col-xs-6 col-md-6">
+			{{arrayFilter(allIndustryTypes,{id:step.industryTypeId},'description')}}
+		</span>
+	</div>
+	
+	
+</div>	
+
+<!-- Issuing Bank Details -->  
+ <div ng-show ="isIssuingparty(step)">
+	
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">{{step.descispantion}} Name</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.name}}
+		</span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">Swift Address</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.swiftKey}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Country:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.country}}
+		</span>
+	</div>
+</div>
+
+
+<!-- Issuing Bank Details -->  
+ <div ng-show ="isAdvisingparty(step.party)">
+	
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">{{step.descispantion}}Trade Name:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.name}} 
+		</span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">{{step.descispantion}}Legal Entity Name:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.legalEntityName}} 
+		</span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">Swift Address:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.swiftKey}}
+		</span>
+	</div>
+	<div class="form-group ">
+		<span class="col-xs-6 col-md-6 spanull-left">KYC Indicator:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.kycStatus}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Address Type:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.addressType}} 
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Street Address line 1 :</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.addressLine1}}
+		</span>
+	</div>
+	
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Street Address line 2:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.addressLine2}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Suburb:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.suburb}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} City:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.city}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Country:</span>
+		<span class="col-xs-6 col-md-6">
+			{{step.address.country}}
+		</span>
+	</div>
+	<div class="form-group">
+		<span class="col-xs-6 col-md-6 pull-left">{{step.desciption}} Sanction Status:</span>
+		<span class="col-xs-6 col-md-6">
+			{{arrayFilter(allSanctionStatuses,{code:step.sanctionStatusCode},'description')}}
+		</span>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<!-- case content box -->
+<div class="application_box no-border">
+
+	<h4>Application Checks <span class="note pull-right">Please note all fields with an asterisk(*) are mandatory</span></h4>
+
+	<div ng-repeat="(key,precheckitems) in preChecks" class="application_box">
+		<div class="form-group"><strong>{{key}}</strong></div>
+		<div ng-repeat="pre in precheckitems" class="form-group ">
+			<label class="control-label col-xs-5">{{pre.description}} <span class="note pl10">*</span></label>
+			<div class="col-xs-7 no-margin no-padding" ng-class="{'alert alert-success':validateSinglePreCheck(pre)==1,'alert alert-warning':validateSinglePreCheck(pre)==2,'alert alert-danger':validateSinglePreCheck(pre)==0}">
+				<label class="vertical-padded" ng-repeat="option in pre.options | orderBy:'-code'"> 
+					<input type="radio" ng-disabled="getDisabled(pre)" ng-change="isPrecheckOk();saveCase()"
+ 					ng-model="pre.selectedvalue" name="{{pre.code}}" value="{{option.code}}"> {{option.description}}
+				</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="application_box warning" ng-show="isPrecheckOk()">
+		<div class="form-group">
+			<label class="control-label col-xs-5">Mark as Unsuccessful?</label>	
+			<div class="col-xs-7 no-margin">
+				<label class="vertical-padded "><input type="radio" name="optionUnsuccessful" ng-model="deal.valid" ng-value="false"/> YES</label>
+				<label class="vertical-padded "><input type="radio" name="optionUnsuccessful" ng-model="deal.valid" ng-value="true"/> NO</label>
+			</div>
+		</div>
+	</div>
+
+	<button class="btn btn-sm btn-success" disabled="disabled" ng-disabled="isPrecheckOk()" ng-click="saveAndProgressToDeal();">
+		PROCEED <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+	</button>
+
+</div>
+<!-- //case content box -->
+

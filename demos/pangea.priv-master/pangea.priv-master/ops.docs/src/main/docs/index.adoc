@@ -1,0 +1,28 @@
+= image:resources/images/pangea.png[Pangea, 150, 150] Shared Documentation
+Hannes vd Merwe
+:author: Hannes vd Merwe <freakentwig@gmail.com>
+:title: Pangea Shared Documentation
+:toc: right
+
+[intro]
+.Introduction
+Let the Asciidoc'ing start!!
+Remember, that you can simply *_view ascii docs from the github repository_* on the web AND there is a *_ascii doc plugin for chrome_* which works great!
+
+NOTE: Thank you for contributing to the Pangea Shared Documentation
+
+== Cloud docs
+Cloud documentation can go link:cloud/tempCloudDoc.adoc[here...]
+
+== Security docs
+Security documentation can go link:security/tempSecurityDoc.adoc[here...]
+
+== UI docs
+User Interface documentation can link:ui/tempUIDoc.adoc[here...]
+
+== Useful links
+- Ascii Docs homepage --> http://asciidoc.org/
+- Quick Reference --> http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/
+- Eclipse plugin --> https://marketplace.eclipse.org/content/asciidoc-tools#group-details
+- Idea plugin --> https://plugins.jetbrains.com/idea/plugin/7391-asciidoc
+- You are welcome to make use of the AsciiDocs User Manual http://www.methods.co.nz/asciidoc/userguide.html[here...]

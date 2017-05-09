@@ -1,0 +1,196 @@
+	<div class="container-fluid" >
+		<div>
+			<legend>Charges</legend>
+			<div class="form-group">
+				
+				<tr>
+					<div class="buttons">
+						<a class="btn btn-primary" ng-click="addCharge()" >Add Charge</a>
+					</div>
+				</tr>
+			</div>
+			
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-condensed">
+					<thead>
+						<tr>
+							<td>ID</td>
+							<td>Description</td>
+							<td>Amount</td>
+							<td>Currency</td>
+							<td>When</td>
+							<td>DR</td>
+							<td>DR Currency</td>
+							<td>CR</td>
+							<td>CR Currency</td>
+							<td>Status</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="charge in deal.dealCharge"  ng-include="getChargeTableTemplate(charge)" >
+						</tr>
+					</tbody>
+	  			</table>
+			
+				<script type="text/ng-template" id="display-charge">
+        		<td>{{charge.chargeCode}}</td>
+						<td>{{charge.description}}</td>
+						<td>
+          						{{ charge.amount || '0.00' }}
+      					</td>
+						<td>{{charge.debitCreditCurrencyTypeCode}}</td>
+						<td>{{charge.chargesWhen}}</td>
+						<td>
+								{{charge.debitPostingClassification}}
+							
+						</td>
+						<td>
+								{{charge.debitCurrencyCode}}
+						</td>
+						<td>
+								{{charge.creditPostingClassification}}
+						</td>
+						<td>
+								{{charge.creditCurrencyCode}}
+						</td>
+						<td>{{charge.status}}</td>
+						
+						<td style="white-space: nowrap">
+        					
+					        <div class="buttons">
+					          <a class="btn btn-primary" ng-click="editCharge(charge)" type="button">edit</a>
+					          <!--button class="btn btn-danger" ng-click="removeUser($index)">del</button-->
+					        </div>  
+					    </td>
+    				</script>
+					<script type="text/ng-template" id="edit-charge">
+       					<td>{{charge.chargeCode}}</td>
+						<td>{{charge.description}}</td>
+						<td>
+          					{{ charge.amount || '0.00' }}
+      					</td>
+						<td>{{charge.debitCreditCurrencyTypeCode}}</td>
+						<td>
+							<selected>
+								<div class="col-sm-12">												
+			
+									<select id="chargesWhen" ng-options="chargewhen for chargewhen in allChargesWhen" ng-model="charge.chargesWhen" class="form-control">
+										<option value="">-- choose --</option>
+									</select>
+								</div>
+
+
+						</td>
+						<td>
+
+							<div class="col-sm-12">												
+			
+								<select id="debitPostingClassification" ng-options="drcrType for drcrType in allChargeCrDrType" ng-model="charge.debitPostingClassification" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+
+						</td>
+						<td>
+							<div class="col-sm-12">												
+			
+								<select id="debitCurrencyCode" ng-options="currency.code as currency.code for currency in allCurrencyTypes" ng-model="charge.debitCurrencyCode" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						</td>
+						<td>
+							<div class="col-sm-12">												
+			
+								<select id="creditPostingClassification" ng-options="drcrType for drcrType in allChargeCrDrType" ng-model="charge.creditPostingClassification" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						</td>
+						<td>
+							<div class="col-sm-12">												
+			
+								<select id="creditCurrencyCode" ng-options="currency.code as currency.code for currency in allCurrencyTypes" ng-model="charge.creditCurrencyCode" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						</td>
+						<td>{{charge.status}}</td>
+						
+						<td style="white-space: nowrap">
+        					
+							<div class="buttons">
+								<a class="btn btn-primary" ng-click="saveDealCharge(charge,false)" >save</a>
+            					<a class="btn btn-primary" ng-click="resetEditCharge(charge)">Cancel</a>
+							</div>  
+						</td>
+					</script>	
+					
+					<script type="text/ng-template" id="add-charge">
+       					<td>
+							<div class="col-sm-12">												
+								<select id="chargeStructureId" ng-options="chargeStructure  as (chargeStructure.id + '   (' + chargeStructure.description + ')') for chargeStructure  in allChargeStructures"  ng-change="selectedChargeStructure(selectedChargeStructureObj)" ng-model="selectedChargeStructureObj" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						<td>{{charge.description}}
+						</td>
+						<td>
+          					{{ charge.amount || '0.00' }}
+      					</td>
+						<td>{{charge.debitCreditCurrencyTypeCode}}</td>
+						<td>
+								<div class="col-sm-12">												
+			
+									<select id="chargesWhen" ng-options="chargewhen for chargewhen in allChargesWhen" ng-model="charge.chargesWhen" class="form-control">
+										<option value="">-- choose --</option>
+									</select>
+								</div>
+						</td>
+						<td>
+
+							<div class="col-sm-12">												
+			
+								<select id="debitPostingClassification" ng-options="drcrType for drcrType in allChargeCrDrType" ng-model="charge.debitPostingClassification" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+
+						</td>
+						<td>
+							<div class="col-sm-12">												
+			
+								<select id="debitCurrencyCode" ng-options="currency.code as currency.code for currency in allCurrencyTypes" ng-model="charge.debitCurrencyCode" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						</td>
+						<td>
+							<div class="col-sm-12">												
+			
+								<select id="creditPostingClassification" ng-options="drcrType for drcrType in allChargeCrDrType" ng-model="charge.creditPostingClassification" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						</td>
+						<td>
+							<div class="col-sm-12">												
+			
+								<select id="creditCurrencyCode" ng-options="currency.code as currency.code for currency in allCurrencyTypes" ng-model="charge.creditCurrencyCode" class="form-control">
+									<option value="">-- choose --</option>
+								</select>
+							</div>
+						</td>
+						<td>{{charge.status}}</td>
+						
+						<td style="white-space: nowrap">
+        					
+							<div class="buttons">
+								<a class="btn btn-primary" ng-click="saveDealCharge(charge,false)" >save</a>
+            					<a class="btn btn-primary" ng-click="resetEditCharge(charge)">Cancel</a>
+							</div>  
+						</td>
+					</script>	
+				</div>
+		</div>
+	</div>

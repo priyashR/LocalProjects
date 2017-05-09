@@ -1,0 +1,144 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title></title>
+
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+	<link href="/assets/css/bootstrap.css" rel="stylesheet">
+	<link href="/assets/css/pangea.css" rel="stylesheet">
+	<!--<link href="/assets/css/pangea-less.css" rel="stylesheet">-->
+	<link href="/assets/css/pangea.less" type="text/css" rel="stylesheet/less">
+	<link href="/assets/css/wizard.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/assets/css/goldenlayout-base.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/goldenlayout-light-theme.css" />
+	<link type="text/css" rel="stylesheet" href="/assets/css/bootstrap-treeview.css" />
+
+</head>
+
+<body class="ng-cloak" ng-cloak>
+	<div id="container-fluid" class="pangea">
+
+		<div ng-include="'/header_menu.html'"></div>
+
+		<!-- <div ng-include="'/navigation.html'"></div> -->
+
+		<div data-loading ></div>
+
+		<div ng-class="docking" ng-view class="ng-view-content"></div>
+		<div ng-if="dockCheck"  ng-include="'/docking.html'"></div> 
+		
+		<div ng-include="'/footer.html'"></div>
+		
+	</div>
+	<script src="/assets/js/less.min.js"></script>
+ 	
+ 	<script src="/assets/js/keycloak.js"></script>
+
+	<script src="/assets/js/jquery.js"></script>
+	<script src="/assets/js/goldenlayout.min.js"></script>
+	<script src="/assets/js/jquery.imask.js"></script>
+	<script src="/assets/js/bootstrap.js"></script>
+	<script src="/assets/js/angular.js"></script>
+	<script src="/assets/js/angular-resource.js"></script>
+	<script src="/assets/js/angular-route.js"></script>
+	<script src="/assets/js/angular-sanitize.js"></script>
+	<script src="/assets/js/angular-cookies.js"></script>
+	<script src="/assets/js/angular-animate.js"></script>
+	<script src="/assets/js/angular-messages.js"></script>
+	<script src="/assets/js/angular-local-storage.js"></script>
+	<script src="/assets/js/ui-bootstrap-tpls-1.1.2.js" type="text/javascript"></script>
+	<script src="/assets/js/bootstrap-notify.js"></script>
+	<script src="/assets/js/moment.min.js"></script>
+	<script src="/assets/js/angular-moment.min.js"></script>
+	<script src="/assets/js/bootstrap-treeview.js"></script>
+	
+	<script src="/assets/js/xeditable.js" type="text/javascript"></script>
+	<script src="/assets/js/angular-mocks.js"></script>
+	<script src="/assets/js/ng-file-upload-all.min.js"></script>
+	
+	<script src="/assets/js/angular-deferred-bootstrap.js"></script>
+
+	<script src="/assets/js/stringutils.js"></script>
+
+	<script src="/assets/js/theme-switcher.js"></script>
+	
+	<script src="/app/shared/auth.js"></script>
+
+	<script src="/app/config.js"></script>
+	<script src="/app/app.js"></script>
+	
+	<script src="/app/shared/services.js"></script>
+	<script src="/app/shared/controllers.js"></script>
+
+	<script src="/app/components/deal/services.js"></script>
+	<script src="/app/components/deal/controllers.js"></script>
+
+	<script src="/app/components/customer/models.js"></script>
+	<script src="/app/components/customer/controllers.js"></script>
+	<script src="/app/components/customer/services.js"></script>
+
+	<script src="/app/components/charges/controllers.js"></script>
+	<script src="/app/components/charges/services.js"></script>
+
+	<script src="/app/components/recovery/services.js"></script>
+	<script src="/app/components/recovery/controllers.js"></script>
+
+	<script src="/app/components/party/services.js"></script>
+	<script src="/app/components/party/controllers.js"></script>
+	
+	<script src="/app/components/case/services.js"></script>
+	<script src="/app/components/case/controllers.js"></script>
+	
+	<script src="/app/components/product/services.js"></script>
+
+	<script src="/app/components/deal/document.controller.js"></script>
+	<script src="/app/components/deal/document.services.js"></script>
+	
+	<script src="/app/components/deal/deal_review.controller.js"></script>
+	<script src="/app/components/deal/deal.checks.controller.js"></script>
+	<script src="/app/components/deal/deal.final.controller.js"></script>
+	<script src="/app/components/deal/deal.review.services.js"></script>
+	
+	<script src="/app/components/workflow/services.js"></script>
+	<script src="/app/components/workflow/controllers.js"></script>
+
+	<script src="/app/components/template/services.js"></script>
+	<script src="/app/components/template/controllers.js"></script>
+
+
+	<script src="/app/components/config/clausemaster.service.js"></script>
+	<script src="/app/components/config/clausemaster.controller.js"></script>
+
+	<script src="/app/components/config/customer.service.js"></script>
+ 	<script src="/app/components/config/customer.controller.js"></script>
+	
+	<script src="/app/components/config/chargecode.service.js"></script>
+ 	<script src="/app/components/config/chargecode.controller.js"></script>
+	
+	<script src="/app/components/config/chargestructure.service.js"></script>
+ 	<script src="/app/components/config/chargestructure.controller.js"></script>
+ 	
+ 	<script src="/app/components/config/defaultcharge.service.js"></script>
+ 	<script src="/app/components/config/defaultcharge.controller.js"></script>
+	
+	<script src="/app/components/config/templateplaceholder.service.js"></script>
+	<script src="/app/components/config/templateplaceholder.controller.js"></script>
+
+	<script src="/app/components/config/limit.service.js"></script>
+	<script src="/app/components/config/limit.controller.js"></script>
+
+	<script src="/app/components/config/messagetype.service.js"></script>
+	<script src="/app/components/config/messagetype.controller.js"></script>
+
+	<script src="/app/components/deal/deal.charges.controller.js"></script>
+	<script src="/app/components/deal/deal.charges.services.js"></script>
+
+
+</body>
+</html>

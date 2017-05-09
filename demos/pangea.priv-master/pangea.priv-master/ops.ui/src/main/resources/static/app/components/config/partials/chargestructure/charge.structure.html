@@ -1,0 +1,206 @@
+<div class="container-fluid">
+
+    <div class="form">
+
+        <div class="form-group row">
+            <h3>Charge Structure</h3>
+        </div>
+		
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Id:</label>
+             <div class="col-xs-9">
+            {{data.activeChargeStructure.id}}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Product Group:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.productGroupId" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allProductGroups">
+                </select>
+			</div>
+        </div>
+        
+        <div class="form-group row" ng-class="{'has-error': errors.chargeCode }">
+            <label class="form-control-label col-xs-2" >Charge Code:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.chargeCode" class="form-control input-sm"
+                        ng-options="option.code as option.code+':'+option.shortDescription for option in ((allChargeCodes | filter:{'productGroup':data.activeChargeStructure.productGroupId})) ">
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Charge Type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.chargeTypeCode" class="form-control input-sm"
+                        ng-options="chargeType.code as chargeType.description for chargeType in allChargeTypes">
+                </select>
+            </div>
+        </div>
+		
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Currency:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.currencyCode" class="form-control input-sm"
+                        ng-options="currencyType.code as currencyType.description for currencyType in allCurrencyTypes">
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Amount:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeChargeStructure.amount" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Percentage:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeChargeStructure.percentage" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Min:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeChargeStructure.min" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Max:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeChargeStructure.max" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Period:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.periodCode" class="form-control input-sm"
+                        ng-options="period.code as period.description for period in allPeriods">
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Frequency:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" ng-model="data.activeChargeStructure.frequency" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Auto Collect:</label>
+            <div class="col-xs-1">
+                <input type="checkbox" class="form-control input-sm"  ng-model="data.activeChargeStructure.autoCollect" ng-true-value="true" ng-false-value="false"/> 
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Taxable:</label>
+            <div class="col-xs-1">
+            <input type="checkbox" class="form-control input-sm" ng-model="data.activeChargeStructure.taxable" ng-true-value="true" ng-false-value="false"/> 
+            </div>
+        </div>
+        
+		
+        
+
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Base Code:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.baseCodeCode" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allBaseCodes">
+                </select>
+			</div>
+        </div>
+        
+        
+		<div class="form-group row">
+            <label class="form-control-label col-xs-2">Tax Type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.taxId" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allTaxes">
+                </select>
+			</div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Expiry Date:</label>
+            <div class="col-xs-9">
+                <input type="text" class="mr10 pull-left" uib-datepicker-popup="{{dateFormat}}" datepicker-popup ng-model="data.activeChargeStructure.expiryDate"
+					is-open="status.date1" /> 
+				<span class="input-group-btn ">
+					<button type="button" class="btn btn-default" ng-click="status.openDate1($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button>
+				</span>	
+			</div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Effective Date:</label>
+            <div class="col-xs-9">
+                <input type="text" class="mr10 pull-left" uib-datepicker-popup="{{dateFormat}}"  datepicker-popup ng-model="data.activeChargeStructure.effectiveDate"
+					is-open="status.date2" /> 
+				<span class="input-group-btn ">
+					<button type="button" class="btn btn-default" ng-click="status.openDate2($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button>
+				</span>	
+			</div>
+        </div>
+        
+        <div class="form-group row" ng-class="{'has-error': errors.bankId }">
+            <label class="form-control-label col-xs-2">Tennant:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.bankId" class="form-control input-sm"
+                        ng-options="option.id as option.description for option in allBanks" ng-disabled="data.activeChargeStructure.customerId">
+                	<option value="">Select Tennant</option>
+                </select>
+			</div>
+        </div>
+        
+        <div class="form-group row" ng-class="{'has-error': errors.customerId }">
+            <label class="form-control-label col-xs-2">Customer:</label>
+            <div class="col-xs-8">
+                 <input type="text" id="customerId" class="form-control" ng-model="data.activeChargeStructure.customerId" ng-disabled="data.activeChargeStructure.bankId"/>
+            </div>
+            <div class="col-xs-1" ng-hide="placeholder.system">
+	                <button type="button" class="btn btn-sm btn-primary" ng-click="openModalSelect('#customerId')" title="Select" ng-disabled="data.activeChargeStructure.bankId">
+	                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+	                </button>
+		    </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Recovery Type:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.recoveryTypeCode" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allRecoveryTypes">
+                </select>
+			</div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="form-control-label col-xs-2">Status:</label>
+            <div class="col-xs-9">
+                <select ng-model="data.activeChargeStructure.chargeStatusCode" class="form-control input-sm"
+                        ng-options="option.code as option.description for option in allChargeStructureStatuses">
+                </select>
+			</div>
+        </div>
+        
+        
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" ng-click="saveChargeStructure()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditChargeStructure()">Cancel</button>
+        </div>
+
+    </div>
+
+
+</div>

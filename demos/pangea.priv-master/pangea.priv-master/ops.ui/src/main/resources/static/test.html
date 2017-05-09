@@ -1,0 +1,926 @@
+<html xmlns:th="http://www.thymeleaf.org"><head><style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style><style type="text/css">.uib-time input{width:50px;}</style><style type="text/css">.uib-datepicker .uib-title{width:100%;}.uib-day button,.uib-month button,.uib-year button{min-width:100%;}.uib-datepicker-popup.dropdown-menu{display:block;}.uib-button-bar{padding:10px 9px 2px;}</style><style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title></title>
+
+	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+	<link href="assets/css/bootstrap.css" rel="stylesheet">
+	<link href="assets/css/pangea.css" rel="stylesheet">
+	<!--<link href="assets/css/pangea-less.css" rel="stylesheet">-->
+	<link href="assets/css/pangea.less" type="text/css" rel="stylesheet/less">
+  <style type="text/css" id="less:assets-css-pangea">.pangea {
+  height: 100%;
+}
+.layout {
+  height: 80%;
+}
+.mb40 {
+  margin-bottom: 40px !important;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.mr20 {
+  margin-right: 20px;
+}
+.mr15 {
+  margin-right: 15px;
+}
+.ml10 {
+  margin-left: 10px;
+}
+.mt5 {
+  margin-top: 5px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.pt20 {
+  margin-top: 20px;
+}
+.pt5 {
+  margin-top: 5px;
+}
+.pb5 {
+  padding-bottom: 5px;
+}
+.pb6 {
+  padding-bottom: 6px !important;
+}
+.pb7 {
+  padding-bottom: 7px !important;
+}
+.p5 {
+  padding: 5px !important;
+}
+.p0 {
+  padding: 0px !important;
+}
+.pl0 {
+  padding-left: 0px !important;
+}
+.pl10 {
+  padding-left: 10px !important;
+}
+.pbt3 {
+  padding-bottom: 3px !important;
+  padding-top: 3px !important;
+}
+.btn-small {
+  padding: 3px 5px !important;
+  font-size: 11px !important;
+}
+.pr10 {
+  padding-right: 10px;
+}
+.font-size.f11 {
+  font-size: 11px !important;
+}
+.font-size.f10 {
+  font-size: 10px !important;
+}
+.font-size.f12 {
+  font-size: 12px !important;
+}
+.dock {
+  width: 100%;
+  border: 1px solid #d0e9f2;
+  height: 400px;
+  border-radius: 5px;
+  margin-top: 50px;
+}
+.dock__header {
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #d0e9f2;
+}
+.container-docs {
+  height: 150px;
+  overflow: auto;
+  padding: 5px 0px;
+}
+.container-docs .row-docs {
+  width: 95%;
+  margin: 0 auto;
+  border-bottom: 1px dotted #ccc;
+  overflow: hidden;
+  padding: 5px 0;
+}
+.container-docs .row-docs .col-docs {
+  float: left;
+}
+.container-docs .row-docs:last-child {
+  border-bottom: none;
+}
+.case-content-box {
+  padding: 0;
+  margin-bottom: 30px;
+  /* top-left border-radius */
+  /* top-right border-radius */
+  /* bottom-left border-radius */
+  /* bottom-right border-radius */
+}
+.case-content-box:before,
+.case-content-box:after {
+  content: " ";
+  display: table;
+}
+.case-content-box:after {
+  clear: both;
+}
+.case-content-box h4 {
+  margin: 20px 0;
+  font-weight: 500 ;
+}
+.case-content-box h3 {
+  font-size: 20px;
+  margin: 10px 0 20px;
+  font-weight: 600;
+}
+.case-content-box .note {
+  display: inline-block;
+  font-size: 10px;
+  color: #cc0000;
+  font-weight: bold;
+}
+.case-content-box table.parties {
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #ccc;
+  border-style: hidden;
+  border-collapse: collapse;
+}
+.case-content-box table.parties td {
+  padding: 5px;
+}
+.case-content-box table.parties tr:first-child td:first-child {
+  border-top-left-radius: 6px;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.case-content-box table.parties tr:first-child td:last-child {
+  border-top-right-radius: 6px;
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.case-content-box table.parties tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.case-content-box table.parties tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.case-content-box table {
+  border: 1px solid #ccc;
+}
+.case-content-box table th,
+.case-content-box table td {
+  border: 1px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 12px;
+}
+.case-content-box table select {
+  padding: 3px;
+  font-size: 12px;
+  margin-right: 20px;
+}
+.case-content-box table.case-customer-results {
+  border: none;
+}
+.case-content-box table.case-customer-results td {
+  border-bottom: 1px dotted #ccc;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  height: 40px;
+}
+.case-content-box table.case-customer-results td .radioblock {
+  margin-right: 10px;
+  float: left;
+}
+.case-content-box table.case-customer-results td:first-child {
+  width: 40%;
+}
+.case-content-box table.case-customer-results tr:last-child td {
+  border-bottom: none;
+}
+.case-content-box table.case-checks {
+  border: none;
+}
+.case-content-box table.case-checks th,
+.case-content-box table.case-checks td {
+  border-bottom: 1px dotted #ccc;
+  border-top: 1px dotted #ccc;
+  border-left: none;
+  border-right: none;
+}
+.case-content-box .charge-tabs {
+  border-bottom: none !important;
+}
+.case-content-box .charge-tabs .nav-tabs {
+  border-bottom: none !important;
+}
+.case-content-box .charge-tabs .tab-content table th {
+  padding: 5px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.case-content-box .charge-tabs .tab-content table td {
+  padding: 5px;
+  font-size: 11px;
+}
+.case-content-box .charge-tabs .tab-content table .btn,
+.case-content-box .charge-tabs .tab-content table select {
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.case-content-box .charge-tabs li a {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+}
+.case-content-box input[type="radio"] {
+  margin-right: 10px;
+  padding-top: 5px;
+  width: 15px;
+  height: 15px;
+}
+.case-content-box input[type="radio"]:nth-child(2) {
+  margin-left: 20px;
+}
+.case-content-box .application_box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+.case-content-box .application_box.warning {
+  background: #f3f3f3;
+}
+.case-content-box .application_box.panel-body {
+  border: none;
+}
+.case-content-box .application_box.panel-body label {
+  font-weight: 600;
+}
+.case-content-box .application_box table {
+  width: 100%;
+}
+.case-content-box .application_box table th {
+  border-top: none;
+}
+.case-content-box .application_box table tr:last-child td {
+  border-bottom: none;
+}
+.case-content-box .application_box table.financial-posting {
+  margin-bottom: 20px;
+}
+.case-content-box .application_box table.financial-posting tr td {
+  border: 1px solid #ddd;
+}
+.case-content-box .application_box table.financial-posting tr td:first-child {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+.case-content-box .application_box label {
+  float: left;
+  text-align: left;
+  font-weight: 100;
+  margin-bottom: 0;
+  white-space: normal;
+  word-break: break-word;
+}
+.case-content-box .application_box .form-group {
+  border-bottom: 1px dotted #ccc;
+  margin: 0 !important;
+  padding: 7px 0px;
+  clear: both;
+}
+.case-content-box .application_box .form-group:before,
+.case-content-box .application_box .form-group:after {
+  content: " ";
+  display: table;
+}
+.case-content-box .application_box .form-group:after {
+  clear: both;
+}
+.case-content-box .application_box .form-group:last-child {
+  border-bottom: none;
+}
+.case-content-box .application_box .form-group > div select {
+  font-size: 12px;
+  padding: 5px;
+}
+.case-content-box .application_box .form-group > div input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+}
+.case-content-box .application_box .form-group select.default {
+  width: 40% ;
+  margin-right: 20px;
+}
+.case-content-box .application_box .form-group .default-product {
+  float: left;
+  margin-right: 20px;
+  width: 40%;
+}
+.case-content-box .panel-group.review-accordion .panel-heading,
+.case-content-box .panel-group.parties .panel-heading {
+  padding: 5px 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.case-content-box .panel-group.review-accordion .panel-heading h4,
+.case-content-box .panel-group.parties .panel-heading h4 {
+  line-height: 30px;
+}
+.case-content-box .panel-group.review-accordion .panel-heading .btn,
+.case-content-box .panel-group.parties .panel-heading .btn {
+  padding: 2px 5px;
+  font-size: 12px;
+}
+.case-content-box .panel-group.review-accordion .panel-heading div,
+.case-content-box .panel-group.parties .panel-heading div {
+  font-size: 12px;
+}
+.case-content-box .panel-group.review-accordion .panel-heading input[type="checkbox"],
+.case-content-box .panel-group.parties .panel-heading input[type="checkbox"] {
+  position: relative;
+  top: 3px;
+  right: 4px;
+}
+.case-content-box .panel-group.review-accordion h4.panel-title,
+.case-content-box .panel-group.parties h4.panel-title {
+  margin: 0;
+  text-shadow: 0 1px 0 #fff;
+  font-weight: 600;
+  font-size: 12px;
+}
+.case-content-box .panel-group.review-accordion h4.panel-title a,
+.case-content-box .panel-group.parties h4.panel-title a {
+  text-decoration: none;
+}
+.case-content-box .panel-group.review-accordion .application_box,
+.case-content-box .panel-group.parties .application_box {
+  margin-bottom: 0px;
+  border: none;
+}
+.case-content-box .panel-group.review-accordion .application_box .form-group:last-child,
+.case-content-box .panel-group.parties .application_box .form-group:last-child {
+  border-bottom: inherit;
+}
+.case-content-box .panel-group.review-accordion .form-group-column,
+.case-content-box .panel-group.parties .form-group-column {
+  border-radius: 5px;
+  background: #f7f7f7;
+  overflow: hidden;
+  float: left;
+  margin-bottom: 20px;
+  font-size: 11px;
+}
+.case-content-box .panel-group.review-accordion .form-group-column .form-group:first-child,
+.case-content-box .panel-group.parties .form-group-column .form-group:first-child {
+  border-top: 1px solid white;
+}
+.case-content-box .panel-group.review-accordion .form-group-column h4,
+.case-content-box .panel-group.parties .form-group-column h4 {
+  font-weight: 600;
+  font-size: 12px;
+  border-bottom: 1px solid #eee;
+  line-height: 30px;
+  margin: 0;
+}
+.case-content-box .panel-group.review-accordion .form-group-column h5,
+.case-content-box .panel-group.parties .form-group-column h5 {
+  font-weight: 600;
+  font-size: 10px;
+  margin: 0;
+  color: #444;
+  text-shadow: 1px 1px #fff;
+  border-top: 1px solid #fff;
+  padding: 7px 0;
+  border-bottom: 1px dotted #ccc;
+  color: #cc0000;
+}
+.case-content-box .panel-group.review-accordion .form-group-column:nth-child(2n),
+.case-content-box .panel-group.parties .form-group-column:nth-child(2n) {
+  float: right;
+}
+@media (max-width: 480px) {
+  .case-content-box .charge-tabs table select {
+    min-width: 60px;
+  }
+}
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.modal-body {
+  padding: 5px;
+}
+.modal-body h4 {
+  margin: 10px 0;
+}
+.modal-body select {
+  height: inherit;
+}
+@media (max-width: 480px) {
+  .nav-tabs > li {
+    float: none;
+  }
+  .tab-content > .active {
+    overflow-x: auto;
+  }
+  .breadcrumbs li {
+    padding: 5px 0;
+    float: none !important;
+  }
+  .breadcrumbs li:first-child {
+    padding-top: 0;
+    float: none;
+  }
+  .breadcrumbs li:last-child {
+    padding-bottom: 0;
+    float: none;
+  }
+  .breadcrumbs li a {
+    width: 80%;
+  }
+  .customer-search-select,
+  .customer-search .input-group input[type="text"] {
+    font-size: 12px;
+  }
+  .case-content-box {
+    overflow-x: auto;
+    padding: 3px;
+  }
+  .case-content-box .note {
+    float: left !important;
+  }
+  .case-content-box .clear {
+    clear: both;
+    margin-bottom: 10px;
+  }
+  .ng-view-content {
+    overflow: hidden;
+  }
+}
+.customer-search.search {
+  background: none;
+}
+
+</style>
+	<link href="assets/css/wizard.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="assets/css/goldenlayout-base.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/goldenlayout-light-theme.css">
+
+<link href="assets/css/barclays.css" rel="stylesheet"></head>
+
+<body class="ng-scope">
+	<div id="container-fluid" class="pangea">
+
+		<!-- ngInclude: '/header_menu.html' --><div ng-include="'/header_menu.html'" class="ng-scope"><nav class="navbar no-mobile ng-scope">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div>
+			<div class="col-xs-12 col-sm-6 no-wrap-parent">
+				<div class="applicationtitle col-xs-12">
+					<a href="#" class="ng-binding"> <span class="applicationtitle-image verticlecenter-25"></span></a>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 no-wrap-parent">
+				<ul class="nav navbar-nav navbar-right">
+					<a class="navbar-brand no-mobile" href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+					
+					<li ng-show="isLoggedIn()" class=""><a ng-click="" class="ng-binding">John Makes</a></li>
+					
+					<li ng-hide="isBasicLoggedIn()" class="ng-hide">
+						<input class="input-xs-nopadding navbar-text no-hor-margin ng-untouched ng-valid ng-dirty ng-valid-parse" ng-model="post.username" placeholder="Username" style="">
+						<input class="input-xs-nopadding navbar-text no-hor-margin ng-untouched ng-valid ng-dirty ng-valid-parse" ng-model="post.password" placeholder="Password" type="password" style="">
+					</li>
+					
+					<li ng-hide="isLoggedIn()" class="ng-hide">
+						<a ng-click="login()">Login</a>
+					</li>
+ 					
+ 					<li ng-show="isLoggedIn()" class="">
+ 						<a ng-click="logout()">Logout</a>
+ 					</li>
+					
+					<li ng-show="false" class="ng-hide"><a href="#">Notifications <span class="label label-primary">1</span></a></li>
+					
+					<li ng-show="isLoggedIn()" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">Config <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<!-- ngRepeat: tab in adminMenuTabs --><li ng-class="{active: isActiveTab(tab.name),'vertical-divided':tab.hasDivider()}" ng-disabled="tab.disabled()" ng-hidden="tab.hidden()" ng-repeat="tab in adminMenuTabs" class="ng-scope"><a href="#/customer" class="ng-binding">Customer&nbsp; <span ng-show="tab.notify" class="label label-danger ng-binding ng-hide"></span>
+							</a></li><!-- end ngRepeat: tab in adminMenuTabs --><li ng-class="{active: isActiveTab(tab.name),'vertical-divided':tab.hasDivider()}" ng-disabled="tab.disabled()" ng-hidden="tab.hidden()" ng-repeat="tab in adminMenuTabs" class="ng-scope"><a href="#/pricing" class="ng-binding">Pricing&nbsp; <span ng-show="tab.notify" class="label label-danger ng-binding ng-hide"></span>
+							</a></li><!-- end ngRepeat: tab in adminMenuTabs --><li ng-class="{active: isActiveTab(tab.name),'vertical-divided':tab.hasDivider()}" ng-disabled="tab.disabled()" ng-hidden="tab.hidden()" ng-repeat="tab in adminMenuTabs" class="ng-scope"><a href="#/limit" class="ng-binding">Limit&nbsp; <span ng-show="tab.notify" class="label label-danger ng-binding ng-hide"></span>
+							</a></li><!-- end ngRepeat: tab in adminMenuTabs --><li ng-class="{active: isActiveTab(tab.name),'vertical-divided':tab.hasDivider()}" ng-disabled="tab.disabled()" ng-hidden="tab.hidden()" ng-repeat="tab in adminMenuTabs" class="ng-scope"><a href="#/charges-setup" class="ng-binding">Charges setup&nbsp; <span ng-show="tab.notify" class="label label-danger ng-binding ng-hide"></span>
+							</a></li><!-- end ngRepeat: tab in adminMenuTabs -->
+						</ul>
+					</li>
+					
+					<!-- <div ng-show="isLoggedIn()" ng-include="'theme-switcher.html'" include-replace></div>  -->
+				</ul>
+			</div>
+			<!--/.container-->
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav></div>
+
+		<!-- <div ng-include="'/navigation.html'"></div> -->
+
+		<div data-loading=""></div>
+
+		<!-- ngView:  --><div ng-view="" class="ng-view-content ng-scope"><!-- <div class="col-xs-12" ng-class="getdocking(true)" > -->
+<div class="col-xs-12 ng-scope">
+	<div class="col-xs-12">
+		<div class="col-xs-12">
+			<div class="col-xs-12 overlay-parent">
+
+				<!--Left Overlay -->
+
+				<div class="overlay-group">
+					<div class="overlay overlay-from-left bg-grey dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="glyphicon glyphicon-th-list" title="Information"></i>&nbsp;Details
+					</div>
+					<div class="dropdown-menu">
+						<!-- ngRepeat: field in caseProperties --><div ng-repeat="field in caseProperties" class="form-group font-size f11 ng-scope">
+							<label class="control-label col-xs-5 ng-binding">Subject</label> <label class="control-label col-xs-7 ng-binding">A BGI Message</label>
+						</div><!-- end ngRepeat: field in caseProperties --><div ng-repeat="field in caseProperties" class="form-group font-size f11 ng-scope">
+							<label class="control-label col-xs-5 ng-binding">Sender</label> <label class="control-label col-xs-7 ng-binding">test@test.com</label>
+						</div><!-- end ngRepeat: field in caseProperties --><div ng-repeat="field in caseProperties" class="form-group font-size f11 ng-scope">
+							<label class="control-label col-xs-5 ng-binding">Recipients</label> <label class="control-label col-xs-7 ng-binding">bgicenter@bgicentre.co.za</label>
+						</div><!-- end ngRepeat: field in caseProperties -->
+					</div>
+				</div>
+				<!--/Left Overlay -->
+
+				<!--Right Overlay -->
+				<div class="overlay-group">
+					<div class="overlay overlay-from-right bg-grey dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="glyphicon glyphicon-folder-open" title="Supporting Documents"></i>&nbsp;Attachments
+					</div>
+					<div class="dropdown-menu">
+						<!-- ngRepeat: attachment in getAttachments() --><div ng-repeat="attachment in getAttachments()" class="form-group  font-size f11 ng-scope">
+							<label class="control-label col-xs-9"><a href="" ng-click="previewAttachment($event,attachment,'#pdfRenderer');" class="ng-binding">attachment.pdf</a></label>
+							<label class="control-label col-xs-2"><a data-toggle="modal" data-target="#documentModal" ng-click="selectAttachment(attachment)"><span class="glyphicon glyphicon-pencil"></span></a></label>
+						</div><!-- end ngRepeat: attachment in getAttachments() -->
+						<div ng-show="viewAttachment" class="ng-hide">
+							<div id="pdfRenderer"></div>
+						</div>
+
+					</div>
+				</div>
+				<!-- /Right Overlay -->
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Leftnav -->
+	<div class="col-xs-12 col-sm-3 ng-hide" ng-hide="processTabs.hideLeftNav">
+		<ul class="nav nav-pills nav-stacked">
+
+			<!-- ngRepeat: tab in processTabs --><li ng-class="{active: isActiveNav(tab),disabled: tab.disabled(),hidden:tab.hidden()}" ng-disabled="tab.disabled()" ng-show="!tab.hidden()" ng-repeat="tab in processTabs" class="ng-scope active">
+				<a ng-click="selectNav(tab)" class="ng-binding"> 
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Case Management
+				</a>
+			</li><!-- end ngRepeat: tab in processTabs -->
+
+		</ul>
+	</div>
+	<!--/Leftnav-->
+	
+	<!--Content-->
+	<div ng-class="processTabs.hideLeftNav ? 'col-xs-12 col-sm-12' : 'col-xs-12 col-sm-7'" class="col-xs-12 col-sm-12">
+		<!-- ngInclude:  --><div ng-include="" src="getContent()" class="ng-scope"> <div class="container-fluid form-horizontal ng-scope">
+
+	<!--Content-->
+	<div class="col-xs-12 col-sm-12">
+        <!--breadcrumbs-->
+		<ul class="breadcrumbs case">
+			<!-- ngRepeat: tab in breadCrumbTabs --><li ng-repeat="tab in breadCrumbTabs" ng-show="!tab.hidden" ng-class="selectTabClass(tab)" class="ng-scope active">
+				<a ng-click="selectCrumb(tab)" class="ng-binding"> 
+					<span ng-show="tab.icon" class="glyphicon  ng-hide" aria-hidden="true"></span>
+					 Case Product Information
+				</a>
+			</li><!-- end ngRepeat: tab in breadCrumbTabs --><li ng-repeat="tab in breadCrumbTabs" ng-show="!tab.hidden" ng-class="selectTabClass(tab)" class="ng-scope">
+				<a ng-click="selectCrumb(tab)" class="ng-binding"> 
+					<span ng-show="tab.icon" class="glyphicon  ng-hide" aria-hidden="true"></span>
+					 Case Search
+				</a>
+			</li><!-- end ngRepeat: tab in breadCrumbTabs --><li ng-repeat="tab in breadCrumbTabs" ng-show="!tab.hidden" ng-class="selectTabClass(tab)" class="ng-scope disabled">
+				<a ng-click="selectCrumb(tab)" class="ng-binding"> 
+					<span ng-show="tab.icon" class="glyphicon  ng-hide" aria-hidden="true"></span>
+					 Case View/Edit Customer
+				</a>
+			</li><!-- end ngRepeat: tab in breadCrumbTabs --><li ng-repeat="tab in breadCrumbTabs" ng-show="!tab.hidden" ng-class="selectTabClass(tab)" class="ng-scope disabled">
+				<a ng-click="selectCrumb(tab)" class="ng-binding"> 
+					<span ng-show="tab.icon" class="glyphicon  ng-hide" aria-hidden="true"></span>
+					 Case Application Information
+				</a>
+			</li><!-- end ngRepeat: tab in breadCrumbTabs -->
+		</ul>
+		<!--//breadcrumbs-->
+
+        <div class="case-content-box"><!-- ngInclude:  --><div ng-include="" src="getCrumbContent()" class="ng-scope">
+
+        <div class="case-content-box ng-scope" ng-controller="PartyCtrl">
+  <h3>Add Parties</h3>      
+      
+  <table class=" table table-bordered table-striped table-hover parties">
+    <tbody><!-- ngRepeat: step in steps --><tr ng-repeat="step in steps" class="ng-scope">
+      <td ng-class="{'greyed-out': !step.completed}" width="20%" class="greyed-out">
+        <span class="glyphicon glyphicon-ok ng-hide" aria-hidden="true" ng-show="step.completed" style="color: green;"></span>
+        <span ng-show="step.completed" class="ng-binding ng-hide">Beneficiary Added</span>
+        <span ng-show="!step.completed" class="ng-binding">Add Beneficiary</span>
+      </td>
+      <td class="ng-binding"> &nbsp;  </td>
+      <td width="30%">    
+        <div class="pull-right">
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-click="toggleMode('view', step)" title="View Beneficiary"><span class="glyphicon glyphicon-eye-open"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.search" ng-click="toggleMode('search', step)" title="Search Beneficiary"><span class="glyphicon glyphicon-search"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.add" ng-click="toggleMode('add', step)" title="Add Beneficiary"><span class="glyphicon glyphicon-plus"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.edit" ng-click="toggleMode('edit', step)" title="Edit Beneficiary"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.more" ng-click="insertNew(step,$index)" title="Insert New Beneficiary"><span class="glyphicon glyphicon-plus">More</span></button>
+        </div>
+      </td>
+    </tr><!-- end ngRepeat: step in steps --><tr ng-repeat="step in steps" class="ng-scope">
+      <td ng-class="{'greyed-out': !step.completed}" width="20%">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="step.completed" style="color: green;"></span>
+        <span ng-show="step.completed" class="ng-binding">Issuing Bank Added</span>
+        <span ng-show="!step.completed" class="ng-binding ng-hide">Add Issuing Bank</span>
+      </td>
+      <td class="ng-binding">ABSA &nbsp;  ABSA</td>
+      <td width="30%">    
+        <div class="pull-right">
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-click="toggleMode('view', step)" title="View Issuing Bank"><span class="glyphicon glyphicon-eye-open"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.search" ng-click="toggleMode('search', step)" title="Search Issuing Bank"><span class="glyphicon glyphicon-search"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.add" ng-click="toggleMode('add', step)" title="Add Issuing Bank"><span class="glyphicon glyphicon-plus"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.edit" ng-click="toggleMode('edit', step)" title="Edit Issuing Bank"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.more" ng-click="insertNew(step,$index)" title="Insert New Issuing Bank"><span class="glyphicon glyphicon-plus">More</span></button>
+        </div>
+      </td>
+    </tr><!-- end ngRepeat: step in steps --><tr ng-repeat="step in steps" class="ng-scope">
+      <td ng-class="{'greyed-out': !step.completed}" width="20%" class="greyed-out">
+        <span class="glyphicon glyphicon-ok ng-hide" aria-hidden="true" ng-show="step.completed" style="color: green;"></span>
+        <span ng-show="step.completed" class="ng-binding ng-hide">Advising Bank Added</span>
+        <span ng-show="!step.completed" class="ng-binding">Add Advising Bank</span>
+      </td>
+      <td class="ng-binding"> &nbsp;  </td>
+      <td width="30%">    
+        <div class="pull-right">
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-click="toggleMode('view', step)" title="View Advising Bank"><span class="glyphicon glyphicon-eye-open"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.search" ng-click="toggleMode('search', step)" title="Search Advising Bank"><span class="glyphicon glyphicon-search"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.add" ng-click="toggleMode('add', step)" title="Add Advising Bank"><span class="glyphicon glyphicon-plus"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.edit" ng-click="toggleMode('edit', step)" title="Edit Advising Bank"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-primary" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.more" ng-click="insertNew(step,$index)" title="Insert New Advising Bank"><span class="glyphicon glyphicon-plus">More</span></button>
+        </div>
+      </td>
+    </tr><!-- end ngRepeat: step in steps --><tr ng-repeat="step in steps" class="ng-scope">
+      <td ng-class="{'greyed-out': !step.completed}" width="20%">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="step.completed" style="color: green;"></span>
+        <span ng-show="step.completed" class="ng-binding">Applicant Added</span>
+        <span ng-show="!step.completed" class="ng-binding ng-hide">Add Applicant</span>
+      </td>
+      <td class="ng-binding">Jan &nbsp; Pieterse Jannie</td>
+      <td width="30%">    
+        <div class="pull-right">
+          <button type="button" class="btn btn-xs btn-primary-spacing btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-click="toggleMode('view', step)" title="View Applicant"><span class="glyphicon glyphicon-eye-open"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.search" ng-click="toggleMode('search', step)" title="Search Applicant"><span class="glyphicon glyphicon-search"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.add" ng-click="toggleMode('add', step)" title="Add Applicant"><span class="glyphicon glyphicon-plus"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.edit" ng-click="toggleMode('edit', step)" title="Edit Applicant"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-xs btn-primary-spacing ng-hide btn-default" ng-class="{'btn-default' : step.completed, 'btn-primary' : !step.completed}" ng-show="step.more" ng-click="insertNew(step,$index)" title="Insert New Applicant"><span class="glyphicon glyphicon-plus">More</span></button>
+        </div>
+      </td>
+    </tr><!-- end ngRepeat: step in steps -->
+  </tbody></table>
+
+  <!-- <div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped"
+      role="progressbar" aria-valuenow="40" aria-valuemin="0"
+      aria-valuemax="100" style="width: {{ completedPercentage }}%">{{nextStep.heading}}</div>
+  </div> -->
+    
+    
+    
+  <div class="application_box ng-hide" ng-show="currentStep">
+    <div class="form-group"><strong class="ng-binding"></strong></div>
+    <!-- ngIf: true --><!-- ngInclude: getTemplate(currentStep) --><!-- end ngIf: true -->
+  </div>
+
+  <div class="form-group ng-hide" ng-show="allparties">
+    <button type="submit" class="btn btn-sm btn-success" ng-click="proceedToDocumentation()">PROCEED <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+  </div>
+  <div class="clear"></div>
+</div>
+
+
+<div class="case-content-box">
+      
+      <!--breadcrumbs-->
+      <ul class="breadcrumbs">
+        <!-- ngRepeat: tab in dealStepsTabs --><li ng-repeat="tab in dealStepsTabs" ng-class="selectTabClass(tab)" class="ng-scope active">
+          <a ng-click="selectCrumb(tab)" class="ng-binding"> 
+            <span aria-hidden="true"></span>
+             Add Beneficiary
+          </a>
+        </li><!-- end ngRepeat: tab in dealStepsTabs --><li ng-repeat="tab in dealStepsTabs" ng-class="selectTabClass(tab)" class="ng-scope">
+          <a ng-click="selectCrumb(tab)" class="ng-binding"> 
+            <span aria-hidden="true"></span>
+             Issuing Bank Added
+          </a>
+        </li><!-- end ngRepeat: tab in dealStepsTabs --><li ng-repeat="tab in dealStepsTabs" ng-class="selectTabClass(tab)" class="ng-scope ">
+          <a ng-click="selectCrumb(tab)" class="ng-binding"> 
+            <span aria-hidden="true"></span>
+             Add Advising Bank
+          </a>
+        </li><!-- end ngRepeat: tab in dealStepsTabs -->
+        <li ng-repeat="tab in dealStepsTabs" ng-class="selectTabClass(tab)" class="ng-scope ">
+          <a ng-click="selectCrumb(tab)" class="ng-binding"> 
+            <span aria-hidden="true"></span>
+            Applicant Added
+          </a>
+        </li>
+      </ul>
+      <!--//breadcrumbs-->
+
+      <!-- ngInclude:  -->
+      <div ng-include="" src="getCrumbContent()" class="ng-scope">
+      <!--product info-->
+      <div class="application_box ng-scope">
+        <!-- general info -->
+          <div class="form-group">
+            <div class="float-left col-lg-2"><strong>Add Beneficiary</strong></div>
+            <div class="float-left col-xs-12 col-lg-5 searchbox">
+               <div class="col-lg-9">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for Beneficiary Bank">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
+                </div>
+                </div>
+               <div class="float-left col-lg-1 ml10">
+                  <a href="#" class="btn btn-info float-right tooltip-button" data-placement="top" title="View details">
+                          <i class="glyphicon glyphicon-plus"></i>
+                      </a>
+               </div>
+                <!-- /input-group -->
+              </div><!-- /.col-lg-6 -->         
+            </div>
+      </div>
+
+   
+
+
+
+
+
+</div>
+  <!--//general info-->
+
+  <div class="form-group ng-scope">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-sm  btn-success" ng-click="navigate()">
+        NEXT
+        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+
+</div>
+
+    </div>
+
+
+</div></div>
+    
+     </div>
+</div>     
+
+</div>
+	</div>
+	<!--/Content-->	
+</div>
+
+<!--docking panel -->	
+<!-- <div class="col-xs-12 col-lg-3 layout" id="layout-container" docking-panel>
+
+	<template type="text/html" id="dockingPanel" class="gl_keep">
+	 	
+		<div ng-show="viewAttachment">
+			<div id="pdfRenderer"></div>
+		</div>
+	</template>
+</div> -->
+<!--//docking panel -->
+
+
+</div>
+		
+		<!-- ngInclude: '/footer.html' --><div ng-include="'/footer.html'" class="ng-scope"><!--footer-->
+<footer class="ng-scope">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="footer-left verticlecenter-sm">
+				© Copyright 2016 {{BUILD_NUMBER}}
+				<span id="ajax_loader" style="display: none;">
+					<img src="assets/images/ajax-loader-h.gif" class="loading-indicator">
+				</span>
+			</div>
+			<div class="footer-right verticlecenter-sm">All rights reserved</div>
+		</div>
+	</div>
+</footer>
+<!--/footer--></div>
+		
+	</div>
+	<script src="assets/js/less.min.js"></script>
+ 	
+ 	<script src="assets/js/keycloak.js"></script>
+
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/goldenlayout.min.js"></script>
+	<script src="assets/js/jquery.imask.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/angular.js"></script>
+	<script src="assets/js/angular-resource.js"></script>
+	<script src="assets/js/angular-route.js"></script>
+	<script src="assets/js/angular-sanitize.js"></script>
+	<script src="assets/js/angular-cookies.js"></script>
+	<script src="assets/js/angular-animate.js"></script>
+	<script src="assets/js/angular-messages.js"></script>
+	<script src="assets/js/angular-local-storage.js"></script>
+	<script src="assets/js/pdfobject.js"></script>
+	<script src="assets/js/ui-bootstrap-tpls-1.1.2.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap-notify.js"></script>
+	
+	<script src="assets/js/xeditable.js" type="text/javascript"></script>
+	<script src="assets/js/angular-mocks.js"></script>
+	<script src="assets/js/ng-file-upload-all.min.js"></script>
+	
+	<script src="assets/js/angular-deferred-bootstrap.js"></script>
+
+	<script src="assets/js/stringutils.js"></script>
+
+	<script src="assets/js/theme-switcher.js"></script>
+	
+	<script src="app/shared/auth.js"></script>
+
+	<script src="app/config.js"></script>
+	<script src="app/app.js"></script>
+	
+	<script src="app/shared/services.js"></script>
+	<script src="app/shared/controllers.js"></script>
+	
+
+
+	<script src="app/components/deal/services.js"></script>
+	<script src="app/components/deal/controllers.js"></script>
+
+	<script src="app/components/customer/models.js"></script>
+	<script src="app/components/customer/controllers.js"></script>
+	<script src="app/components/customer/services.js"></script>
+
+	<script src="app/components/charges/controllers.js"></script>
+	<script src="app/components/charges/services.js"></script>
+
+	<script src="app/components/recovery/services.js"></script>
+	<script src="app/components/recovery/controllers.js"></script>
+
+	<script src="app/components/party/services.js"></script>
+	<script src="app/components/party/controllers.js"></script>
+	
+	<script src="app/components/case/services.js"></script>
+	<script src="app/components/case/controllers.js"></script>
+	
+	<script src="app/components/product/services.js"></script>
+
+	<script src="app/components/deal/document.controller.js"></script>
+	<script src="app/components/deal/document.services.js"></script>
+	
+	<script src="app/components/deal/deal_review.controller.js"></script>
+	<script src="app/components/deal/deal.checks.controller.js"></script>
+	<script src="app/components/deal/deal.final.controller.js"></script>
+	
+	<script src="app/components/workflow/services.js"></script>
+	<script src="app/components/workflow/controllers.js"></script>
+
+</body></html>

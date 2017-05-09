@@ -1,0 +1,151 @@
+
+<div class="container-fluid form-horizontal">
+
+	<h3>Individual customer</h3>
+		<fieldset>
+	
+			<div class="form-group">
+				<label class="control-label col-sm-2">Name: </label> 
+				<div class="col-sm-10">
+					<input type="text" id="customerName" ng-model="customer.name" class="form-control" ng-readonly="customer.barclaysCustomer" required />
+				</div> 
+			</div>	
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Surname:</label> 
+				<div class="col-sm-10">
+					<input type="text" id="customerSurnameName" ng-model="customer.surname" class="form-control"ng-readonly="customer.barclaysCustomer" required="true"> 
+				</div>
+			</div>	
+		</fieldset>
+	
+		<fieldset>
+			<div class="form-group">
+				<label class="control-label col-sm-2">IDType: </label> 
+				<div class="col-sm-10">
+				
+					<select id="idType" ng-options="idType.description for idType in allIdentificationTypes" ng-model="customer.idType" class="form-control" ng-readonly="customer.barclaysCustomer">
+						<option value="">-- choose type --</option>
+					</select>
+				</div>
+			</div>
+			 
+			<div class="form-group" ng-if="customer.idType.description == 'Identity Document'">
+				<label class="control-label col-sm-2" ng-if="customer.idType.description  == 'Identity Document'">ID Number: </label> 
+				<div class="col-sm-10">
+					<input type="text" id="idNumber" ng-model="customer.idNumber" class="form-control" ng-readonly="customer.barclaysCustomer" ng-if="customer.idType.description == 'Identity Document'">
+				</div>
+			</div>
+				
+			<div class="form-group" ng-if="customer.idType.description == 'Passport'">	
+				<label class="control-label col-sm-2" ng-if="customer.idType.description == 'Passport'">Passport Number: </label> 
+				<div class="col-sm-10">				
+				<input type="text" id="passportNumber" ng-model="customer.passportNumber"
+					class="form-control" ng-readonly="customer.barclaysCustomer" ng-if="customer.idType.description == 'Passport'">
+				</div>	
+			</div>
+			
+			<div class="form-group" ng-if="customer.idType.description == 'Passport'">	
+				<label class="control-label col-sm-2"  ng-if="customer.idType.description == 'Passport'">Passport Country: </label> 
+				<div class="col-sm-10">				
+					<select id="passportCountry"
+						ng-options="passportCountry.description for passportCountry in allCountries"
+						ng-model="customer.passportCountry" class="form-control"
+						ng-readonly="customer.barclaysCustomer" ng-if="customer.idType.description == 'Passport'">
+						<option value="">-- choose country --</option>
+					</select> 
+				</div>
+			</div>
+			
+			<div class="form-group" ng-if="customer.idType.description == 'Residential Permit'">	
+				<label class="control-label col-sm-2" ng-if="customer.idType.description == 'Residential Permit'">Temp Permit Number: </label> 
+				<div class="col-sm-10">				
+					<input type="text"
+						id="tempResPermitNumber" ng-model="customer.tempResPermitNumber"
+						class="form-control" ng-readonly="customer.barclaysCustomer" ng-if="customer.idType.description == 'Residential Permit'">
+				</div>
+			</div>
+			
+			<div class="form-group" ng-if="customer.idType.description == 'Identity Document'">	
+				<label class="control-label col-sm-2" ng-if="customer.idType.description == 'Identity Document'">Date Of Birth: </label> 
+				<div class="col-sm-10">				
+						
+					<uib-datepicker type="text" class="well well-sm" ng-model="customer.dateOfBirth" ng-if="customer.idType.description == 'Identity Document'" ng-readonly="customer.barclaysCustomer"></uib-datepicker>		
+				</div>
+			</div>
+			
+			
+			<div class="form-group" ng-if="customer.idType.description == 'Identity Document'">	
+				<label class="control-label col-sm-2" ng-if="customer.idType.description == 'Identity Document'"> Gender:</label> 
+				<div class="col-sm-10">				
+					<select id="gender"
+						ng-options="gender.description for gender in allGenderTypes"
+						ng-model="customer.gender" class="form-control"
+						ng-readonly="customer.barclaysCustomer" ng-if="customer.idType.description == 'Identity Document'">
+						<option value="">-- choose type --</option>
+					</select> 
+				</div>
+			</div>
+			
+			<div class="form-group">				
+				<label class="control-label col-sm-2">Country Of Residence: </label> 
+				<div class="col-sm-10">				
+					<select id="countryOfResidence"
+						ng-options="countryOfResidence.description for countryOfResidence in allCountries"
+						ng-model="customer.countryOfResidence" class="form-control"
+						ng-readonly="customer.barclaysCustomer">
+						<option value="">-- choose country --</option>
+					</select>
+				</div> 
+			</div>
+			
+			<div class="form-group">	
+				<label class="control-label col-sm-2">Country Of Nationality: </label> 
+				<div class="col-sm-10">				
+					<select
+						id="countryOfNationality"
+						ng-options="countryOfNationality.description for countryOfNationality in allCountries"
+						ng-model="customer.countryOfNationality" class="form-control"
+						ng-readonly="customer.barclaysCustomer">
+						<option value="">-- choose country --</option>
+					</select> 
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<div class="form-group">	
+				<label class="control-label col-sm-2">Preferred Communication Language: </label> 
+				<div class="col-sm-10">				
+					<select id="preferredCommunicationLanguage" ng-options="preferredCommunicationLanguage.description for preferredCommunicationLanguage in allLanguages"
+							ng-model="customer.preferredCommunicationLanguage"
+							class="form-control" ng-readonly="customer.barclaysCustomer">
+						<option value="">-- choose language --</option>
+					</select> 
+				</div>
+			</div>
+			
+			<div class="form-group">	
+				<label class="control-label col-sm-2">Institutional Sector: </label> 
+				<div class="col-sm-10">				
+					<select id="institutionalSector" ng-options="institutionalSector.description for institutionalSector in allSectorTypes" ng-model="customer.institutionalSector" class="form-control"
+							ng-readonly="customer.barclaysCustomer">
+						<option value="">-- choose sector --</option>
+					</select> 
+				</div>
+			</div>
+			
+			<div class="form-group">	
+				<label class="control-label col-sm-2">Industrial Classification: </label> 
+				<div class="col-sm-10">								
+					<select id="industrialClassification" ng-options="industrialClassification.description for industrialClassification in allIndustryTypes"
+							ng-model="customer.industrialClassification" class="form-control" ng-readonly="customer.barclaysCustomer">
+						<option value="">-- choose classification --</option>
+					</select>
+				</div>
+			</div>
+		</fieldset>
+		</br>
+		<a ng-click="goBack()" class="btn btn-info">Back</a>
+		<a  ng-click="this.customerForm.$validate()" href="#/Addresses" class="btn btn-info" type="Submit">Next >></a>
+	
+</div>

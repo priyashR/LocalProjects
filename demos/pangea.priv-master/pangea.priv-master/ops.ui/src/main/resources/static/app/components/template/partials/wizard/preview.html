@@ -1,0 +1,44 @@
+<div class="container">
+	<br>
+	<h3>Step {{currentStep}} - Preview</h3>
+	<form class="form">
+
+		<div ng-repeat="step in steps | filter: { sectionType: true}">
+			<div class="form-group row">
+				<label class="form-control-label col-xs-4">Section: {{step.name}}</label>
+			</div>
+			<div class="form-group row">
+				<div class="col-xs-8">
+					<textarea class="form-control" maxlength="5024" rows="4" ng-model="step.description"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<!--<div class="form-group row">-->
+			<!--<label class="form-control-label col-xs-4">Section: Introduction</label>-->
+		<!--</div>-->
+		<!--<div class="form-group row">-->
+			<!--<div class="col-xs-8">-->
+				<!--<textarea class="form-control" maxlength="5024" rows="4"></textarea>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<!--<div class="form-group row">-->
+			<!--<label class="form-control-label col-xs-4">Section: Guarantee Details</label>-->
+		<!--</div>-->
+		<!--<div class="form-group row">-->
+			<!--<div class="col-xs-8">-->
+				<!--<textarea class="form-control" maxlength="5024" rows="4"></textarea>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<div class="form-group row">
+			<div class="col-xs-8">
+				<button ng-show="currentStep > 1" ng-disabled="currentStep <= 1" class="btn btn-primary" name="previous" type="button" ng-click="gotoStep(currentStep - 1)">Previous</button>
+				<button ng-show="currentStep < steps.length" ng-disabled="currentStep >= steps.length" class="btn btn-primary" name="next" type="button" ng-click="gotoStep(currentStep + 1)">Next</button>
+				<button ng-disabled="currentStep != steps.length" class="btn btn-success" name="next" type="button" ng-click="save()"> <i class="fa fa-floppy-o"></i> Save</button>
+			</div>
+		</div>
+
+	</form>
+</div>

@@ -1,0 +1,65 @@
+
+<div class="case-content-box">
+	<h4>Optional charge</h4>
+	<div class="application_box">
+	
+		<div class="form-group">
+			<label class="control-label col-xs-5">Charge Code:</label>
+			
+			<div class='col-xs-6'>
+				<select  class="form-control"
+					ng-options="option as (option.chargeCode  + '   - (' + option.description + ')') for option in allOptionalCharges"  ng-change="selectedCharge(selectedChargeObj)" ng-model="selectedChargeObj"  ></select>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<label class="control-label col-xs-5">Debit Party:</label>
+			<div class="col-xs-6">
+				<select id="debitPostingClassification"
+					ng-options="postingClassification.code as postingClassification.code for postingClassification in allPostingClassificationCodes"
+					ng-model="optionalCharge.debitPostingClassification" >
+					<option value="">-- choose --</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-xs-5">Credit Party:</label>
+			<div class="col-xs-6">
+				<select id="creditPostingClassification"
+					ng-options="postingClassification.code as postingClassification.code for postingClassification in allPostingClassificationCodes"
+					ng-model="optionalCharge.creditPostingClassification" >
+					<option value="">-- choose --</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-xs-5">Charge Currency:</label>
+			<div class='col-xs-6'>
+				<select id="chargeCurrencyCode" ng-options="currency.code as currency.code for currency in allCurrencyTypes" ng-model="optionalCharge.debitCreditCurrencyTypeCode" class="form-control">
+					<option value="">-- choose --</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-xs-5">Charge Amount:</label>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" ng-model="optionalCharge.amount">
+			</div>
+		</div>
+		
+		<div class="form-group">												
+			<label class="control-label col-xs-5">When:</label>
+			<div class="col-xs-6">
+				<select id="chargesWhen" ng-options="chargewhen for chargewhen in allChargesWhen" ng-model="optionalCharge.chargesWhen" class="form-control">
+					<option value="">-- choose --</option>
+				</select>
+			</div>
+
+		</div>
+	</div>	
+</div>
+<button type="submit" class="btn btn-warning btn-small" ng-click="saveOptionalDealCharge(optionalCharge);okModal()">Submit</button>

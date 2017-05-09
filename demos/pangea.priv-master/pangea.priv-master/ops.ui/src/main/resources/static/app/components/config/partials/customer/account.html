@@ -1,0 +1,76 @@
+<div class="container-fluid form-horizontal">
+
+    <div class="case-content-box" class="col-xs-12 col-lg-12">
+
+        <h3>Account</h3>
+
+        <div class="form-group">
+            <label class="control-label">Id:</label>
+            {{data.activeCustomer.activeAccount.id}}
+        </div>
+
+		<div class="form-group">
+            <label class="control-label col-xs-5">Account No:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAccount.accountNo" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+        	<label class="control-label col-xs-5">Source System Id: </label> 
+        	<div class="col-xs-7">
+		    	<input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAccount.sourceSystemId" />
+			</div> 
+		</div>
+		
+        <div class="form-group">
+            <label class="control-label col-xs-5">Source System Name:</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="data.activeCustomer.activeAccount.SourceSystemName" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-xs-5">Account Type:</label>
+            <div class="col-xs-7">
+            	<select id="accountType" ng-options="accountType.code for accountType in allAccountTypes track by accountType.id" ng-model="data.activeCustomer.activeAccount.accountType" class="form-control" >
+					<option value="">-- choose account type --</option>
+				</select>
+			</div>
+        </div>
+ 		
+ 		<div class="form-group">
+            <label class="control-label col-xs-5">Currency:</label>
+            <div class="col-xs-7">
+            	<select id="currency" ng-options="currency.description for currency in allCurrencyTypes track by currency.code" ng-model="data.activeCustomer.activeAccount.currency" class="form-control" >
+					<option value="">-- choose currency --</option>
+				</select>
+			</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-xs-5">Bank:</label>
+            <div class="col-xs-7">
+            	<select id="bank" ng-options="bank.code for bank in allBanks track by bank.id" ng-model="data.activeCustomer.activeAccount.bank" class="form-control" >
+					<option value="">-- choose bank --</option>
+				</select>
+			</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-xs-5">Branch:</label>
+            <div class="col-xs-7">
+            	<select id="branch" ng-disabled="!data.activeCustomer.activeAccount.bank" ng-options="branch.name for branch in ((allBranches | filter:{'internalTennantBank':data.activeCustomer.activeAccount.bank.id})) track by branch.id" ng-model="data.activeCustomer.activeAccount.branch" class="form-control" >
+					<option value="">-- choose branch --</option>
+				</select>
+			</div>
+        </div>
+        
+        <div class="form-group">
+            <button class="btn btn-sm btn-default" ng-click="saveAccount()">Save</button>
+            <button class="btn btn-sm btn-default" ng-click="cancelEditAccount()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

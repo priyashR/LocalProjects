@@ -1,0 +1,18 @@
+
+<td>{{settlement.chargeCode}}</td>
+<td class="no-wrap-parent">{{settlement.description}}</td>
+<td>{{settlement.debitSettlementPosting}}</td>
+<td>{{settlement.creditSettlementPosting}}</td>
+<td>{{settlement.debitCurrency }}</td>
+<td>{{settlement.debitAmount | number:2}}</td>
+<td>{{settlement.creditCurrency   }}</td>
+<td>{{settlement.creditAmount | number:2 }}</td>
+<td>{{settlement.debitAccountId}}</td>
+<td>{{settlement.creditAccountId}}</td>
+
+<td style="white-space: nowrap">
+	<div class="buttons">
+		<a class="btn btn-xs btn-danger font-size f11" ng-click="editAccPosting(settlement)" type="button">EDIT</a>
+		<!--button class="btn btn-danger" ng-click="removeUser($index)">del</button-->
+	</div>
+</td>

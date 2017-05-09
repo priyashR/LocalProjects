@@ -1,0 +1,118 @@
+
+<div class="case-content-box">
+	<h4>Deal specific charge</h4>
+<!-- 	<uib-tabset class="nav nav-tabs">
+		<uib-tab ng-repeat="tab in $root.deals.charge.add.tabs" heading="{{tab.heading}}" active="tab.active" disable="tab.disabled" ng-click="tabPreProcessor(tab)">
+			<div ng-include="tab.uri"></div>
+		</uib-tab>
+	</uib-tabset> -->
+
+	<div class="application_box">
+		
+		<div ng-init="initDealChargeStructure()">
+
+			<div class="row form-group">
+				<label class="control-label col-xs-5 ">Charge Code:</label>
+		
+				<div class='col-xs-6 '>
+					<select  class="form-control"
+						ng-options="option as (option.chargeCode  + '   - (' + option.description + ')') for option in allCalculationMethods" ng-change="selectedDealCalculationMethod(selectedCalculationMethodObj)" ng-model="selectedCalculationMethodObj"></select>
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-xs-5 ">Long Description:</label>
+				<div class="col-xs-6 ">
+					<input class="form-control " type="text" ng-model="calculationMethod.description">
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-xs-5 ">Charge Type:</label>
+				<div class="col-xs-6 ">
+					<select  class="form-control"
+						ng-options="option.code as option.description for option in allChargeTypes" ng-model="calculationMethod.chargeTypeCode" ></select>
+				</div>
+			</div>
+			
+			<div>
+			
+				<div ng-show="calculationMethod.chargeTypeCode == 'PERIODIC'">
+				
+					<div class="row form-group">
+						<label class="control-label col-xs-5 ">Period:</label>
+						<div class="col-xs-6 ">											    
+							<select id="calculationMethod.periodCode" class="form-control" ng-options="option.code as (option.code  + '   - (' + option.description + ')') for option in allPeriods"  ng-model="calculationMethod.periodCode" >
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+
+						<label class="control-label col-xs-5 ">Percentage(%):</label>
+						<div class="col-xs-6 ">
+							<input class="form-control " type="text" ng-model="calculationMethod.percentage">
+
+						</div>
+					</div>
+					  <div class="row form-group">
+						<label class="control-label col-xs-5 ">Frequency:</label>
+						<div class="col-xs-6 ">
+							<input class="form-control " type="text" ng-model="calculationMethod.frequency">
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<label class="control-label col-xs-5 ">Recovery Type:</label>
+						<div class="col-xs-6 ">
+							<select id="calculationMethod.recoveryTypeCode" class="form-control" ng-options="option.code as (option.code  + '   - (' + option.description + ')') for option in allRecoveryTypes"  ng-model="calculationMethod.recoveryTypeCode" >
+							</select>
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<label class="control-label col-xs-5">Taxable:</label>
+						<div class="col-xs-6">
+							<input class="form-control " type="checkbox" ng-model="calculationMethod.taxable">
+						</div>
+					</div>	
+					
+				
+				</div>
+			
+			
+				<div ng-show="calculationMethod.chargeTypeCode == 'FLAT'">
+			
+					<div class="row form-group">
+
+						<label class="control-label col-xs-5 ">Fixed Amount:</label>
+						<div class="col-xs-6 ">
+							<input class="form-control" type="text" ng-model="calculationMethod.amount">
+
+						</div>
+
+					</div>
+				
+				</div>
+			
+				<div ng-show="calculationMethod.chargeTypeCode == 'PERCENTAGE'">
+				
+					<div class="row form-group">
+
+						<label class="control-label col-xs-5 ">Percentage(%):</label>
+						<div class="col-xs-6 ">
+							<input class="form-control " type="text" ng-model="calculationMethod.percentage">
+
+						</div>
+					</div>
+			
+				</div>
+				
+			</div>
+			
+			
+		</div>
+
+	</div>
+</div>
+
+<button type="submit" class="btn btn-warning btn-small" ng-click="saveDealCalculationMethod(calculationMethod);okModal();" ng-disabled="calculationMethod.id == null">Submit</button>

@@ -1,0 +1,130 @@
+<form name="dealDeliveryForm">
+    <!--product info-->
+    <div class="application_box">
+
+        <!-- general info -->
+
+        <div class="form-group">
+            <strong>Amendments</strong> <span class="note pull-right">Please note all fields with an asterisk(*) are mandatory</span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-5">Amendment Date:</label>
+            <div class="col-xs-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
+                           ng-model="deal.dealAmendmentDTO.amendmentDate"
+                           is-open="status2.opened"/> <span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open2($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="application_box">
+
+        <!-- general info -->
+
+        <div class="form-group">
+            <strong>Applicant Instruction</strong>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Instructions from Applicant: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="deal.dealAmendmentDTO.applicantInstruction">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Adjustment Date:</label>
+            <div class="col-xs-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
+                           ng-model="deal.dealAmendmentDTO.adjustmentDate"
+                           is-open="status.opened"/> <span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Adjustment Narrative: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="deal.dealAmendmentDTO.adjustmentNarrative">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Response to Applicant: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="deal.dealAmendmentDTO.applicantResponse">
+            </div>
+        </div>
+
+    </div>
+    <!--//general info-->
+    <div class="application_box">
+
+        <!-- general info -->
+
+        <div class="form-group">
+            <strong>Beneficiary Approval</strong>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Beneficiary Approval Required: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <select id="counterGuarantee" class="form-control input-sm"
+                        ng-model="deal.dealAmendmentDTO.beneficiaryApproval"
+                        ng-options="option as option for option in allYesNos"
+                        required>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Amendment Reference: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="deal.dealAmendmentDTO.ammendReference">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Principal's Response: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="deal.dealAmendmentDTO.principalResponse">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Response Date:</label>
+            <div class="col-xs-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
+                           ng-model="deal.dealAmendmentDTO.responseDate"
+                           is-open="status3.opened"/> <span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open3($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5">Response Narrative: <span class="note pl10">*</span></label>
+            <div class="col-xs-7">
+                <input type="text" class="form-control input-sm" ng-model="deal.dealAmendmentDTO.responseNarrative">
+            </div>
+        </div>
+
+    </div>
+
+    <div class='form-group'>
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-sm  btn-success" ng-disabled=!dealDeliveryForm.$valid
+                    ng-click="navigate()">
+                NEXT
+                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    </div>
+</form>

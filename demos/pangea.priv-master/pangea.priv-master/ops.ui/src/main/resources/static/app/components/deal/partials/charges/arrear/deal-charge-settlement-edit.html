@@ -1,0 +1,50 @@
+
+<td>{{settlement.chargeCode}}</td>
+<td class="no-wrap-parent">{{settlement.description}}</td>
+<td> 
+	<select id="debitPostingClassification"
+			ng-model="settlement.debitSettlementPosting" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+			<option ng-repeat="option in settlementPartyCodes track by $index" value="{{option}}">{{option}}</option>
+		</select>
+</td>
+<td>
+<div ng-show="!isCreditPartyIBA(settlement)">
+<select id="creditPostingClassification"
+			ng-model="settlement.creditSettlementPosting" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+			<option ng-repeat="option in settlementPartyCodes" value="{{option}}">{{option}}</option>
+		</select>
+</div>
+<div ng-show="isCreditPartyIBA(settlement)">{{settlement.creditPostingClassification}}	</div>	
+</td>
+
+<td>
+   	<select id="debitCurrencyCode"
+			ng-options="currency.code as currency.code for currency in allSettlementCurrencyTypes"
+			ng-model="settlement.debitCurrency" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+		</select>
+</td>
+<td>{{ settlement.amount | number:2  }}</td>
+<td>
+<div ng-show="!isCreditPartyIBA(settlement)">
+		<select id="creditCurrencyCode"
+			ng-options="currency.code as currency.code for currency in allSettlementCurrencyTypes"
+			ng-model="settlement.creditCurrency" class="form-control input-xs-nopadding">
+			<option value="">-- choose --</option>
+		</select>
+</div>
+<div ng-show="isCreditPartyIBA(settlement)">
+{{ settlement.creditCurrencyCode  ||  settlement.debitCreditCurrencyTypeCode}} </div>
+</td>
+
+<td>{{ settlement.amount | number:2 }}</td>
+
+
+<td style="white-space: nowrap">
+	<div class="buttons">
+		<a class="btn btn-xs btn-danger font-size f11" ng-click="saveSettlement(settlement)">SAVE</a>
+		<a class="btn btn-xs btn-default font-size f11" ng-click="resetEditSettlement(settlement)">CANCEL</a>
+	</div>
+</td>

@@ -1,0 +1,110 @@
+<div class="case-content-box col-xs-12" ng-controller="DealReviewCtrl">
+    <h3>{{activeNav.heading}}</h3>
+
+    <div class="panel-group review-accordion" role="tablist" aria-multiselectable="true">
+   		 <!--product info-->
+	    <uib-accordion close-others="true">
+	    	<uib-accordion-group
+	    	ng-repeat="item in items"
+			is-open="item.status.open"  ng-click="groupClick($event,item)">
+				<uib-accordion-heading>
+					{{item.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': item.status.open, 'glyphicon-chevron-right': !item.status.open}"></i>
+				</uib-accordion-heading>
+
+	    		<div class="panel-body application_box" ng-click="groupClick($event,item)">
+					<div class="form-group" 
+						ng-if="item.name != 'Parties' 
+						&& item.name != 'Recovery Schedule'
+						&& item.name.indexOf('Documents')<0
+						"
+						ng-repeat="subitem in item.subitems">							
+						<label class="control-label col-xs-5">{{subitem.name}}:</label>
+						<div class="col-xs-7" ng-model="dealreview_product">{{subitem.desc}}</div>														
+					</div>
+
+					 <!--if section is settlement charges-->
+					<div ng-if="item.name == 'Settlement Instructions' ">
+						
+							 <div ng-include="item.uri"></div>
+					</div>
+					<!--//if section is settlement charges-->	
+
+
+					<!--if section is parties-->
+					<div ng-if="item.name == 'Parties' ">
+						
+							<div class="form-group-column col-xs-12 col-lg-5"
+								ng-repeat="subitem in item.subitems" ng-if="subitem.subitemsvalues.length > 0">
+								
+									<h4>{{subitem.subitemname}}</h4>
+									<div class="form-group col-xs-12" 
+										ng-repeat="subvalues in subitem.subitemsvalues">
+										<label class="control-label col-xs-5">{{subvalues.name}}<span ng-show="subvalues.name != ''">:</span><span ng-show="subvalues.name == ''">&nbsp;</span></label>
+										<div class="col-xs-7" ng-model="dealreview_product">{{subvalues.value}}</div>
+									</div>
+									
+								
+							</div>
+					</div>
+					<!--//if section is parties-->	
+
+					<!--if section is Applicable Charges-->
+					<div ng-if="item.name == 'Applicable Charges'">
+						<strong>{{item.name}}</strong>
+
+						<div ng-include="item.uri" class="case-content-box"></div>
+					</div>
+					<!--//if section is Applicable Charges-->	
+
+
+					<!--if section is recovery schedule-->
+					<div ng-if="item.name == 'Recovery Schedule'" class="case-content-box">
+						<div ng-repeat="tab in item.subitems">
+							<strong>{{tab.heading}}</strong>
+							<div ng-include="tab.uri"></div>
+						</div>
+					</div>
+					<!--//if section is recovery schedule-->	
+
+					<!--if section is documents-->
+					<div ng-if="item.name.indexOf('Documents')>=0">
+						<div class="customer-search">
+				            <div class="col-xs-12 col-lg-12 container-docs" >
+				                <div ng-include="item.uri"></div>
+				            </div>
+				        </div>
+					</div>
+					<!--//if section is documents-->							
+		      </div>
+	    	</uib-accordion-group>
+	    </uib-accordion>
+	</div>
+		
+	<div ng-hide="{{getReadOnly()}}" class="application_box no-border mb40 pl0">
+		<div class="col-xs-12">
+			<button type="submit" class="btn btn-success" ng-click="openmodal(task)">PROCEED <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+		</div>
+	</div>
+
+		
+	<div id="previewModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header"> 
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<!--  h4 class="modal-title">{{selectedDocument.description}}</h4>//EVT: Takes up a lot of real estate-->
+				</div>
+				<div class="modal-body">
+	    			<iframe src="{{selectedDocument.link}}" width="100%" height="500px">
+	    			</iframe>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

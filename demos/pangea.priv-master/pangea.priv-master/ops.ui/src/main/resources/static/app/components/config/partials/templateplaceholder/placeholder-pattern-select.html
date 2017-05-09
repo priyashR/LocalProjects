@@ -1,0 +1,18 @@
+<div ng-init="initTreeView()" >
+
+    <div class="modal-header">
+        <h3 class="modal-title">Select Placeholder Pattern</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="max-height:415px;max-width: 608px;overflow-y: scroll;">
+            <div ng-show="treeViewDataContext" class="col-xs-12">
+                <div id="treeViewDataContext"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="okModal()">Select</button>
+        <button class="btn btn-default" type="button" ng-click="cancelModal()">Cancel</button>
+    </div>
+
+</div>

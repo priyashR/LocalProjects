@@ -1,0 +1,42 @@
+
+<div class="application_box bg-grey">
+	<h3>Deal Document Builder</h3>
+
+	<div class="form-group row">
+		<label class="form-control-label col-xs-2">Product</label>
+		<div class="col-xs-9">
+			<select class="form-control input-sm" ng-disabled="true"
+					ng-model="deal.productCode"
+					ng-options="product.id as product.description for product in allProducts"
+					required>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="form-control-label col-xs-2">Delivery Method</label>
+		<div class="col-xs-9">
+			<select class="form-control input-sm" ng-disabled="true"
+					ng-model="deal.deliveryTypeCode"
+					ng-options="deliveryMethod.code as deliveryMethod.description for deliveryMethod in allDeliveryMethods"
+					required>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="form-control-label col-xs-2">Message Type</label>
+		<div class="col-xs-9">
+			<select class="form-control input-sm"
+					ng-model="deal.messageType"
+					ng-options="messageType.code as messageType.description for messageType in allMessageTypes"
+					required>
+			</select>
+		</div>
+
+	</div>
+	<div class="form-group row">
+		<button type="submit" class="btn btn-sm btn-success pull-right" ng-click="addNST()">Add NST</button>
+	</div>
+
+</div>
