@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,5 +44,20 @@ public class Orig_SMSController {
 
 	        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
 	}	
+	
+	
+	@RequestMapping(value="/orig_SMS/{smsId}", method=RequestMethod.PUT)
+	public ResponseEntity<?> updateSMS(@RequestBody Orig_SMS o_SMS, @PathVariable Long smsId) {
+	        // Save the entity
+		Orig_SMS p = orig_SMSRepository.save(o_SMS);
+	        return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value="/orig_SMS/{smsId}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteSMS(@PathVariable Long smsId) {
+		orig_SMSRepository.delete(smsId);
+	        return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 
 }
