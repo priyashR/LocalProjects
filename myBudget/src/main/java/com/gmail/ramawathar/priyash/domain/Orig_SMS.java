@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Table(name="bgt_orig_sms")  
 @Entity
 public class Orig_SMS {
@@ -16,6 +18,7 @@ public class Orig_SMS {
 	private Long sms_id;
     
     @Column(name="MESSAGE")
+    @NotEmpty
 	private String message;
 
 	

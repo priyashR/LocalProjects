@@ -2,6 +2,7 @@ package com.gmail.ramawathar.priyash.controller;
 import java.net.URI;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class Orig_SMSController {
 	}	
 	
 	@RequestMapping(value="/orig_SMS", method=RequestMethod.POST)
-	public ResponseEntity<?> createSMS(@RequestBody Orig_SMS o_SMS) {
+	public ResponseEntity<?> createSMS(@Valid @RequestBody Orig_SMS o_SMS) {
 
 		o_SMS = orig_SMSRepository.save(o_SMS);
 

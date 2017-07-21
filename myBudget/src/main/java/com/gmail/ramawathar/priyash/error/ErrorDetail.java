@@ -1,12 +1,30 @@
 package com.gmail.ramawathar.priyash.error;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ErrorDetail {
 
     private String title;
     private int status;
     private String detail;
     private long timeStamp;
-    private String developerMessage;
+    private String path;
+    public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public Map<String, List<ValidationError>> getErrors() {
+		return errors;
+	}
+	public void setErrors(Map<String, List<ValidationError>> errors) {
+		this.errors = errors;
+	}
+	private String developerMessage;
+    private Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
 	public String getTitle() {
 		return title;
 	}
