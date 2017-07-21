@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gmail.ramawathar.priyash.domain.Orig_SMS;
+import com.gmail.ramawathar.priyash.exception.ResourceNotFoundException;
 import com.gmail.ramawathar.priyash.repository.Orig_SMSRepository;
 
 @RestController
@@ -22,6 +23,13 @@ public class Orig_SMSController {
 	@Inject
 	private Orig_SMSRepository orig_SMSRepository;
 	
+	protected void verifySMS(Long smsId) throws ResourceNotFoundException {
+		Orig_SMS sms = orig_SMSRepository.findOne(smsId);
+        if(sms == null) {
+                throw new ResourceNotFoundException("Poll with id " + smsId + " not found");
+        }
+	}	
+	
 	@RequestMapping(value="/allSms", method=RequestMethod.GET)
 	public ResponseEntity<Iterable<Orig_SMS>> getAllPolls() {
 	        Iterable<Orig_SMS> allPolls = orig_SMSRepository.findAll();
@@ -29,7 +37,7 @@ public class Orig_SMSController {
 	}	
 	
 	@RequestMapping(value="/orig_SMS", method=RequestMethod.POST)
-	public ResponseEntity<?> createPoll(@RequestBody Orig_SMS o_SMS) {
+	public ResponseEntity<?> createSMS(@RequestBody Orig_SMS o_SMS) {
 
 		o_SMS = orig_SMSRepository.save(o_SMS);
 
@@ -48,16 +56,24 @@ public class Orig_SMSController {
 	
 	@RequestMapping(value="/orig_SMS/{smsId}", method=RequestMethod.PUT)
 	public ResponseEntity<?> updateSMS(@RequestBody Orig_SMS o_SMS, @PathVariable Long smsId) {
-	        // Save the entity
+		verifySMS(smsId);
 		Orig_SMS p = orig_SMSRepository.save(o_SMS);
 	        return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value="/orig_SMS/{smsId}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> deleteSMS(@PathVariable Long smsId) {
+		verifySMS(smsId);
 		orig_SMSRepository.delete(smsId);
 	        return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/orig_SMS/{smsId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getSMS(@PathVariable Long smsId) {
+		verifySMS(smsId);
+		Orig_SMS s = orig_SMSRepository.findOne(smsId);
+        return new ResponseEntity<> (s, HttpStatus.OK);
+	}	
 	
 
 }
