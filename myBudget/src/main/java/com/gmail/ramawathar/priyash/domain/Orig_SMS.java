@@ -20,9 +20,41 @@ public class Orig_SMS {
     @Column(name="MESSAGE")
     @NotEmpty
 	private String message;
-
+    
+    @Column(name="USER_NUMBER")
+    private String user_number;
+    
+    @Column(name="SENDER_NUMBER")
+    private String sender_number;
+    
+    @Column(name="USER_EMAIL")
+    private String user_email;
 	
-    public Long getSms_id() {
+    public String getUser_number() {
+		return user_number;
+	}
+
+	public void setUser_number(String user_number) {
+		this.user_number = user_number;
+	}
+
+	public String getSender_number() {
+		return sender_number;
+	}
+
+	public void setSender_number(String sender_number) {
+		this.sender_number = sender_number;
+	}
+
+	public String getUser_email() {
+		return user_email;
+	}
+
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+
+	public Long getSms_id() {
 		return sms_id;
 	}
 
