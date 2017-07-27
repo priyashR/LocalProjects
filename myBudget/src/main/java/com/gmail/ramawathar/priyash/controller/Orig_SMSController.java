@@ -50,8 +50,8 @@ public class Orig_SMSController {
 	                                              .buildAndExpand(o_SMS.getSms_id())
 	                                              .toUri();
 	        responseHeaders.setLocation(newPollUri);
-
-	        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+	        String test = new String("test response");
+	        return new ResponseEntity<>(o_SMS, responseHeaders, HttpStatus.CREATED);
 	}	
 	
 	
