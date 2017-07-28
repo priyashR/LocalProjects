@@ -14,7 +14,7 @@ import com.gmail.ramawathar.priyash.domain.Orig_SMS;
 public class ProcessSms {
 	
 
-	private Bgt_trxns trxn = new Bgt_trxns();
+	
 	private Orig_SMS o_sms;
 	
 	public ProcessSms(Orig_SMS o_sms){
@@ -23,24 +23,39 @@ public class ProcessSms {
 	
 	public Bgt_trxns process(Bgt_notifications n){
 		
+		Bgt_trxns trxn = new Bgt_trxns();
 		String sms = o_sms.getMessage();
 		
 		if (sms.toUpperCase().startsWith("ABSA")) {
-			sms = sms.toUpperCase().replace("ABSA:", "ABSA,");
-			sms = sms.replace(", ", ",");
-	        //StringTokenizer defaultTokenizer = new StringTokenizer(o_sms.getMessage(),",");
-			StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
-			String balance = "";
-	        int pos = 0;
-	        trxn.setUser_email(o_sms.getUser_email());
-	        trxn.setCategory("Petrol");
-	        String token;
-	        while (defaultTokenizer.hasMoreTokens())
+			trxn = processABSA(sms,n);
+		}
+		
+		return trxn;
+	}
+	
+	private Bgt_trxns processABSA(String processSMS, Bgt_notifications n){
+
+		Bgt_trxns trxn = new Bgt_trxns();
+		String sms = processSMS.toUpperCase().replace("ABSA:", "ABSA,");
+		sms = sms.replace(", ", ",");
+		
+		StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
+		String balance = "";
+        int pos = 0;
+        
+        trxn.setUser_email(o_sms.getUser_email());
+        //lookup category here
+        trxn.setCategory("Petrol");
+        
+        String token;
+        try{
+	        while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
 	        {
 	        	token = defaultTokenizer.nextToken();
 	        	pos++;
 	        	switch (pos){
 	        	case 1:
+	        		//verify user account and if not found set the notification type to ERROR
 	        		trxn.setUser_account(token);
 	        		break;
 	        	case 3:
@@ -52,7 +67,9 @@ public class ProcessSms {
 	        			trxn.setTrxn_type("I");
 	        			break;
 		        	default:
-	        			trxn.setTrxn_type("?");
+						n.setNotification_type("ERROR");
+						n.setNotification_desc("Unknown transaction type - cannot proceed");
+						n.setNotification_action("INVESTIGATION_REQUIRED");
 		        		break;
 	        		}
 	        		break;
@@ -63,6 +80,9 @@ public class ProcessSms {
 						tranDate = formatter.parse(token.substring(0,8));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
+						n.setNotification_type("ERROR");
+						n.setNotification_desc("Problem with the transaction date - cannot proceed");
+						n.setNotification_action("INVESTIGATION_REQUIRED");
 						e.printStackTrace();
 					} 
 	        		trxn.setTrxn_date(tranDate);
@@ -92,8 +112,12 @@ public class ProcessSms {
 			balance = balance.substring(17,balance.indexOf(". HELP "));
 			BigDecimal money = new BigDecimal(balance);
 			trxn.setTrxn_balance(money);
-			//PR System.out.println("Balance: "+balance);
-		}
+        }
+        catch (Exception e){
+			n.setNotification_type("ERROR");
+			n.setNotification_desc("Critical issue: "+e.getMessage());
+			n.setNotification_action("INVESTIGATION_REQUIRED");
+        }
 		
 		return trxn;
 	}

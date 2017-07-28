@@ -73,7 +73,7 @@ public class Orig_SMSController {
 			n.setNotification_type("INFO");
 			n.setNotification_desc("Original message processed successfully");
 			n.setNotification_action("NONE");
-			n.setNotification_status("NONE");
+			n.setNotification_status("NEW");
 			
 			try {
 	        // Set the location header for the newly created resource
@@ -85,14 +85,14 @@ public class Orig_SMSController {
 		        responseHeaders.setLocation(newPollUri);	
 				p = new ProcessSms(s);
 				t = p.process(n);
-				t = bgt_trxnsRepository.save(t);
 				n = bgt_notificationsRepository.save(n);
+				if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))) 
+					t = bgt_trxnsRepository.save(t);
 			}
 			catch (Exception e){
 				n.setNotification_type("ERROR");
 				n.setNotification_desc("Critical issue: "+e.getMessage());
-				n.setNotification_action("INVESTIATION_REQUIRED");
-				n.setNotification_status("NEW");
+				n.setNotification_action("INVESTIGATION_REQUIRED");
 				n = bgt_notificationsRepository.save(n);
 				throw e;
 			}
