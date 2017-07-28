@@ -7,18 +7,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
+import javax.inject.Inject;
+
 import com.gmail.ramawathar.priyash.domain.Bgt_notifications;
 import com.gmail.ramawathar.priyash.domain.Bgt_trxns;
+import com.gmail.ramawathar.priyash.domain.Bgt_user_third_party;
 import com.gmail.ramawathar.priyash.domain.Orig_SMS;
+import com.gmail.ramawathar.priyash.repository.Bgt_user_third_partyRepository;
 
 public class ProcessSms {
 	
 
+
+	
+	private Bgt_user_third_partyRepository bgt_user_third_partyRepository;
 	
 	private Orig_SMS o_sms;
 	
 	public ProcessSms(Orig_SMS o_sms){
 		this.o_sms = o_sms;
+	}
+	
+	public ProcessSms(Orig_SMS o_sms, Bgt_user_third_partyRepository bgt_user_third_partyRepository){
+		this.o_sms = o_sms;
+		this.bgt_user_third_partyRepository = bgt_user_third_partyRepository;
 	}
 	
 	public Bgt_trxns process(Bgt_notifications n){
@@ -44,8 +56,7 @@ public class ProcessSms {
         int pos = 0;
         
         trxn.setUser_email(o_sms.getUser_email());
-        //lookup category here
-        trxn.setCategory("Petrol");
+
         
         String token;
         try{
@@ -69,7 +80,7 @@ public class ProcessSms {
 		        	default:
 						n.setNotification_type("ERROR");
 						n.setNotification_desc("Unknown transaction type - cannot proceed");
-						n.setNotification_action("INVESTIGATION_REQUIRED");
+						n.setNotification_action("INVESTIGATE");
 		        		break;
 	        		}
 	        		break;
@@ -82,13 +93,16 @@ public class ProcessSms {
 						// TODO Auto-generated catch block
 						n.setNotification_type("ERROR");
 						n.setNotification_desc("Problem with the transaction date - cannot proceed");
-						n.setNotification_action("INVESTIGATION_REQUIRED");
+						n.setNotification_action("INVESTIGATE");
 						e.printStackTrace();
 					} 
 	        		trxn.setTrxn_date(tranDate);
 	        		break;
 	        	case 5:
-	        		trxn.setUser_third_party(token);
+	        		trxn.setUser_third_party(token.toUpperCase());
+	                //lookup category here
+	                trxn.setCategory(getCategory(token.toUpperCase(),n));
+	                
 	        		break;
 	        	case 6:
 	        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
@@ -116,10 +130,42 @@ public class ProcessSms {
         catch (Exception e){
 			n.setNotification_type("ERROR");
 			n.setNotification_desc("Critical issue: "+e.getMessage());
-			n.setNotification_action("INVESTIGATION_REQUIRED");
+			n.setNotification_action("INVESTIGATE");
         }
 		
 		return trxn;
+	}
+	
+	private String getCategory(String thirdParty, Bgt_notifications n){
+		System.out.println("PR 1"+thirdParty);
+		boolean found = false;
+		String cat = "UNCATEGORISED";
+		try{
+			for (Bgt_user_third_party thirdPartyRec : bgt_user_third_partyRepository.findByUserThirdParty(thirdParty)) {
+				System.out.println("PR 2 "+cat);
+				found = true;
+				cat = thirdPartyRec.getCategory(); 
+			}
+		} catch (Exception e){
+			System.out.println("PR 3 "+thirdParty);
+			System.out.println("PR 4 ");
+			e.printStackTrace();
+			n.setNotification_type("ACTION");
+			n.setNotification_desc("Thirdy party not categorised: "+e);
+			n.setNotification_action("INVESTIGATE");
+			
+		}
+		
+		if (found){System.out.println("PR 5 "+thirdParty);
+			return cat; 
+		}
+		System.out.println("PR 6 "+cat);
+		n.setNotification_type("ACTION");
+		n.setNotification_desc("Thirdy party not categorised");
+		n.setNotification_action("CATEGORISE");
+		return "UNCATEGORISED";
+		
+		
 	}
 	
 	/*public static void main(String args[]){

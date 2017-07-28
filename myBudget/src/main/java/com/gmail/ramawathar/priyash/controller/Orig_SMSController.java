@@ -21,6 +21,7 @@ import com.gmail.ramawathar.priyash.domain.Orig_SMS;
 import com.gmail.ramawathar.priyash.exception.ResourceNotFoundException;
 import com.gmail.ramawathar.priyash.repository.Bgt_notificationsRepository;
 import com.gmail.ramawathar.priyash.repository.Bgt_trxnsRepository;
+import com.gmail.ramawathar.priyash.repository.Bgt_user_third_partyRepository;
 import com.gmail.ramawathar.priyash.repository.Orig_SMSRepository;
 
 @RestController
@@ -32,6 +33,8 @@ public class Orig_SMSController {
 	private Bgt_trxnsRepository bgt_trxnsRepository;
 	@Inject
 	private Bgt_notificationsRepository bgt_notificationsRepository;
+	@Inject
+	private Bgt_user_third_partyRepository bgt_user_third_partyRepository;
 	
 	protected void verifySMS(Long smsId) throws ResourceNotFoundException {
 		Orig_SMS sms = orig_SMSRepository.findOne(smsId);
@@ -83,7 +86,7 @@ public class Orig_SMSController {
 		                                              .buildAndExpand(o_SMS.getSms_id())
 		                                              .toUri();
 		        responseHeaders.setLocation(newPollUri);	
-				p = new ProcessSms(s);
+				p = new ProcessSms(s,bgt_user_third_partyRepository);
 				t = p.process(n);
 				n = bgt_notificationsRepository.save(n);
 				if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))) 
@@ -92,7 +95,7 @@ public class Orig_SMSController {
 			catch (Exception e){
 				n.setNotification_type("ERROR");
 				n.setNotification_desc("Critical issue: "+e.getMessage());
-				n.setNotification_action("INVESTIGATION_REQUIRED");
+				n.setNotification_action("INVESTIGATE");
 				n = bgt_notificationsRepository.save(n);
 				throw e;
 			}
