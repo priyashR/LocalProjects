@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
+import com.gmail.ramawathar.priyash.domain.Bgt_notifications;
 import com.gmail.ramawathar.priyash.domain.Bgt_trxns;
 import com.gmail.ramawathar.priyash.domain.Orig_SMS;
 
@@ -20,7 +21,7 @@ public class ProcessSms {
 		this.o_sms = o_sms;
 	}
 	
-	public Bgt_trxns process(){
+	public Bgt_trxns process(Bgt_notifications n){
 		
 		String sms = o_sms.getMessage();
 		

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gmail.ramawathar.priyash.businessLogic.ProcessSms;
+import com.gmail.ramawathar.priyash.domain.Bgt_notifications;
 import com.gmail.ramawathar.priyash.domain.Bgt_trxns;
 import com.gmail.ramawathar.priyash.domain.Orig_SMS;
 import com.gmail.ramawathar.priyash.exception.ResourceNotFoundException;
+import com.gmail.ramawathar.priyash.repository.Bgt_notificationsRepository;
 import com.gmail.ramawathar.priyash.repository.Bgt_trxnsRepository;
 import com.gmail.ramawathar.priyash.repository.Orig_SMSRepository;
 
@@ -28,6 +30,8 @@ public class Orig_SMSController {
 	private Orig_SMSRepository orig_SMSRepository;
 	@Inject
 	private Bgt_trxnsRepository bgt_trxnsRepository;
+	@Inject
+	private Bgt_notificationsRepository bgt_notificationsRepository;
 	
 	protected void verifySMS(Long smsId) throws ResourceNotFoundException {
 		Orig_SMS sms = orig_SMSRepository.findOne(smsId);
@@ -46,23 +50,52 @@ public class Orig_SMSController {
 	        return new ResponseEntity<>(bgt_trxnsRepository.findAll(), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/allNotifications", method=RequestMethod.GET)
+	public ResponseEntity<Iterable<Bgt_notifications>> getAllnotifications() {
+	        return new ResponseEntity<>(bgt_notificationsRepository.findAll(), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/orig_SMS", method=RequestMethod.POST)
 	public ResponseEntity<?> createSMS(@Valid @RequestBody Orig_SMS o_SMS) {
 
-			o_SMS = orig_SMSRepository.save(o_SMS);
-
-	        // Set the location header for the newly created resource
-	        HttpHeaders responseHeaders = new HttpHeaders();
-	        URI newPollUri = ServletUriComponentsBuilder
-	                                              .fromCurrentRequest()
-	                                              .path("/{id}")
-	                                              .buildAndExpand(o_SMS.getSms_id())
-	                                              .toUri();
-	        responseHeaders.setLocation(newPollUri);		
+			//o_SMS = orig_SMSRepository.save(o_SMS);
+			Bgt_notifications n = new Bgt_notifications();
+	        HttpHeaders responseHeaders = new HttpHeaders();	
 	        Orig_SMS s = orig_SMSRepository.save(o_SMS);
-			ProcessSms p = new ProcessSms(s);
-			Bgt_trxns t = p.process();
-			t = bgt_trxnsRepository.save(t);
+			ProcessSms p;
+			Bgt_trxns t;
+
+			//init notifications
+
+			n.setUser_email(o_SMS.getUser_email());
+			n.setNotification_orig_sms(o_SMS.getMessage());
+			
+			n.setNotification_type("INFO");
+			n.setNotification_desc("Original message processed successfully");
+			n.setNotification_action("NONE");
+			n.setNotification_status("NONE");
+			
+			try {
+	        // Set the location header for the newly created resource
+		        URI newPollUri = ServletUriComponentsBuilder
+		                                              .fromCurrentRequest()
+		                                              .path("/{id}")
+		                                              .buildAndExpand(o_SMS.getSms_id())
+		                                              .toUri();
+		        responseHeaders.setLocation(newPollUri);	
+				p = new ProcessSms(s);
+				t = p.process(n);
+				t = bgt_trxnsRepository.save(t);
+				n = bgt_notificationsRepository.save(n);
+			}
+			catch (Exception e){
+				n.setNotification_type("ERROR");
+				n.setNotification_desc("Critical issue: "+e.getMessage());
+				n.setNotification_action("INVESTIATION_REQUIRED");
+				n.setNotification_status("NEW");
+				n = bgt_notificationsRepository.save(n);
+				throw e;
+			}
 	        return new ResponseEntity<>(t, responseHeaders, HttpStatus.CREATED);
 	}	
 	
