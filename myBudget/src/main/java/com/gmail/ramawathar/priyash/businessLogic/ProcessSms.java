@@ -137,18 +137,14 @@ public class ProcessSms {
 	}
 	
 	private String getCategory(String thirdParty, Bgt_notifications n){
-		System.out.println("PR 1"+thirdParty);
 		boolean found = false;
 		String cat = "UNCATEGORISED";
 		try{
 			for (Bgt_user_third_party thirdPartyRec : bgt_user_third_partyRepository.findByUserThirdParty(thirdParty)) {
-				System.out.println("PR 2 "+cat);
 				found = true;
 				cat = thirdPartyRec.getCategory(); 
 			}
 		} catch (Exception e){
-			System.out.println("PR 3 "+thirdParty);
-			System.out.println("PR 4 ");
 			e.printStackTrace();
 			n.setNotification_type("ACTION");
 			n.setNotification_desc("Thirdy party not categorised: "+e);
@@ -156,7 +152,7 @@ public class ProcessSms {
 			
 		}
 		
-		if (found){System.out.println("PR 5 "+thirdParty);
+		if (found){
 			return cat; 
 		}
 		System.out.println("PR 6 "+cat);
