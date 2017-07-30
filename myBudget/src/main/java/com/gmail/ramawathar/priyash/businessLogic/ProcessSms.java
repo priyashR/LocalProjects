@@ -53,6 +53,8 @@ public class ProcessSms {
 		String payType= "";
     	String endSearch = ". HELP ";
 		
+    	
+    	
 		StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
 		String balance = "";
         int pos = 0;
@@ -61,7 +63,7 @@ public class ProcessSms {
 
         
         String token;
-        try{
+       // try{
     		while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
         	{
 	        	token = defaultTokenizer.nextToken();
@@ -79,7 +81,7 @@ public class ProcessSms {
 	        		}
 	        		break;
 	        	case 3:
-	        		//System.out.println(3);
+	        		System.out.println(3);
 	        		switch(token.toUpperCase()){
 	        		case "PUR":
 	        			trxn.setTrxn_type("O");
@@ -96,7 +98,7 @@ public class ProcessSms {
 	        		}
 	        		break;
 	        	case 4:
-	        		//System.out.println(4);
+	        		System.out.println(4);
 	        		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
 	        		Date tranDate = new Date(1);
 					try {
@@ -118,54 +120,57 @@ public class ProcessSms {
 	        			System.out.println("payType: "+payType);
 	        		break;
 	        	case 5:
-	        		//System.out.println(5);
+	        		System.out.println(5);
 	        		trxn.setUser_third_party(token.toUpperCase());
 	                //lookup category here
 	                trxn.setCategory(getCategory(token.toUpperCase(),n));
 	                
 	        		break;
 	        	case 6:
-	        		//System.out.println(6);
+	        		System.out.println(6);
 	        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
 	        		trxn.setTrxn_amount(money.abs());
 	        		break;
 	        	case 7:
-	        		//System.out.println(7);
+	        		System.out.println(7);
 	        		balance = token;
 	        		break;
 	        	case 8:
-	        		//System.out.println(8);
+	        		System.out.println(8);
 	        		balance = balance+token;
 	        		break;
 	        	case 9:
-	        		//System.out.println(9);
+	        		System.out.println(9);
 	        		balance = balance+token;
 	        		break;
 	        	default:
 	        		break;
 	        	}
-	        	//PR System.out.println(token);
+	        	System.out.println(token);
 	        }	
     		
 	        if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))){
 	        	
 		        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
+		        	System.out.println("PUR or AUTH");
 		        	balance = balance.substring(17,balance.indexOf(endSearch));
 					BigDecimal money = new BigDecimal(balance);
 					trxn.setTrxn_balance(money);
 		        }else if(payType.equalsIgnoreCase("SET")){
+		        	System.out.println("SET:"+endSearch);
+		        	System.out.println("balance string:"+balance);		        	
 		        	balance = balance.substring(11,balance.indexOf(endSearch));
 					BigDecimal money = new BigDecimal(balance);
 					trxn.setTrxn_balance(money);
 		        }
 	        }
-        }
-        catch (Exception e){
+        //}
+        /*catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
 			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
-        }
+        }*/
 		
 		return trxn;
 	}
@@ -198,12 +203,14 @@ public class ProcessSms {
 		
 	}
 	
-	/*public static void main(String args[]){
+	public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
+		Bgt_notifications n = new Bgt_notifications();
 		o_sms.setMessage("Absa: CCRD2011, Pur, 23/07/17 PURCHASE, C#BP FOURWAYS, R512.54, Total Avail Bal R13,009.11. Help 0860553553; RAMAWPR001");
 		ProcessSms p = new ProcessSms(o_sms);
-		p.process();
+		n.setNotification_type("INFO");
+		p.process(n);
 		
-	}*/
+	}
 
 }
