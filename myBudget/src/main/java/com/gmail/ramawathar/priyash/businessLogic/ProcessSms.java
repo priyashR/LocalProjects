@@ -51,6 +51,7 @@ public class ProcessSms {
 		String sms = processSMS.toUpperCase().replace("ABSA:", "ABSA,");
 		sms = sms.replace(", ", ",");
 		String payType= "";
+    	String endSearch = ". HELP ";
 		
 		StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
 		String balance = "";
@@ -84,6 +85,7 @@ public class ProcessSms {
 	        			trxn.setTrxn_type("O");
 	        			break;
 	        		case "DEP":
+	        			endSearch = " HELP ";
 	        			trxn.setTrxn_type("I");
 	        			break;
 		        	default:
@@ -146,12 +148,13 @@ public class ProcessSms {
 	        }	
     		
 	        if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))){
+	        	
 		        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
-		        	balance = balance.substring(17,balance.indexOf(". HELP "));
+		        	balance = balance.substring(17,balance.indexOf(endSearch));
 					BigDecimal money = new BigDecimal(balance);
 					trxn.setTrxn_balance(money);
 		        }else if(payType.equalsIgnoreCase("SET")){
-		        	balance = balance.substring(11,balance.indexOf(". HELP "));
+		        	balance = balance.substring(11,balance.indexOf(endSearch));
 					BigDecimal money = new BigDecimal(balance);
 					trxn.setTrxn_balance(money);
 		        }
