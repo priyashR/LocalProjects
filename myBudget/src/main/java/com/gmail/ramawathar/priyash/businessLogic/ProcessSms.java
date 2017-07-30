@@ -50,7 +50,7 @@ public class ProcessSms {
 		Bgt_trxns trxn = new Bgt_trxns();
 		String sms = processSMS.toUpperCase().replace("ABSA:", "ABSA,");
 		sms = sms.replace(", ", ",");
-		String payType= "PUR";
+		String payType= "";
 		
 		StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
 		String balance = "";
@@ -61,22 +61,24 @@ public class ProcessSms {
         
         String token;
         try{
-	        while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
-	        {
+    		while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
+        	{
 	        	token = defaultTokenizer.nextToken();
 	        	pos++;
 	        	switch (pos){
 	        	case 2:
 	        		//verify user account and if not found set the notification type to ERROR
 	        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
-						n.setNotification_type("ERROR");
+
+		        		n.setNotification_type("ERROR");
 						n.setNotification_desc("Balance updates are not currently handled by the application");
 						n.setNotification_action("INVESTIGATE");
-		        		break;
-	        		}
+		        	}else{
 	        		trxn.setUser_account(token);
+	        		}
 	        		break;
 	        	case 3:
+	        		//System.out.println(3);
 	        		switch(token.toUpperCase()){
 	        		case "PUR":
 	        			trxn.setTrxn_type("O");
@@ -92,6 +94,7 @@ public class ProcessSms {
 	        		}
 	        		break;
 	        	case 4:
+	        		//System.out.println(4);
 	        		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
 	        		Date tranDate = new Date(1);
 					try {
@@ -111,22 +114,27 @@ public class ProcessSms {
 	        			System.out.println("payType: "+payType);
 	        		break;
 	        	case 5:
+	        		//System.out.println(5);
 	        		trxn.setUser_third_party(token.toUpperCase());
 	                //lookup category here
 	                trxn.setCategory(getCategory(token.toUpperCase(),n));
 	                
 	        		break;
 	        	case 6:
+	        		//System.out.println(6);
 	        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
 	        		trxn.setTrxn_amount(money.abs());
 	        		break;
 	        	case 7:
+	        		//System.out.println(7);
 	        		balance = token;
 	        		break;
 	        	case 8:
+	        		//System.out.println(8);
 	        		balance = balance+token;
 	        		break;
 	        	case 9:
+	        		//System.out.println(9);
 	        		balance = balance+token;
 	        		break;
 	        	default:
@@ -134,16 +142,21 @@ public class ProcessSms {
 	        	}
 	        	//PR System.out.println(token);
 	        }	
-	        
-	        if (payType.equalsIgnoreCase("PUR")){
-	        	balance = balance.substring(17,balance.indexOf(". HELP "));
-	        }else{
-	        	balance = balance.substring(11,balance.indexOf(". HELP "));
+    		
+	        if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))){
+		        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
+		        	balance = balance.substring(17,balance.indexOf(". HELP "));
+					BigDecimal money = new BigDecimal(balance);
+					trxn.setTrxn_balance(money);
+		        }else if(payType.equalsIgnoreCase("SET")){
+		        	balance = balance.substring(11,balance.indexOf(". HELP "));
+					BigDecimal money = new BigDecimal(balance);
+					trxn.setTrxn_balance(money);
+		        }
 	        }
-			BigDecimal money = new BigDecimal(balance);
-			trxn.setTrxn_balance(money);
         }
         catch (Exception e){
+        	System.out.println("error");
 			n.setNotification_type("ERROR");
 			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
