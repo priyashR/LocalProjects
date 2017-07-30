@@ -66,7 +66,7 @@ public class ProcessSms {
 	        	token = defaultTokenizer.nextToken();
 	        	pos++;
 	        	switch (pos){
-	        	case 1:
+	        	case 2:
 	        		//verify user account and if not found set the notification type to ERROR
 	        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
 						n.setNotification_type("ERROR");
