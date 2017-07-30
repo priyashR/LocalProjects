@@ -50,6 +50,7 @@ public class ProcessSms {
 		Bgt_trxns trxn = new Bgt_trxns();
 		String sms = processSMS.toUpperCase().replace("ABSA:", "ABSA,");
 		sms = sms.replace(", ", ",");
+		String payType= "PUR";
 		
 		StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
 		String balance = "";
@@ -67,6 +68,12 @@ public class ProcessSms {
 	        	switch (pos){
 	        	case 1:
 	        		//verify user account and if not found set the notification type to ERROR
+	        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
+						n.setNotification_type("ERROR");
+						n.setNotification_desc("Balance updates are not currently handled by the application");
+						n.setNotification_action("INVESTIGATE");
+		        		break;
+	        		}
 	        		trxn.setUser_account(token);
 	        		break;
 	        	case 3:
@@ -97,6 +104,11 @@ public class ProcessSms {
 						e.printStackTrace();
 					} 
 	        		trxn.setTrxn_date(tranDate);
+	        		
+	        		if ((token.substring(9, 12)).equalsIgnoreCase("SET")){
+	        			payType = "SET";
+	        		}
+	        			System.out.println("payType: "+payType);
 	        		break;
 	        	case 5:
 	        		trxn.setUser_third_party(token.toUpperCase());
@@ -106,7 +118,7 @@ public class ProcessSms {
 	        		break;
 	        	case 6:
 	        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
-	        		trxn.setTrxn_amount(money);
+	        		trxn.setTrxn_amount(money.abs());
 	        		break;
 	        	case 7:
 	        		balance = token;
@@ -123,7 +135,11 @@ public class ProcessSms {
 	        	//PR System.out.println(token);
 	        }	
 	        
-			balance = balance.substring(17,balance.indexOf(". HELP "));
+	        if (payType.equalsIgnoreCase("PUR")){
+	        	balance = balance.substring(17,balance.indexOf(". HELP "));
+	        }else{
+	        	balance = balance.substring(11,balance.indexOf(". HELP "));
+	        }
 			BigDecimal money = new BigDecimal(balance);
 			trxn.setTrxn_balance(money);
         }
@@ -159,7 +175,7 @@ public class ProcessSms {
 		n.setNotification_type("ACTION");
 		n.setNotification_desc("Thirdy party not categorised");
 		n.setNotification_action("CATEGORISE");
-		return "UNCATEGORISED";
+		return cat;
 		
 		
 	}
