@@ -108,9 +108,11 @@ public class ProcessSms {
 					} 
 	        		trxn.setTrxn_date(tranDate);
 	        		
-	        		if ((token.substring(9, 12)).equalsIgnoreCase("SET")){
+	        		payType = token.substring(9, 12).toUpperCase();
+	        		
+	        		/*if ((token.substring(9, 12)).equalsIgnoreCase("SET")){
 	        			payType = "SET";
-	        		}
+	        		}*/
 	        			System.out.println("payType: "+payType);
 	        		break;
 	        	case 5:
