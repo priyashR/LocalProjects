@@ -23,8 +23,6 @@ public class Bgt_user_third_party implements Serializable{
 	@Column(name="CATEGORY")
 	private String category;
 	
-
-	
 	@Column(name="USER_THIRD_PARTY_DESC")
 	private String user_third_party_desc;
 

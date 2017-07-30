@@ -155,7 +155,7 @@ public class ProcessSms {
 		if (found){
 			return cat; 
 		}
-		System.out.println("PR 6 "+cat);
+
 		n.setNotification_type("ACTION");
 		n.setNotification_desc("Thirdy party not categorised");
 		n.setNotification_action("CATEGORISE");

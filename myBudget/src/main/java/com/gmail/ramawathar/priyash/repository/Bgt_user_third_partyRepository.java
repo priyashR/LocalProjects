@@ -8,6 +8,5 @@ import com.gmail.ramawathar.priyash.domain.Bgt_user_third_party;
 
 public interface Bgt_user_third_partyRepository extends CrudRepository<Bgt_user_third_party, Long>  {
 	
-	List<Bgt_user_third_party> findByUserThirdParty(String User_third_party);
-
+	List<Bgt_user_third_party> findByUserThirdParty(String userThirdParty);
 }
