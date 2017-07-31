@@ -88,7 +88,7 @@ public class ProcessSms {
 
         
         String token;
-       //put back try catch in app: try{
+       try{
     		while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
         	{
 	        	token = defaultTokenizer.nextToken();
@@ -111,6 +111,12 @@ public class ProcessSms {
 	        		System.out.println(3);
 	        		switch(token.toUpperCase()){
 	        		case "PUR":
+	        			trxn.setTrxn_type("O");
+	        			break;
+	        		case "TRANSFER":
+	        			trxn.setTrxn_type("O");
+	        			break;
+	        		case "PMNT":
 	        			trxn.setTrxn_type("O");
 	        			break;
 	        		case "DEP":
@@ -152,8 +158,8 @@ public class ProcessSms {
 	        		System.out.println(5);
 	        		trxn.setUser_third_party(token.toUpperCase());
 	                //lookup category here
-	                //put back when running as app: trxn.setCategory(getCategory(token.toUpperCase(),n));
-	        		trxn.setCategory("UNCTEGORISED");
+	                trxn.setCategory(getCategory(token.toUpperCase(),n));
+	        		//trxn.setCategory("UNCTEGORISED");
 	        		break;
 	        	case 6:
 	        		System.out.println(6);
@@ -185,13 +191,13 @@ public class ProcessSms {
 	        	//System.out.println(token);
 	        }	
     		
-        //}
-        /*catch (Exception e){
+        }
+        catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
 			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
-        }*/
+        }
 		
 		return trxn;
 	}
@@ -224,7 +230,7 @@ public class ProcessSms {
 		
 	}
 	
-	public static void main(String args[]){
+	/*public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
 		o_sms.setMessage("Absa: CCRD2011, Pur, 23/07/17 PURCHASE, C#BP FOURWAYS, R5,91,2.54, Total Avail Bal R13,00,9.11. Help 0860553553; RAMAWPR001");
@@ -232,6 +238,6 @@ public class ProcessSms {
 		n.setNotification_type("INFO");
 		p.process(n);
 		
-	}
+	}*/
 
 }
