@@ -88,116 +88,195 @@ public class ProcessSms {
 
         
         String token;
-       try{
-    		while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
-        	{
-	        	token = defaultTokenizer.nextToken();
-	        	pos++;
-	        	switch (pos){
-	        	case 2:
-	        		System.out.println(2);
-	        		//verify user account and if not found set the notification type to ERROR
-	        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
+       //PUT BACK try{
+    	   
+    	   if (defaultTokenizer.countTokens() < 6){
+    		   
+    		   if(smsCleaned.toUpperCase().contains("MAY INCL. UNCLEARED AMOUNT")){
+	        		n.setNotification_type("ERROR");
+					n.setNotification_desc("Balance updates are not currently handled by the application");
+					n.setNotification_action("INVESTIGATE");
+    		   }else if((smsCleaned.toUpperCase().contains("RESERVED"))&&((smsCleaned.toUpperCase().contains("FOR A PURCHASE")))){
+    			   while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
+	   	        	{
+	   		        	token = defaultTokenizer.nextToken();
+	   		        	pos++;
+	   		        	switch (pos){
+	   		        	case 2:
+	   		        		System.out.println(2);
+	   		        		//verify user account and if not found set the notification type to ERROR
+	   		        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
+	   	
+	   			        		n.setNotification_type("ERROR");
+	   							n.setNotification_desc("Balance updates are not currently handled by the application");
+	   							n.setNotification_action("INVESTIGATE");
+	   			        	}else{
+	   		        		trxn.setUser_account(token);
+	   		        		}
+	   		        		System.out.println("account: "+token);
+	   		        		break;
+	   		        	case 3:
+	   		        		System.out.println(3);
 
-		        		n.setNotification_type("ERROR");
-						n.setNotification_desc("Balance updates are not currently handled by the application");
-						n.setNotification_action("INVESTIGATE");
-		        	}else{
-	        		trxn.setUser_account(token);
-	        		}
-	        		System.out.println("account: "+token);
-	        		break;
-	        	case 3:
-	        		System.out.println(3);
-	        		switch(token.toUpperCase()){
-	        		case "PUR":
-	        			trxn.setTrxn_type("O");
-	        			break;
-	        		case "TRANSFER":
-	        			trxn.setTrxn_type("O");
-	        			break;
-	        		case "PMNT":
-	        			trxn.setTrxn_type("O");
-	        			break;
-	        		case "DEP":
-	        			endSearch = " HELP ";
-	        			trxn.setTrxn_type("I");
-	        			break;
-		        	default:
-						n.setNotification_type("ERROR");
-						n.setNotification_desc("Unknown transaction type - cannot proceed");
-						n.setNotification_action("INVESTIGATE");
+	   		        		trxn.setTrxn_type("O");
+	   		        		System.out.println("tran type: "+trxn.getTrxn_type());
+	   		        		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
+	   		        		Date tranDate = new Date(1);
+	   						try {
+	   							tranDate = formatter.parse(token.substring(0,8));
+	   						} catch (ParseException e) {
+	   							// TODO Auto-generated catch block
+	   							n.setNotification_type("ERROR");
+	   							n.setNotification_desc("Problem with the transaction date - cannot proceed");
+	   							n.setNotification_action("INVESTIGATE");
+	   							e.printStackTrace();
+	   						} 
+	   		        		trxn.setTrxn_date(tranDate);
+	   		        		System.out.println("tranDate: "+tranDate);
+	   		        		payType = "PUR";
+	   		        		
+	   		        		//get third party
+	   		        		trxn.setUser_third_party(token.toUpperCase().substring(9, token.toUpperCase().indexOf(" RESERVED")));
+	   		        		
+	   		        	//PUT BACK trxn.setCategory(getCategory(trxn.getUser_third_party(),n));
+	   		        	    trxn.setCategory("UNCTEGORISED");	   		        		
+	   		        		System.out.println("setUser_third_party: "+trxn.getUser_third_party());
+	   		        		
+
+	   		        		//get amount
+	   		        		System.out.println();
+	   		        		BigDecimal money = new BigDecimal(token.toUpperCase().substring(token.toUpperCase().indexOf(" RESERVED")+11, token.toUpperCase().indexOf(" FOR A PURCHASE")));
+	   		        		trxn.setTrxn_amount(money.abs());
+	   		        		System.out.println("amount: "+money.abs());
+
+	   		        		//get balance
+	   		        		System.out.println((token.toUpperCase().substring(token.toUpperCase().indexOf("YOUR AVAILABLE BALANCE")+25, token.toUpperCase().indexOf(" HELP "))));//, token.toUpperCase().indexOf(" Help "))));
+	   		        		BigDecimal moneyBalance = new BigDecimal((token.toUpperCase().substring(token.toUpperCase().indexOf("YOUR AVAILABLE BALANCE")+25, token.toUpperCase().indexOf(" HELP "))));
+	   		        		trxn.setTrxn_amount(moneyBalance.abs());
+	   		        		System.out.println("amount: "+moneyBalance.abs());	   	     		
+	   		        		
+	   		        		break;
+	   		        	default:
+	   		        		break;
+	   		        	}
+	   		        	//System.out.println(token);
+	   		        }	
+    		   }else{
+	        		n.setNotification_type("ERROR");
+					n.setNotification_desc("Uncatered message pattern");
+					n.setNotification_action("INVESTIGATE");    			   
+    		   }
+    		   
+    	   }else{	    	   
+	    		while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
+	        	{
+		        	token = defaultTokenizer.nextToken();
+		        	pos++;
+		        	switch (pos){
+		        	case 2:
+		        		System.out.println(2);
+		        		//verify user account and if not found set the notification type to ERROR
+		        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
+	
+			        		n.setNotification_type("ERROR");
+							n.setNotification_desc("Balance updates are not currently handled by the application");
+							n.setNotification_action("INVESTIGATE");
+			        	}else{
+		        		trxn.setUser_account(token);
+		        		}
+		        		System.out.println("account: "+token);
 		        		break;
-	        		}
-	        		System.out.println("tran type: "+trxn.getTrxn_type());
-	        		break;
-	        	case 4:
-	        		System.out.println(4);
-	        		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
-	        		Date tranDate = new Date(1);
-					try {
-						tranDate = formatter.parse(token.substring(0,8));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						n.setNotification_type("ERROR");
-						n.setNotification_desc("Problem with the transaction date - cannot proceed");
-						n.setNotification_action("INVESTIGATE");
-						e.printStackTrace();
-					} 
-	        		trxn.setTrxn_date(tranDate);
-	        		
-	        		payType = token.substring(9, 12).toUpperCase();
-	        		
-	        		/*if ((token.substring(9, 12)).equalsIgnoreCase("SET")){
-	        			payType = "SET";
-	        		}*/
-	        			System.out.println("payType: "+payType);
-	        			System.out.println("tran date: "+tranDate);
-	        		break;
-	        	case 5:
-	        		System.out.println(5);
-	        		trxn.setUser_third_party(token.toUpperCase());
-	                //lookup category here
-	                trxn.setCategory(getCategory(token.toUpperCase(),n));
-	        		//trxn.setCategory("UNCTEGORISED");
-	        		break;
-	        	case 6:
-	        		System.out.println(6);
-	        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
-	        		trxn.setTrxn_amount(money.abs());
-	        		System.out.println("amount: "+money.abs());
-	        		break;
-	        	case 7:
-	        		System.out.println(7);
-	        		String balance = token;
-			        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
-			        	System.out.println("PUR or AUTH: "+balance);
-			        	balance = balance.substring(17,balance.indexOf(endSearch));
-						BigDecimal moneyBalance = new BigDecimal(balance);
-						trxn.setTrxn_balance(moneyBalance.abs());
-		        		System.out.println("amount: "+moneyBalance.abs());
-			        }else if(payType.equalsIgnoreCase("SET")){
-			        	System.out.println("SET:"+endSearch);
-			        	System.out.println("balance string:"+balance);		        	
-			        	balance = balance.substring(11,balance.indexOf(endSearch));
-						BigDecimal moneyBalance = new BigDecimal(balance);
-						trxn.setTrxn_balance(moneyBalance.abs());
-		        		System.out.println("amount: "+moneyBalance.abs());
-			        }
-	        		break;
-	        	default:
-	        		break;
-	        	}
-	        	//System.out.println(token);
-	        }	
-    		
-        }
+		        	case 3:
+		        		System.out.println(3);
+		        		switch(token.toUpperCase()){
+		        		case "PUR":
+		        			trxn.setTrxn_type("O");
+		        			break;
+		        		case "TRANSFER":
+		        			trxn.setTrxn_type("O");
+		        			break;
+		        		case "PMNT":
+		        			trxn.setTrxn_type("O");
+		        			break;
+		        		case "DEP":
+		        			endSearch = " HELP ";
+		        			trxn.setTrxn_type("I");
+		        			break;
+			        	default:
+							n.setNotification_type("ERROR");
+							n.setNotification_desc("Unknown transaction type - cannot proceed");
+							n.setNotification_action("INVESTIGATE");
+			        		break;
+		        		}
+		        		System.out.println("tran type: "+trxn.getTrxn_type());
+		        		break;
+		        	case 4:
+		        		System.out.println(4);
+		        		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
+		        		Date tranDate = new Date(1);
+						try {
+							tranDate = formatter.parse(token.substring(0,8));
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							n.setNotification_type("ERROR");
+							n.setNotification_desc("Problem with the transaction date - cannot proceed");
+							n.setNotification_action("INVESTIGATE");
+							e.printStackTrace();
+						} 
+		        		trxn.setTrxn_date(tranDate);
+		        		
+		        		payType = token.substring(9, 12).toUpperCase();
+		        		
+		        		/*if ((token.substring(9, 12)).equalsIgnoreCase("SET")){
+		        			payType = "SET";
+		        		}*/
+		        			System.out.println("payType: "+payType);
+		        			System.out.println("tran date: "+tranDate);
+		        		break;
+		        	case 5:
+		        		System.out.println(5);
+		        		trxn.setUser_third_party(token.toUpperCase());
+		                //lookup category here
+		                trxn.setCategory(getCategory(token.toUpperCase(),n));
+		        		//trxn.setCategory("UNCTEGORISED");
+		        		break;
+		        	case 6:
+		        		System.out.println(6);
+		        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
+		        		trxn.setTrxn_amount(money.abs());
+		        		System.out.println("amount: "+money.abs());
+		        		break;
+		        	case 7:
+		        		System.out.println(7);
+		        		String balance = token;
+				        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
+				        	System.out.println("PUR or AUTH: "+balance);
+				        	balance = balance.substring(17,balance.indexOf(endSearch));
+							BigDecimal moneyBalance = new BigDecimal(balance);
+							trxn.setTrxn_balance(moneyBalance.abs());
+			        		System.out.println("amount: "+moneyBalance.abs());
+				        }else if(payType.equalsIgnoreCase("SET")){
+				        	System.out.println("SET:"+endSearch);
+				        	System.out.println("balance string:"+balance);		        	
+				        	balance = balance.substring(11,balance.indexOf(endSearch));
+							BigDecimal moneyBalance = new BigDecimal(balance);
+							trxn.setTrxn_balance(moneyBalance.abs());
+			        		System.out.println("amount: "+moneyBalance.abs());
+				        }
+		        		break;
+		        	default:
+		        		break;
+		        	}
+		        	//System.out.println(token);
+		        }	
+    	   }
+    	/*PUT BACK}
         catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
 			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
-        }
+        }*/
 		
 		return trxn;
 	}
@@ -230,14 +309,14 @@ public class ProcessSms {
 		
 	}
 	
-	/*public static void main(String args[]){
+	public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
-		o_sms.setMessage("Absa: CCRD2011, Pur, 23/07/17 PURCHASE, C#BP FOURWAYS, R5,91,2.54, Total Avail Bal R13,00,9.11. Help 0860553553; RAMAWPR001");
+		o_sms.setMessage("Absa: CHEQ4993, 29/07/17 Spar Pineslopes Spar Gauteng reserved R16,992.32 for a purchase. Your available balance: R9,964.17 Help 0860553553; RAMAWPR001");
 		ProcessSms p = new ProcessSms(o_sms);
 		n.setNotification_type("INFO");
 		p.process(n);
 		
-	}*/
+	}
 
 }
