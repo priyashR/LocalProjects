@@ -49,27 +49,53 @@ public class ProcessSms {
 
 		Bgt_trxns trxn = new Bgt_trxns();
 		String sms = processSMS.toUpperCase().replace("ABSA:", "ABSA,");
-		sms = sms.replace(", ", ",");
+		//remove the number commas here
+		String smsCleaned  = "";
+		boolean ignore = false;
+		for (int i = 0; i < sms.length(); i++){
+			//System.out.println("i: "+i);
+		    char c = sms.charAt(i);    
+		    if ((i-1>=0)&&(i+1!=sms.length())){
+				//System.out.println("checking bounds");
+		    	if (c==','){
+					//System.out.println("checking for comma");
+		    		if ((Character.isDigit(sms.charAt(i-1)))&(Character.isDigit(sms.charAt(i+1)))){
+
+						//System.out.println("found number with comma ");
+						//System.out.println("sms.charAt(i-1) "+sms.charAt(i-1));
+						//System.out.println("sms.charAt(i+1) "+sms.charAt(i+1));
+		    			ignore = true;
+		    		}
+		    	}
+		    }
+		    if (!(ignore))
+		    	smsCleaned = smsCleaned+c;
+		    ignore = false;
+		}
+		
+		System.out.println("smsCleaned: "+smsCleaned);
+		System.out.println("sms       : "+sms);
+		
+		//remove the spaces after tokens
+		smsCleaned = smsCleaned.replace(", ", ",");
 		String payType= "";
     	String endSearch = ". HELP ";
 		
-    	
-    	
-		StringTokenizer defaultTokenizer = new StringTokenizer(sms,",");
-		String balance = "";
+		StringTokenizer defaultTokenizer = new StringTokenizer(smsCleaned,",");
         int pos = 0;
         
         trxn.setUser_email(o_sms.getUser_email());
 
         
         String token;
-       // try{
+       //put back try catch in app: try{
     		while ((defaultTokenizer.hasMoreTokens()) && (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
         	{
 	        	token = defaultTokenizer.nextToken();
 	        	pos++;
 	        	switch (pos){
 	        	case 2:
+	        		System.out.println(2);
 	        		//verify user account and if not found set the notification type to ERROR
 	        		if (token.substring(0,3).equalsIgnoreCase("BAL")){
 
@@ -79,6 +105,7 @@ public class ProcessSms {
 		        	}else{
 	        		trxn.setUser_account(token);
 	        		}
+	        		System.out.println("account: "+token);
 	        		break;
 	        	case 3:
 	        		System.out.println(3);
@@ -96,6 +123,7 @@ public class ProcessSms {
 						n.setNotification_action("INVESTIGATE");
 		        		break;
 	        		}
+	        		System.out.println("tran type: "+trxn.getTrxn_type());
 	        		break;
 	        	case 4:
 	        		System.out.println(4);
@@ -118,52 +146,45 @@ public class ProcessSms {
 	        			payType = "SET";
 	        		}*/
 	        			System.out.println("payType: "+payType);
+	        			System.out.println("tran date: "+tranDate);
 	        		break;
 	        	case 5:
 	        		System.out.println(5);
 	        		trxn.setUser_third_party(token.toUpperCase());
 	                //lookup category here
-	                trxn.setCategory(getCategory(token.toUpperCase(),n));
-	                
+	                //put back when running as app: trxn.setCategory(getCategory(token.toUpperCase(),n));
+	        		trxn.setCategory("UNCTEGORISED");
 	        		break;
 	        	case 6:
 	        		System.out.println(6);
 	        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
 	        		trxn.setTrxn_amount(money.abs());
+	        		System.out.println("amount: "+money.abs());
 	        		break;
 	        	case 7:
 	        		System.out.println(7);
-	        		balance = token;
-	        		break;
-	        	case 8:
-	        		System.out.println(8);
-	        		balance = balance+token;
-	        		break;
-	        	case 9:
-	        		System.out.println(9);
-	        		balance = balance+token;
+	        		String balance = token;
+			        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
+			        	System.out.println("PUR or AUTH: "+balance);
+			        	balance = balance.substring(17,balance.indexOf(endSearch));
+						BigDecimal moneyBalance = new BigDecimal(balance);
+						trxn.setTrxn_balance(moneyBalance.abs());
+		        		System.out.println("amount: "+moneyBalance.abs());
+			        }else if(payType.equalsIgnoreCase("SET")){
+			        	System.out.println("SET:"+endSearch);
+			        	System.out.println("balance string:"+balance);		        	
+			        	balance = balance.substring(11,balance.indexOf(endSearch));
+						BigDecimal moneyBalance = new BigDecimal(balance);
+						trxn.setTrxn_balance(moneyBalance.abs());
+		        		System.out.println("amount: "+moneyBalance.abs());
+			        }
 	        		break;
 	        	default:
 	        		break;
 	        	}
-	        	System.out.println(token);
+	        	//System.out.println(token);
 	        }	
     		
-	        if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))){
-	        	
-		        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
-		        	System.out.println("PUR or AUTH");
-		        	balance = balance.substring(17,balance.indexOf(endSearch));
-					BigDecimal money = new BigDecimal(balance);
-					trxn.setTrxn_balance(money);
-		        }else if(payType.equalsIgnoreCase("SET")){
-		        	System.out.println("SET:"+endSearch);
-		        	System.out.println("balance string:"+balance);		        	
-		        	balance = balance.substring(11,balance.indexOf(endSearch));
-					BigDecimal money = new BigDecimal(balance);
-					trxn.setTrxn_balance(money);
-		        }
-	        }
         //}
         /*catch (Exception e){
         	System.out.println("error");
@@ -206,7 +227,7 @@ public class ProcessSms {
 	public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
-		o_sms.setMessage("Absa: CCRD2011, Pur, 23/07/17 PURCHASE, C#BP FOURWAYS, R512.54, Total Avail Bal R13,009.11. Help 0860553553; RAMAWPR001");
+		o_sms.setMessage("Absa: CCRD2011, Pur, 23/07/17 PURCHASE, C#BP FOURWAYS, R5,91,2.54, Total Avail Bal R13,00,9.11. Help 0860553553; RAMAWPR001");
 		ProcessSms p = new ProcessSms(o_sms);
 		n.setNotification_type("INFO");
 		p.process(n);
