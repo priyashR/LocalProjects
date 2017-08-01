@@ -86,9 +86,8 @@ public class ProcessSms {
         
         trxn.setUser_email(o_sms.getUser_email());
 
-        
         String token;
-       //PUT BACK try{
+        try{
     	   
     	   if (defaultTokenizer.countTokens() < 6){
     		   
@@ -125,7 +124,6 @@ public class ProcessSms {
 	   						try {
 	   							tranDate = formatter.parse(token.substring(0,8));
 	   						} catch (ParseException e) {
-	   							// TODO Auto-generated catch block
 	   							n.setNotification_type("ERROR");
 	   							n.setNotification_desc("Problem with the transaction date - cannot proceed");
 	   							n.setNotification_action("INVESTIGATE");
@@ -138,8 +136,8 @@ public class ProcessSms {
 	   		        		//get third party
 	   		        		trxn.setUser_third_party(token.toUpperCase().substring(9, token.toUpperCase().indexOf(" RESERVED")));
 	   		        		
-	   		        	//PUT BACK trxn.setCategory(getCategory(trxn.getUser_third_party(),n));
-	   		        	    trxn.setCategory("UNCTEGORISED");	   		        		
+	   		        		trxn.setCategory(getCategory(trxn.getUser_third_party(),n));
+	   		        	    //trxn.setCategory("UNCTEGORISED");	   		        		
 	   		        		System.out.println("setUser_third_party: "+trxn.getUser_third_party());
 	   		        		
 
@@ -152,7 +150,7 @@ public class ProcessSms {
 	   		        		//get balance
 	   		        		System.out.println((token.toUpperCase().substring(token.toUpperCase().indexOf("YOUR AVAILABLE BALANCE")+25, token.toUpperCase().indexOf(" HELP "))));//, token.toUpperCase().indexOf(" Help "))));
 	   		        		BigDecimal moneyBalance = new BigDecimal((token.toUpperCase().substring(token.toUpperCase().indexOf("YOUR AVAILABLE BALANCE")+25, token.toUpperCase().indexOf(" HELP "))));
-	   		        		trxn.setTrxn_amount(moneyBalance.abs());
+	   		        		trxn.setTrxn_balance(moneyBalance.abs());
 	   		        		System.out.println("amount: "+moneyBalance.abs());	   	     		
 	   		        		
 	   		        		break;
@@ -217,7 +215,6 @@ public class ProcessSms {
 						try {
 							tranDate = formatter.parse(token.substring(0,8));
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
 							n.setNotification_type("ERROR");
 							n.setNotification_desc("Problem with the transaction date - cannot proceed");
 							n.setNotification_action("INVESTIGATE");
@@ -226,12 +223,9 @@ public class ProcessSms {
 		        		trxn.setTrxn_date(tranDate);
 		        		
 		        		payType = token.substring(9, 12).toUpperCase();
-		        		
-		        		/*if ((token.substring(9, 12)).equalsIgnoreCase("SET")){
-		        			payType = "SET";
-		        		}*/
-		        			System.out.println("payType: "+payType);
-		        			System.out.println("tran date: "+tranDate);
+
+		        		System.out.println("payType: "+payType);
+		        		System.out.println("tran date: "+tranDate);
 		        		break;
 		        	case 5:
 		        		System.out.println(5);
@@ -270,13 +264,13 @@ public class ProcessSms {
 		        	//System.out.println(token);
 		        }	
     	   }
-    	/*PUT BACK}
+    	}
         catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
 			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
-        }*/
+        }
 		
 		return trxn;
 	}
@@ -309,7 +303,7 @@ public class ProcessSms {
 		
 	}
 	
-	public static void main(String args[]){
+	/*public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
 		o_sms.setMessage("Absa: CHEQ4993, 29/07/17 Spar Pineslopes Spar Gauteng reserved R16,992.32 for a purchase. Your available balance: R9,964.17 Help 0860553553; RAMAWPR001");
@@ -317,6 +311,6 @@ public class ProcessSms {
 		n.setNotification_type("INFO");
 		p.process(n);
 		
-	}
+	}*/
 
 }
