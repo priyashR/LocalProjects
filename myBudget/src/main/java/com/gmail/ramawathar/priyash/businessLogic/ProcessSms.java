@@ -17,9 +17,6 @@ import com.gmail.ramawathar.priyash.repository.Bgt_user_third_partyRepository;
 
 public class ProcessSms {
 	
-
-
-	
 	private Bgt_user_third_partyRepository bgt_user_third_partyRepository;
 	
 	private Orig_SMS o_sms;
