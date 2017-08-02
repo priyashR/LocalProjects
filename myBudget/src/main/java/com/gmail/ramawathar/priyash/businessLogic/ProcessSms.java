@@ -18,9 +18,8 @@ import com.gmail.ramawathar.priyash.repository.Bgt_user_third_partyRepository;
 public class ProcessSms {
 	
 	private Bgt_user_third_partyRepository bgt_user_third_partyRepository;
-	
 	private Orig_SMS o_sms;
-	
+	private LookupData lookup= new LookupData();
 	public ProcessSms(Orig_SMS o_sms){
 		this.o_sms = o_sms;
 	}
@@ -133,7 +132,8 @@ public class ProcessSms {
 	   		        		//get third party
 	   		        		trxn.setUser_third_party(token.toUpperCase().substring(9, token.toUpperCase().indexOf(" RESERVED")));
 	   		        		
-	   		        		trxn.setCategory(getCategory(trxn.getUser_third_party(),n));
+	   		        		//trxn.setCategory(getCategory(trxn.getUser_third_party(),n));
+	   		        		trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));
 	   		        	    //trxn.setCategory("UNCTEGORISED");	   		        		
 	   		        		System.out.println("setUser_third_party: "+trxn.getUser_third_party());
 	   		        		
@@ -228,7 +228,8 @@ public class ProcessSms {
 		        		System.out.println(5);
 		        		trxn.setUser_third_party(token.toUpperCase());
 		                //lookup category here
-		                trxn.setCategory(getCategory(token.toUpperCase(),n));
+		                //trxn.setCategory(getCategory(token.toUpperCase(),n));
+		                trxn.setCategory(lookup.category(token.toUpperCase(),n, bgt_user_third_partyRepository));
 		        		//trxn.setCategory("UNCTEGORISED");
 		        		break;
 		        	case 6:
@@ -270,34 +271,6 @@ public class ProcessSms {
         }
 		
 		return trxn;
-	}
-	
-	private String getCategory(String thirdParty, Bgt_notifications n){
-		boolean found = false;
-		String cat = "UNCATEGORISED";
-		try{
-			for (Bgt_user_third_party thirdPartyRec : bgt_user_third_partyRepository.findByUserThirdParty(thirdParty)) {
-				found = true;
-				cat = thirdPartyRec.getCategory(); 
-			}
-		} catch (Exception e){
-			e.printStackTrace();
-			n.setNotification_type("ACTION");
-			n.setNotification_desc("Thirdy party not categorised: "+e);
-			n.setNotification_action("INVESTIGATE");
-			
-		}
-		
-		if (found){
-			return cat; 
-		}
-
-		n.setNotification_type("ACTION");
-		n.setNotification_desc("Thirdy party not categorised");
-		n.setNotification_action("CATEGORISE");
-		return cat;
-		
-		
 	}
 	
 	/*public static void main(String args[]){
