@@ -1,6 +1,7 @@
 package com.gmail.ramawathar.priyash.businessLogic;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,9 +31,9 @@ public class ProcessSms {
 		this.bgt_user_third_partyRepository = bgt_user_third_partyRepository;
 	}
 	
-	public Bgt_trxns process(Bgt_notifications n){
+	public ArrayList<Bgt_trxns> process(Bgt_notifications n){
 		
-		Bgt_trxns trxn = new Bgt_trxns();
+		ArrayList<Bgt_trxns> trxn = new ArrayList<Bgt_trxns>();
 		String sms = o_sms.getMessage();
 		SMSProcessor bank = null;
 		

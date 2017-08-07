@@ -1,5 +1,6 @@
 package com.gmail.ramawathar.priyash.controller;
 import java.net.URI;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -66,7 +67,7 @@ public class Orig_SMSController {
 	        HttpHeaders responseHeaders = new HttpHeaders();	
 	        Orig_SMS s = orig_SMSRepository.save(o_SMS);
 			ProcessSms p;
-			Bgt_trxns t;
+			ArrayList<Bgt_trxns> t;
 
 			//init notifications
 
@@ -89,8 +90,15 @@ public class Orig_SMSController {
 				p = new ProcessSms(s,bgt_user_third_partyRepository);
 				t = p.process(n);
 				n = bgt_notificationsRepository.save(n);
-				if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))) 
-					t = bgt_trxnsRepository.save(t);
+				if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))) {
+					int i = 0;
+					while (i < t.size()) {
+						//System.out.println(crunchifyList.get(i));
+						bgt_trxnsRepository.save(t.get(i));
+						i++;
+					}
+					
+				}
 			}
 			catch (Exception e){
 				n.setNotification_type("ERROR");

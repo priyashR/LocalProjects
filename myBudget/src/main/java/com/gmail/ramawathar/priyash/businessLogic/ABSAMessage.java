@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -14,10 +15,11 @@ import com.gmail.ramawathar.priyash.domain.Orig_SMS;
 import com.gmail.ramawathar.priyash.repository.Bgt_user_third_partyRepository;
 
 public class ABSAMessage implements SMSProcessor{
-	public Bgt_trxns processMessage(Orig_SMS processSMS, Bgt_notifications n, Bgt_user_third_partyRepository bgt_user_third_partyRepository){
+	public ArrayList<Bgt_trxns> processMessage(Orig_SMS processSMS, Bgt_notifications n, Bgt_user_third_partyRepository bgt_user_third_partyRepository){
 
 		LookupData lookup= new LookupData();
 		Bgt_trxns trxn = new Bgt_trxns();
+		ArrayList<Bgt_trxns> trxnArr = new ArrayList<Bgt_trxns>();
 		String sms = processSMS.getMessage().toUpperCase().replace("ABSA:", "ABSA,");
 		//remove the number commas here
 		String smsCleaned  = "";
@@ -243,8 +245,8 @@ public class ABSAMessage implements SMSProcessor{
 			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
         }
-		
-		return trxn;
+        trxnArr.add(trxn);
+		return trxnArr;
 		
 		
 		
