@@ -13,10 +13,11 @@ public class StandardBankMessage implements SMSProcessor{
 		LookupData lookup= new LookupData();
 		Bgt_trxns trxn = new Bgt_trxns();
 		ArrayList<Bgt_trxns> trxnArr = new ArrayList<Bgt_trxns>();
-		String sms = processSMS.getMessage().toUpperCase().replace("Standard Bank:", "Standard Bank");
+		String sms = processSMS.getMessage().toUpperCase().replace("STANDARD BANK:", "STANDARD BANK");
+		//trxn email
+		trxn.setUser_email(processSMS.getUser_email());
 		
 		
-
         trxnArr.add(trxn);
 		return trxnArr;
 	}

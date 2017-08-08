@@ -23,6 +23,7 @@ public class ABSAMessage implements SMSProcessor{
 		String sms = processSMS.getMessage().toUpperCase().replace("ABSA:", "ABSA,");
 		//remove the number commas here
 		String smsCleaned  = "";
+		boolean withdrawal = false;
 		boolean ignore = false;
 		for (int i = 0; i < sms.length(); i++){
 			//System.out.println("i: "+i);
@@ -169,6 +170,10 @@ public class ABSAMessage implements SMSProcessor{
 		        		case "PMNT":
 		        			trxn.setTrxn_type("O");
 		        			break;
+		        		case "WTHDR":
+		        			trxn.setTrxn_type("O");
+		        			withdrawal = true;
+		        			break;		        			
 		        		case "DEP":
 		        			endSearch = " HELP ";
 		        			trxn.setTrxn_type("I");
@@ -195,42 +200,71 @@ public class ABSAMessage implements SMSProcessor{
 						} 
 		        		trxn.setTrxn_date(tranDate);
 		        		
-		        		payType = token.substring(9, 12).toUpperCase();
+		        		if (withdrawal){
+		        			payType = "WTD";
+		        		}else{
+		        			payType = token.substring(9, 12).toUpperCase();
+		        		}
 
 		        		System.out.println("payType: "+payType);
 		        		System.out.println("tran date: "+tranDate);
 		        		break;
 		        	case 5:
 		        		System.out.println(5);
-		        		trxn.setUser_third_party(token.toUpperCase());
-		                //lookup category here
-		                //trxn.setCategory(getCategory(token.toUpperCase(),n));
-		                trxn.setCategory(lookup.category(token.toUpperCase(),n, bgt_user_third_partyRepository));
-		        		//trxn.setCategory("UNCTEGORISED");
+		        		if (withdrawal){
+		        			trxn.setUser_third_party("ATM WITDRAWAL");
+		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));
+		        			//set amount as well
+			        		System.out.println("setting the amount as well");
+			        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
+			        		trxn.setTrxn_amount(money.abs());
+			        		System.out.println("amount: "+money.abs());
+		        			
+		        		}else{
+			        		trxn.setUser_third_party(token.toUpperCase());
+			                //lookup category here
+			                trxn.setCategory(lookup.category(token.toUpperCase(),n, bgt_user_third_partyRepository));
+			        		//trxn.setCategory("UNCTEGORISED");
+		                }
 		        		break;
 		        	case 6:
+		        		
 		        		System.out.println(6);
-		        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
-		        		trxn.setTrxn_amount(money.abs());
-		        		System.out.println("amount: "+money.abs());
-		        		break;
-		        	case 7:
-		        		System.out.println(7);
-		        		String balance = token;
-				        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
-				        	System.out.println("PUR or AUTH: "+balance);
-				        	balance = balance.substring(17,balance.indexOf(endSearch));
-							BigDecimal moneyBalance = new BigDecimal(balance);
-							trxn.setTrxn_balance(moneyBalance.abs());
-			        		System.out.println("amount: "+moneyBalance.abs());
-				        }else if(payType.equalsIgnoreCase("SET")){
-				        	System.out.println("SET:"+endSearch);
+		        		if (withdrawal){
+			        		String balance = token;
+				        	System.out.println("WTD:"+endSearch);
 				        	System.out.println("balance string:"+balance);		        	
 				        	balance = balance.substring(11,balance.indexOf(endSearch));
 							BigDecimal moneyBalance = new BigDecimal(balance);
 							trxn.setTrxn_balance(moneyBalance.abs());
-			        		System.out.println("amount: "+moneyBalance.abs());
-				        }
+			        		System.out.println("amount: "+moneyBalance.abs());		        			
+		        		}else{
+			        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
+			        		trxn.setTrxn_amount(money.abs());
+			        		System.out.println("amount: "+money.abs());
+		        		}
+		        		break;
+		        	case 7:
+		        		System.out.println(7);
+		        		if (withdrawal){
+		        			
+		        		}else{
+			        		String balance = token;
+					        if ((payType.equalsIgnoreCase("PUR"))||(payType.equalsIgnoreCase("AUT"))){
+					        	System.out.println("PUR or AUTH: "+balance);
+					        	balance = balance.substring(17,balance.indexOf(endSearch));
+								BigDecimal moneyBalance = new BigDecimal(balance);
+								trxn.setTrxn_balance(moneyBalance.abs());
+				        		System.out.println("amount: "+moneyBalance.abs());
+					        }else if(payType.equalsIgnoreCase("SET")){
+					        	System.out.println("SET:"+endSearch);
+					        	System.out.println("balance string:"+balance);		        	
+					        	balance = balance.substring(11,balance.indexOf(endSearch));
+								BigDecimal moneyBalance = new BigDecimal(balance);
+								trxn.setTrxn_balance(moneyBalance.abs());
+				        		System.out.println("amount: "+moneyBalance.abs());
+					        }
+		        		}
 		        		break;
 		        	default:
 		        		break;
