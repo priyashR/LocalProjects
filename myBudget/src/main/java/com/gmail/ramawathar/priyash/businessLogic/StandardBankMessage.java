@@ -25,7 +25,6 @@ public class StandardBankMessage implements SMSProcessor{
 		
 		//trxn email
 		String email = processSMS.getUser_email();
-		//trxn.setUser_email;
 
 		System.out.println("Process string: "+sms);
 		
@@ -160,12 +159,66 @@ public class StandardBankMessage implements SMSProcessor{
                 trxnArr.add(trxn);
         	}
         	else{
+        		String innerToken;
         		System.out.println("Is debit - so process differently");
-        		String Payments = sms.substring(26, sms.indexOf("FROM ACC")).trim();
+        		String payments = sms.substring(26, sms.indexOf("FROM ACC")).trim();
         		String other_fields = sms.substring(sms.indexOf("FROM ACC")).trim();
         		System.out.println("Process string: "+sms);
-        		System.out.println("Payments string: "+Payments);
+        		System.out.println("Payments string: "+payments);
         		System.out.println("other_fields string: "+other_fields);
+        		
+        		//get account
+        		String account_number = other_fields.substring(9, 13);
+        		System.out.println("account_number: "+account_number);
+        		
+        		//get date
+        		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+        		Date tranDate = new Date(1);
+				try {
+					tranDate = formatter.parse(other_fields.substring(15,25));
+				} catch (ParseException e) {
+					n.setNotification_type("ERROR");
+					n.setNotification_desc("Problem with the transaction date - cannot proceed");
+					n.setNotification_action("INVESTIGATE");
+					e.printStackTrace();
+				} 
+
+        		System.out.println("date is: "+tranDate);
+        		
+        		//set balance to zero later on
+        		
+        		//build the transactions
+        		StringTokenizer paymentsTokenizer = new StringTokenizer(payments,";");
+                while ((paymentsTokenizer.hasMoreTokens()) && 
+             		   (!(n.getNotification_type().equalsIgnoreCase("ERROR"))))
+             	{
+                	trxn = new Bgt_trxns();
+                	innerToken = paymentsTokenizer.nextToken().trim();
+                	
+                	
+                	//get amount
+                	StringTokenizer tpTokenizer = new StringTokenizer(innerToken," ");
+	        		String amount = tpTokenizer.nextToken();
+
+	        		System.out.println("amount: "+amount);
+	        		amount = amount.substring(1);
+					BigDecimal money = new BigDecimal(amount);
+					trxn.setTrxn_amount(money.abs());
+	        		System.out.println("amount: "+money.abs()); 
+	        		
+	        		int amountLen = amount.length();
+	        		
+	        		//get the third party and category
+        			trxn.setUser_third_party(innerToken.substring(amountLen+1).trim());
+        			//to put back -> trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));  
+	        		System.out.println("setUser_third_party: "+trxn.getUser_third_party()); 
+        			
+        			
+                	
+             	
+             	}
+                
+                
         	}
         	
         	
