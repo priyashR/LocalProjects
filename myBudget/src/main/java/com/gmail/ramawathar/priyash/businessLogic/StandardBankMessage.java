@@ -116,10 +116,12 @@ public class StandardBankMessage implements SMSProcessor{
 	        			third_party = third_party.substring(0, third_party.indexOf(" ACL BAL"));
 	        			if (withdrawn_flag){
 		        			trxn.setUser_third_party("ATM WITDRAWAL");
-		        			//to put back -> trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));       				
+		        			//to put back -> 
+		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));       				
 	        			}else{
 		        			trxn.setUser_third_party(third_party);
-		        			//to put back -> trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));  	        				
+		        			//to put back -> 
+		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));  	        				
 	        			}
 	        		}else{
 	        			prev_token = token;
@@ -200,22 +202,43 @@ public class StandardBankMessage implements SMSProcessor{
                 	StringTokenizer tpTokenizer = new StringTokenizer(innerToken," ");
 	        		String amount = tpTokenizer.nextToken();
 
-	        		System.out.println("amount: "+amount);
+	        		//System.out.println("amount: "+amount);
 	        		amount = amount.substring(1);
 					BigDecimal money = new BigDecimal(amount);
 					trxn.setTrxn_amount(money.abs());
-	        		System.out.println("amount: "+money.abs()); 
+	        		System.out.println("trxn amount: "+trxn.getTrxn_amount()); 
 	        		
 	        		int amountLen = amount.length();
 	        		
 	        		//get the third party and category
         			trxn.setUser_third_party(innerToken.substring(amountLen+1).trim());
-        			//to put back -> trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));  
+        			//to put back -> 
+        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository)); 
+        			
 	        		System.out.println("setUser_third_party: "+trxn.getUser_third_party()); 
+	        		
+	        		//set email
+	        		trxn.setUser_email(email);	
+	        		System.out.println("setUser_email: "+trxn.getUser_email()); 
+	        		
+	        		//set account
+	        		trxn.setUser_account(account_number);
+	        		System.out.println("setUser_account: "+trxn.getUser_account()); 
         			
-        			
+        			//set tran type
+	        		trxn.setTrxn_type("O");
+	        		System.out.println("setTrxn_type: "+trxn.getTrxn_type()); 
                 	
-             	
+	        		//set balance to null
+	        		trxn.setTrxn_balance(null);
+	        		System.out.println("setTrxn_balance: "+trxn.getTrxn_balance()); 
+	        		
+	        		//set tran date
+	        		trxn.setTrxn_date(tranDate);
+	        		System.out.println("date is: "+trxn.getTrxn_date());
+	        		
+
+	                trxnArr.add(trxn);
              	}
                 
                 
