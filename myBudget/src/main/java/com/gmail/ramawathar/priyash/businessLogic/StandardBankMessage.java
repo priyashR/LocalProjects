@@ -35,6 +35,7 @@ public class StandardBankMessage implements SMSProcessor{
     	boolean paid_flag = false;
     	int end_set = 0;
     	String third_party = "";
+    	String end_string = "ACL";
     	String prev_token = "";
         try{
         	while ((defaultTokenizer.hasMoreTokens()) && 
@@ -66,6 +67,7 @@ public class StandardBankMessage implements SMSProcessor{
 	        		switch (token.toUpperCase()){
 	        		case "PURCHASED":
 	        			trxn.setTrxn_type("O");
+	        			end_string = "AVL";
 	        			break;
 	        		case "WITHDRAWN":
 	        			trxn.setTrxn_type("O");
@@ -110,10 +112,11 @@ public class StandardBankMessage implements SMSProcessor{
 	        	
 	        	if((pos>8) && (end_set == 0)){
 	        		third_party = third_party + " " +token;
+	        		third_party = third_party.trim();
     				System.out.println("third_party: "+third_party);
-	        		if((prev_token.equalsIgnoreCase("ACL"))&(token.equalsIgnoreCase("BAL"))){
+	        		if((prev_token.equalsIgnoreCase(end_string))&(token.equalsIgnoreCase("BAL"))){
 	        			end_set++;
-	        			third_party = third_party.substring(0, third_party.indexOf(" ACL BAL"));
+	        			third_party = third_party.substring(0, third_party.indexOf(" "+end_string+" BAL"));
 	        			if (withdrawn_flag){
 		        			trxn.setUser_third_party("ATM WITDRAWAL");
 		        			//to put back -> 
@@ -249,7 +252,7 @@ public class StandardBankMessage implements SMSProcessor{
         catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
-			n.setNotification_desc("Critical issue: "+e.getMessage());
+			n.setNotification_desc("Critical issue: "+e.getMessage().substring(0,580));
 			n.setNotification_action("INVESTIGATE");
         }
         

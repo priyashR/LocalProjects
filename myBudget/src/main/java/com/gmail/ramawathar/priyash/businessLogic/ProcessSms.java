@@ -38,7 +38,7 @@ public class ProcessSms {
 		trxn = bank.processMessage(this.o_sms, n, this.bgt_user_third_partyRepository);
 		return trxn;
 	}
-		
+	/*	
 	public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
@@ -47,6 +47,6 @@ public class ProcessSms {
 		n.setNotification_type("INFO");
 		p.process(n);
 		
-	}
+	}*/
 
 }
