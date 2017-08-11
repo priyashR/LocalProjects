@@ -276,12 +276,8 @@ public class ABSAMessage implements SMSProcessor{
         catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
-			String error = e.toString();
-			if (e.toString().length()>580)
-				error = e.toString().substring(0,580);
-			n.setNotification_desc("Critical issue: "+error);//+e.getMessage().substring(0,580));
+			n.setNotification_desc("Critical issue: "+e.getMessage());
 			n.setNotification_action("INVESTIGATE");
-			//System.out.println(e.toString());
         }
         trxnArr.add(trxn);
 		return trxnArr;
