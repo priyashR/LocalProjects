@@ -252,8 +252,12 @@ public class StandardBankMessage implements SMSProcessor{
         catch (Exception e){
         	System.out.println("error");
 			n.setNotification_type("ERROR");
-			n.setNotification_desc("Critical issue: "+e.getMessage().substring(0,580));
+			String error = e.toString();
+			if (e.toString().length()>580)
+				error = e.toString().substring(0,580);
+			n.setNotification_desc("Critical issue: "+error);//+e.getMessage().substring(0,580));
 			n.setNotification_action("INVESTIGATE");
+			//System.out.println(e.toString());
         }
         
 		return trxnArr;
