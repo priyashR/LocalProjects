@@ -34,5 +34,14 @@ public class LookupData implements Lookup{
 		
 		
 	}
+	
+	public String getThirdParty(String thirdParty){
+		
+		//tokenise
+		//if token 1 is 1 character the add the second part to it and return
+		//else return first token
+		// use this method when checking above and inserting into category too
+		return null;
+	}
 
 }
