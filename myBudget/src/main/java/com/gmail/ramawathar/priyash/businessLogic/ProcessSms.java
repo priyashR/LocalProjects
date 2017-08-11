@@ -38,11 +38,11 @@ public class ProcessSms {
 		trxn = bank.processMessage(this.o_sms, n, this.bgt_user_third_partyRepository);
 		return trxn;
 	}
-	/*	
+		/*
 	public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
-		o_sms.setMessage("Standard Bank: Debit Order R400.00 LIBERTY050 0011858961    52240; R500.00 LIBERTY050 0065385366    52240;  from Acc.3665. 2017-07-01 Query?0860123107");
+		o_sms.setMessage("Standard Bank: Hi Mr Ramawthar :). Get ready for your next Jazz experience with up to 15% off Joy of Jazz tickets! Book online or in-store at Computicket and pay with your Credit or Cheque Card by 31/08/17. Looking forward to seeing you there :) T&Cs apply. Opt out? Reply stop");
 		ProcessSms p = new ProcessSms(o_sms);
 		n.setNotification_type("INFO");
 		p.process(n);
