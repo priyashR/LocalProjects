@@ -1,5 +1,7 @@
 package com.gmail.ramawathar.priyash.businessLogic;
 
+import java.util.StringTokenizer;
+
 import com.gmail.ramawathar.priyash.buisnessLogic.interfaces.Lookup;
 import com.gmail.ramawathar.priyash.domain.Bgt_notifications;
 import com.gmail.ramawathar.priyash.domain.Bgt_user_third_party;
@@ -11,7 +13,7 @@ public class LookupData implements Lookup{
 		boolean found = false;
 		String cat = "UNCATEGORISED";
 		try{
-			for (Bgt_user_third_party thirdPartyRec : bgt_user_third_partyRepository.findByUserThirdParty(thirdParty)) {
+			for (Bgt_user_third_party thirdPartyRec : bgt_user_third_partyRepository.findByUserThirdParty(getThirdParty(thirdParty))) {
 				found = true;
 				cat = thirdPartyRec.getCategory(); 
 			}
@@ -37,11 +39,28 @@ public class LookupData implements Lookup{
 	
 	public String getThirdParty(String thirdParty){
 		
+		String reference = thirdParty;
+
+		StringTokenizer defaultTokenizer = new StringTokenizer(reference," ");
+		int pos = 0;
+		String token= "";
+		
+		if (defaultTokenizer.hasMoreTokens()){
+			token = defaultTokenizer.nextToken();
+			reference = token;
+		}
+		
+		if ((defaultTokenizer.hasMoreTokens())&&(reference.length() == 1)){
+			token = defaultTokenizer.nextToken();
+			reference = reference+" "+token;
+		}
+			
+		return reference;
+		
 		//tokenise
 		//if token 1 is 1 character the add the second part to it and return
 		//else return first token
 		// use this method when checking above and inserting into category too
-		return null;
 	}
 
 }
