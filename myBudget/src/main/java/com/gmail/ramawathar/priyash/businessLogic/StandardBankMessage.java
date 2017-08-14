@@ -137,8 +137,8 @@ public class StandardBankMessage implements SMSProcessor{
 	        		
 		        	balance = balance.substring(1);
 					BigDecimal moneyBalance = new BigDecimal(balance);
-					trxn.setTrxn_balance(moneyBalance.abs());
-	        		System.out.println("balance: "+moneyBalance.abs());	
+					trxn.setTrxn_balance(moneyBalance);
+	        		System.out.println("balance: "+moneyBalance);	
 		        }else if((pos>8) && (end_set == 2)){
 	        		System.out.println("setting the date for: "+token);
 	        		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 

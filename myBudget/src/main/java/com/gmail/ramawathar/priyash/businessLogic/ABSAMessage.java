@@ -124,7 +124,7 @@ public class ABSAMessage implements SMSProcessor{
 	   		        		//get balance
 	   		        		System.out.println((token.toUpperCase().substring(token.toUpperCase().indexOf("YOUR AVAILABLE BALANCE")+25, token.toUpperCase().indexOf(" HELP "))));//, token.toUpperCase().indexOf(" Help "))));
 	   		        		BigDecimal moneyBalance = new BigDecimal((token.toUpperCase().substring(token.toUpperCase().indexOf("YOUR AVAILABLE BALANCE")+25, token.toUpperCase().indexOf(" HELP "))));
-	   		        		trxn.setTrxn_balance(moneyBalance.abs());
+	   		        		trxn.setTrxn_balance(moneyBalance);
 	   		        		System.out.println("amount: "+moneyBalance.abs());	   	     		
 	   		        		
 	   		        		break;
@@ -236,8 +236,8 @@ public class ABSAMessage implements SMSProcessor{
 				        	System.out.println("balance string:"+balance);		        	
 				        	balance = balance.substring(11,balance.indexOf(endSearch));
 							BigDecimal moneyBalance = new BigDecimal(balance);
-							trxn.setTrxn_balance(moneyBalance.abs());
-			        		System.out.println("amount: "+moneyBalance.abs());		        			
+							trxn.setTrxn_balance(moneyBalance);
+			        		System.out.println("amount: "+moneyBalance);		        			
 		        		}else{
 			        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
 			        		trxn.setTrxn_amount(money.abs());
@@ -254,14 +254,14 @@ public class ABSAMessage implements SMSProcessor{
 					        	System.out.println("PUR or AUTH: "+balance);
 					        	balance = balance.substring(17,balance.indexOf(endSearch));
 								BigDecimal moneyBalance = new BigDecimal(balance);
-								trxn.setTrxn_balance(moneyBalance.abs());
+								trxn.setTrxn_balance(moneyBalance);
 				        		System.out.println("amount: "+moneyBalance.abs());
 					        }else if(payType.equalsIgnoreCase("SET")){
 					        	System.out.println("SET:"+endSearch);
 					        	System.out.println("balance string:"+balance);		        	
 					        	balance = balance.substring(11,balance.indexOf(endSearch));
 								BigDecimal moneyBalance = new BigDecimal(balance);
-								trxn.setTrxn_balance(moneyBalance.abs());
+								trxn.setTrxn_balance(moneyBalance);
 				        		System.out.println("amount: "+moneyBalance.abs());
 					        }
 		        		}
