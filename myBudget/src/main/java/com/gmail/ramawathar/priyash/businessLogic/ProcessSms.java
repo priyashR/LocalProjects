@@ -38,11 +38,11 @@ public class ProcessSms {
 		trxn = bank.processMessage(this.o_sms, n, this.bgt_user_third_partyRepository);
 		return trxn;
 	}
-		/*
-	public static void main(String args[]){
+		
+	/*public static void main(String args[]){
 		Orig_SMS o_sms = new Orig_SMS();
 		Bgt_notifications n = new Bgt_notifications();
-		o_sms.setMessage("Standard Bank: Hi Mr Ramawthar :). Get ready for your next Jazz experience with up to 15% off Joy of Jazz tickets! Book online or in-store at Computicket and pay with your Credit or Cheque Card by 31/08/17. Looking forward to seeing you there :) T&Cs apply. Opt out? Reply stop");
+		o_sms.setMessage("Absa: CCRD2011, Wthdr, 09/08/17 CASH ADVANCE ABSA ATM, ABSA ATM MERCHANTS PTY LTPRETO, R250.00, Total Avail Bal R15,855.00. Help 0860553553; RAMAWPR001");
 		ProcessSms p = new ProcessSms(o_sms);
 		n.setNotification_type("INFO");
 		p.process(n);

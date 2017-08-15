@@ -45,14 +45,21 @@ public class ABSAMessage implements SMSProcessor{
 		    	smsCleaned = smsCleaned+c;
 		    ignore = false;
 		}
-		
-		System.out.println("smsCleaned: "+smsCleaned);
-		System.out.println("sms       : "+sms);
-		
+
+    	//Fix hardcodes
+    	smsCleaned = smsCleaned.replace("SETTLEMENT/C - NAEDO TRACK INTL,", "SETTLEMENT/C - NAEDO TRACK INTL, HOME LOAN,");
+    	smsCleaned = smsCleaned.replace("CASH ADVANCE ABSA ATM,", "CASH ADVANCE ABSA ATM");
+    	smsCleaned = smsCleaned.replace("ABSA VF 00087711620", " CAR");
+    	
 		//remove the spaces after tokens
 		smsCleaned = smsCleaned.replace(", ", ",");
 		String payType= "";
     	String endSearch = ". HELP ";
+		
+    	
+		
+		System.out.println("smsCleaned: "+smsCleaned);
+		System.out.println("sms       : "+sms);
 		
 		StringTokenizer defaultTokenizer = new StringTokenizer(smsCleaned,",");
         int pos = 0;
@@ -109,7 +116,6 @@ public class ABSAMessage implements SMSProcessor{
 	   		        		//get third party
 	   		        		trxn.setUser_third_party(token.toUpperCase().substring(9, token.toUpperCase().indexOf(" RESERVED")));
 	   		        		
-	   		        		//trxn.setCategory(getCategory(trxn.getUser_third_party(),n));
 	   		        		trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));
 	   		        	    //trxn.setCategory("UNCTEGORISED");	   		        		
 	   		        		System.out.println("setUser_third_party: "+trxn.getUser_third_party());
@@ -164,6 +170,9 @@ public class ABSAMessage implements SMSProcessor{
 		        		case "PUR":
 		        			trxn.setTrxn_type("O");
 		        			break;
+		        		case "SCH T":
+		        			trxn.setTrxn_type("O");
+		        			break;
 		        		case "TRANSFER":
 		        			trxn.setTrxn_type("O");
 		        			break;
@@ -210,9 +219,10 @@ public class ABSAMessage implements SMSProcessor{
 		        		System.out.println("tran date: "+tranDate);
 		        		break;
 		        	case 5:
-		        		System.out.println(5);
+		        		System.out.println("5: "+token);
 		        		if (withdrawal){
 		        			trxn.setUser_third_party("ATM WITDRAWAL");
+			        		//trxn.setCategory("UNCTEGORISED");
 		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));
 		        			//set amount as well
 			        		System.out.println("setting the amount as well");
@@ -229,11 +239,12 @@ public class ABSAMessage implements SMSProcessor{
 		        		break;
 		        	case 6:
 		        		
-		        		System.out.println(6);
+		        		System.out.println(6+": " + token);
 		        		if (withdrawal){
-			        		String balance = token;
+			        		String balance = token.replace("TOTAL AVAIL BAL", "AVAILABLE");
 				        	System.out.println("WTD:"+endSearch);
-				        	System.out.println("balance string:"+balance);		        	
+				        	System.out.println("balance string:"+balance);	
+				        	//clean out credit card ATM withdrawal
 				        	balance = balance.substring(11,balance.indexOf(endSearch));
 							BigDecimal moneyBalance = new BigDecimal(balance);
 							trxn.setTrxn_balance(moneyBalance);
@@ -274,7 +285,7 @@ public class ABSAMessage implements SMSProcessor{
     	   }
     	}
         catch (Exception e){
-        	System.out.println("error");
+        	System.out.println("error: "+e.toString());
 			n.setNotification_type("ERROR");
 			String error = e.toString();
 			if (e.toString().length()>580)
