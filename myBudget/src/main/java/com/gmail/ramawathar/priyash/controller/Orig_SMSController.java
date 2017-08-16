@@ -40,7 +40,7 @@ public class Orig_SMSController {
 	protected void verifySMS(Long smsId) throws ResourceNotFoundException {
 		Orig_SMS sms = orig_SMSRepository.findOne(smsId);
         if(sms == null) {
-                throw new ResourceNotFoundException("Poll with id " + smsId + " not found");
+                throw new ResourceNotFoundException("Sms with id " + smsId + " not found");
         }
 	}	
 	
