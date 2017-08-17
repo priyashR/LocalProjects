@@ -33,7 +33,8 @@ public class ManageData {
 		
 		//look up the edited third party
 		LookupData lookup = new LookupData();
-		String thirdParty = lookup.getThirdParty(currentTrxn.getUser_third_party());
+		String currentFullThirdParty = currentTrxn.getUserThirdParty();
+		String thirdParty = lookup.getThirdParty(currentFullThirdParty);
 		
 		//check valid category
 		String currentCategory = params.getCategory().toUpperCase();
@@ -49,7 +50,7 @@ public class ManageData {
 		
 		//check if thirdparty exists in the user third party mapping
 		//remove thirdparty if exists above
-		//add new thirdparty and category mapping - TO DO
+		//add new thirdparty and category mapping
 		Bgt_user_third_party userThirdPartyRec = null;
 		for (Bgt_user_third_party thirdPartyRec : userThirdPartyRepo.findByUserThirdParty(thirdParty)) {
 			userThirdPartyRec = thirdPartyRec;
@@ -61,16 +62,36 @@ public class ManageData {
 		}else{
 			userThirdPartyRec.setUser_email("PRIYASH.RAMAWTHAR@GMAIL.COM");
 			userThirdPartyRec.setUser_third_party("thirdParty");
-			userThirdPartyRec.setUser_third_party_desc(currentTrxn.getUser_third_party());
+			userThirdPartyRec.setUser_third_party_desc(currentFullThirdParty);
 			userThirdPartyRec.setCategory(currentCategory);
 		}
 		userThirdPartyRepo.save(userThirdPartyRec);
 		
 		//update transaction
+		bgt_trxnsRepository.delete(currentTrxn);
+		currentTrxn.setCategory(currentCategory);
+		bgt_trxnsRepository.save(currentTrxn);
+		
 		//update notification by trans id
+		for (Bgt_notifications notification : allNotifcations.findByTrxnId(currentTrxn.getTrxnId())){
+			allNotifcations.delete(notification);
+			notification.setNotification_status("UPDATED");
+			allNotifcations.save(notification);
+		}
 		
 		//update all other transactions by reference
-		//update all other notifications by reference trans id
+		for (Bgt_trxns trxn : bgt_trxnsRepository.findByUserThirdParty(currentFullThirdParty)){
+			valid = true; 
+			bgt_trxnsRepository.delete(trxn);
+			trxn.setCategory(currentCategory);
+			bgt_trxnsRepository.save(trxn);
+			
+			for (Bgt_notifications notification : allNotifcations.findByTrxnId(trxn.getTrxnId())){
+				allNotifcations.delete(notification);
+				notification.setNotification_status("UPDATED");
+				allNotifcations.save(notification);
+			}
+		}
 		
 	}
 

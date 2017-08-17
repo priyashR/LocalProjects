@@ -118,18 +118,18 @@ public class StandardBankMessage implements SMSProcessor{
 	        			end_set++;
 	        			third_party = third_party.substring(0, third_party.indexOf(" "+end_string+" BAL"));
 	        			if (withdrawn_flag){
-		        			trxn.setUser_third_party("ATM WITDRAWAL");
+		        			trxn.setUserThirdParty("ATM WITDRAWAL");
 		        			//to put back -> 
-		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));       				
+		        			trxn.setCategory(lookup.category(trxn.getUserThirdParty(),n, bgt_user_third_partyRepository));       				
 	        			}else{
-		        			trxn.setUser_third_party(third_party);
+		        			trxn.setUserThirdParty(third_party);
 		        			//to put back -> 
-		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));  	        				
+		        			trxn.setCategory(lookup.category(trxn.getUserThirdParty(),n, bgt_user_third_partyRepository));  	        				
 	        			}
 	        		}else{
 	        			prev_token = token;
 	        		}
-    				System.out.println("setUser_third_party: "+trxn.getUser_third_party());
+    				System.out.println("setUser_third_party: "+trxn.getUserThirdParty());
 	        	}else if((pos>8) && (end_set == 1)){
     				System.out.println("balance : "+token);
     				end_set++;
@@ -214,11 +214,11 @@ public class StandardBankMessage implements SMSProcessor{
 	        		int amountLen = amount.length();
 	        		
 	        		//get the third party and category
-        			trxn.setUser_third_party(innerToken.substring(amountLen+1).trim());
+        			trxn.setUserThirdParty(innerToken.substring(amountLen+1).trim());
         			//to put back -> 
-        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository)); 
+        			trxn.setCategory(lookup.category(trxn.getUserThirdParty(),n, bgt_user_third_partyRepository)); 
         			
-	        		System.out.println("setUser_third_party: "+trxn.getUser_third_party()); 
+	        		System.out.println("setUser_third_party: "+trxn.getUserThirdParty()); 
 	        		
 	        		//set email
 	        		trxn.setUser_email(email);	

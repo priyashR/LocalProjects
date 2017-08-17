@@ -99,7 +99,7 @@ public class Orig_SMSController {
 					}
 					
 				}
-				n.setTrxn_id(lastTrxn.getTrxnId());
+				n.setTrxnId(lastTrxn.getTrxnId());
 				n = bgt_notificationsRepository.save(n);
 			}
 			catch (Exception e){

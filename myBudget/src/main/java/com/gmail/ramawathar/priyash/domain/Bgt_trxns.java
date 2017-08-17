@@ -51,7 +51,7 @@ public class Bgt_trxns {
     
     @Column(name="USER_THIRD_PARTY")
     @NotEmpty
-	private String user_third_party;
+	private String userThirdParty;
 
 
     @Column(name="TRXN_BALANCE")
@@ -113,12 +113,12 @@ public class Bgt_trxns {
 		this.category = category;
 	}
 
-	public String getUser_third_party() {
-		return user_third_party;
+	public String getUserThirdParty() {
+		return userThirdParty;
 	}
 
-	public void setUser_third_party(String user_third_party) {
-		this.user_third_party = user_third_party;
+	public void setUserThirdParty(String userThirdParty) {
+		this.userThirdParty = userThirdParty;
 	}
 
 	public BigDecimal getTrxn_balance() {

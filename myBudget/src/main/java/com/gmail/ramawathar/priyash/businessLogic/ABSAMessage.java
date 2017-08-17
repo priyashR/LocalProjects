@@ -114,11 +114,11 @@ public class ABSAMessage implements SMSProcessor{
 	   		        		payType = "PUR";
 	   		        		
 	   		        		//get third party
-	   		        		trxn.setUser_third_party(token.toUpperCase().substring(9, token.toUpperCase().indexOf(" RESERVED")));
+	   		        		trxn.setUserThirdParty(token.toUpperCase().substring(9, token.toUpperCase().indexOf(" RESERVED")));
 	   		        		
-	   		        		trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));
+	   		        		trxn.setCategory(lookup.category(trxn.getUserThirdParty(),n, bgt_user_third_partyRepository));
 	   		        	    //trxn.setCategory("UNCTEGORISED");	   		        		
-	   		        		System.out.println("setUser_third_party: "+trxn.getUser_third_party());
+	   		        		System.out.println("setUser_third_party: "+trxn.getUserThirdParty());
 	   		        		
 
 	   		        		//get amount
@@ -221,9 +221,9 @@ public class ABSAMessage implements SMSProcessor{
 		        	case 5:
 		        		System.out.println("5: "+token);
 		        		if (withdrawal){
-		        			trxn.setUser_third_party("ATM WITDRAWAL");
+		        			trxn.setUserThirdParty("ATM WITDRAWAL");
 			        		//trxn.setCategory("UNCTEGORISED");
-		        			trxn.setCategory(lookup.category(trxn.getUser_third_party(),n, bgt_user_third_partyRepository));
+		        			trxn.setCategory(lookup.category(trxn.getUserThirdParty(),n, bgt_user_third_partyRepository));
 		        			//set amount as well
 			        		System.out.println("setting the amount as well");
 			        		BigDecimal money = new BigDecimal(token.substring(1).replaceAll(",", ""));
@@ -231,7 +231,7 @@ public class ABSAMessage implements SMSProcessor{
 			        		System.out.println("amount: "+money.abs());
 		        			
 		        		}else{
-			        		trxn.setUser_third_party(token.toUpperCase());
+			        		trxn.setUserThirdParty(token.toUpperCase());
 			                //lookup category here
 			                trxn.setCategory(lookup.category(token.toUpperCase(),n, bgt_user_third_partyRepository));
 			        		//trxn.setCategory("UNCTEGORISED");
