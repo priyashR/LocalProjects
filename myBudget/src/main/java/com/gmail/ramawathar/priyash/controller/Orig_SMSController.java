@@ -79,6 +79,7 @@ public class Orig_SMSController {
 			n.setNotification_action("NONE");
 			n.setNotification_status("NEW");
 			
+			Bgt_trxns lastTrxn = new Bgt_trxns();
 			try {
 	        // Set the location header for the newly created resource
 		        URI newPollUri = ServletUriComponentsBuilder
@@ -89,16 +90,17 @@ public class Orig_SMSController {
 		        responseHeaders.setLocation(newPollUri);	
 				p = new ProcessSms(s,bgt_user_third_partyRepository);
 				t = p.process(n);
-				n = bgt_notificationsRepository.save(n);
 				if (!(n.getNotification_type().equalsIgnoreCase("ERROR"))) {
 					int i = 0;
 					while (i < t.size()) {
 						//System.out.println(crunchifyList.get(i));
-						bgt_trxnsRepository.save(t.get(i));
+						lastTrxn = bgt_trxnsRepository.save(t.get(i));
 						i++;
 					}
 					
 				}
+				n.setTrxn_id(lastTrxn.getTrxnId());
+				n = bgt_notificationsRepository.save(n);
 			}
 			catch (Exception e){
 				n.setNotification_type("ERROR");

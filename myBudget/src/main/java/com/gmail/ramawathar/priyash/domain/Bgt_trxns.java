@@ -57,11 +57,11 @@ public class Bgt_trxns {
     @Column(name="TRXN_BALANCE")
     private BigDecimal trxn_balance;
 
-	public Long getTrxn_id() {
+	public Long getTrxnId() {
 		return trxn_id;
 	}
 
-	public void setTrxn_id(Long trxn_id) {
+	public void setTrxnId(Long trxn_id) {
 		this.trxn_id = trxn_id;
 	}
 

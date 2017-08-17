@@ -88,5 +88,16 @@ public class Bgt_notifications {
 
 	@Column(name="NOTIFICATION_STATUS")
 	private String notification_status;
+	
+	public Long getTrxn_id() {
+		return trxn_id;
+	}
+
+	public void setTrxn_id(Long trxn_id) {
+		this.trxn_id = trxn_id;
+	}
+
+	@Column(name="TRXN_ID")
+	private Long trxn_id;
 
 }

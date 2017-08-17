@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.gmail.ramawathar.priyash.businessLogic.AssociationsHandler;
+import com.gmail.ramawathar.priyash.businessLogic.CategoryParamPOJO;
 import com.gmail.ramawathar.priyash.businessLogic.ManageData;
 import com.gmail.ramawathar.priyash.businessLogic.ProcessSms;
 import com.gmail.ramawathar.priyash.domain.Bgt_notifications;
@@ -40,33 +40,28 @@ public class ManageDataController {
 	
 	
 	@RequestMapping(value="/assocNotification", method=RequestMethod.POST)
-	public ResponseEntity<?> createSMS(@Valid @RequestBody AssociationsHandler params) {
+	public ResponseEntity<?> createSMS(@Valid @RequestBody CategoryParamPOJO params) {
 
-			//o_SMS = orig_SMSRepository.save(o_SMS);
-			Bgt_notifications n = new Bgt_notifications();
 	        HttpHeaders responseHeaders = new HttpHeaders();	
 	        ManageData md = new ManageData();
-
-	        //init notifications
-			n.setUser_email("PRIYASH.RAMAWTHAR@GMAIL.COM");
 			
-			n.setNotification_type("INFO");
-			n.setNotification_desc("Updating notification category");
-			n.setNotification_action("NONE");
-			n.setNotification_status("SUCCESS");
+			params.setStatus("SUCCESS");
+			params.setStatusDesc("");
 			
 			try {
 
-				md.assocNotificationToCat(bgt_notificationsRepository, bgt_user_third_partyRepository, bgt_categoriesRepository, params, n);
+				md.assocNotificationToCat(	bgt_notificationsRepository, 
+											bgt_user_third_partyRepository, 
+											bgt_categoriesRepository,
+											bgt_trxnsRepository,
+											params);
 				
 			}
 			catch (Exception e){
-				n.setNotification_type("ERROR");
-				n.setNotification_desc("Critical issue: "+e.getMessage());
-				n.setNotification_action("INVESTIGATE");
-				// -> not required, just use the structure n = bgt_notificationsRepository.save(n);
+				params.setStatus("ERROR");
+				params.setStatusDesc("Critical issue: "+e.getMessage());
 				throw e;
 			}
-	        return new ResponseEntity<>(n, responseHeaders, HttpStatus.CREATED);
+	        return new ResponseEntity<>(params, responseHeaders, HttpStatus.CREATED);
 	}	
 }
