@@ -5,6 +5,8 @@ public class CategoryParamPOJO {
 	private String category;
 	private String transNumber;
 	private String reference;
+	private String cat_parent;
+	private String cat_desc;
 	private String status;
 	private String statusDesc;
 	
@@ -37,6 +39,18 @@ public class CategoryParamPOJO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getCat_parent() {
+		return cat_parent;
+	}
+	public void setCat_parent(String cat_parent) {
+		this.cat_parent = cat_parent;
+	}
+	public String getCat_desc() {
+		return cat_desc;
+	}
+	public void setCat_desc(String cat_desc) {
+		this.cat_desc = cat_desc;
 	}
 	
 
