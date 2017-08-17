@@ -121,7 +121,7 @@ public class ManageData {
 				for (Bgt_categories category : bgt_categoriesRepository.findByCategory(paramCat)) {
 					bgt_categoriesRepository.delete(category);
 					category.setCat_parent(paramCatParent);
-					category.setCat_desc(paramCatParentDesc);
+					//category.setCat_desc(params.getCat_desc());
 					bgt_categoriesRepository.save(category);
 					valid = true; 
 				}

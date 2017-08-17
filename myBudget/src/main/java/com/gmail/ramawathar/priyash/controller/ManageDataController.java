@@ -64,4 +64,27 @@ public class ManageDataController {
 			}
 	        return new ResponseEntity<>(params, responseHeaders, HttpStatus.CREATED);
 	}	
+	
+	@RequestMapping(value="/createUpdateCat", method=RequestMethod.POST)
+	public ResponseEntity<?> createUpdateCat(@Valid @RequestBody CategoryParamPOJO params) {
+
+	        HttpHeaders responseHeaders = new HttpHeaders();	
+	        ManageData md = new ManageData();
+			
+			params.setStatus("SUCCESS");
+			params.setStatusDesc("");
+			
+			try {
+
+				md.createUpdateCategory(	bgt_categoriesRepository,
+											params);
+				
+			}
+			catch (Exception e){
+				params.setStatus("ERROR");
+				params.setStatusDesc("Critical issue: "+e.getMessage());
+				throw e;
+			}
+	        return new ResponseEntity<>(params, responseHeaders, HttpStatus.CREATED);
+	}		
 }
