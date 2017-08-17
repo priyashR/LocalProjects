@@ -39,8 +39,8 @@ public class ManageDataController {
 	private Bgt_categoriesRepository bgt_categoriesRepository;
 	
 	
-	@RequestMapping(value="/assocNotification", method=RequestMethod.POST)
-	public ResponseEntity<?> createSMS(@Valid @RequestBody CategoryParamPOJO params) {
+	@RequestMapping(value="/assocNotificationToCat", method=RequestMethod.POST)
+	public ResponseEntity<?> assocNotificationToCat(@Valid @RequestBody CategoryParamPOJO params) {
 
 	        HttpHeaders responseHeaders = new HttpHeaders();	
 	        ManageData md = new ManageData();

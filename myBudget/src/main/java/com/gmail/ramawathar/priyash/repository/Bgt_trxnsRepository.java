@@ -8,5 +8,6 @@ import com.gmail.ramawathar.priyash.domain.Bgt_trxns;
 import com.gmail.ramawathar.priyash.domain.Bgt_user_third_party;
 
 public interface Bgt_trxnsRepository extends CrudRepository<Bgt_trxns, Long> {
+	
 	List<Bgt_trxns> findByTrxnId(Long TrxnId);
 }

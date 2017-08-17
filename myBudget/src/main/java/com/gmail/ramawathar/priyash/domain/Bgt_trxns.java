@@ -22,7 +22,7 @@ public class Bgt_trxns {
 	@Id
     @GeneratedValue
     @Column(name="TRXN_ID")	
-	private Long trxn_id;
+	private Long trxnId;
 	
     @Column(name="USER_EMAIL")
     @NotEmpty
@@ -58,11 +58,11 @@ public class Bgt_trxns {
     private BigDecimal trxn_balance;
 
 	public Long getTrxnId() {
-		return trxn_id;
+		return trxnId;
 	}
 
 	public void setTrxnId(Long trxn_id) {
-		this.trxn_id = trxn_id;
+		this.trxnId = trxn_id;
 	}
 
 	public String getUser_email() {
