@@ -21,6 +21,7 @@ public class ManageData {
 				//get the reference from the transaction 
 				Bgt_trxns currentTrxn = new Bgt_trxns();
 				valid = false;
+				System.out.println(1);
 				for (Bgt_trxns trxn : bgt_trxnsRepository.findByTrxnId((long) Long.parseLong(params.getTransNumber()))){
 					valid = true; 
 					currentTrxn = trxn;
@@ -30,12 +31,14 @@ public class ManageData {
 					params.setStatusDesc("Transaction not found");
 					return;
 				}		
-				
+
+				System.out.println(2);
 				//look up the edited third party
 				LookupData lookup = new LookupData();
 				String currentFullThirdParty = currentTrxn.getUserThirdParty();
 				String thirdParty = lookup.getThirdParty(currentFullThirdParty);
-				
+
+				System.out.println(3);
 				//check valid category
 				String currentCategory = params.getCategory().toUpperCase();
 				valid = false;
@@ -47,7 +50,8 @@ public class ManageData {
 					params.setStatusDesc("Category not found");
 					return;
 				}
-				
+
+				System.out.println(4);
 				//check if thirdparty exists in the user third party mapping
 				//remove thirdparty if exists above
 				//add new thirdparty and category mapping
@@ -55,30 +59,35 @@ public class ManageData {
 				for (Bgt_user_third_party thirdPartyRec : userThirdPartyRepo.findByUserThirdParty(thirdParty)) {
 					userThirdPartyRec = thirdPartyRec;
 				}
-				
+
+				System.out.println(5);
 				if (userThirdPartyRec != null){
 					userThirdPartyRepo.delete(userThirdPartyRec);		
 					userThirdPartyRec.setCategory(currentCategory);
 				}else{
+					userThirdPartyRec = new Bgt_user_third_party();
 					userThirdPartyRec.setUser_email("PRIYASH.RAMAWTHAR@GMAIL.COM");
 					userThirdPartyRec.setUser_third_party("thirdParty");
 					userThirdPartyRec.setUser_third_party_desc(currentFullThirdParty);
 					userThirdPartyRec.setCategory(currentCategory);
 				}
 				userThirdPartyRepo.save(userThirdPartyRec);
-				
+
+				System.out.println(6);
 				//update transaction
 				bgt_trxnsRepository.delete(currentTrxn);
 				currentTrxn.setCategory(currentCategory);
 				bgt_trxnsRepository.save(currentTrxn);
-				
+
+				System.out.println(7);
 				//update notification by trans id
 				for (Bgt_notifications notification : allNotifcations.findByTrxnId(currentTrxn.getTrxnId())){
 					allNotifcations.delete(notification);
 					notification.setNotification_status("UPDATED");
 					allNotifcations.save(notification);
 				}
-				
+
+				System.out.println(8);
 				//update all other transactions by reference
 				for (Bgt_trxns trxn : bgt_trxnsRepository.findByUserThirdParty(currentFullThirdParty)){
 					valid = true; 
@@ -95,6 +104,7 @@ public class ManageData {
 			}catch (Exception e){
 				params.setStatus("Error");
 				params.setStatusDesc(e.getMessage());
+				System.out.println(e.toString());
 			}
 		
 }

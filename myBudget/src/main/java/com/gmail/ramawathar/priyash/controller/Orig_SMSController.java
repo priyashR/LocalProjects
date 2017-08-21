@@ -100,12 +100,18 @@ public class Orig_SMSController {
 					
 				}
 				n.setTrxnId(lastTrxn.getTrxnId());
+				if (n.getNotification_desc().length()>595){
+					n.setNotification_desc(n.getNotification_desc().substring(0, 595));
+				}
 				n = bgt_notificationsRepository.save(n);
 			}
 			catch (Exception e){
 				n.setNotification_type("ERROR");
 				n.setNotification_desc("Critical issue: "+e.getMessage());
 				n.setNotification_action("INVESTIGATE");
+				if (n.getNotification_desc().length()>595){
+					n.setNotification_desc(n.getNotification_desc().substring(0, 595));
+				}
 				n = bgt_notificationsRepository.save(n);
 				throw e;
 			}
