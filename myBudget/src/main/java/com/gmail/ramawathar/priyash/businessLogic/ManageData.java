@@ -67,7 +67,7 @@ public class ManageData {
 				}else{
 					userThirdPartyRec = new Bgt_user_third_party();
 					userThirdPartyRec.setUser_email("PRIYASH.RAMAWTHAR@GMAIL.COM");
-					userThirdPartyRec.setUser_third_party("thirdParty");
+					userThirdPartyRec.setUser_third_party(thirdParty);
 					userThirdPartyRec.setUser_third_party_desc(currentFullThirdParty);
 					userThirdPartyRec.setCategory(currentCategory);
 				}
