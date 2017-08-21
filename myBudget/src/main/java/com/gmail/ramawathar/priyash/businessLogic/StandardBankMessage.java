@@ -24,7 +24,7 @@ public class StandardBankMessage implements SMSProcessor{
 		String sms = processSMS.getMessage().toUpperCase().replace("STANDARD BANK:", "STANDARD BANK");
 		
 		if (sms.contains("PURCHASED")){
-			sms.replace("ACL BAL", "AVL BAL");
+			sms = sms.replace("ACL BAL", "AVL BAL");
 		}
 		
 		//trxn email
