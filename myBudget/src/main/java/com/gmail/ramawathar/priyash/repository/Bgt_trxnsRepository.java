@@ -11,4 +11,5 @@ public interface Bgt_trxnsRepository extends CrudRepository<Bgt_trxns, Long> {
 	
 	List<Bgt_trxns> findByTrxnId(Long TrxnId);
 	List<Bgt_trxns> findByUserThirdParty(String UserThirdParty);
+	List<Bgt_trxns> findByUserThirdPartyStartingWith(String userThirdParty);
 }

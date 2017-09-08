@@ -65,22 +65,23 @@ public class Orig_SMSController {
 			//o_SMS = orig_SMSRepository.save(o_SMS);
 			Bgt_notifications n = new Bgt_notifications();
 	        HttpHeaders responseHeaders = new HttpHeaders();	
-	        Orig_SMS s = orig_SMSRepository.save(o_SMS);
 			ProcessSms p;
 			ArrayList<Bgt_trxns> t;
 
-			//init notifications
 
-			n.setUser_email(o_SMS.getUser_email());
-			n.setNotification_orig_sms(o_SMS.getMessage());
-			
-			n.setNotification_type("INFO");
-			n.setNotification_desc("Original message processed successfully");
-			n.setNotification_action("NONE");
-			n.setNotification_status("NEW");
-			
-			Bgt_trxns lastTrxn = new Bgt_trxns();
 			try {
+		        Orig_SMS s = orig_SMSRepository.save(o_SMS);
+				//init notifications
+
+				n.setUser_email(o_SMS.getUser_email());
+				n.setNotification_orig_sms(o_SMS.getMessage());
+				
+				n.setNotification_type("INFO");
+				n.setNotification_desc("Original message processed successfully");
+				n.setNotification_action("NONE");
+				n.setNotification_status("NEW");
+				
+				Bgt_trxns lastTrxn = new Bgt_trxns();				
 	        // Set the location header for the newly created resource
 		        URI newPollUri = ServletUriComponentsBuilder
 		                                              .fromCurrentRequest()

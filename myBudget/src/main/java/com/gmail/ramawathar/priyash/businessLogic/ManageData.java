@@ -89,6 +89,7 @@ public class ManageData {
 
 				System.out.println(8);
 				//update all other transactions by reference
+				//for (Bgt_trxns trxn : bgt_trxnsRepository.findByUserThirdPartyStartingWith(thirdParty)){
 				for (Bgt_trxns trxn : bgt_trxnsRepository.findByUserThirdParty(currentFullThirdParty)){
 					valid = true; 
 					bgt_trxnsRepository.delete(trxn);
