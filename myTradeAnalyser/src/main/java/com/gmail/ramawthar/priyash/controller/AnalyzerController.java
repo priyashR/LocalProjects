@@ -19,7 +19,7 @@ import com.gmail.ramawthar.priyash.domain.Bgt_categories;
 import com.gmail.ramawthar.priyash.repository.Bgt_categoriesRepository;
 
 @RestController
-public class Orig_SMSController {
+public class AnalyzerController {
 	
 	@Inject
 	private Bgt_categoriesRepository bgt_categoriesRepository;
