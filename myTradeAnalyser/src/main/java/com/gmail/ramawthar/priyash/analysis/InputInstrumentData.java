@@ -1,5 +1,7 @@
 package com.gmail.ramawthar.priyash.analysis;
 
+import java.util.Date;
+
 public class InputInstrumentData {
 	
 	private String instrumentName;
@@ -7,16 +9,42 @@ public class InputInstrumentData {
     private double input[];
     private int inputInt[];
     private double[] close;
+    private Date start;
+    private Date end;
+
     
-	public InputInstrumentData(String instrumentName, String formula, double[] input, int[] inputInt, double[] close) {
+	public InputInstrumentData() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public InputInstrumentData(String instrumentName, String formula, double[] input, int[] inputInt, double[] close,
+			Date start, Date end) {
 		super();
 		this.instrumentName = instrumentName;
 		this.formula = formula;
 		this.input = input;
 		this.inputInt = inputInt;
 		this.close = close;
+		this.start = start;
+		this.end = end;
+	}
+	
+	public Date getStart() {
+		return start;
 	}
 
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
+	}
 
 	public String getInstrumentName() {
 		return instrumentName;
@@ -58,6 +86,9 @@ public class InputInstrumentData {
 		this.close = close;
 	}
     
+	public String loadData(){
+		return "success";
+	}
     
 
 }

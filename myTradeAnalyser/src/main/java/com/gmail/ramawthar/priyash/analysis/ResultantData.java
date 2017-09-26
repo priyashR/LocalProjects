@@ -11,6 +11,11 @@ public class ResultantData {
     private MInteger outNbElement;
     private RetCode retCode;
     
+	public ResultantData() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public ResultantData(double[] output, int[] outputInt, MInteger outBegIdx, MInteger outNbElement, RetCode retCode) {
 		super();
 		this.output = output;
