@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class InputInstrumentData {
 	
-	private String instrumentName;
-	private String formula;
+	private Instrument instrumentName;
     private double input[];
     private int inputInt[];
     private double[] close;
@@ -18,16 +17,16 @@ public class InputInstrumentData {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InputInstrumentData(String instrumentName, String formula, double[] input, int[] inputInt, double[] close,
-			Date start, Date end) {
+	public InputInstrumentData(Instrument instrumentName, Date start, Date end) {
 		super();
 		this.instrumentName = instrumentName;
-		this.formula = formula;
-		this.input = input;
-		this.inputInt = inputInt;
-		this.close = close;
 		this.start = start;
 		this.end = end;
+	}
+	
+	public InputInstrumentData(Instrument instrumentName) {
+		super();
+		this.instrumentName = instrumentName;
 	}
 	
 	public Date getStart() {
@@ -46,20 +45,12 @@ public class InputInstrumentData {
 		this.end = end;
 	}
 
-	public String getInstrumentName() {
+	public Instrument getInstrumentName() {
 		return instrumentName;
 	}
 
-	public void setInstrumentName(String instrumentName) {
+	public void setInstrumentName(Instrument instrumentName) {
 		this.instrumentName = instrumentName;
-	}
-
-	public String getFormula() {
-		return formula;
-	}
-
-	public void setFormula(String formula) {
-		this.formula = formula;
 	}
 
 	public double[] getInput() {
@@ -86,7 +77,8 @@ public class InputInstrumentData {
 		this.close = close;
 	}
     
-	public String loadData(){
+	public String downloadData(){
+		//method to fetch the data from the database
 		return "success";
 	}
     

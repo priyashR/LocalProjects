@@ -10,6 +10,8 @@ public class ResultantData {
     private MInteger outBegIdx; 
     private MInteger outNbElement;
     private RetCode retCode;
+    private Instrument instrumentName;
+    private Formula formula;
     
 	public ResultantData() {
 		super();
@@ -64,6 +66,29 @@ public class ResultantData {
 	public void setRetCode(RetCode retCode) {
 		this.retCode = retCode;
 	}
+	
+	public Instrument getInstrumentName() {
+		return instrumentName;
+	}
+
+	public void setInstrumentName(Instrument instrumentName) {
+		this.instrumentName = instrumentName;
+	}
+
+	public Formula getFormula() {
+		return formula;
+	}
+
+	public void setFormula(Formula formula) {
+		this.formula = formula;
+	}	
+    
+	public String uploadData(){
+		//method to push the data back to the database
+		return "success";
+	}
+
+	
 	
 	
     
