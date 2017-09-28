@@ -10,13 +10,14 @@ public class ResultantData {
     private MInteger outBegIdx; 
     private MInteger outNbElement;
     private RetCode retCode;
-    private Instrument instrumentName;
+    private Instrument instrument;
     private Formula formula;
-    
-	public ResultantData() {
+	
+	public ResultantData(Instrument instrument,Formula formula) {
 		super();
-		// TODO Auto-generated constructor stub
-	}
+		this.instrument = instrument;
+		this.formula = formula;
+	}	
 
 	public ResultantData(double[] output, int[] outputInt, MInteger outBegIdx, MInteger outNbElement, RetCode retCode) {
 		super();
@@ -68,11 +69,11 @@ public class ResultantData {
 	}
 	
 	public Instrument getInstrumentName() {
-		return instrumentName;
+		return instrument;
 	}
 
-	public void setInstrumentName(Instrument instrumentName) {
-		this.instrumentName = instrumentName;
+	public void setInstrumentName(Instrument instrument) {
+		this.instrument = instrument;
 	}
 
 	public Formula getFormula() {

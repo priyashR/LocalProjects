@@ -2,7 +2,7 @@ package com.gmail.ramawthar.priyash.analysis;
 
 import java.util.Date;
 
-import com.gmail.ramawthar.priyash.responses.returnClass;
+import com.gmail.ramawthar.priyash.responses.ReturnClass;
 
 public class ProcessPriceData {
 	
@@ -63,8 +63,16 @@ public class ProcessPriceData {
 		this.end = end;
 	}
 	
-	public returnClass process(){
-		return new returnClass("Success");
+	public ReturnClass process(){
+
+		InputInstrumentData iid = new InputInstrumentData(instrument,start,end);
+		iid.downloadData();
+		
+		ApplyFormulae af = new ApplyFormulae(formula);
+		ReturnClass rc = af.execute(iid);
+		
+		//check state maybe
+		return rc;
 	}
 	
 

@@ -1,22 +1,25 @@
 package com.gmail.ramawthar.priyash.responses;
 
-public class returnClass {
+import com.gmail.ramawthar.priyash.analysis.ResultantData;
+
+public class ReturnClass {
 	
 	private String status;
 	private String description;
+	private ResultantData rd;
 	
-	public returnClass(String status, String description) {
+	public ReturnClass(String status, String description) {
 		super();
 		this.status = status;
 		this.description = description;
 	}
 
-	public returnClass(String status) {
+	public ReturnClass(String status) {
 		super();
 		this.status = status;
 	}
 
-	public returnClass() {
+	public ReturnClass() {
 		super();
 	}
 
@@ -34,6 +37,14 @@ public class returnClass {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public ResultantData getRd() {
+		return rd;
+	}
+
+	public void setRd(ResultantData rd) {
+		this.rd = rd;
 	}
 	
 	

@@ -2,6 +2,8 @@ package com.gmail.ramawthar.priyash.analysis;
 
 import java.util.Date;
 
+import com.gmail.ramawthar.priyash.responses.ReturnClass;
+
 public class InputInstrumentData {
 	
 	private Instrument instrumentName;
@@ -10,6 +12,7 @@ public class InputInstrumentData {
     private double[] close;
     private Date start;
     private Date end;
+    private boolean loaded = false;
 
     
 	public InputInstrumentData() {
@@ -19,6 +22,7 @@ public class InputInstrumentData {
 
 	public InputInstrumentData(Instrument instrumentName, Date start, Date end) {
 		super();
+		//check start date < end date
 		this.instrumentName = instrumentName;
 		this.start = start;
 		this.end = end;
@@ -35,6 +39,11 @@ public class InputInstrumentData {
 
 	public void setStart(Date start) {
 		this.start = start;
+		//re init the class
+		this.input = null;
+		this.inputInt = null;
+		this.close = null;
+		this.loaded = false;		
 	}
 
 	public Date getEnd() {
@@ -43,6 +52,11 @@ public class InputInstrumentData {
 
 	public void setEnd(Date end) {
 		this.end = end;
+		//re init the class
+		this.input = null;
+		this.inputInt = null;
+		this.close = null;
+		this.loaded = false;	
 	}
 
 	public Instrument getInstrumentName() {
@@ -51,6 +65,13 @@ public class InputInstrumentData {
 
 	public void setInstrumentName(Instrument instrumentName) {
 		this.instrumentName = instrumentName;
+		//re init the class
+		this.input = null;
+		this.inputInt = null;
+		this.close = null;
+		this.start = null;
+		this.end = null;
+		this.loaded = false;		
 	}
 
 	public double[] getInput() {
@@ -77,9 +98,15 @@ public class InputInstrumentData {
 		this.close = close;
 	}
     
-	public String downloadData(){
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+	public ReturnClass downloadData(){
 		//method to fetch the data from the database
-		return "success";
+		//check start date < end date
+		loaded = true;
+		return new ReturnClass("success");
 	}
     
 
