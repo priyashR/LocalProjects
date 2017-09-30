@@ -10,7 +10,7 @@ import com.gmail.ramawthar.priyash.responses.ReturnClass;
 public class TestPriceAnalysis {
 	public ReturnClass testProcesPrice(){
 		//type sysout then ctrl+space
-		System.out.println("testProcesPrice");
+		DisplayData.displayLine("testProcesPrice");
 		ProcessPriceData ppd = new ProcessPriceData(Instrument.ADI, Formula.RSI,new Date(),new Date());
 		
 		ReturnClass r = ppd.process();
@@ -21,7 +21,9 @@ public class TestPriceAnalysis {
 	public static void main(String args[]){
 		TestPriceAnalysis t = new TestPriceAnalysis();
 		ReturnClass r = t.testProcesPrice();
-		System.out.println("the call status is: "+r.getStatus());
+		DisplayData.displayLine("the call status is: "+r.getStatus());
+		
+		r.getRd().uploadData();
 	}
 	
 }

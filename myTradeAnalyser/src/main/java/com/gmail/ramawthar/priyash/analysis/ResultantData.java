@@ -1,5 +1,7 @@
 package com.gmail.ramawthar.priyash.analysis;
 
+import com.gmail.ramawthar.priyash.responses.ReturnClass;
+import com.gmail.ramawthar.priyash.testing.DisplayData;
 import com.tictactec.ta.lib.MInteger;
 import com.tictactec.ta.lib.RetCode;
 
@@ -15,7 +17,7 @@ public class ResultantData {
 	
 	public ResultantData(Instrument instrument,Formula formula) {
 		super();
-		System.out.println("ResultantData");
+		DisplayData.displayLine("ResultantData");
 		this.instrument = instrument;
 		this.formula = formula;
 	}	
@@ -85,10 +87,11 @@ public class ResultantData {
 		this.formula = formula;
 	}	
     
-	public String uploadData(){
+	public ReturnClass uploadData(){
 		//method to push the data back to the database
-		System.out.println("ResultantData.uploadData");
-		return "success";
+		DisplayData.displayLine("ResultantData.uploadData");
+		ReturnClass rc = new ReturnClass("success");
+		return rc;
 	}
 
 	

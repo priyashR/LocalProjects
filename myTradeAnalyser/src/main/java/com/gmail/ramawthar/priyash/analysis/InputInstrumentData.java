@@ -3,6 +3,7 @@ package com.gmail.ramawthar.priyash.analysis;
 import java.util.Date;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
+import com.gmail.ramawthar.priyash.testing.DisplayData;
 
 public class InputInstrumentData {
 	
@@ -22,7 +23,7 @@ public class InputInstrumentData {
 
 	public InputInstrumentData(Instrument instrumentName, Date start, Date end) {
 		super();
-		System.out.println("InputInstrumentData");
+		DisplayData.displayLine("InputInstrumentData");
 		//check start date < end date
 		this.instrumentName = instrumentName;
 		this.start = start;
@@ -39,6 +40,7 @@ public class InputInstrumentData {
 	}
 
 	public void setStart(Date start) {
+		//check start date < end date
 		this.start = start;
 		//re init the class
 		this.input = null;
@@ -52,6 +54,7 @@ public class InputInstrumentData {
 	}
 
 	public void setEnd(Date end) {
+		//check start date < end date
 		this.end = end;
 		//re init the class
 		this.input = null;
@@ -106,7 +109,8 @@ public class InputInstrumentData {
 	public ReturnClass downloadData(){
 		//method to fetch the data from the database
 		//check start date < end date
-		System.out.println("InputInstrumentData.downloadData");
+		DisplayData.displayLine("InputInstrumentData.downloadData");
+		
 		loaded = true;
 		return new ReturnClass("success");
 	}

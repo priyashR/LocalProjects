@@ -3,6 +3,7 @@ package com.gmail.ramawthar.priyash.analysis;
 import java.util.Date;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
+import com.gmail.ramawthar.priyash.testing.DisplayData;
 
 public class ProcessPriceData {
 	
@@ -15,7 +16,7 @@ public class ProcessPriceData {
 	
 	public ProcessPriceData(Instrument instrument, Formula formula, Date start, Date end) {
 		super();
-		System.out.println("ProcessPriceData");
+		DisplayData.displayLine("ProcessPriceData");
 		this.instrument = instrument;
 		this.formula = formula;
 		this.start = start;
@@ -61,7 +62,7 @@ public class ProcessPriceData {
 	}
 	
 	public ReturnClass process(){
-		System.out.println("ProcessPriceData.process");
+		DisplayData.displayLine("ProcessPriceData.process");
 
 		InputInstrumentData iid = new InputInstrumentData(instrument,start,end);
 		iid.downloadData();

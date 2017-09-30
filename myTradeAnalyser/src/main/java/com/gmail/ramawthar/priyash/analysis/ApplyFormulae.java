@@ -1,6 +1,7 @@
 package com.gmail.ramawthar.priyash.analysis;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
+import com.gmail.ramawthar.priyash.testing.DisplayData;
 
 public class ApplyFormulae {
 	
@@ -8,7 +9,7 @@ public class ApplyFormulae {
 	
 	public ApplyFormulae(Formula formula) {
 		super();
-		System.out.println("ApplyFormulae");
+		DisplayData.displayLine("ApplyFormulae");
 		this.formula = formula;
 	}
 
@@ -21,7 +22,7 @@ public class ApplyFormulae {
 	}
 
 	public ReturnClass execute(InputInstrumentData iid){
-		System.out.println("ApplyFormulae.execute");
+		DisplayData.displayLine("ApplyFormulae.execute");
 		ReturnClass rc = new ReturnClass("success");
 		//check if instrument loaded, if not, then load
 		
