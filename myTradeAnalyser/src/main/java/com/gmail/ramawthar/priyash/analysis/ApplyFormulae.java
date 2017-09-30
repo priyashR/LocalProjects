@@ -8,6 +8,7 @@ public class ApplyFormulae {
 	
 	public ApplyFormulae(Formula formula) {
 		super();
+		System.out.println("ApplyFormulae");
 		this.formula = formula;
 	}
 
@@ -20,7 +21,7 @@ public class ApplyFormulae {
 	}
 
 	public ReturnClass execute(InputInstrumentData iid){
-		
+		System.out.println("ApplyFormulae.execute");
 		ReturnClass rc = new ReturnClass("success");
 		//check if instrument loaded, if not, then load
 		

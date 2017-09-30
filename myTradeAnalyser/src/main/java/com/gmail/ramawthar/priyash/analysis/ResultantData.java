@@ -15,6 +15,7 @@ public class ResultantData {
 	
 	public ResultantData(Instrument instrument,Formula formula) {
 		super();
+		System.out.println("ResultantData");
 		this.instrument = instrument;
 		this.formula = formula;
 	}	
@@ -86,6 +87,7 @@ public class ResultantData {
     
 	public String uploadData(){
 		//method to push the data back to the database
+		System.out.println("ResultantData.uploadData");
 		return "success";
 	}
 

@@ -15,6 +15,7 @@ public class ProcessPriceData {
 	
 	public ProcessPriceData(Instrument instrument, Formula formula, Date start, Date end) {
 		super();
+		System.out.println("ProcessPriceData");
 		this.instrument = instrument;
 		this.formula = formula;
 		this.start = start;
@@ -25,10 +26,6 @@ public class ProcessPriceData {
 		super();
 		this.instrument = instrument;
 		this.formula = formula;
-	}
-
-	public ProcessPriceData() {
-		super();
 	}
 
 	public Instrument getInstrument() {
@@ -64,6 +61,7 @@ public class ProcessPriceData {
 	}
 	
 	public ReturnClass process(){
+		System.out.println("ProcessPriceData.process");
 
 		InputInstrumentData iid = new InputInstrumentData(instrument,start,end);
 		iid.downloadData();

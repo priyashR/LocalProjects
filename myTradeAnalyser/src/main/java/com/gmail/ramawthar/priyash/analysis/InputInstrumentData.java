@@ -22,6 +22,7 @@ public class InputInstrumentData {
 
 	public InputInstrumentData(Instrument instrumentName, Date start, Date end) {
 		super();
+		System.out.println("InputInstrumentData");
 		//check start date < end date
 		this.instrumentName = instrumentName;
 		this.start = start;
@@ -105,6 +106,7 @@ public class InputInstrumentData {
 	public ReturnClass downloadData(){
 		//method to fetch the data from the database
 		//check start date < end date
+		System.out.println("InputInstrumentData.downloadData");
 		loaded = true;
 		return new ReturnClass("success");
 	}
