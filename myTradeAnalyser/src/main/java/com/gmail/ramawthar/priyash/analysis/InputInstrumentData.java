@@ -1,11 +1,9 @@
 package com.gmail.ramawthar.priyash.analysis;
 
 import java.util.Date;
-import java.util.List;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
 import com.gmail.ramawthar.priyash.testing.DisplayData;
-import com.gmail.ramawthar.priyash.testing.InputData;
 import com.gmail.ramawthar.priyash.testing.TestData;
 
 public class InputInstrumentData {
@@ -116,7 +114,10 @@ public class InputInstrumentData {
 		DisplayData.displayLine("InputInstrumentData.downloadData");
 
 		TestData td = new TestData(Instrument.ADI);
-		DisplayData.displayDuobleData(td.getDoubleData());
+		
+		
+		this.input = td.getDoubleData();
+		DisplayData.displayDuobleData(this.input);
 		
 		loaded = true;
 		return new ReturnClass("success");

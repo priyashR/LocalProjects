@@ -2,6 +2,7 @@ package com.gmail.ramawthar.priyash.analysis;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
 import com.gmail.ramawthar.priyash.testing.DisplayData;
+import com.tictactec.ta.lib.MInteger;
 
 public class ResultantData {
 
@@ -23,6 +24,13 @@ public class ResultantData {
 		super();
 		this.output = output;
 		this.outputInt = outputInt;
+		this.outBegIdx = outBegIdx;
+		this.outNbElement = outNbElement;
+	}
+
+	public ResultantData(double[] output, MInteger outBegIdx, MInteger outNbElement) {
+		super();
+		this.output = output;
 		this.outBegIdx = outBegIdx;
 		this.outNbElement = outNbElement;
 	}
@@ -78,6 +86,9 @@ public class ResultantData {
 	public ReturnClass uploadData(){
 		//method to push the data back to the database
 		DisplayData.displayLine("ResultantData.uploadData");
+		
+		DisplayData.displayDuobleData(this.output);
+		
 		ReturnClass rc = new ReturnClass("success");
 		return rc;
 	}
