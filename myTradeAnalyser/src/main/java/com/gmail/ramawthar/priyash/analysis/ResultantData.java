@@ -2,8 +2,6 @@ package com.gmail.ramawthar.priyash.analysis;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
 import com.gmail.ramawthar.priyash.testing.DisplayData;
-import com.tictactec.ta.lib.MInteger;
-import com.tictactec.ta.lib.RetCode;
 
 public class ResultantData {
 
@@ -11,7 +9,6 @@ public class ResultantData {
     private int outputInt[];
     private MInteger outBegIdx; 
     private MInteger outNbElement;
-    private RetCode retCode;
     private Instrument instrument;
     private Formula formula;
 	
@@ -22,13 +19,12 @@ public class ResultantData {
 		this.formula = formula;
 	}	
 
-	public ResultantData(double[] output, int[] outputInt, MInteger outBegIdx, MInteger outNbElement, RetCode retCode) {
+	public ResultantData(double[] output, int[] outputInt, MInteger outBegIdx, MInteger outNbElement) {
 		super();
 		this.output = output;
 		this.outputInt = outputInt;
 		this.outBegIdx = outBegIdx;
 		this.outNbElement = outNbElement;
-		this.retCode = retCode;
 	}
 
 	public double[] getOutput() {
@@ -61,14 +57,6 @@ public class ResultantData {
 
 	public void setOutNbElement(MInteger outNbElement) {
 		this.outNbElement = outNbElement;
-	}
-
-	public RetCode getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(RetCode retCode) {
-		this.retCode = retCode;
 	}
 	
 	public Instrument getInstrumentName() {

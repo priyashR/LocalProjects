@@ -1,9 +1,12 @@
 package com.gmail.ramawthar.priyash.analysis;
 
 import java.util.Date;
+import java.util.List;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
 import com.gmail.ramawthar.priyash.testing.DisplayData;
+import com.gmail.ramawthar.priyash.testing.InputData;
+import com.gmail.ramawthar.priyash.testing.TestData;
 
 public class InputInstrumentData {
 	
@@ -109,7 +112,11 @@ public class InputInstrumentData {
 	public ReturnClass downloadData(){
 		//method to fetch the data from the database
 		//check start date < end date
+		//List<InputData> I = td.getAllInputData();
 		DisplayData.displayLine("InputInstrumentData.downloadData");
+
+		TestData td = new TestData(Instrument.ADI);
+		DisplayData.displayDuobleData(td.getDoubleData());
 		
 		loaded = true;
 		return new ReturnClass("success");

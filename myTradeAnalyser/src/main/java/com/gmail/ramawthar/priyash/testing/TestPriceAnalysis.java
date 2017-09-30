@@ -24,6 +24,9 @@ public class TestPriceAnalysis {
 		DisplayData.displayLine("the call status is: "+r.getStatus());
 		
 		r.getRd().uploadData();
+		
+
+		
 	}
 	
 }
