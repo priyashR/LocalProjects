@@ -18,7 +18,7 @@ public class PrepareData {
 	
 	String inputPath;
 	String outputPath;
-	ReturnClass rc = new ReturnClass("Success");
+	ReturnClass rc = new ReturnClass("Init");
 	
 	public PrepareData(String inputPath, String outputPath) {
 		super();
@@ -47,9 +47,16 @@ public class PrepareData {
 		File folder = new File(inputPath);
 		//read the input directory
 	    for (final File fileEntry : folder.listFiles()) {
-	            System.out.println(fileEntry.getName());
-	            System.out.println(getDate(fileEntry, rc));
+	            //System.out.println(fileEntry.getName());
+	            //System.out.println(getDate(fileEntry, rc));
+	    		rc.addLog("Processing file: "+fileEntry.getName());
 	            processFile(fileEntry);
+	            if (!(rc.getStatus().equalsIgnoreCase("ERROR"))){
+	            	//move the file to processed folder
+	            }else{
+	            	//move the file to error folder
+	            }
+	            rc.setStatus("Init");
 	            
 	    }
 		
@@ -70,25 +77,25 @@ public class PrepareData {
 	}
 	
 	private ReturnClass processFile(File fileEntry){
-		
-		String fileDate = getDate(fileEntry,rc);
-		
-        try {
 
+        try {
+        	String fileDate = getDate(fileEntry,rc);
+        	rc.addLog("File date: "+fileDate);
             BufferedReader b = new BufferedReader(new FileReader(fileEntry));
 
             String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
-                System.out.println(readLine);
                 processFileLine(readLine, fileDate);
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
+        	rc.addLog("Error processing the file: "+e.getMessage());
+        	rc.setStatus("Error");
+        	rc.setDescription(e.getMessage());
             e.printStackTrace();
         }
 		
-		rc.setStatus("Success");
 		return rc;
 	}
 	
@@ -153,7 +160,8 @@ public class PrepareData {
 										  String low, 
 										  String open, 
 										  String close,
-										  String fileDate){
+										  String fileDate){	
+		rc.setStatus("Success");
 		try {
 			
 			Path path = Paths.get(outputPath+instrument+".txt");
@@ -166,13 +174,18 @@ public class PrepareData {
 			String newLine = fileDate+","+open+","+close+","+high+","+low;  
 	
 			lines.add(position, newLine);
+			
+			//keep it to around +-4 years of data max
+			if (lines.size()>1052)
+				lines.remove(lines.size());
 			Files.write(path, lines, StandardCharsets.UTF_8);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			rc.setStatus("Error");
+			rc.setDescription(e.getMessage());
 			e.printStackTrace();
-		}		
-		rc.setStatus("Success");
+		}	
 		return rc;		
 	}
 }
