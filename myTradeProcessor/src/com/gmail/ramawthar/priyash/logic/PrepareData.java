@@ -4,7 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormatSymbols;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
@@ -43,7 +48,7 @@ public class PrepareData {
 		//read the input directory
 	    for (final File fileEntry : folder.listFiles()) {
 	            System.out.println(fileEntry.getName());
-	            System.out.println(getDate(fileEntry,rc));
+	            System.out.println(getDate(fileEntry, rc));
 	            processFile(fileEntry);
 	            
 	    }
@@ -66,6 +71,8 @@ public class PrepareData {
 	
 	private ReturnClass processFile(File fileEntry){
 		
+		String fileDate = getDate(fileEntry,rc);
+		
         try {
 
             BufferedReader b = new BufferedReader(new FileReader(fileEntry));
@@ -74,7 +81,7 @@ public class PrepareData {
 
             while ((readLine = b.readLine()) != null) {
                 System.out.println(readLine);
-                processFileLine(readLine);
+                processFileLine(readLine, fileDate);
             }
 
         } catch (IOException e) {
@@ -85,7 +92,7 @@ public class PrepareData {
 		return rc;
 	}
 	
-	private ReturnClass processFileLine(String line){
+	private ReturnClass processFileLine(String line, String fileDate){
 		
 		StringTokenizer defaultTokenizer = new StringTokenizer(line,",");
 		String token;
@@ -105,7 +112,7 @@ public class PrepareData {
 			//ignore first line
 			if (!token.equalsIgnoreCase("Instr.")){
 				token = token.replace("c", "");
-				System.out.println("token: "+token);
+				//System.out.println("token: "+token);
 			        	switch (pos){
 			        	case 1:
 			        		instrument = token;
@@ -132,9 +139,40 @@ public class PrepareData {
 			}
 	    
 	    System.out.println(instrument+" "+high+" "+low+" "+open+" "+close);
+	    if (!instrument.equalsIgnoreCase("")){
+	    	writeToMasterFile(instrument, high, low, open, close, fileDate);
+	    }
 	        	
 		rc.setStatus("Success");
 		return rc;
 		
+	}
+	
+	private ReturnClass writeToMasterFile(String instrument, 
+										  String high, 
+										  String low, 
+										  String open, 
+										  String close,
+										  String fileDate){
+		try {
+			
+			Path path = Paths.get(outputPath+instrument+".txt");
+			List<String> lines;
+			
+				lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+	
+	
+			int position = 1;
+			String newLine = fileDate+","+open+","+close+","+high+","+low;  
+	
+			lines.add(position, newLine);
+			Files.write(path, lines, StandardCharsets.UTF_8);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		rc.setStatus("Success");
+		return rc;		
 	}
 }
