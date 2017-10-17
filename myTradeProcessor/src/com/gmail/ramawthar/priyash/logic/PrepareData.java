@@ -18,12 +18,17 @@ public class PrepareData {
 	
 	String inputPath;
 	String outputPath;
+	String processedPath;
+	String errorPath;
+	
 	ReturnClass rc = new ReturnClass("Init");
 	
-	public PrepareData(String inputPath, String outputPath) {
+	public PrepareData(String inputPath, String processedPath, String errorPath, String outputPath) {
 		super();
 		this.inputPath = inputPath;
 		this.outputPath = outputPath;
+		this.processedPath = processedPath;
+		this.errorPath = errorPath;
 	}
 
 	public String getInputPath() {
@@ -53,8 +58,10 @@ public class PrepareData {
 	            processFile(fileEntry);
 	            if (!(rc.getStatus().equalsIgnoreCase("ERROR"))){
 	            	//move the file to processed folder
+	            	moveFile(inputPath, processedPath, fileEntry.getName());
 	            }else{
 	            	//move the file to error folder
+	            	moveFile(inputPath, errorPath, fileEntry.getName());
 	            }
 	            rc.setStatus("Init");
 	            
@@ -177,7 +184,7 @@ public class PrepareData {
 			
 			//keep it to around +-4 years of data max
 			if (lines.size()>1052)
-				lines.remove(lines.size());
+				lines.remove(lines.size()-1);
 			Files.write(path, lines, StandardCharsets.UTF_8);
 			
 		} catch (IOException e) {
@@ -187,5 +194,30 @@ public class PrepareData {
 			e.printStackTrace();
 		}	
 		return rc;		
+	}
+	private ReturnClass moveFile(String currPath, String newPath, String file){
+    	try{
+
+     	   //File afile =new File(currPath+"\\"+file);
+     	   
+     	   //afile.renameTo(new File(newPath+"\\"+file));
+     	   System.out.println(currPath+"\\"+file);
+     	   System.out.println(newPath+"\\"+file);
+     	   Path source = Paths.get(currPath+"\\"+file);
+     	   Path destination = Paths.get(newPath+"\\"+file);
+     	   
+     	   Files.move(source, destination);
+/*
+     	   if(afile.renameTo(new File("C:\\folderB\\" + afile.getName()))){
+     		System.out.println("File is moved successful!");
+     	   }else{
+     		System.out.println("File is failed to move!");
+     	   }
+*/
+     	}catch(Exception e){
+     		rc.setStatus("Error");
+     		rc.setDescription(e.getMessage());
+     	}
+		return rc;
 	}
 }

@@ -5,13 +5,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReturnClass {
 	
 	private String status;
 	private String description;
-	private List<String> log;
+	private List<String> log = new ArrayList<String>();
 	
 	public ReturnClass(String status, String description) {
 		super();
@@ -45,7 +46,8 @@ public class ReturnClass {
 	}
 	
 	public void addLog(String logMessage){
-		log.add(logMessage);
+		//log.add(logMessage);
+		//need to fix
 	}
 	
 	public void writeLog(String path){
