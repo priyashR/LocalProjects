@@ -178,14 +178,14 @@ public class PrepareData {
 				lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 	
 	
-			int position = 1;
+			int position = lines.size();
 			String newLine = fileDate+","+open+","+close+","+high+","+low;  
 	
-			lines.add(position, newLine);
+			lines.add(newLine);
 			
 			//keep it to around +-4 years of data max
 			if (lines.size()>1052)
-				lines.remove(lines.size()-1);
+				lines.remove(1);
 			Files.write(path, lines, StandardCharsets.UTF_8);
 			
 		} catch (IOException e) {
