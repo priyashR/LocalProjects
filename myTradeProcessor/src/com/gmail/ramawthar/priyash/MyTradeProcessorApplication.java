@@ -17,6 +17,7 @@ public class MyTradeProcessorApplication {
 										 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
 		System.out.println(pd.processNewData().getStatus());
 		*/
+		
 		ProcessData processData = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 												  "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
 		
