@@ -75,7 +75,7 @@ public class PrepareData {
 	private String getDate(File fileEntry, ReturnClass rc){
 		
 		
-		String year = fileEntry.getName().substring(13,15);
+		String year = fileEntry.getName().substring(15,17);
 		String month = fileEntry.getName().substring(17,19);
 		String day = fileEntry.getName().substring(19,21);
 		month = new DateFormatSymbols().getShortMonths()[Integer.parseInt(month)-1];
@@ -233,16 +233,6 @@ public class PrepareData {
     		Path source = Paths.get(currPath+"\\"+file);
     		Files.deleteIfExists(source);
     		
-    		/*
-    		Path source = Paths.get(currPath+"\\"+file);
-    		List<String> lines;
-			
-      	   	lines = Files.readAllLines(source, StandardCharsets.UTF_8);
-      	   	
-      	   	lines.clear();
-      	   
-      	   	Files.write(source, lines, StandardCharsets.UTF_8);
-*/
 
      	}catch(Exception e){
      		rc.setStatus("Error");
@@ -251,4 +241,14 @@ public class PrepareData {
      	}
 		return rc;
 	}	
+	
+//	public static void main(String [] args){
+//		System.out.println("prepare the files for R");
+//		PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
+//				 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\processed", 
+//				 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\error",
+//										 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
+//
+//		System.out.println(pd.processNewData().getStatus());
+//	}
 }
