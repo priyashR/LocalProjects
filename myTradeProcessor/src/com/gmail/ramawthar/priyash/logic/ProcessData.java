@@ -128,12 +128,13 @@ public class ProcessData {
             
             
             
-    		//for (int i = 0; i < instrumentData.size(); i++) {
-    		//	System.out.println(instrumentData.get(i).getFileLine());
+    		for (int i = 0; i < instrumentData.size(); i++) {
+    			System.out.println(instrumentData.get(i).getFileLine());
             
-	            connection.eval("inFile='C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/ADI.txt'");
-	            connection.eval("outFile='C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/output/ADI_proc.txt'");
-				connection.eval("source('C:/Users/priyash.ramawthar/Dropbox/trader/appData/scripts/ImportProcessExportParams.r')");
+            //below worked!
+	            //connection.eval("inFile='C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/ADI.txt'");
+	            //connection.eval("outFile='C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/output/ADI_proc.txt'");
+				//connection.eval("source('C:/Users/priyash.ramawthar/Dropbox/trader/appData/scripts/ImportProcessExportParams.r')");
 	            
 	            //connection.eval("inFile='C:/Users/priyash.ramawthar/Dropbox/trader/R_scripts/spy_historical_data.txt'");
 	            //connection.eval("outFile='C:/Users/priyash.ramawthar/Dropbox/trader/spy_with_indicators.csv'");
@@ -142,10 +143,10 @@ public class ProcessData {
             
 
     			
-                //connection.eval("inFile='"+instrumentData.get(i).getInFile()+"'");
-                //connection.eval("outFile='"+instrumentData.get(i).getOutFile()+"'");
-                //connection.eval("source('"+rScript+"')");
-    		//}
+                connection.eval("inFile='"+instrumentData.get(i).getInFile()+"'");
+                connection.eval("outFile='"+instrumentData.get(i).getOutFile()+"'");
+                connection.eval("source('"+rScript+"')");
+    		}
             
         } catch (RserveException e) {
             e.printStackTrace();
