@@ -178,7 +178,6 @@ public class PrepareData {
 				lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 	
 	
-			int position = lines.size();
 			String newLine = fileDate+","+open+","+close+","+high+","+low;  
 	
 			lines.add(newLine);

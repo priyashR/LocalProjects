@@ -31,5 +31,12 @@ public class MyTradeProcessorApplication {
 		
 		processData.writeInstrumentMetaData();
 		
+		
+		// try this to ensure all share data is sent to the cloud:
+		// to ensure all processing jobs are finished before calling the cloud service
+		// after every instrument processing issue a plus one to some r variable and write it to file
+		// at the start of processing set the file value to 0 
+		// once the file file value reaches the number of instruments - then start pushing to cloud
+		
 	}
 }
