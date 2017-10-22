@@ -1,6 +1,7 @@
 package com.gmail.ramawthar.priyash;
 
 import com.gmail.ramawthar.priyash.logic.PrepareData;
+import com.gmail.ramawthar.priyash.logic.RemoveFiles;
 
 /**
  * @author Priyash.Ramawthar
@@ -15,6 +16,9 @@ public class MyTradeProcessorApplication {
 				 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\error",
 										 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
 		System.out.println(pd.processNewData().getStatus());
+		
+		//RemoveFiles rf = new RemoveFiles("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new");
+		//System.out.println(rf.remove().getStatus());
 		
 	}
 }

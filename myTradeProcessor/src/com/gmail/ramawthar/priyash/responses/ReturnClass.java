@@ -12,7 +12,7 @@ public class ReturnClass {
 	
 	private String status;
 	private String description;
-	private List<String> log = new ArrayList<String>();
+	private ArrayList<String> log = new ArrayList<String>();
 	
 	public ReturnClass(String status, String description) {
 		super();
@@ -46,7 +46,7 @@ public class ReturnClass {
 	}
 	
 	public void addLog(String logMessage){
-		//log.add(logMessage);
+		log.add(logMessage);
 		//need to fix
 	}
 	

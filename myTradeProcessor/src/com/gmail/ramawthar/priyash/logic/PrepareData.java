@@ -57,12 +57,13 @@ public class PrepareData {
 	    		rc.addLog("Processing file: "+fileEntry.getName());
 	            processFile(fileEntry);
 	            if (!(rc.getStatus().equalsIgnoreCase("ERROR"))){
-	            	//move the file to processed folder
-	            	moveFile(inputPath, processedPath, fileEntry.getName());
+	            	//copy the file to processed folder
+	            	copyFile(inputPath, processedPath, fileEntry.getName());
 	            }else{
-	            	//move the file to error folder
-	            	moveFile(inputPath, errorPath, fileEntry.getName());
+	            	//copy the file to error folder
+	            	copyFile(inputPath, errorPath, fileEntry.getName());
 	            }
+	            deleteFile(inputPath, fileEntry.getName());
 	            rc.setStatus("Init");
 	            
 	    }
@@ -84,18 +85,18 @@ public class PrepareData {
 	}
 	
 	private ReturnClass processFile(File fileEntry){
-
-        try {
+		
+        try (BufferedReader b = new BufferedReader(new FileReader(fileEntry))){
+        	
         	String fileDate = getDate(fileEntry,rc);
         	rc.addLog("File date: "+fileDate);
-            BufferedReader b = new BufferedReader(new FileReader(fileEntry));
-
+            
             String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
                 processFileLine(readLine, fileDate);
             }
-
+            b.close();
         } catch (Exception e) {
         	rc.addLog("Error processing the file: "+e.getMessage());
         	rc.setStatus("Error");
@@ -195,29 +196,59 @@ public class PrepareData {
 		}	
 		return rc;		
 	}
-	private ReturnClass moveFile(String currPath, String newPath, String file){
+
+	
+	private ReturnClass copyFile(String currPath, String newPath, String file){
     	try{
 
      	   //File afile =new File(currPath+"\\"+file);
      	   
      	   //afile.renameTo(new File(newPath+"\\"+file));
-     	   System.out.println(currPath+"\\"+file);
-     	   System.out.println(newPath+"\\"+file);
      	   Path source = Paths.get(currPath+"\\"+file);
      	   Path destination = Paths.get(newPath+"\\"+file);
      	   
-     	   Files.move(source, destination);
-/*
-     	   if(afile.renameTo(new File("C:\\folderB\\" + afile.getName()))){
-     		System.out.println("File is moved successful!");
-     	   }else{
-     		System.out.println("File is failed to move!");
-     	   }
-*/
+     	   List<String> lines;
+			
+     	   lines = Files.readAllLines(source, StandardCharsets.UTF_8);
+     	   
+     	   Files.write(destination, lines, StandardCharsets.UTF_8);
+     	   
+     	   lines.clear();
+
+     	   System.out.println(currPath+"\\"+file);
+     	   System.out.println(newPath+"\\"+file);
+
      	}catch(Exception e){
      		rc.setStatus("Error");
      		rc.setDescription(e.getMessage());
+     		e.printStackTrace();
      	}
 		return rc;
-	}
+	}	
+	
+	
+	private ReturnClass deleteFile(String currPath, String file){
+    	try{
+    		
+    		Path source = Paths.get(currPath+"\\"+file);
+    		Files.deleteIfExists(source);
+    		
+    		/*
+    		Path source = Paths.get(currPath+"\\"+file);
+    		List<String> lines;
+			
+      	   	lines = Files.readAllLines(source, StandardCharsets.UTF_8);
+      	   	
+      	   	lines.clear();
+      	   
+      	   	Files.write(source, lines, StandardCharsets.UTF_8);
+*/
+
+     	}catch(Exception e){
+     		rc.setStatus("Error");
+     		rc.setDescription(e.getMessage());
+     		e.printStackTrace();
+     	}
+		return rc;
+	}	
 }
