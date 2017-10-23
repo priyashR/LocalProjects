@@ -54,6 +54,6 @@ public class AnalyzerController {
         }
 		
 		
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Success", HttpStatus.ACCEPTED);
 	}		
 }

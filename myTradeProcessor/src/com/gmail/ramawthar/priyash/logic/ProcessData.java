@@ -11,6 +11,15 @@ import org.rosuda.REngine.Rserve.RserveException;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.apache.commons.codec.binary.Base64;
+
 
 public class ProcessData {
 	String metaInstFile = "";
@@ -156,13 +165,74 @@ public class ProcessData {
 		return rc;
 	}
 	
-	public ReturnClass writeInstrumentMetaData(){
+	public ReturnClass writeIntrumentDataToCloud(){
+
+		//go through all the instruments in the instrumentData arraylist and call the webservice
 		
+		//first test calling a webservice - so far it does not work!!! :(:
+		  try {
+
+				URL url = new URL("http://localhost:5000/uploadData");
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setDoOutput(true);
+				conn.setRequestMethod("POST");
+				
+				String username = "user";
+				String password = "fd058eec-2389-4f3a-92a3-f362bfac5a12";
+		        String authString = username + ":" + password;
+		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
+		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
+				conn.setRequestProperty("Content-Type", "application/json");
+
+				//String input = "{\"qty\":100,\"name\":\"iPad 4\"}";
+				String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
+
+				OutputStream os = conn.getOutputStream();
+				os.write(input.getBytes());
+				os.flush();
+
+				if (conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
+					throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+				}
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						(conn.getInputStream())));
+
+				String output;
+				System.out.println("Output from Server .... \n");
+				while ((output = br.readLine()) != null) {
+					System.out.println(output);
+				}
+
+				conn.disconnect();
+
+			  } catch (MalformedURLException e) {
+
+				e.printStackTrace();
+
+			  } catch (IOException e) {
+
+				e.printStackTrace();
+
+			 }
+		
+		rc.setStatus("Success");
+		return rc;
+	}
+	
+	public ReturnClass writeInstrumentMetaData(){
+		//need to complete
 		for (int i = 0; i < instrumentData.size(); i++) {
 			System.out.println(instrumentData.get(i).getFileLine());
 		}
 
 		rc.setStatus("Success");
 		return rc;
+	}
+	
+	public static void main(String[] args){
+		ProcessData pd = new ProcessData("","");
+		pd.writeIntrumentDataToCloud();
 	}
 }
