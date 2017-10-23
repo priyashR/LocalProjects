@@ -168,60 +168,99 @@ public class ProcessData {
 	public ReturnClass writeIntrumentDataToCloud(){
 
 		//go through all the instruments in the instrumentData arraylist and call the webservice
-		
-		//first test calling a webservice - so far it does not work!!! :(:
-		  try {
+		for (int i = 0; i < instrumentData.size(); i++) {
+			
+			System.out.println(instrumentData.get(i).getOutFile());
+			ArrayList<ProcessedInstrumentData> processedData = fetchProcessedData(instrumentData.get(i).getOutFile());
+			
+			//String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
+			String input = "[";
+			boolean last = false;
+			for (int j = 0; j < processedData.size(); j++) { 
+				if (j == (processedData.size()-1))
+					last = true;
+				if (!last){
+					input = input + processedData.get(j).getJSONFormat()+",";
+				}else{
+					input = input + processedData.get(j).getJSONFormat()+"]";
+				}
+				
+			}
+			
+			
+			callPushWebWervice(input);
+			System.out.println(rc.getStatus()+" - "+rc.getDescription());
+		}	
 
+
+		
+		rc.setStatus("Success");
+		return rc;
+	}
+	
+	private ArrayList<ProcessedInstrumentData> fetchProcessedData(String filePath){
+		//fetch data for each instrument based on the path passed in  + update the last processed date
+		return new ArrayList<ProcessedInstrumentData>();
+	}
+	
+	private ReturnClass callPushWebWervice(String serviceParams){
+		  try {
+				
+				rc.setStatus("Success");
+				
 				URL url = new URL("http://localhost:5000/uploadData");
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setDoOutput(true);
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "fd058eec-2389-4f3a-92a3-f362bfac5a12";
+				String password = "d1ea825f-2f6e-4cd4-be25-60180f80ee25";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
 				conn.setRequestProperty("Content-Type", "application/json");
 
 				//String input = "{\"qty\":100,\"name\":\"iPad 4\"}";
-				String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
+				String input = serviceParams;
 
 				OutputStream os = conn.getOutputStream();
 				os.write(input.getBytes());
 				os.flush();
 
 				if (conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
-					throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
+					//throw new RuntimeException("Failed : HTTP error code : "
+					//	+ conn.getResponseCode());
+					rc.setStatus("Error");
+					rc.setDescription("Failed : HTTP error code : "+conn.getResponseCode());
 				}
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(
 						(conn.getInputStream())));
 
 				String output;
-				System.out.println("Output from Server .... \n");
+				rc.setDescription("Output from Server .... \n");
 				while ((output = br.readLine()) != null) {
-					System.out.println(output);
+					//System.out.println(output);
+					rc.setDescription(rc.getDescription()+output);
 				}
 
 				conn.disconnect();
 
 			  } catch (MalformedURLException e) {
 
-				e.printStackTrace();
+				rc.setStatus("Error");
+				rc.setDescription("Failed : HTTP error code : "+e.getMessage());
 
 			  } catch (IOException e) {
 
-				e.printStackTrace();
+				rc.setStatus("Error");
+				rc.setDescription("Failed : HTTP error code : "+e.getMessage());
 
 			 }
-		
-		rc.setStatus("Success");
-		return rc;
+		return rc;		
 	}
 	
-	public ReturnClass writeInstrumentMetaData(){
+	public ReturnClass writeInstrumentMetaData(){//writes instrument metadata back to the file - the lat processed dat would have changed
 		//need to complete
 		for (int i = 0; i < instrumentData.size(); i++) {
 			System.out.println(instrumentData.get(i).getFileLine());
