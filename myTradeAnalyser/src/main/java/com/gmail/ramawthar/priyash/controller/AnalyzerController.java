@@ -17,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gmail.ramawthar.priyash.domain.Bgt_categories;
 import com.gmail.ramawthar.priyash.repository.Bgt_categoriesRepository;
+import com.gmail.ramawthar.priyash.upload.InstrumentData;
+import com.gmail.ramawthar.priyash.upload.UploadData;
 
 @RestController
 public class AnalyzerController {
@@ -36,4 +38,22 @@ public class AnalyzerController {
 	        return new ResponseEntity<>(bgt_categoriesRepository.findAll(), HttpStatus.OK);
 	}	
 	
+	@RequestMapping(value="/uploadData", method=RequestMethod.POST)
+	public ResponseEntity<?> recieveUploadData(@Valid @RequestBody ArrayList<InstrumentData> instrumentData) {
+		
+		InstrumentData insData = new InstrumentData("");
+		
+
+        int i = 0;
+        while (i < instrumentData.size()) {
+
+        	insData = instrumentData.get(i);
+        	i++;
+        	UploadData uploader = new UploadData(insData);
+        	uploader.uploadToDatabase();
+        }
+		
+		
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}		
 }

@@ -64,7 +64,7 @@ public class ApplyFormulae {
         MInteger outNBElem = new MInteger();
         double [] rsiRes = new double[iid.getInput().length];
         
-		RetCode retCode = lib.rsi(0,iid.getInput().length-1,iid.getInput(),lookBack,outBegin,outNBElem,rsiRes);
+		lib.rsi(0,iid.getInput().length-1,iid.getInput(),lookBack,outBegin,outNBElem,rsiRes);
 		
 		rd = new ResultantData(rsiRes, outBegin, outNBElem);
 		
