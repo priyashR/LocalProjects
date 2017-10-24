@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.rosuda.REngine.Rserve.RConnection;
@@ -18,6 +19,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.apache.commons.codec.binary.Base64;
 
 
@@ -34,6 +40,10 @@ public class ProcessData {
 		this.metaInstFile = metaFile;
 		this.metaScriptFile = metaScriptFile;
 	}
+	
+	/*
+	 * Get all the meta data to control the processing to process and push data to the cloud storage
+	 */
 	
 	public ReturnClass readMetaData(){
 		
@@ -126,6 +136,10 @@ public class ProcessData {
 		return rc;
 	}
 	
+	/*
+	 * Fetch the data per instrument and call the R-server to process the share price
+	 */
+	
 	public ReturnClass processInstrumentData(){
         RConnection connection = null;
 
@@ -165,13 +179,18 @@ public class ProcessData {
 		return rc;
 	}
 	
+	
+	/*
+	 * Write the NEW processed data to the cloud storage area. Here it will be further analysed
+	 */
+	
 	public ReturnClass writeIntrumentDataToCloud(){
 
 		//go through all the instruments in the instrumentData arraylist and call the webservice
 		for (int i = 0; i < instrumentData.size(); i++) {
 			
 			System.out.println(instrumentData.get(i).getOutFile());
-			ArrayList<ProcessedInstrumentData> processedData = fetchProcessedData(instrumentData.get(i).getOutFile());
+			ArrayList<ProcessedInstrumentData> processedData = fetchProcessedData(instrumentData.get(i));
 			
 			//String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
 			String input = "[";
@@ -187,8 +206,10 @@ public class ProcessData {
 				
 			}
 			
-			
-			callPushWebWervice(input);
+			System.out.println("input: "+input);
+			//to test seperately
+			//callPushWebWervice(input);
+			System.out.println("callPushWebWervice(input)");
 			System.out.println(rc.getStatus()+" - "+rc.getDescription());
 		}	
 
@@ -198,8 +219,36 @@ public class ProcessData {
 		return rc;
 	}
 	
-	private ArrayList<ProcessedInstrumentData> fetchProcessedData(String filePath){
+	private ArrayList<ProcessedInstrumentData> fetchProcessedData(InstrumentMetaData instrumentData){
 		//fetch data for each instrument based on the path passed in  + update the last processed date
+		try {
+			
+			Path path = Paths.get(instrumentData.outFile);
+			List<String> lines;
+			
+			lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+			boolean found = false;
+			for (int j = 0; j < lines.size(); j++) {
+				String token = "";
+				StringTokenizer defaultTokenizer = new StringTokenizer(lines.get(j),",");
+				if (defaultTokenizer.hasMoreTokens()){
+					token = defaultTokenizer.nextToken();
+				}
+				if (token.equalsIgnoreCase(instrumentData.lastProc))
+					found = true;
+				if (found){
+					instrumentData.newLastProc = token;
+					//build the ProcessedInstrumentData object here
+					System.out.println("token: "+token +" ---- "+ instrumentData.lastProc);
+				}
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			rc.setStatus("Error");
+			rc.setDescription(e.getMessage());
+			e.printStackTrace();
+		}	
 		return new ArrayList<ProcessedInstrumentData>();
 	}
 	
@@ -260,6 +309,10 @@ public class ProcessData {
 		return rc;		
 	}
 	
+	/*
+	 * Write the updated meta data back to the metadata controlling file
+	 */
+	
 	public ReturnClass writeInstrumentMetaData(){//writes instrument metadata back to the file - the lat processed dat would have changed
 		//need to complete
 		for (int i = 0; i < instrumentData.size(); i++) {
@@ -271,7 +324,9 @@ public class ProcessData {
 	}
 	
 	public static void main(String[] args){
-		ProcessData pd = new ProcessData("","");
+		ProcessData pd = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+				  						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
+		pd.readMetaData();
 		pd.writeIntrumentDataToCloud();
 	}
 }

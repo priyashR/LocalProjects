@@ -5,6 +5,8 @@ public class InstrumentMetaData {
 	String inFile;
 	String outFile;
 	String lastProc;
+	String newLastProc;
+	boolean processingComplete = false;
 	
 	public InstrumentMetaData(String instrumentName, String inFile, String outFile, String lastProc){
 		this.instrumentName = instrumentName;
@@ -52,7 +54,24 @@ public class InstrumentMetaData {
 		this.lastProc = lastProc;
 	}
 	
+	
+	
+	public String getNewLastProc() {
+		return newLastProc;
+	}
+	public void setNewLastProc(String newLastProc) {
+		this.newLastProc = newLastProc;
+	}
+	public boolean isProcessingComplete() {
+		return processingComplete;
+	}
+	public void setProcessingComplete(boolean processingComplete) {
+		this.processingComplete = processingComplete;
+	}
 	public String getFileLine(){
+		if (processingComplete){
+			lastProc = newLastProc;
+		}
 		return "<*>"+instrumentName+"<*>"+inFile+"<*>"+outFile+"<*>"+lastProc+"<*>";
 	}
 
