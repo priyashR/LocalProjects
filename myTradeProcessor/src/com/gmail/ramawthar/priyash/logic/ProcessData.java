@@ -209,6 +209,7 @@ public class ProcessData {
 			System.out.println("input: "+input);
 			//to test seperately
 			//callPushWebWervice(input);
+			instrumentData.get(i).setProcessingComplete(true);
 			System.out.println("callPushWebWervice(input)");
 			System.out.println(rc.getStatus()+" - "+rc.getDescription());
 		}	
@@ -221,25 +222,56 @@ public class ProcessData {
 	
 	private ArrayList<ProcessedInstrumentData> fetchProcessedData(InstrumentMetaData instrumentData){
 		//fetch data for each instrument based on the path passed in  + update the last processed date
+		ArrayList<ProcessedInstrumentData> instrumentDataArray = new ArrayList<ProcessedInstrumentData>();
 		try {
 			
 			Path path = Paths.get(instrumentData.outFile);
 			List<String> lines;
 			
+
+			
 			lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-			boolean found = false;
+			boolean dateFound = false;
 			for (int j = 0; j < lines.size(); j++) {
 				String token = "";
+				int pos = 0;
 				StringTokenizer defaultTokenizer = new StringTokenizer(lines.get(j),",");
 				if (defaultTokenizer.hasMoreTokens()){
 					token = defaultTokenizer.nextToken();
 				}
-				if (token.equalsIgnoreCase(instrumentData.lastProc))
-					found = true;
-				if (found){
-					instrumentData.newLastProc = token;
+				if (token.equalsIgnoreCase(instrumentData.getLastProc()))
+					dateFound = true;
+				if (dateFound){
+					ProcessedInstrumentData processedInstrumentData = new ProcessedInstrumentData();
+					instrumentData.setNewLastProc(token);
+					processedInstrumentData.setDate(token);
 					//build the ProcessedInstrumentData object here
-					System.out.println("token: "+token +" ---- "+ instrumentData.lastProc);
+					while (defaultTokenizer.hasMoreTokens()){
+						token = defaultTokenizer.nextToken();
+						pos++;
+						switch (pos){
+				        	case 1:
+				        		processedInstrumentData.setOpen(token);
+				        		break;
+		   		        	case 2:
+				        		processedInstrumentData.setClose(token);
+		   		        		break;
+		   		        	case 3:
+				        		processedInstrumentData.setHigh(token);
+		   		        		break;
+		   		        	case 4:
+				        		processedInstrumentData.setLow(token);
+		   		        		break;
+		   		        	case 5:
+				        		processedInstrumentData.setSma20(token);
+		   		        		break;
+		   		        	default:
+		   		        		break;
+						}
+						//System.out.println("token: "+token);
+					}
+					instrumentDataArray.add(processedInstrumentData);
+					System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
 				}
 			}
 			
@@ -249,7 +281,7 @@ public class ProcessData {
 			rc.setDescription(e.getMessage());
 			e.printStackTrace();
 		}	
-		return new ArrayList<ProcessedInstrumentData>();
+		return instrumentDataArray;
 	}
 	
 	private ReturnClass callPushWebWervice(String serviceParams){
@@ -313,7 +345,7 @@ public class ProcessData {
 	 * Write the updated meta data back to the metadata controlling file
 	 */
 	
-	public ReturnClass writeInstrumentMetaData(){//writes instrument metadata back to the file - the lat processed dat would have changed
+	public ReturnClass writeInstrumentMetaData(){
 		//need to complete
 		for (int i = 0; i < instrumentData.size(); i++) {
 			System.out.println(instrumentData.get(i).getFileLine());

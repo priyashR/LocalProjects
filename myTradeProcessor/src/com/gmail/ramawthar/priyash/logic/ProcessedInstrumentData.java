@@ -71,12 +71,22 @@ public class ProcessedInstrumentData {
 	public void setSma20(String sma20) {
 		this.sma20 = sma20;
 	}
+	
+	
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 
 	public String getJSONFormat(){
 		
 		//String output = "[{\"instrument\":\"ADI\",\"open\":\"105\",\"close\":\"105\",\"high\":\"105\",\"low\":\"105\",\"sma20\":\"105\"}]";
-		String output = "[{\"instrument\":\""+instrument+"\",\"date\":\""+date+"\",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\"}]";
-		return "output";
+		String output = "{\"instrument\":\""+instrument+"\",\"date\":\""+date+"\",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\"}";
+		return output;
 	}
 
 }
