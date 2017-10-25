@@ -244,6 +244,7 @@ public class ProcessData {
 				if (dateFound){
 					ProcessedInstrumentData processedInstrumentData = new ProcessedInstrumentData();
 					instrumentData.setNewLastProc(token);
+					processedInstrumentData.setInstrument(instrumentData.getInstrumentName());
 					processedInstrumentData.setDate(token);
 					//build the ProcessedInstrumentData object here
 					while (defaultTokenizer.hasMoreTokens()){

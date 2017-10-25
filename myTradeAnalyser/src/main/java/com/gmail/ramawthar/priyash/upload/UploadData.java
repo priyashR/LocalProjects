@@ -4,17 +4,17 @@ import com.gmail.ramawthar.priyash.responses.ReturnClass;
 
 public class UploadData {
 	
-	InstrumentData instrumentdata;
+	ProcessedInstrumentData processedInstrumentData;
 
-	public UploadData(InstrumentData instrumentdata) {
+	public UploadData(ProcessedInstrumentData processedInstrumentData) {
 		super();
-		this.instrumentdata = instrumentdata;
+		this.processedInstrumentData = processedInstrumentData;
 	}
 	
 	public ReturnClass uploadToDatabase(){
 		
-		System.out.println("Instrument data to be uploaded for: "+instrumentdata.getInstrument());
-		System.out.println("Close price to be uploaded : "+instrumentdata.getClose());
+		System.out.println("Instrument data to be uploaded for: "+processedInstrumentData.getInstrument());
+		System.out.println("Close price to be uploaded : "+processedInstrumentData.getClose());
 		
 		return new ReturnClass("Success");
 	}

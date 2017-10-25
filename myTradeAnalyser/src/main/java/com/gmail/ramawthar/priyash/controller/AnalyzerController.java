@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gmail.ramawthar.priyash.domain.Bgt_categories;
 import com.gmail.ramawthar.priyash.repository.Bgt_categoriesRepository;
 import com.gmail.ramawthar.priyash.upload.InstrumentData;
+import com.gmail.ramawthar.priyash.upload.ProcessedInstrumentData;
 import com.gmail.ramawthar.priyash.upload.UploadData;
 
 @RestController
@@ -39,9 +40,9 @@ public class AnalyzerController {
 	}	
 	
 	@RequestMapping(value="/uploadData", method=RequestMethod.POST)
-	public ResponseEntity<?> recieveUploadData(@Valid @RequestBody ArrayList<InstrumentData> instrumentData) {
+	public ResponseEntity<?> recieveUploadData(@Valid @RequestBody ArrayList<ProcessedInstrumentData> instrumentData) {
 		
-		InstrumentData insData = new InstrumentData("");
+		ProcessedInstrumentData insData = new ProcessedInstrumentData();
 		
 
         int i = 0;
