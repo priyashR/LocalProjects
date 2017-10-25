@@ -207,11 +207,13 @@ public class ProcessData {
 			}
 			
 			System.out.println("input: "+input);
-			//to test seperately
-			//callPushWebWervice(input);
-			instrumentData.get(i).setProcessingComplete(true);
-			System.out.println("callPushWebWervice(input)");
-			System.out.println(rc.getStatus()+" - "+rc.getDescription());
+			//call the web service
+			if (last){//this mean that we have records
+				callPushWebWervice(input);
+				instrumentData.get(i).setProcessingComplete(true);
+				System.out.println("callPushWebWervice(input)");
+				System.out.println(rc.getStatus()+" - "+rc.getDescription());
+			}
 		}	
 
 
@@ -239,8 +241,6 @@ public class ProcessData {
 				if (defaultTokenizer.hasMoreTokens()){
 					token = defaultTokenizer.nextToken();
 				}
-				if (token.equalsIgnoreCase(instrumentData.getLastProc()))
-					dateFound = true;
 				if (dateFound){
 					ProcessedInstrumentData processedInstrumentData = new ProcessedInstrumentData();
 					instrumentData.setNewLastProc(token);
@@ -274,6 +274,9 @@ public class ProcessData {
 					instrumentDataArray.add(processedInstrumentData);
 					System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
 				}
+
+				if (token.equalsIgnoreCase(instrumentData.getLastProc()))
+					dateFound = true;
 			}
 			
 		} catch (IOException e) {
@@ -296,7 +299,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "d1ea825f-2f6e-4cd4-be25-60180f80ee25";
+				String password = "8f3649d6-d217-454e-b3dc-2ee1d391cea1";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
@@ -374,6 +377,7 @@ public class ProcessData {
 		ProcessData pd = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 				  						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
 		pd.readMetaData();
+		//pd.processInstrumentData();
 		pd.writeIntrumentDataToCloud();
 		pd.writeInstrumentMetaData();
 	}
