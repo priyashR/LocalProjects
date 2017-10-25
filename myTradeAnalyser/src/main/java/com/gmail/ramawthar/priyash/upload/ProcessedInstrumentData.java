@@ -85,7 +85,7 @@ public class ProcessedInstrumentData {
 	public String getJSONFormat(){
 		
 		//String output = "[{\"instrument\":\"ADI\",\"open\":\"105\",\"close\":\"105\",\"high\":\"105\",\"low\":\"105\",\"sma20\":\"105\"}]";
-		String output = "{\"instrument\":\""+instrument+"\",\"date\":\""+date+"\",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\"}";
+		String output = "{\"instrument\":\""+instrument+"\",\"date\":"+date+",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\"}";
 		return output;
 	}
 
