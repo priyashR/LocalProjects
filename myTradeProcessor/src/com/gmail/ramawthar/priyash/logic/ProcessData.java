@@ -346,11 +346,25 @@ public class ProcessData {
 	 */
 	
 	public ReturnClass writeInstrumentMetaData(){
-		//need to complete
+		List<String> lines = new ArrayList<String>();
 		for (int i = 0; i < instrumentData.size(); i++) {
+			lines.add(instrumentData.get(i).getFileLine());
 			System.out.println(instrumentData.get(i).getFileLine());
 		}
+		
+		try {
+			
+			Path path = Paths.get(metaInstFile);
 
+			Files.write(path, lines, StandardCharsets.UTF_8);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			rc.setStatus("Error");
+			rc.setDescription(e.getMessage());
+			e.printStackTrace();
+		}
+		
 		rc.setStatus("Success");
 		return rc;
 	}
@@ -360,5 +374,6 @@ public class ProcessData {
 				  						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
 		pd.readMetaData();
 		pd.writeIntrumentDataToCloud();
+		pd.writeInstrumentMetaData();
 	}
 }
