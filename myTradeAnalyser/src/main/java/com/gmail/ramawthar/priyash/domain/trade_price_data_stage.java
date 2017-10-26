@@ -1,10 +1,13 @@
 package com.gmail.ramawthar.priyash.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,13 +17,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Table(name="trade_price_data_stage")  
 @Entity
-public class trade_price_data_stage {
+@IdClass(trade_price_data_stage.class)
+public class trade_price_data_stage  implements Serializable{
 	
     @Column(name="TRADE_DATE")
     @Temporal(TemporalType.DATE)
     @NotNull
+    @Id
 	private Date trade_date;
     
+    @Id
     @Column(name="INSTRUMENT")
     @NotEmpty
 	private String instrument;
