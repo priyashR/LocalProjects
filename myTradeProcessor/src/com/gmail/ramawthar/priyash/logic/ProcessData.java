@@ -206,9 +206,10 @@ public class ProcessData {
 				
 			}
 			
-			System.out.println("input: "+input);
+			
 			//call the web service
 			if (last){//this mean that we have records
+				System.out.println("input: "+input);
 				callPushWebWervice(input);
 				instrumentData.get(i).setProcessingComplete(true);
 				System.out.println("callPushWebWervice(input)");
