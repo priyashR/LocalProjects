@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Table(name="trade_price_data_stage")  
 @Entity
-public class Price_data_stage {
+public class trade_price_data_stage {
 	
     @Column(name="TRADE_DATE")
     @Temporal(TemporalType.DATE)

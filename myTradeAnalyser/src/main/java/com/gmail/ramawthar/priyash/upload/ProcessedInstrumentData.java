@@ -1,5 +1,8 @@
 package com.gmail.ramawthar.priyash.upload;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class ProcessedInstrumentData {
 	private String date = "";
 	private String instrument = "";
@@ -71,8 +74,6 @@ public class ProcessedInstrumentData {
 	public void setSma20(String sma20) {
 		this.sma20 = sma20;
 	}
-	
-	
 
 	public String getDate() {
 		return date;
@@ -88,5 +89,32 @@ public class ProcessedInstrumentData {
 		String output = "{\"instrument\":\""+instrument+"\",\"date\":"+date+",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\"}";
 		return output;
 	}
+	
+	//Return converted values
+	
+
+	public Date getDateDate() {
+		return null;
+	} 
+	
+	public Long getLongOpen() {
+		return null;
+	}
+
+	public Long getLongClose() {
+		return null;
+	}
+
+	public Long getLongHigh() {
+		return null;
+	}
+
+	public Long getLongLow() {
+		return null;
+	}
+	
+	public BigDecimal getBigDecimalSma20() {
+		return null;
+	}	
 
 }

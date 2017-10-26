@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gmail.ramawthar.priyash.domain.Bgt_categories;
 import com.gmail.ramawthar.priyash.repository.Bgt_categoriesRepository;
+import com.gmail.ramawthar.priyash.repository.Price_data_stageRepository;
 import com.gmail.ramawthar.priyash.upload.InstrumentData;
 import com.gmail.ramawthar.priyash.upload.ProcessedInstrumentData;
 import com.gmail.ramawthar.priyash.upload.UploadData;
@@ -26,6 +27,9 @@ public class AnalyzerController {
 	
 	@Inject
 	private Bgt_categoriesRepository bgt_categoriesRepository;
+	
+	@Inject
+	private Price_data_stageRepository price_data_stageRepository;
 	
 	/*protected void verifySMS(Long smsId) throws ResourceNotFoundException {
 		Orig_SMS sms = orig_SMSRepository.findOne(smsId);
@@ -51,7 +55,7 @@ public class AnalyzerController {
         	insData = instrumentData.get(i);
         	i++;
         	UploadData uploader = new UploadData(insData);
-        	uploader.uploadToDatabase();
+        	uploader.uploadToDatabase(price_data_stageRepository);
         }
 		
 		
