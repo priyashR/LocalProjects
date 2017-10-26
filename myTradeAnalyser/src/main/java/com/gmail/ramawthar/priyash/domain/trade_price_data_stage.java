@@ -32,19 +32,15 @@ public class trade_price_data_stage  implements Serializable{
 	private String instrument;
     
     @Column(name="OPEN")	
-    @NotEmpty
 	private Long open;
     
     @Column(name="CLOSE")	
-    @NotEmpty
 	private Long close;
     
     @Column(name="HIGH")	
-    @NotEmpty
 	private Long high;
 
     @Column(name="LOW")	
-    @NotEmpty
 	private Long low;
 
     @Column(name="SMA20")
