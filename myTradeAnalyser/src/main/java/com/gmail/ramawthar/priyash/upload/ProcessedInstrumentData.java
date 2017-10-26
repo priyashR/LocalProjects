@@ -1,6 +1,9 @@
 package com.gmail.ramawthar.priyash.upload;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProcessedInstrumentData {
@@ -94,27 +97,37 @@ public class ProcessedInstrumentData {
 	
 
 	public Date getDateDate() {
-		return null;
+		
+		//20-Oct-17
+		
+		DateFormat formatter = new SimpleDateFormat("d-MMM-yy");
+		Date newDate = null;
+		try {
+			newDate = formatter.parse(date);
+			} catch (ParseException e) {
+					e.printStackTrace();
+			} 		
+		return newDate;
 	} 
 	
 	public Long getLongOpen() {
-		return null;
+		return Long.parseLong(open);
 	}
 
 	public Long getLongClose() {
-		return null;
+		return Long.parseLong(close);
 	}
 
 	public Long getLongHigh() {
-		return null;
+		return Long.parseLong(high);
 	}
 
 	public Long getLongLow() {
-		return null;
+		return Long.parseLong(low);
 	}
 	
 	public BigDecimal getBigDecimalSma20() {
-		return null;
+		return new BigDecimal(sma20);
 	}	
 
 }
