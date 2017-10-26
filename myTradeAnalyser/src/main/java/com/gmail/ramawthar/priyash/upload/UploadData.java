@@ -15,9 +15,19 @@ public class UploadData {
 	
 	public ReturnClass uploadToDatabase(Price_data_stageRepository price_data_stageRepository){
 		
-		//Price_data_stage price_data_stage_rec = new Price_data_stage();
+		trade_price_data_stage price_data_stage_rec = new trade_price_data_stage();
 				
-		//price_data_stageRepository.save(price_data_stage_rec);
+		price_data_stage_rec.setInstrument(processedInstrumentData.getInstrument());
+		price_data_stage_rec.setTrade_date(processedInstrumentData.getDateDate());
+		price_data_stage_rec.setHigh(processedInstrumentData.getLongHigh());
+		price_data_stage_rec.setLow(processedInstrumentData.getLongLow());
+		price_data_stage_rec.setOpen(processedInstrumentData.getLongOpen());
+		price_data_stage_rec.setClose(processedInstrumentData.getLongClose());
+		price_data_stage_rec.setSma20(processedInstrumentData.getBigDecimalSma20());
+		price_data_stage_rec.setProcessed_status("Uploaded");
+		
+		
+		price_data_stageRepository.save(price_data_stage_rec);
 		
 		System.out.println("Instrument data to be uploaded for: "+processedInstrumentData.getInstrument());
 		System.out.println("Close price to be uploaded : "+processedInstrumentData.getClose());
