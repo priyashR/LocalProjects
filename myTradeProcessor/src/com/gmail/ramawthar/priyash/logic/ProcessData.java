@@ -168,7 +168,14 @@ public class ProcessData {
     			
                 connection.eval("inFile='"+instrumentData.get(i).getInFile()+"'");
                 connection.eval("outFile='"+instrumentData.get(i).getOutFile()+"'");
-                connection.eval("source('"+rScript+"')");
+                org.rosuda.REngine.REXP rexp = connection.eval("source('"+rScript+"')");
+//                
+//                try{
+//                	System.out.println("REXP: "+rexp.asString());
+//                }catch (Exception e2){
+//                	e2.printStackTrace();
+//                }
+                
     		}
             
         } catch (RserveException e) {
@@ -300,7 +307,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "8f3649d6-d217-454e-b3dc-2ee1d391cea1";
+				String password = "fc2eca49-95ae-4725-a840-537b54d63cb2";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
