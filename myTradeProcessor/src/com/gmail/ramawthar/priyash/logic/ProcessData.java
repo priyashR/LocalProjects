@@ -373,13 +373,13 @@ public class ProcessData {
 		rc.setStatus("Success");
 		return rc;
 	}
-	
+	/*
 	public static void main(String[] args){
 		ProcessData pd = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 				  						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
 		pd.readMetaData();
-		//pd.processInstrumentData();
+		pd.processInstrumentData();
 		pd.writeIntrumentDataToCloud();
 		pd.writeInstrumentMetaData();
-	}
+	}*/
 }

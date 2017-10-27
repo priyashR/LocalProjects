@@ -9,27 +9,23 @@ import com.gmail.ramawthar.priyash.logic.ProcessData;
  */
 public class MyTradeProcessorApplication {
 	public static void main(String[] args){
-		/*
+
 		System.out.println("prepare the files for R");
 		PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
 				 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\processed", 
 				 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\error",
 										 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
-		System.out.println(pd.processNewData().getStatus());
-		*/
+		
+		System.out.println("Process new data: "+pd.processNewData().getStatus());
 		
 		ProcessData processData = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 												  "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
 		
-		processData.readMetaData();
-
-		System.out.println("call the rScript per instrument");
+		System.out.println("Read meatdata: "+processData.readMetaData().getStatus());
+		System.out.println("Call rScript - result: "+processData.processInstrumentData().getStatus());
+		System.out.println("write instrument data to could: " + processData.writeIntrumentDataToCloud().getStatus());
+		System.out.println("write process meatdata to could: " + processData.writeInstrumentMetaData().getStatus());
 		
-		processData.processInstrumentData();
-		
-		System.out.println("write the data back");
-		
-		processData.writeInstrumentMetaData();
 		
 		
 		// try this to ensure all share data is sent to the cloud:
