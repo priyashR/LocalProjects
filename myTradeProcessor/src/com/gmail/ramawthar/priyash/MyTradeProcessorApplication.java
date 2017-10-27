@@ -29,6 +29,26 @@ public class MyTradeProcessorApplication {
 		System.out.println("write process meatdata to cloud: " + processData.writeInstrumentMetaData().getStatus());
 	}
 	
+	public void processOnly(){
+		ProcessData processData = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+				  "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
+		
+		System.out.println("Read meatdata: "+processData.readMetaData().getStatus());
+		System.out.println("Call rScript - result: "+processData.processInstrumentData().getStatus());
+		//System.out.println("write instrument data to cloud: " + processData.writeIntrumentDataToCloud().getStatus());
+		//System.out.println("write process meatdata to cloud: " + processData.writeInstrumentMetaData().getStatus());
+	}
+	
+	public void processAndUploadToCloudOnly(){
+		ProcessData processData = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+				  "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
+		
+		System.out.println("Read meatdata: "+processData.readMetaData().getStatus());
+		System.out.println("Call rScript - result: "+processData.processInstrumentData().getStatus());
+		System.out.println("write instrument data to cloud: " + processData.writeIntrumentDataToCloud().getStatus());
+		System.out.println("write process meatdata to cloud: " + processData.writeInstrumentMetaData().getStatus());
+	}
+	
 	public void runFullProcess(){
 		System.out.println("prepare the files for R");
 		PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
