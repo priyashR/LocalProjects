@@ -52,6 +52,20 @@ public class trade_price_data_stage  implements Serializable{
     @Column(name="OBV")
 	private BigDecimal obv;
     
+  //"sma5","rsi14","macd","macdsig"
+
+    @Column(name="SMA5")
+	private BigDecimal sma5;
+
+    @Column(name="RSI14")
+	private BigDecimal rsi14;
+
+    @Column(name="MACD")
+	private BigDecimal macd;
+
+    @Column(name="MACDSIG")
+	private BigDecimal macdsig;
+    
     @Column(name="PROCESSED_STATUS")
 	private String processed_status;
 
@@ -110,8 +124,6 @@ public class trade_price_data_stage  implements Serializable{
 	public void setSma20(BigDecimal sma20) {
 		this.sma20 = sma20;
 	}
-	
-	
 
 	public Long getVol() {
 		return vol;
@@ -127,6 +139,40 @@ public class trade_price_data_stage  implements Serializable{
 
 	public void setObv(BigDecimal obv) {
 		this.obv = obv;
+	}
+	
+	
+
+	public BigDecimal getSma5() {
+		return sma5;
+	}
+
+	public void setSma5(BigDecimal sma5) {
+		this.sma5 = sma5;
+	}
+
+	public BigDecimal getRsi14() {
+		return rsi14;
+	}
+
+	public void setRsi14(BigDecimal rsi14) {
+		this.rsi14 = rsi14;
+	}
+
+	public BigDecimal getMacd() {
+		return macd;
+	}
+
+	public void setMacd(BigDecimal macd) {
+		this.macd = macd;
+	}
+
+	public BigDecimal getMacdsig() {
+		return macdsig;
+	}
+
+	public void setMacdsig(BigDecimal macdsig) {
+		this.macdsig = macdsig;
 	}
 
 	public String getProcessed_status() {

@@ -29,6 +29,12 @@ public class UploadData {
 		price_data_stage_rec.setObv(processedInstrumentData.getLongObv());
 		price_data_stage_rec.setProcessed_status("Uploaded");
 		
+		//"sma5","rsi14","macd","signal"
+		
+		price_data_stage_rec.setSma5(processedInstrumentData.getLongSma5());
+		price_data_stage_rec.setRsi14(processedInstrumentData.getLongRsi14());
+		price_data_stage_rec.setMacd(processedInstrumentData.getLongMacd());
+		price_data_stage_rec.setMacdsig(processedInstrumentData.getLongMacdsig());
 		
 		price_data_stageRepository.save(price_data_stage_rec);
 		

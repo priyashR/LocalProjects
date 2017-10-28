@@ -259,6 +259,8 @@ public class ProcessData {
 						token = defaultTokenizer.nextToken();
 						pos++;
 						switch (pos){
+							//need to map sma5,rsi14,macd,macdsig
+						//"sma5","rsi14","macd","signal"
 				        	case 1:
 				        		processedInstrumentData.setOpen(token);
 				        		break;
@@ -279,6 +281,18 @@ public class ProcessData {
 		   		        		break;
 		   		        	case 7:
 				        		processedInstrumentData.setObv(token);
+		   		        		break;
+		   		        	case 8:
+				        		processedInstrumentData.setSma5(token);
+		   		        		break;
+		   		        	case 9:
+				        		processedInstrumentData.setRsi14(token);
+		   		        		break;
+		   		        	case 10:
+				        		processedInstrumentData.setMacd(token);
+		   		        		break;
+		   		        	case 11:
+				        		processedInstrumentData.setMacdsig(token);
 		   		        		break;
 		   		        	default:
 		   		        		break;
@@ -313,7 +327,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "9dbc95ea-3171-45a7-b858-aa8b64d57510";
+				String password = "bb71d441-749f-4b2d-bfe6-2e58a200fd5f";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
