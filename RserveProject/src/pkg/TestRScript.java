@@ -5,6 +5,10 @@ import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 // Don't forget to: http://codophile.com/2015/05/02/how-to-integrate-r-with-java-using-rserve/
 //
+// http://www.tradinggeeks.net/2014/07/technical-analysis-with-r/
+// https://www.rdocumentation.org/packages/TTR/versions/0.23-2
+// https://cran.r-project.org/web/packages/TTR/TTR.pdf
+//
 // in R:
 // load the lib -> 	library(Rserve)
 // start the server ->	Rserve()
