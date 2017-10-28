@@ -272,7 +272,13 @@ public class ProcessData {
 				        		processedInstrumentData.setLow(token);
 		   		        		break;
 		   		        	case 5:
+				        		processedInstrumentData.setVol(token);
+		   		        		break;
+		   		        	case 6:
 				        		processedInstrumentData.setSma20(token);
+		   		        		break;
+		   		        	case 7:
+				        		processedInstrumentData.setObv(token);
 		   		        		break;
 		   		        	default:
 		   		        		break;
@@ -307,7 +313,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "fc2eca49-95ae-4725-a840-537b54d63cb2";
+				String password = "9dbc95ea-3171-45a7-b858-aa8b64d57510";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);

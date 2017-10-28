@@ -117,6 +117,7 @@ public class PrepareData {
 		String low = "";
 		String open = "";
 		String close = "";
+		String vol = "";
 		
 		int pos = 0;
 		
@@ -126,23 +127,30 @@ public class PrepareData {
 			pos++;
 			//ignore first line
 			if (!token.equalsIgnoreCase("Instr.")){
-				token = token.replace("c", "");
+				//token = token.replace("c", "");
 				//System.out.println("token: "+token);
 			        	switch (pos){
 			        	case 1:
 			        		instrument = token;
 			        		break;
 				        case 3:
+				        	token = token.replace("c", "");
 				        	high = token;
 			        		break;
 				        case 4:
+				        	token = token.replace("c", "");
 				        	low = token;
 			        		break;
 				        case 5:
+				        	token = token.replace("c", "");
 				        	open = token;
 			        		break;
 				        case 6:
+				        	token = token.replace("c", "");
 				        	close = Integer.parseInt(open) + Integer.parseInt(token) +"";
+			        		break;
+				        case 7:
+				        	vol = token;
 			        		break;
 			        	default:
 			        		break;		        	
@@ -153,9 +161,9 @@ public class PrepareData {
 				}
 			}
 	    
-	    System.out.println(instrument+" "+high+" "+low+" "+open+" "+close);
+	    System.out.println(instrument+" "+high+" "+low+" "+open+" "+close+" "+vol);
 	    if (!instrument.equalsIgnoreCase("")){
-	    	writeToMasterFile(instrument, high, low, open, close, fileDate);
+	    	writeToMasterFile(instrument, high, low, open, close, vol, fileDate);
 	    }
 	        	
 		rc.setStatus("Success");
@@ -168,6 +176,7 @@ public class PrepareData {
 										  String low, 
 										  String open, 
 										  String close,
+										  String vol,
 										  String fileDate){	
 		rc.setStatus("Success");
 		try {
@@ -178,7 +187,7 @@ public class PrepareData {
 				lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 	
 	
-			String newLine = fileDate+","+open+","+close+","+high+","+low;  
+			String newLine = fileDate+","+open+","+close+","+high+","+low+","+vol;  
 	
 			lines.add(newLine);
 			

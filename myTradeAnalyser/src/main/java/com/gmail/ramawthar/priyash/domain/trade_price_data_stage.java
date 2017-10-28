@@ -45,6 +45,12 @@ public class trade_price_data_stage  implements Serializable{
 
     @Column(name="SMA20")
 	private BigDecimal sma20;
+
+    @Column(name="VOL")	
+	private Long vol;
+
+    @Column(name="OBV")
+	private BigDecimal obv;
     
     @Column(name="PROCESSED_STATUS")
 	private String processed_status;
@@ -103,6 +109,24 @@ public class trade_price_data_stage  implements Serializable{
 
 	public void setSma20(BigDecimal sma20) {
 		this.sma20 = sma20;
+	}
+	
+	
+
+	public Long getVol() {
+		return vol;
+	}
+
+	public void setVol(Long vol) {
+		this.vol = vol;
+	}
+
+	public BigDecimal getObv() {
+		return obv;
+	}
+
+	public void setObv(BigDecimal obv) {
+		this.obv = obv;
 	}
 
 	public String getProcessed_status() {

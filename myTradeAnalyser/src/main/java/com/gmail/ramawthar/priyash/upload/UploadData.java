@@ -24,6 +24,9 @@ public class UploadData {
 		price_data_stage_rec.setOpen(processedInstrumentData.getLongOpen());
 		price_data_stage_rec.setClose(processedInstrumentData.getLongClose());
 		price_data_stage_rec.setSma20(processedInstrumentData.getBigDecimalSma20());
+		
+		price_data_stage_rec.setVol(processedInstrumentData.getLongVol());
+		price_data_stage_rec.setObv(processedInstrumentData.getLongObv());
 		price_data_stage_rec.setProcessed_status("Uploaded");
 		
 		

@@ -7,13 +7,15 @@ public class ProcessedInstrumentData {
 	private String close = "";
 	private String high = "";
 	private String low = "";
+	private String vol = "";
 	private String sma20 = "";
+	private String obv = "";
 	
 	public ProcessedInstrumentData() {
 		super();
 	}
 
-	public ProcessedInstrumentData(String date, String instrument, String open, String close, String high, String low, String sma20) {
+	public ProcessedInstrumentData(String date, String instrument, String open, String close, String high, String low, String sma20, String vol, String obv) {
 		super();
 		this.date = date;
 		this.instrument = instrument;
@@ -22,6 +24,8 @@ public class ProcessedInstrumentData {
 		this.high = high;
 		this.low = low;
 		this.sma20 = sma20;
+		this.vol = vol;
+		this.obv = obv;
 	}
 
 	public String getInstrument() {
@@ -81,11 +85,29 @@ public class ProcessedInstrumentData {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	
+
+	public String getVol() {
+		return vol;
+	}
+
+	public void setVol(String vol) {
+		this.vol = vol;
+	}
+
+	public String getObv() {
+		return obv;
+	}
+
+	public void setObv(String obv) {
+		this.obv = obv;
+	}
 
 	public String getJSONFormat(){
 		
 		//String output = "[{\"instrument\":\"ADI\",\"open\":\"105\",\"close\":\"105\",\"high\":\"105\",\"low\":\"105\",\"sma20\":\"105\"}]";
-		String output = "{\"instrument\":\""+instrument+"\",\"date\":"+date+",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\"}";
+		String output = "{\"instrument\":\""+instrument+"\",\"date\":"+date+",\"open\":\""+open+"\",\"close\":\""+close+"\",\"high\":\""+high+"\",\"low\":\""+low+"\",\"sma20\":\""+sma20+"\",\"vol\":\""+vol+"\",\"obv\":\""+obv+"\"}";
 		return output;
 	}
 

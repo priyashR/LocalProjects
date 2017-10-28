@@ -13,13 +13,15 @@ public class ProcessedInstrumentData {
 	private String close = "";
 	private String high = "";
 	private String low = "";
+	private String vol = "";
 	private String sma20 = "";
+	private String obv = "";
 	
 	public ProcessedInstrumentData() {
 		super();
 	}
 
-	public ProcessedInstrumentData(String date, String instrument, String open, String close, String high, String low, String sma20) {
+	public ProcessedInstrumentData(String date, String instrument, String open, String close, String high, String low, String sma20, String vol, String obv) {
 		super();
 		this.date = date;
 		this.instrument = instrument;
@@ -28,6 +30,8 @@ public class ProcessedInstrumentData {
 		this.high = high;
 		this.low = low;
 		this.sma20 = sma20;
+		this.vol = vol;
+		this.obv = obv;
 	}
 
 	public String getInstrument() {
@@ -86,6 +90,22 @@ public class ProcessedInstrumentData {
 		this.date = date;
 	}
 
+	public String getVol() {
+		return vol;
+	}
+
+	public void setVol(String vol) {
+		this.vol = vol;
+	}
+
+	public String getObv() {
+		return obv;
+	}
+
+	public void setObv(String obv) {
+		this.obv = obv;
+	}
+	
 	public String getJSONFormat(){
 		
 		//String output = "[{\"instrument\":\"ADI\",\"open\":\"105\",\"close\":\"105\",\"high\":\"105\",\"low\":\"105\",\"sma20\":\"105\"}]";
@@ -128,6 +148,14 @@ public class ProcessedInstrumentData {
 	
 	public BigDecimal getBigDecimalSma20() {
 		return new BigDecimal(sma20);
-	}	
+	}
+
+	public Long getLongVol() {
+		return Long.parseLong(vol);
+	}
+
+	public BigDecimal getLongObv() {
+		return new BigDecimal(obv);
+	}
 
 }
