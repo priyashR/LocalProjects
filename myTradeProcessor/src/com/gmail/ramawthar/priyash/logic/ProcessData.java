@@ -250,6 +250,7 @@ public class ProcessData {
 					token = defaultTokenizer.nextToken();
 				}
 				if (dateFound){
+					//put a cap on the number of files here - maybe 50 at a time or 100 at a times
 					ProcessedInstrumentData processedInstrumentData = new ProcessedInstrumentData();
 					instrumentData.setNewLastProc(token);
 					processedInstrumentData.setInstrument(instrumentData.getInstrumentName());
