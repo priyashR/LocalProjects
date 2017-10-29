@@ -36,6 +36,10 @@ public class UploadData {
 		price_data_stage_rec.setMacd(processedInstrumentData.getLongMacd());
 		price_data_stage_rec.setMacdsig(processedInstrumentData.getLongMacdsig());
 		
+		//add roc
+
+		price_data_stage_rec.setRoc(processedInstrumentData.getLongRoc());
+		
 		price_data_stageRepository.save(price_data_stage_rec);
 		
 		System.out.println("Instrument data to be uploaded for: "+processedInstrumentData.getInstrument());

@@ -294,6 +294,9 @@ public class ProcessData {
 		   		        	case 11:
 				        		processedInstrumentData.setMacdsig(token);
 		   		        		break;
+		   		        	case 12:
+				        		processedInstrumentData.setRoc(token);
+		   		        		break;
 		   		        	default:
 		   		        		break;
 						}
@@ -327,7 +330,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "bb71d441-749f-4b2d-bfe6-2e58a200fd5f";
+				String password = "4729a50c-070a-4257-868e-250f61fe02ec";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);

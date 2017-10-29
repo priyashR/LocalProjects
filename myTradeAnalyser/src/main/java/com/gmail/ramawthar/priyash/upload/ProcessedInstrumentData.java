@@ -22,13 +22,15 @@ public class ProcessedInstrumentData {
 	private String macd = "";
 	private String macdsig = "";
 	
+	private String roc = "";
+	
 	public ProcessedInstrumentData() {
 		super();
 	}
 
 	public ProcessedInstrumentData(String date, String instrument, String open, String close, 
 								   String high, String low, String sma20, String vol, String obv,
-								   String sma5, String rsi14, String macd, String macdsig) {
+								   String sma5, String rsi14, String macd, String macdsig, String roc) {
 		super();
 		this.date = date;
 		this.instrument = instrument;
@@ -44,6 +46,8 @@ public class ProcessedInstrumentData {
 		this.rsi14 = rsi14;
 		this.macd = macd;
 		this.macdsig = macdsig;
+		
+		this.roc = roc;
 	}
 
 	public String getInstrument() {
@@ -152,6 +156,15 @@ public class ProcessedInstrumentData {
 		this.macdsig = macdsig;
 	}
 
+	
+	public String getRoc() {
+		return roc;
+	}
+
+	public void setRoc(String roc) {
+		this.roc = roc;
+	}
+
 	public String getJSONFormat(){
 		
 		//String output = "[{\"instrument\":\"ADI\",\"open\":\"105\",\"close\":\"105\",\"high\":\"105\",\"low\":\"105\",\"sma20\":\"105\"}]";
@@ -220,5 +233,9 @@ public class ProcessedInstrumentData {
 
 	public BigDecimal getLongMacdsig() {
 		return new BigDecimal(macdsig);
+	}
+
+	public BigDecimal getLongRoc() {
+		return new BigDecimal(roc);
 	}
 }

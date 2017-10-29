@@ -65,6 +65,9 @@ public class trade_price_data_stage  implements Serializable{
 
     @Column(name="MACDSIG")
 	private BigDecimal macdsig;
+
+    @Column(name="ROC")
+	private BigDecimal roc;
     
     @Column(name="PROCESSED_STATUS")
 	private String processed_status;
@@ -173,6 +176,15 @@ public class trade_price_data_stage  implements Serializable{
 
 	public void setMacdsig(BigDecimal macdsig) {
 		this.macdsig = macdsig;
+	}
+
+	
+	public BigDecimal getRoc() {
+		return roc;
+	}
+
+	public void setRoc(BigDecimal roc) {
+		this.roc = roc;
 	}
 
 	public String getProcessed_status() {
