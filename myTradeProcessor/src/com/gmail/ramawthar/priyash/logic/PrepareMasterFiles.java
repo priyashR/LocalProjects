@@ -21,6 +21,7 @@ public class PrepareMasterFiles {
 	private String XLSinputPath = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\zips\\";
 	private String outputPath = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\";
 	private String manifest = "instrumentManifest.csv";
+	private static int maxLineCount = 1052;
 	
 	public void processNewData(){
 		//convert files first
@@ -95,6 +96,7 @@ public class PrepareMasterFiles {
         	
             String readLine = "";
             List<String> lines = new ArrayList<String>();
+            
             while ((readLine = b.readLine()) != null) {
             	//System.out.println(readLine);
             	lines.add(readLine);
