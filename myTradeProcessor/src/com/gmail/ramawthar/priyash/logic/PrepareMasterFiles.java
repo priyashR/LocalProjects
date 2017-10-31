@@ -143,7 +143,7 @@ public class PrepareMasterFiles {
 		//8 perc move
 		String percMove = defaultTokenizer.nextToken();
 		
-		String open = getOpen(close,percMove);
+		String open = getOpen(close,percMove); // may change to have the current opening = previous close
 		
 		return date+","+open+","+close+","+high+","+low+","+volume;//+","+percMove;
 	}
