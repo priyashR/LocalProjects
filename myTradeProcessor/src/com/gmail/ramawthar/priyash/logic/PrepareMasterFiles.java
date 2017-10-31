@@ -23,8 +23,12 @@ public class PrepareMasterFiles {
 	private String manifest = "instrumentManifest.csv";
 	
 	public void processNewData(){
-		convertToCSV();
-		/*
+		//convert files first
+		// do this first, then the rest-> 
+		//convertToCSV();
+		
+		//run this after conversion to csv
+		
 		File folder = new File(inputPath);
 		//read the input directory
 	    for (final File fileEntry : folder.listFiles()) {
@@ -33,7 +37,7 @@ public class PrepareMasterFiles {
 		            System.out.println((getInstrument(fileEntry.getName())));
 		            generateFile(fileEntry,getInstrument(fileEntry.getName()));
 	    		}
-	    }*/
+	    }
 	}
 	
 	private String getInstrument(String filename){
