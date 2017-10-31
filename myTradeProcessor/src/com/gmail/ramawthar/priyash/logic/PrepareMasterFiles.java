@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -99,7 +100,7 @@ public class PrepareMasterFiles {
             List<String> lines = new ArrayList<String>();
             int lineCount = 0;
             while (((readLine = b.readLine()) != null)&&(lineCount<maxLineCount)) {
-            	if (lineCount>0){//ignore the header
+            	if ((lineCount>0)&&(!(readLine.contains("...")))){//ignore the header and the last line
             	//System.out.println(readLine);
             		lines.add(processLine(readLine));
             	}
@@ -142,7 +143,48 @@ public class PrepareMasterFiles {
 		//8 perc move
 		String percMove = defaultTokenizer.nextToken();
 		
-		return date+","+percMove+","+close+","+high+","+low+","+volume;
+		String open = getOpen(close,percMove);
+		
+		return date+","+open+","+close+","+high+","+low+","+volume;//+","+percMove;
+	}
+	
+	private String getOpen(String close, String percMove){
+		
+		String moveNumber = percMove.replaceAll("%", "");
+		boolean neg = false;
+		
+		if (moveNumber.contains("-"))
+			neg = true;
+		
+		moveNumber = moveNumber.replaceAll("-", "");
+		
+		double intClose = Double.parseDouble(close);
+		
+		//BigDecimal decClose = new BigDecimal(close);
+		
+		Double perc = Double.parseDouble(moveNumber);
+		
+		System.out.println("perc: "+perc);
+		
+		
+		
+		Integer open;
+		//need to fix the rounding issues
+		if (neg){
+			Double diff = 1.00-(1.00/100.00*perc);
+			open = (int) (intClose/diff);
+			System.out.println("neg open: "+open);
+			System.out.println("neg diff: "+diff);
+		}else{
+			Double diff = 1.00+(1.00/100.00*perc);
+			open = (int) (intClose/diff);
+			System.out.println(" pos open: "+open);
+			System.out.println("pos diff: "+diff);
+		}
+		
+		
+		return open.toString();
+		
 	}
 	
 	private void convertToCSV(){
