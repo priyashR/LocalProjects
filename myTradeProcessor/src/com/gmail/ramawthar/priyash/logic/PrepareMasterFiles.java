@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -96,18 +97,52 @@ public class PrepareMasterFiles {
         	
             String readLine = "";
             List<String> lines = new ArrayList<String>();
-            
-            while ((readLine = b.readLine()) != null) {
+            int lineCount = 0;
+            while (((readLine = b.readLine()) != null)&&(lineCount<maxLineCount)) {
+            	if (lineCount>0){//ignore the header
             	//System.out.println(readLine);
-            	lines.add(readLine);
+            		lines.add(processLine(readLine));
+            	}
+            	lineCount++;
             }
             b.close();
+            
+            
+            // add the header
+            lines.add("DATE,OPEN,CLOSE,HIGH,LOW,VOLUME");
+            
+            //then invert the list below:
+            Collections.reverse(lines);
+            
             Path path = Paths.get(outputPath+fileName+".txt");
             Files.write(path, lines, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         }	
 		
+	}
+	
+	private String processLine(String line){
+		StringTokenizer defaultTokenizer = new StringTokenizer(line,",");	
+		
+		//1 date 
+		String date = defaultTokenizer.nextToken();
+		//2 closing
+		String close = defaultTokenizer.nextToken();
+		//3 high
+		String high = defaultTokenizer.nextToken();
+		//4 low
+		String low = defaultTokenizer.nextToken();
+		//5 volume
+		String volume = defaultTokenizer.nextToken();
+		//6 number of deals
+		defaultTokenizer.nextToken();
+		//7 rand value
+		defaultTokenizer.nextToken();
+		//8 perc move
+		String percMove = defaultTokenizer.nextToken();
+		
+		return date+","+percMove+","+close+","+high+","+low+","+volume;
 	}
 	
 	private void convertToCSV(){
