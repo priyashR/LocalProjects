@@ -171,12 +171,12 @@ public class PrepareMasterFiles {
 		Integer open;
 		//need to fix the rounding issues
 		if (neg){
-			Double diff = 1.00-(1.00/100.00*perc);
+			Double diff = 1.000000-(1.000000/100.000000*perc);
 			open = (int) (intClose/diff);
 			System.out.println("neg open: "+open);
 			System.out.println("neg diff: "+diff);
 		}else{
-			Double diff = 1.00+(1.00/100.00*perc);
+			Double diff = 1.000000+(1.000000/100.000000*perc);
 			open = (int) (intClose/diff);
 			System.out.println(" pos open: "+open);
 			System.out.println("pos diff: "+diff);
