@@ -26,6 +26,13 @@ public class PrepareMasterFiles {
 	private String scipt = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\scripts\\XLStoCSV.vbs";
 	private static int maxLineCount = 1052;
 	
+	private List<String> instrumentMetadata = new ArrayList<String>();
+	private String instrumentMetadataFile = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\setup\\instrumentMetadata.txt";
+	private List<String> tables = new ArrayList<String>();
+	private String tablesFile = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\setup\\tables.txt";
+	private List<String> trigger = new ArrayList<String>();
+	private String triggerFile = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\setup\\trigger.txt";
+
 	public void processNewData(){
 		//convert files first
 		// do this first, then the rest-> 
@@ -38,10 +45,11 @@ public class PrepareMasterFiles {
 	    for (final File fileEntry : folder.listFiles()) {
 	    		if ((!(fileEntry.getName().equalsIgnoreCase("xls")))&&(!(fileEntry.getName().equalsIgnoreCase("instrumentManifest.csv")))){
 		            //System.out.println(fileEntry.getName());  
-		            System.out.println((getInstrument(fileEntry.getName())));
+//		            //System.out.println((getInstrument(fileEntry.getName())));
 		            generateFile(fileEntry,getInstrument(fileEntry.getName()));
 	    		}
 	    }
+		
 	}
 	
 	private String getInstrument(String filename){
@@ -207,6 +215,45 @@ public class PrepareMasterFiles {
         }
         catch(IOException e1) {e1.printStackTrace();} 
 	}
+	public void generateSetup(){
+		
+		File folder = new File(inputPath);
+		//read the input directory
+	    for (final File fileEntry : folder.listFiles()) {
+	    		if ((!(fileEntry.getName().equalsIgnoreCase("xls")))&&(!(fileEntry.getName().equalsIgnoreCase("instrumentManifest.csv")))){
+		            //System.out.println(fileEntry.getName());  
+	    			System.out.println((getInstrument(fileEntry.getName())));
+	    		}
+	    }
+		
+	}
+	
+	private void addInstrumentMetadata(String instrument){
+		
+	}
+	private void addTables(String instrument){
+		
+	}
+	private void addTrigger(String instrument){
+		
+	}
+
+	private void writeToFiles(){
+		try
+		{
+	        Path instrumentMetadataFilePath = Paths.get(instrumentMetadataFile );
+	        Files.write(instrumentMetadataFilePath, instrumentMetadata , StandardCharsets.UTF_8);
+	        
+	        Path tablesFilePath = Paths.get(tablesFile);
+	        Files.write(tablesFilePath, tables, StandardCharsets.UTF_8);
+	        
+	        Path triggerFilePath = Paths.get(triggerFile);
+	        Files.write(triggerFilePath, trigger, StandardCharsets.UTF_8);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }	
+	}
+	
 	public static void main(String[] args){
 		PrepareMasterFiles setup = new PrepareMasterFiles();
 		setup.processNewData();

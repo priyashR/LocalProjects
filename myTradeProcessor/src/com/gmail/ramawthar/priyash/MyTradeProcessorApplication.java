@@ -78,7 +78,8 @@ public class MyTradeProcessorApplication {
 
 		MyTradeProcessorApplication app = new MyTradeProcessorApplication();
 		
-		app.runFullProcess();
+		//app.runFullProcess();
+		app.processOnly();
 		
 	}
 }
