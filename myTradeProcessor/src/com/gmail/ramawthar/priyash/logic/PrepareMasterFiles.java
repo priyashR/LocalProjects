@@ -20,9 +20,10 @@ import com.gmail.ramawthar.priyash.responses.ReturnClass;
 public class PrepareMasterFiles {
 	
 	private String inputPath = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\";
-	private String XLSinputPath = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\zips\\";
+	private String XLSinputPath = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\xls\\";
 	private String outputPath = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\";
 	private String manifest = "instrumentManifest.csv";
+	private String scipt = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\scripts\\XLStoCSV.vbs";
 	private static int maxLineCount = 1052;
 	
 	public void processNewData(){
@@ -35,7 +36,7 @@ public class PrepareMasterFiles {
 		File folder = new File(inputPath);
 		//read the input directory
 	    for (final File fileEntry : folder.listFiles()) {
-	    		if ((!(fileEntry.getName().equalsIgnoreCase("zips")))&&(!(fileEntry.getName().equalsIgnoreCase("instrumentManifest.csv")))){
+	    		if ((!(fileEntry.getName().equalsIgnoreCase("xls")))&&(!(fileEntry.getName().equalsIgnoreCase("instrumentManifest.csv")))){
 		            //System.out.println(fileEntry.getName());  
 		            System.out.println((getInstrument(fileEntry.getName())));
 		            generateFile(fileEntry,getInstrument(fileEntry.getName()));
@@ -197,7 +198,8 @@ public class PrepareMasterFiles {
     		            //System.out.println(fileEntry.getName());  
     	    			String fileShortName = fileEntry.getName().replace(".xls", "");
     		            //System.out.println(fileShortName);
-    		            Process p=Runtime.getRuntime().exec("cmd /c C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\scripts\\XLStoCSV.vbs C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\zips\\"+fileShortName+".xls C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\"+fileShortName+".csv");
+    		            //Process p=Runtime.getRuntime().exec("cmd /c C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\scripts\\XLStoCSV.vbs C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\zips\\"+fileShortName+".xls C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\masterFiles\\"+fileShortName+".csv");
+    	    			Process p=Runtime.getRuntime().exec("cmd /c "+scipt+" "+XLSinputPath+fileShortName+".xls "+inputPath+fileShortName+".csv");
     	    		}
     	    }	
              
