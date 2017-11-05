@@ -7,6 +7,10 @@ import com.gmail.ramawthar.priyash.logic.ProcessData;
  * @author Priyash.Ramawthar
  *
  */
+//
+//in R:
+//load the lib -> 	library(Rserve)
+//start the server ->	Rserve()
 public class MyTradeProcessorApplication {
 	
 	public void prepDataOnly(){

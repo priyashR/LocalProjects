@@ -222,20 +222,78 @@ public class PrepareMasterFiles {
 	    for (final File fileEntry : folder.listFiles()) {
 	    		if ((!(fileEntry.getName().equalsIgnoreCase("xls")))&&(!(fileEntry.getName().equalsIgnoreCase("instrumentManifest.csv")))){
 		            //System.out.println(fileEntry.getName());  
-	    			System.out.println((getInstrument(fileEntry.getName())));
+	    			//System.out.println((getInstrument(fileEntry.getName())));
+	    			String instrumentName = (getInstrument(fileEntry.getName()));
+	    			System.out.println(instrumentName);
+	    			addInstrumentMetadata(instrumentName);
+	    			addTables(instrumentName);
+	    			addTrigger(instrumentName);
 	    		}
 	    }
+
+		writeToFiles();
 		
 	}
 	
 	private void addInstrumentMetadata(String instrument){
+		/*<*>TKG<*>C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/TKG.txt<*>C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/output/TKG_proc.txt<*>"01-Nov-17"<*>*/
+		String newLine = "<*>"+instrument+"<*>C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/"+instrument+".txt<*>C:/Users/priyash.ramawthar/Dropbox/trader/appData/masterdata/output/"+instrument+"_proc.txt<*>\"01-Nov-00\"<*>";
+		System.out.println(newLine);
+		instrumentMetadata.add(newLine);
+	}
+	private void addTrigger(String instrument){
+		
+		
+		String newLine1 = "ELSEIF (NEW.instrument = \""+instrument+"\") THEN ";
+		String newLine2 = "begin ";
+		String newLine3 = "insert into "+instrument+"_price_data (trade_date,open,close,high,low,sma20,vol,obv,sma5,rsi14,macd,macdsig,roc) ";
+		String newLine4 = "values (NEW.trade_date,NEW.open,NEW.close,NEW.high,NEW.low,NEW.sma20,NEW.vol,NEW.obv,NEW.sma5,NEW.rsi14,NEW.macd,NEW.macdsig,NEW.roc); ";
+		String newLine5 = "SET NEW.processed_status = \"Processed\"; ";
+		String newLine6 = "end; ";
+		
+		trigger.add(newLine1);
+		trigger.add(newLine2);
+		trigger.add(newLine3);
+		trigger.add(newLine4);
+		trigger.add(newLine5);
+		trigger.add(newLine6);
+		
+		
 		
 	}
 	private void addTables(String instrument){
 		
-	}
-	private void addTrigger(String instrument){
+		String newLine1 = "CREATE TABLE `"+instrument+"_price_data` (";
+		String newLine2 = "		  `trade_date` date NOT NULL,";
+		String newLine3 = "`open` int(11) NOT NULL,";
+		String newLine4 = "`close` int(11) NOT NULL,";
+		String newLine5 = "`high` int(11) NOT NULL,";
+		String newLine6 = "`low` int(11) NOT NULL,";
+		String newLine7 = "`sma20` decimal(10,2) NULL,";
+		String newLine8 = "`vol` INT(11) NULL,";
+		String newLine9 = "`obv` DECIMAL(10,2) NULL,";
+		String newLine10 = "`sma5` DECIMAL(10,2) NULL,";
+		String newLine11 = "`rsi14` DECIMAL(10,2) NULL,";
+		String newLine12 = "`macd` DECIMAL(10,2) NULL,";
+		String newLine13 = "`macdsig` DECIMAL(10,2) NULL,";
+		String newLine14 = "`roc` DECIMAL(10,2) NULL ";
+		String newLine15 = ");";
 		
+		tables.add(newLine1);
+		tables.add(newLine2);
+		tables.add(newLine3);
+		tables.add(newLine4);
+		tables.add(newLine5);
+		tables.add(newLine6);
+		tables.add(newLine7);
+		tables.add(newLine8);
+		tables.add(newLine9);
+		tables.add(newLine10);
+		tables.add(newLine11);
+		tables.add(newLine12);
+		tables.add(newLine13);
+		tables.add(newLine14);
+		tables.add(newLine15);
 	}
 
 	private void writeToFiles(){
@@ -256,7 +314,8 @@ public class PrepareMasterFiles {
 	
 	public static void main(String[] args){
 		PrepareMasterFiles setup = new PrepareMasterFiles();
-		setup.processNewData();
+		//setup.processNewData();
+		setup.generateSetup();
 		System.out.println(("hi"));
 	}
 
