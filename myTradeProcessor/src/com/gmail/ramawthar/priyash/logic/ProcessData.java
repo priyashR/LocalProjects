@@ -199,28 +199,40 @@ public class ProcessData {
 			System.out.println(instrumentData.get(i).getOutFile());
 			ArrayList<ProcessedInstrumentData> processedData = fetchProcessedData(instrumentData.get(i));
 			
-			//String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
-			String input = "[";
-			boolean last = false;
-			for (int j = 0; j < processedData.size(); j++) { 
-				if (j == (processedData.size()-1))
-					last = true;
-				if (!last){
-					input = input + processedData.get(j).getJSONFormat()+",";
-				}else{
-					input = input + processedData.get(j).getJSONFormat()+"]";
+			int k = 0;
+			int j = 0;
+			int max = 100; // max number of records per web service
+			while (k < processedData.size()) {
+			
+				//String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
+				String input = "[";
+				boolean last = false;
+				int count = 0;
+				while ((j < processedData.size())&&(count < max)) { 
+					//System.out.println(processedData.get(j).getDate());
+					if ((j == (processedData.size()-1))||(count == (max-1)))
+						last = true;
+					if (!last){
+						input = input + processedData.get(j).getJSONFormat()+",";
+					}else{
+						input = input + processedData.get(j).getJSONFormat()+"]";
+					}
+					count ++;
+					j++;
 				}
 				
-			}
-			
-			
-			//call the web service
-			if (last){//this mean that we have records
-				System.out.println("input: "+input);
-				callPushWebWervice(input);
-				instrumentData.get(i).setProcessingComplete(true);
-				System.out.println("callPushWebWervice(input)");
-				System.out.println(rc.getStatus()+" - "+rc.getDescription());
+				
+				//call the web service
+				if (last){//this mean that we have records
+					System.out.println("input: "+input);
+					//put the below line back
+					//callPushWebWervice(input);
+					instrumentData.get(i).setProcessingComplete(true);
+					System.out.println("callPushWebWervice(input)");
+					System.out.println(rc.getStatus()+" - "+rc.getDescription());
+				}
+				
+				k = j;
 			}
 		}	
 
@@ -250,7 +262,6 @@ public class ProcessData {
 					token = defaultTokenizer.nextToken();
 				}
 				if (dateFound){
-					//put a cap on the number of files here - maybe 50 at a time or 100 at a times
 					ProcessedInstrumentData processedInstrumentData = new ProcessedInstrumentData();
 					instrumentData.setNewLastProc(token);
 					processedInstrumentData.setInstrument(instrumentData.getInstrumentName());
@@ -307,7 +318,7 @@ public class ProcessData {
 					System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
 				}
 
-				if (token.equalsIgnoreCase(instrumentData.getLastProc()))
+				if ((token.equalsIgnoreCase(instrumentData.getLastProc()))||("\"01-Nov-00\"".equalsIgnoreCase(instrumentData.getLastProc())))
 					dateFound = true;
 			}
 			
