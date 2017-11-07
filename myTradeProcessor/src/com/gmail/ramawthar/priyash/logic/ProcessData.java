@@ -201,7 +201,7 @@ public class ProcessData {
 			
 			int k = 0;
 			int j = 0;
-			int max = 100; // max number of records per web service
+			int max = 1000; // max number of records per web service
 			while (k < processedData.size()) {
 			
 				//String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
@@ -226,7 +226,7 @@ public class ProcessData {
 				if (last){//this mean that we have records
 					System.out.println("input: "+input);
 					//put the below line back
-					//callPushWebWervice(input);
+					callPushWebWervice(input);
 					instrumentData.get(i).setProcessingComplete(true);
 					System.out.println("callPushWebWervice(input)");
 					System.out.println(rc.getStatus()+" - "+rc.getDescription());
@@ -234,6 +234,7 @@ public class ProcessData {
 				
 				k = j;
 			}
+			writeInstrumentMetaData();
 		}	
 
 
@@ -342,7 +343,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "4729a50c-070a-4257-868e-250f61fe02ec";
+				String password = "c78187fa-24f2-452a-ab77-1f131e29091a";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);

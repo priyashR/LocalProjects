@@ -30,7 +30,7 @@ public class MyTradeProcessorApplication {
 		System.out.println("Read meatdata: "+processData.readMetaData().getStatus());
 		//System.out.println("Call rScript - result: "+processData.processInstrumentData().getStatus());
 		System.out.println("write instrument data to cloud: " + processData.writeIntrumentDataToCloud().getStatus());
-		System.out.println("write process meatdata to cloud: " + processData.writeInstrumentMetaData().getStatus());
+		//System.out.println("write process meatdata to cloud: " + processData.writeInstrumentMetaData().getStatus());
 	}
 	
 	public void processOnly(){
