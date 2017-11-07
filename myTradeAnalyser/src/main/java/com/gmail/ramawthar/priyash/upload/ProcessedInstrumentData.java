@@ -9,20 +9,20 @@ import java.util.Date;
 public class ProcessedInstrumentData {
 	private String date = "";
 	private String instrument = "";
-	private String open = "";
-	private String close = "";
-	private String high = "";
-	private String low = "";
-	private String vol = "";
-	private String sma20 = "";
-	private String obv = "";
+	private String open = "0";
+	private String close = "0";
+	private String high = "0";
+	private String low = "0";
+	private String vol = "0";
+	private String sma20 = "0";
+	private String obv = "0";
 	
-	private String sma5 = "";
-	private String rsi14 = "";
-	private String macd = "";
-	private String macdsig = "";
+	private String sma5 = "0";
+	private String rsi14 = "0";
+	private String macd = "0";
+	private String macdsig = "0";
 	
-	private String roc = "";
+	private String roc = "0";
 	
 	public ProcessedInstrumentData() {
 		super();
@@ -40,6 +40,9 @@ public class ProcessedInstrumentData {
 		this.low = low;
 		this.sma20 = sma20;
 		this.vol = vol;
+		
+		if (obv.equalsIgnoreCase(""))
+			obv = "0";
 		this.obv = obv;
 
 		this.sma5 = sma5;
@@ -206,7 +209,13 @@ public class ProcessedInstrumentData {
 	}
 	
 	public BigDecimal getBigDecimalSma20() {
-		return new BigDecimal(sma20);
+		BigDecimal _sma20; 
+		try {
+			_sma20 = new BigDecimal(sma20);
+		}catch(Exception e){
+			_sma20 = null;
+		}
+		return (_sma20);
 	}
 
 	public Long getLongVol() {
@@ -214,28 +223,64 @@ public class ProcessedInstrumentData {
 	}
 
 	public BigDecimal getLongObv() {
-		return new BigDecimal(obv);
+		BigDecimal _obv; 
+		try {
+			_obv = new BigDecimal(obv);
+		}catch(Exception e){
+			_obv = null;
+		}
+		return (_obv);
 	}
 
 	//---
 
 	public BigDecimal getLongSma5() {
-		return new BigDecimal(sma5);
+		BigDecimal _sma5; 
+		try {
+			_sma5 = new BigDecimal(sma5);
+		}catch(Exception e){
+			_sma5 = null;
+		}
+		return (_sma5);
 	}
 
 	public BigDecimal getLongRsi14() {
-		return new BigDecimal(rsi14);
+		BigDecimal _rsi14; 
+		try {
+			_rsi14 = new BigDecimal(rsi14);
+		}catch(Exception e){
+			_rsi14 = null;
+		}
+		return (_rsi14);
 	}
 
 	public BigDecimal getLongMacd() {
-		return new BigDecimal(macd);
+		BigDecimal _macd; 
+		try {
+			_macd = new BigDecimal(macd);
+		}catch(Exception e){
+			_macd = null;
+		}
+		return (_macd);
 	}
 
 	public BigDecimal getLongMacdsig() {
-		return new BigDecimal(macdsig);
+		BigDecimal _macdsig; 
+		try {
+			_macdsig = new BigDecimal(macdsig);
+		}catch(Exception e){
+			_macdsig = null;
+		}
+		return (_macdsig);
 	}
 
 	public BigDecimal getLongRoc() {
-		return new BigDecimal(roc);
+		BigDecimal _roc; 
+		try {
+			_roc = new BigDecimal(roc);
+		}catch(Exception e){
+			_roc = null;
+		}
+		return (_roc);
 	}
 }
