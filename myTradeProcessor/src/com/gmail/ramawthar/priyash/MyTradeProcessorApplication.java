@@ -27,9 +27,9 @@ public class MyTradeProcessorApplication {
 		ProcessData processData = new ProcessData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 				  "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\rsciptMetaData.txt");
 		
-		System.out.println("Read meatdata: "+processData.readMetaData().getStatus());
+		processData.readMetaData();
 		//System.out.println("Call rScript - result: "+processData.processInstrumentData().getStatus());
-		System.out.println("write instrument data to cloud: " + processData.writeIntrumentDataToCloud().getStatus());
+		processData.writeIntrumentDataToCloud();
 		//System.out.println("write process meatdata to cloud: " + processData.writeInstrumentMetaData().getStatus());
 	}
 	

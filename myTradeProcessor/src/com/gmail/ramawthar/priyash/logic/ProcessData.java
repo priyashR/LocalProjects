@@ -92,13 +92,13 @@ public class ProcessData {
 
 		if (lineType.equalsIgnoreCase("SCR")){
 			String token = "";
-			System.out.println(line);
+			//System.out.println(line);
 			StringTokenizer defaultTokenizer = new StringTokenizer(line,"<*>");
 			while (defaultTokenizer.hasMoreTokens()){
 				token = defaultTokenizer.nextToken();
 			}
 			rScript = token;
-			System.out.println( "script: "+rScript);
+			//System.out.println( "script: "+rScript);
 			
 		}else if (lineType.equalsIgnoreCase("INS")){
 			String token = "";
@@ -125,7 +125,7 @@ public class ProcessData {
    		        	default:
    		        		break;
 				}
-				System.out.println("token: "+token);
+				//System.out.println("token: "+token);
 			}
 			if (!(instrumentMetaData.getInstrumentName().equalsIgnoreCase(""))){
 				instrumentData.add(instrumentMetaData);		
@@ -201,7 +201,7 @@ public class ProcessData {
 			
 			int k = 0;
 			int j = 0;
-			int max = 1000; // max number of records per web service
+			int max = 500; // max number of records per web service
 			while (k < processedData.size()) {
 			
 				//String input = "[{\"instrument\":\"ADI\",\"close\":\"105\"}]";
@@ -217,7 +217,7 @@ public class ProcessData {
 					}else{
 						input = input + processedData.get(j).getJSONFormat()+"]";
 					}
-					count ++;
+					count++;
 					j++;
 				}
 				
@@ -228,8 +228,8 @@ public class ProcessData {
 					//put the below line back
 					callPushWebWervice(input);
 					instrumentData.get(i).setProcessingComplete(true);
-					System.out.println("callPushWebWervice(input)");
-					System.out.println(rc.getStatus()+" - "+rc.getDescription());
+					//System.out.println("callPushWebWervice(input)");
+					//System.out.println(rc.getStatus()+" - "+rc.getDescription());
 				}
 				
 				k = j;
@@ -316,7 +316,7 @@ public class ProcessData {
 						//System.out.println("token: "+token);
 					}
 					instrumentDataArray.add(processedInstrumentData);
-					System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
+					//System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
 				}
 
 				if ((token.equalsIgnoreCase(instrumentData.getLastProc()))||("\"01-Nov-00\"".equalsIgnoreCase(instrumentData.getLastProc())))
@@ -343,7 +343,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "c78187fa-24f2-452a-ab77-1f131e29091a";
+				String password = "161f7bf8-11bf-4410-b011-85dc8c08f75f";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
@@ -397,7 +397,7 @@ public class ProcessData {
 		List<String> lines = new ArrayList<String>();
 		for (int i = 0; i < instrumentData.size(); i++) {
 			lines.add(instrumentData.get(i).getFileLine());
-			System.out.println(instrumentData.get(i).getFileLine());
+			//System.out.println(instrumentData.get(i).getFileLine());
 		}
 		
 		try {
