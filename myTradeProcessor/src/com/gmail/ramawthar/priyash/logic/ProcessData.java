@@ -192,7 +192,7 @@ public class ProcessData {
 	 */
 	
 	public ReturnClass writeIntrumentDataToCloud(){
-
+System.out.println("start: writeIntrumentDataToCloud");
 		//go through all the instruments in the instrumentData arraylist and call the webservice
 		for (int i = 0; i < instrumentData.size(); i++) {
 			
@@ -316,7 +316,7 @@ public class ProcessData {
 						//System.out.println("token: "+token);
 					}
 					instrumentDataArray.add(processedInstrumentData);
-					//System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
+					System.out.println("priceDate: "+token +" ---- "+ instrumentData.getLastProc());
 				}
 
 				if ((token.equalsIgnoreCase(instrumentData.getLastProc()))||("\"01-Nov-00\"".equalsIgnoreCase(instrumentData.getLastProc())))
@@ -334,6 +334,7 @@ public class ProcessData {
 	
 	private ReturnClass callPushWebWervice(String serviceParams){
 		  try {
+			  System.out.println("callPush");
 				
 				rc.setStatus("Success");
 				
@@ -343,7 +344,7 @@ public class ProcessData {
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "161f7bf8-11bf-4410-b011-85dc8c08f75f";
+				String password = "cd2c6e66-d222-4e3b-8922-634f12d4690f";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);

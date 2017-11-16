@@ -225,7 +225,12 @@ public class ProcessedInstrumentData {
 	public BigDecimal getLongObv() {
 		BigDecimal _obv; 
 		try {
+			
+			//if (obv.length() > 8){
+			//	_obv = new BigDecimal(0);
+			//}
 			_obv = new BigDecimal(obv);
+			//_obv = new BigDecimal("0");
 		}catch(Exception e){
 			_obv = null;
 		}
