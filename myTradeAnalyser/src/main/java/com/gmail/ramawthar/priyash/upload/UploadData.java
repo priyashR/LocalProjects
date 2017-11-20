@@ -14,7 +14,7 @@ public class UploadData {
 	}
 	
 	public ReturnClass uploadToDatabase(Price_data_stageRepository price_data_stageRepository){
-		
+		try {
 		trade_price_data_stage price_data_stage_rec = new trade_price_data_stage();
 				
 		price_data_stage_rec.setInstrument(processedInstrumentData.getInstrument());
@@ -45,7 +45,9 @@ public class UploadData {
 		System.out.println("Instrument data to be uploaded for: "+processedInstrumentData.getInstrument());
 		System.out.println("Close price to be uploaded : "+processedInstrumentData.getClose());
 		System.out.println("Close price to be uploaded : "+processedInstrumentData.getDate());
-		
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 		return new ReturnClass("Success");
 	}
 
