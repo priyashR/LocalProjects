@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -250,6 +251,66 @@ public class PrepareData {
 		return rc;
 	}	
 	
+	private ReturnClass rollbackToDate(String instrument, String fileDate){	
+	rc.setStatus("Success");
+	try {
+	
+		//Path path = Paths.get(outputPath+instrument+".txt");
+		Path path = Paths.get(outputPath+instrument);
+		List<String> lines;
+		
+		ArrayList<Integer> indexesToRemove= new ArrayList<Integer>();
+		
+		lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+		String token = "not found";
+		for (int i = 0; i < lines.size(); i++){
+			if (token.equalsIgnoreCase("FOUND")){
+				indexesToRemove.add(i);
+			}else{
+				StringTokenizer defaultTokenizer = new StringTokenizer(lines.get(i),",");
+				token = defaultTokenizer.nextToken();
+				if (token.equalsIgnoreCase(fileDate)){
+					token = "FOUND";
+				}
+			}
+			
+		}
+		
+		//remove the found indexes
+		for (int j = 0; j<indexesToRemove.size(); j++){
+			System.out.println("remove index: "+indexesToRemove.get(0));
+			System.out.println("line: "+lines.get(indexesToRemove.get(0)));
+			lines.remove(lines.get(indexesToRemove.get(0)));
+		}
+		
+		for (int j = 0; j<lines.size(); j++){
+			System.out.println(lines.get(j));
+		}		
+		
+		Files.write(path, lines, StandardCharsets.UTF_8);
+	
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		rc.setStatus("Error");
+		rc.setDescription(e.getMessage());
+		e.printStackTrace();
+	}	
+	return rc;		
+	}
+	
+	public ReturnClass rollbackAllFiles(String fileDate){
+		
+		File folder = new File(outputPath);
+		//read the input directory
+	    for (final File fileEntry : folder.listFiles()) {
+	            System.out.println(fileEntry.getName());
+	    		rollbackToDate(fileEntry.getName(),fileDate);
+	    }
+		
+		return rc;
+		
+	}	
+	
 //	public static void main(String [] args){
 //		System.out.println("prepare the files for R");
 //		PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
@@ -259,4 +320,16 @@ public class PrepareData {
 //
 //		System.out.println(pd.processNewData().getStatus());
 //	}
+	
+	public static void main(String [] args){
+	System.out.println("prepare the files for R");
+	PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
+			 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\processed", 
+			 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\error",
+									 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
+
+	//System.out.println(pd.rollbackToDate("ASC.txt","03-Nov-17").getStatus());
+	System.out.println(pd.rollbackAllFiles("03-Nov-17").getStatus());
+}
+	
 }

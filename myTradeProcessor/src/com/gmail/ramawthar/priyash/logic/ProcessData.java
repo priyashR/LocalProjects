@@ -338,13 +338,14 @@ System.out.println("start: writeIntrumentDataToCloud");
 				
 				rc.setStatus("Success");
 				
-				URL url = new URL("http://localhost:5000/uploadData");
+				//URL url = new URL("http://localhost:5000/uploadData");
+				URL url = new URL("http://tradeanaylser.eu-west-1.elasticbeanstalk.com:5000/uploadData");
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setDoOutput(true);
 				conn.setRequestMethod("POST");
 				
 				String username = "user";
-				String password = "cd2c6e66-d222-4e3b-8922-634f12d4690f";
+				String password = "9af718b5-1ead-4674-8e6d-eeec9580879a";
 		        String authString = username + ":" + password;
 		        String authStringEnc = new String(Base64.encodeBase64(authString.getBytes()));
 		        conn.setRequestProperty("Authorization", "Basic " + authStringEnc);
