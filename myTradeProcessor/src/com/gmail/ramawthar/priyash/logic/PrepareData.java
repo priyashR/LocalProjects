@@ -321,15 +321,15 @@ public class PrepareData {
 //		System.out.println(pd.processNewData().getStatus());
 //	}
 	
-	public static void main(String [] args){
-	System.out.println("prepare the files for R");
-	PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
-			 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\processed", 
-			 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\error",
-									 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
-
-	//System.out.println(pd.rollbackToDate("ASC.txt","03-Nov-17").getStatus());
-	System.out.println(pd.rollbackAllFiles("03-Nov-17").getStatus());
-}
+//	public static void main(String [] args){
+//	System.out.println("prepare the files for R");
+//	PrepareData pd = new PrepareData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\new", 
+//			 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\processed", 
+//			 						 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\watchlist\\error",
+//									 "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\");
+//
+//	//System.out.println(pd.rollbackToDate("ASC.txt","03-Nov-17").getStatus());
+//	System.out.println(pd.rollbackAllFiles("03-Nov-17").getStatus());
+//}
 	
 }
