@@ -8,5 +8,6 @@ public class MyTradeAnalyserApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyTradeAnalyserApplication.class, args);
+		//test for commit
 	}
 }
