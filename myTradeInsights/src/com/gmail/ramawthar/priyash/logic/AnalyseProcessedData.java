@@ -102,7 +102,7 @@ public class AnalyseProcessedData {
 	
 	private void analyzeProcessedData(ArrayList<ProcessedInstrumentData> data){
 		
-		int numberOfLines = data.size() - 990;
+		int numberOfLines = 10;//data.size() - 990;
 		for (int i = numberOfLines;i < data.size(); i++ ){
 			System.out.println(data.get(i).getDate());
 		}
@@ -112,14 +112,17 @@ public class AnalyseProcessedData {
 	private ArrayList<ProcessedInstrumentData> fetchProcessedData(String instrumentDataPath){
 		//fetch data for each instrument based on the path passed in 
 		ArrayList<ProcessedInstrumentData> instrumentDataArray = new ArrayList<ProcessedInstrumentData>();
+
+		List<String> lines = null;
 		try {
-			
-			Path path = Paths.get(instrumentDataPath);
-			List<String> lines;
 			String instrumentName = getInstrumentName(instrumentDataPath);
+			instrumentDataPath = instrumentDataPath.replace("priyash.ramawthar", "priyash");
+			Path path = Paths.get(instrumentDataPath);
 
 			
 			lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+			
+
 			for (int j = 0; j < lines.size(); j++) {
 				String token = "";
 				int pos = 0;
@@ -185,7 +188,7 @@ public class AnalyseProcessedData {
 				instrumentDataArray.add(processedInstrumentData);
 			}
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			rc.setStatus("Error");
 			rc.setDescription(e.getMessage());
 			e.printStackTrace();
