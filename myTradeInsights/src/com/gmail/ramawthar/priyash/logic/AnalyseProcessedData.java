@@ -117,6 +117,7 @@ public class AnalyseProcessedData {
 		try {
 			String instrumentName = getInstrumentName(instrumentDataPath);
 			instrumentDataPath = instrumentDataPath.replace("priyash.ramawthar", "priyash");
+			
 			Path path = Paths.get(instrumentDataPath);
 
 			
