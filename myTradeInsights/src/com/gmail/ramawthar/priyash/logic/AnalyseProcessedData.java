@@ -126,11 +126,8 @@ public class AnalyseProcessedData {
 
 			for (int j = 0; j < lines.size(); j++) {
 				String token = "";
-				int pos = 1;
+				int pos = 0;
 				StringTokenizer defaultTokenizer = new StringTokenizer(lines.get(j),",");
-				if (defaultTokenizer.hasMoreTokens()){
-					token = defaultTokenizer.nextToken();
-				}
 				
 				ProcessedInstrumentData processedInstrumentData = new ProcessedInstrumentData();
 				
