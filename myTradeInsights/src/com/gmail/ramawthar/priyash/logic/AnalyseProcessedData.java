@@ -30,7 +30,7 @@ public class AnalyseProcessedData {
 	 * Get all the meta data to control the processing to process and push data to the cloud storage
 	 */
 	
-	public ReturnClass readMetaData(){
+	public ReturnClass readMetaData(String instance){
 		//read instrument data
 		File instrumentFile = new File(metaInstFile);
         try (BufferedReader b = new BufferedReader(new FileReader(instrumentFile))){
@@ -41,7 +41,7 @@ public class AnalyseProcessedData {
             String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
-                processFileLine(readLine);
+                processFileLine(readLine, instance);
             }
             b.close();
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class AnalyseProcessedData {
 		return rc;
 	}
 	
-	private ReturnClass processFileLine(String line){
+	private ReturnClass processFileLine(String line, String instance){
 
 		String token = "";
         int pos = 0;
@@ -65,16 +65,16 @@ public class AnalyseProcessedData {
 			pos++;
 			switch (pos){
 	        	case 1:
-	        		instrumentMetaData.setInstrumentName(token);
+	        		instrumentMetaData.setInstrumentName(token.replace("priyash.ramawthar", instance));
 	        		break;
 	        	case 2:
-	        		instrumentMetaData.setInFile(token);
+	        		instrumentMetaData.setInFile(token.replace("priyash.ramawthar", instance));
 	        		break;
 	        	case 3:
-	        		instrumentMetaData.setOutFile(token);
+	        		instrumentMetaData.setOutFile(token.replace("priyash.ramawthar", instance));
 	        		break;
 	        	case 4:
-	        		instrumentMetaData.setLastProc(token);
+	        		instrumentMetaData.setLastProc(token.replace("priyash.ramawthar", instance));
 	        		break;
 	        	default:
 	        		break;
@@ -102,9 +102,9 @@ public class AnalyseProcessedData {
 	
 	private void analyzeProcessedData(ArrayList<ProcessedInstrumentData> data){
 		
-		int numberOfLines = 10;//data.size() - 990;
+		int numberOfLines = data.size() - 10;
 		for (int i = numberOfLines;i < data.size(); i++ ){
-			System.out.println(data.get(i).getDate());
+			System.out.println(data.get(i).getDate()+" : "+data.get(i).getAdx());
 		}
 		
 	}
@@ -116,7 +116,7 @@ public class AnalyseProcessedData {
 		List<String> lines = null;
 		try {
 			String instrumentName = getInstrumentName(instrumentDataPath);
-			instrumentDataPath = instrumentDataPath.replace("priyash.ramawthar", "priyash");
+			//instrumentDataPath = instrumentDataPath.replace("priyash.ramawthar", "priyash");
 			
 			Path path = Paths.get(instrumentDataPath);
 
@@ -178,6 +178,18 @@ public class AnalyseProcessedData {
 	   		        	case 13:
 			        		processedInstrumentData.setRoc(token);
 	   		        		break;
+	   		        	case 14:
+			        		processedInstrumentData.setDip(token);
+	   		        		break;
+	   		        	case 15:
+			        		processedInstrumentData.setDin(token);
+	   		        		break;
+	   		        	case 16:
+			        		processedInstrumentData.setDx(token);
+	   		        		break;
+	   		        	case 17:
+			        		processedInstrumentData.setAdx(token);
+	   		        		break;
 	   		        	default:
 	   		        		break;
 					}
@@ -195,6 +207,12 @@ public class AnalyseProcessedData {
 	}
 	
 	private String getInstrumentName(String instrumentPath){
-		return instrumentPath.substring(68, instrumentPath.indexOf("_proc.txt"));
+		
+		String instrumentName = instrumentPath;
+		if(instrumentPath.lastIndexOf("priyash.ramawthar") >= 0){
+			instrumentName = instrumentPath.replace("priyash.ramawthar", "priyash");
+		}
+		
+		return instrumentName.substring(58, instrumentPath.indexOf("_proc.txt"));
 	}
 }

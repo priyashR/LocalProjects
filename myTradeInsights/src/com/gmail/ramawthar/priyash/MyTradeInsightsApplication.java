@@ -7,7 +7,7 @@ public class MyTradeInsightsApplication {
 	public static void main(String [] args){
 		
 		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
-		ad.readMetaData();
+		ad.readMetaData("priyash");
 		ad.createInsights();
 	}
 

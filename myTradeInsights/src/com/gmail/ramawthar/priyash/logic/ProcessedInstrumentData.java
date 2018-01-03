@@ -23,6 +23,11 @@ public class ProcessedInstrumentData {
 	private String macdsig = "0";
 	
 	private String roc = "0";
+
+	private String dip = "0";
+	private String din = "0";
+	private String dx = "0";
+	private String adx = "0";
 	
 	public ProcessedInstrumentData() {
 		super();
@@ -52,6 +57,37 @@ public class ProcessedInstrumentData {
 		
 		this.roc = roc;
 	}
+	
+	public ProcessedInstrumentData(String date, String instrument, String open, String close, 
+			   String high, String low, String sma20, String vol, String obv,
+			   String sma5, String rsi14, String macd, String macdsig, String roc, 
+			   String dip, String din, String dx, String adx) {
+		super();
+		this.date = date;
+		this.instrument = instrument;
+		this.open = open;
+		this.close = close;
+		this.high = high;
+		this.low = low;
+		this.sma20 = sma20;
+		this.vol = vol;
+		
+		if (obv.equalsIgnoreCase(""))
+		obv = "0";
+		this.obv = obv;
+		
+		this.sma5 = sma5;
+		this.rsi14 = rsi14;
+		this.macd = macd;
+		this.macdsig = macdsig;
+		
+		this.dip = dip;
+		this.din = din;
+		this.dx = dx;
+		this.adx = adx;
+		
+		this.roc = roc;
+		}	
 
 	public String getInstrument() {
 		return instrument;
@@ -166,6 +202,38 @@ public class ProcessedInstrumentData {
 
 	public void setRoc(String roc) {
 		this.roc = roc;
+	}
+
+	public String getDip() {
+		return dip;
+	}
+
+	public void setDip(String dip) {
+		this.dip = dip;
+	}
+
+	public String getDin() {
+		return din;
+	}
+
+	public void setDin(String din) {
+		this.din = din;
+	}
+
+	public String getDx() {
+		return dx;
+	}
+
+	public void setDx(String dx) {
+		this.dx = dx;
+	}
+
+	public String getAdx() {
+		return adx;
+	}
+
+	public void setAdx(String adx) {
+		this.adx = adx;
 	}
 
 	public String getJSONFormat(){
@@ -288,4 +356,44 @@ public class ProcessedInstrumentData {
 		}
 		return (_roc);
 	}
+	
+	public BigDecimal getBigDip() {
+		BigDecimal _dip; 
+		try {
+			_dip= new BigDecimal(dip);
+		}catch(Exception e){
+			_dip = null;
+		}
+		return (_dip);
+	}
+
+	public BigDecimal getBigDin() {
+		BigDecimal _din; 
+		try {
+			_din= new BigDecimal(din);
+		}catch(Exception e){
+			_din = null;
+		}
+		return (_din);
+	}
+	
+	public BigDecimal getBigDx() {
+		BigDecimal _dx; 
+		try {
+			_dx= new BigDecimal(dx);
+		}catch(Exception e){
+			_dx = null;
+		}
+		return (_dx);
+	}	
+	
+	public BigDecimal getBigAdx() {
+		BigDecimal _adx; 
+		try {
+			_adx= new BigDecimal(adx);
+		}catch(Exception e){
+			_adx = null;
+		}
+		return (_adx);
+	}		
 }
