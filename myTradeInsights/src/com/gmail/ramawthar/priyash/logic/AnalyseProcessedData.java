@@ -91,12 +91,12 @@ public class AnalyseProcessedData {
 	
 	public ReturnClass createInsights(){
 
-		//for (int i = 0; i < instrumentData.size(); i++) {
+		for (int i = 0; i < instrumentData.size(); i++) {
 
-			System.out.println(instrumentData.get(1).getOutFile());
-			analyzeProcessedData(fetchProcessedData(instrumentData.get(1).getOutFile()));
+			System.out.println(instrumentData.get(i).getOutFile());
+			analyzeProcessedData(fetchProcessedData(instrumentData.get(i).getOutFile()));
 			
-		//}
+		}
 		return rc;
 	}
 	

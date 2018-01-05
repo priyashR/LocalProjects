@@ -29,6 +29,8 @@ public class ProcessedInstrumentData {
 	private String dx = "0";
 	private String adx = "0";
 	
+	private String sma10 = "0";
+	
 	public ProcessedInstrumentData() {
 		super();
 	}
@@ -235,6 +237,15 @@ public class ProcessedInstrumentData {
 	public void setAdx(String adx) {
 		this.adx = adx;
 	}
+	
+	
+	public String getSma10() {
+		return sma10;
+	}
+
+	public void setSma10(String sma10) {
+		this.sma10 = sma10;
+	}
 
 	public String getJSONFormat(){
 		
@@ -395,5 +406,14 @@ public class ProcessedInstrumentData {
 			_adx = null;
 		}
 		return (_adx);
-	}		
+	}
+	public BigDecimal getBigDecimalSma10() {
+		BigDecimal _sma10; 
+		try {
+			_sma10 = new BigDecimal(sma10);
+		}catch(Exception e){
+			_sma10 = null;
+		}
+		return (_sma10);
+	}
 }
