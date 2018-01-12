@@ -105,6 +105,12 @@ public class AnalyseProcessedData {
 		int numberOfLines = data.size() - 10;
 		for (int i = numberOfLines;i < data.size(); i++ ){
 			System.out.println(data.get(i).getDate()+" : "+data.get(i).getAdx());
+			
+			// apply the the rules and create the general insights
+			
+			
+			
+			// check if I have this instrument and apply the trending insights
 		}
 		
 	}
