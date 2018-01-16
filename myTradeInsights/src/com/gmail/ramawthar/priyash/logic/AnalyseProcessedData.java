@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,10 @@ public class AnalyseProcessedData {
 	private String metaInstFile = "";
 	private ArrayList<InstrumentMetaData> instrumentData = new ArrayList<InstrumentMetaData>();
 	private ReturnClass rc = new ReturnClass("Init");
+	
+	private ArrayList<Insight> insights = new ArrayList<Insight>();
+	
+	private InstrumentInsights getInsight = new InstrumentInsights();
 	
 	
 	public AnalyseProcessedData(String metaFile){
@@ -102,16 +107,29 @@ public class AnalyseProcessedData {
 	
 	private void analyzeProcessedData(ArrayList<ProcessedInstrumentData> data){
 		
+		
+		
+
 		int numberOfLines = data.size() - 10;
 		for (int i = numberOfLines;i < data.size(); i++ ){
-			System.out.println(data.get(i).getDate()+" : "+data.get(i).getAdx());
-			
-			// apply the the rules and create the general insights
-			
-			
-			
-			// check if I have this instrument and apply the trending insights
+			//System.out.println(data.get(i).getDate()+" : "+data.get(i).getAdx());
+			BigDecimal b = data.get(i).getLongSma5().subtract(data.get(i).getBigDecimalSma20());
+			//System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+data.get(i).getLongSma5()+" : "+data.get(i).getBigDecimalSma20()+" : "+b);
+			//Double d1 = getInsight.getPercent(data.get(i).getLongClose(), data.get(i).getLongSma5());
+			//Double d2 = getInsight.getPercent(data.get(i).getLongClose(), data.get(i).getBigDecimalSma20());
+			//System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+d1 +" : "+d2+" : "+(d1-d2));
+			Double d1 = getInsight.getPercent(data.get(i).getBigDecimalSma20(), data.get(i).getLongSma5() );
+			System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+data.get(i).getLongSma5() +" : "+data.get(i).getBigDecimalSma20()+" : "+b+" : "+d1);
 		}
+		 
+		Insight i = new Insight();
+		// apply the the rules and create the general insights
+		i = getInsight.I001a(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+			
+		System.out.println(i.getInsightValue());
+		// check if I have this instrument and apply the trending insights
 		
 	}
 	

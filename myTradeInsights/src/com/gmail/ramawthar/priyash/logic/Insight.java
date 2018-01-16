@@ -3,12 +3,12 @@ package com.gmail.ramawthar.priyash.logic;
 public class Insight {
 	
 	private String instrument = ""; 	// ADI
-	private String insightCode = ""; 	// I001
+	private String insightCode = ""; 	// I001a
 	private String insightDesc = ""; 	// SMA5 crossover SMA20
 	private String date = ""; 			// "29-Dec-17"
-	private String insightValue = ""; 	// +0  --- can be bewteen -5 and +5, 0 is the event, + indicates a BUY nature, - indicates a SELL 
+	private String insightValue = ""; 	// 0 -> can be between 5 and 0, 5 is far from the event 0 is the event 
 	private String insightNote = "";	// Crossover reached
-	private String insightRec = ""; 	// BUY
+	private String insightRec = ""; 	// Possibly BUY/SELL - check the price direction
 	
 	public Insight(String instrument, String insightCode, String insightDesc, String date, String insightValue,
 			String insightNote, String insightRec) {
@@ -20,6 +20,10 @@ public class Insight {
 		this.insightValue = insightValue;
 		this.insightNote = insightNote;
 		this.insightRec = insightRec;
+	}
+
+	public Insight() {
+		this.insightCode = "NONE";
 	}
 
 	public String getInstrument() {
