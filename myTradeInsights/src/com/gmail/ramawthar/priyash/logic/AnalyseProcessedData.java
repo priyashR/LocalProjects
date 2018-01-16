@@ -127,8 +127,13 @@ public class AnalyseProcessedData {
 		i = getInsight.I001a(data);
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);
-			
 		System.out.println(i.getInsightValue());
+		
+		i = getInsight.I001b(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);			
+		System.out.println(i.getInsightValue());
+		
 		// check if I have this instrument and apply the trending insights
 		
 	}

@@ -41,31 +41,57 @@ public class InstrumentInsights {
 		 */
 		Double percentage = getPercent(SMA20, SMA5);
 		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
 		
 		if ((percentage > 110.00)) {
 			insightValue = "5";
+			insightNote = "SMA5 is much higher than SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage > 105.00)){
 			insightValue = "4";
+			insightNote = "SMA5 is higher than SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage > 103.00)){
 			insightValue = "3";
+			insightNote = "SMA5 is approaching SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage > 102.00)){
 			insightValue = "2";
+			insightNote = "SMA5 is moving close to SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage > 101.00)){
 			insightValue = "1";
+			insightNote = "SMA5 is almost touching SMA20";
+			insightRec = "Analyse";
 		}else if ((percentage >= 100.00)){
 			insightValue = "0";
+			insightNote = "SMA5 is crossing SMA20";
+			insightRec = "Consider BUY or SELL - check the price direction";
 		}else if ((percentage < 90.00)) {
 			insightValue = "-5";
+			insightNote = "SMA5 is much lower than SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage < 95.00)){
 			insightValue = "-4";
+			insightNote = "SMA5 is lower than SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage < 97.00)){
 			insightValue = "-3";
+			insightNote = "SMA5 is approaching SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage < 98.00)){
 			insightValue = "-2";
+			insightNote = "SMA5 is moving close to SMA20";
+			insightRec = "Monitor";
 		}else if ((percentage < 99.00)){
 			insightValue = "-1";
+			insightNote = "SMA5 is almost touching SMA20";
+			insightRec = "Analyse";
 		}else if ((percentage <= 100.00)){
 			insightValue = "0";
+			insightNote = "SMA5 is crossing SMA20";
+			insightRec = "Consider BUY or SELL - check the price direction";
 		}
 		
 		i001.setInstrument(data.get(lastLine).getInstrument());
@@ -73,34 +99,77 @@ public class InstrumentInsights {
 		i001.setInsightDesc("SMA5 crossover SMA20");
 		i001.setDate(data.get(lastLine).getDate());
 		i001.setInsightValue(insightValue);
-		i001.setInsightNote("Crossover reached");
-		i001.setInsightRec("Possibly BUY/SELL - check the price direction");
+		i001.setInsightNote(insightNote);
+		i001.setInsightRec(insightRec);
 		
 		return i001;
 	}
 
-	// To get an indication of the direction of the price
+	// To get the distance away from the last turning point
 	public Insight I001b(ArrayList<ProcessedInstrumentData> data){
 
 		Insight i001 = new Insight();
 		
 		int numberOfLines = data.size();
 		
-		if (numberOfLines <= 0)
+		//number of lines in the file
+		if (numberOfLines <= 21)//we want to use 20 lines
 			return i001;
 		
-		int lastLine = numberOfLines - 1;
+		//number of lines used from file
+		numberOfLines = 19;//20 lines -> 19 to 0
+		Double percentage = 0.0;
+		BigDecimal SMA5 = null;
+		BigDecimal SMA20 = null;
+		int index = numberOfLines;
+		for (int i = numberOfLines;i >= 0; i-- ){
+			SMA5 = data.get(i).getLongSma5();
+			SMA20 = data.get(i).getBigDecimalSma20();
+			percentage = getPercent(SMA20, SMA5);
+			if ((percentage >= 99.00)&&(percentage < 101.00)){
+				index = i;
+				i = -1;
+			}
+		}
+
+
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
 		
-		String date = data.get(lastLine).getDate();
-		String instrument = data.get(lastLine).getInstrument();
+		if (index == 19) {
+			insightValue = "5";
+			insightNote = "Last crossover occured very 19 or more trading days ago";
+			insightRec = "";
+		}else if (index > 15){
+			insightValue = "4";
+			insightNote = "Last crossover occured between 16 and 19 trading days ago";
+			insightRec = "";
+		}else if (index > 10){
+			insightValue = "3";
+			insightNote = "Last crossover occured between 11 and 15 trading days ago";
+			insightRec = "";
+		}else if (index > 6){
+			insightValue = "2";
+			insightNote = "Last crossover occured between 7 and 10 trading days ago";
+			insightRec = "";
+		}else if (index > 3){
+			insightValue = "1";
+			insightNote = "Last crossover occured between 4 and 6 trading days ago";
+			insightRec = "";
+		}else if (index >= 0){
+			insightValue = "0";
+			insightNote = "Last crossover occured between 0 and 3 trading days ago";
+			insightRec = "";
+		}
 		
-		BigDecimal SMA5 = data.get(lastLine).getLongSma5();
-		BigDecimal SMA20 = data.get(lastLine).getBigDecimalSma20();
-		/*
-		 * 1. Get what percentage SMA5 is of SMA20
-		 * 2. If its < 90 or >110 then
-		 */
-		
+		i001.setInstrument(data.get(0).getInstrument());
+		i001.setInsightCode("I001b");
+		i001.setInsightDesc("Last crossover of SMA5 on SMA20");
+		i001.setDate(data.get(0).getDate());
+		i001.setInsightValue(insightValue);
+		i001.setInsightNote(insightNote);
+		i001.setInsightRec(insightRec);
 		
 		return i001;
 	}	
