@@ -348,6 +348,63 @@ public class InstrumentInsights {
 		//System.out.println(insightNote); 
 		return i002d;
 	}	
+
+	// highest high or lowest low - 14 days
+	public Insight I004(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i004 = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		if (numberOfLines <= 15)
+			return i004;
+		
+		int index = numberOfLines;
+		Long highest = data.get(numberOfLines - 1).getLongHigh();
+		Long lowest = data.get(numberOfLines - 1).getLongLow();
+		
+		for (int i = 1;i < 16; i++){
+			index = numberOfLines - i;
+			if (highest < data.get(index).getLongHigh()){
+				highest = data.get(index).getLongHigh();
+			}
+			if (lowest > data.get(index).getLongLow()){
+				lowest = data.get(index).getLongLow();
+			}
+		}
+		
+		int lastLine = numberOfLines - 1;
+		
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+
+		if (data.get(lastLine).getLongClose() > highest){
+			insightValue = "0";
+			insightNote = "Closing price higher than the higest high in the last 14 days.";
+			insightRec = "BUY";
+		}else if (data.get(lastLine).getLongClose() < lowest){
+			insightValue = "5";
+			insightNote = "Closing price lower than the lower low in the last 14 days.";
+			insightRec = "SELL";
+		}else{
+			insightValue = "5";
+			insightNote = "Nothing indicated";
+			insightRec = "N/A";
+		}
+		
+		i004.setInstrument(data.get(lastLine).getInstrument());
+		i004.setInsightCode("I002b");
+		i004.setInsightDesc("Actual difference between SMA5 and SMA20");
+		i004.setDate(data.get(lastLine).getDate());
+		i004.setInsightValue(insightValue);
+		i004.setInsightNote(insightNote);
+		i004.setInsightRec(insightRec);
+		
+		return i004;
+	}		
+
+
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		
