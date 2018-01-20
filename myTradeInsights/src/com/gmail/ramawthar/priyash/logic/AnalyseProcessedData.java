@@ -142,7 +142,25 @@ public class AnalyseProcessedData {
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);
 		System.out.println(i.getInsightValue());
-		
+
+		// Actual difference between SMA5 and SMA20
+		i = getInsight.I002b(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+		System.out.println(i.getInsightValue());
+
+		// ROC since the last turning point
+		i = getInsight.I002c(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+		System.out.println(i.getInsightValue());
+
+		// % change since the last turning point
+		i = getInsight.I002d(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+		System.out.println(i.getInsightValue());
+										
 		// check if I have this instrument and apply the trending insights
 		
 	}

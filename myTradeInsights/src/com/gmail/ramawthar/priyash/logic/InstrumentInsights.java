@@ -194,14 +194,159 @@ public class InstrumentInsights {
 		insightRec = "N/A";
 		
 		i002a.setInstrument(data.get(lastLine).getInstrument());
-		i002a.setInsightCode("I002");
-		i002a.setInsightDesc("SMA5 crossover SMA20");
+		i002a.setInsightCode("I002a");
+		i002a.setInsightDesc("Percentage difference between SMA5 and SMA20");
 		i002a.setDate(data.get(lastLine).getDate());
 		i002a.setInsightValue(insightValue);
 		i002a.setInsightNote(insightNote);
 		i002a.setInsightRec(insightRec);
 		
 		return i002a;
+	}	
+
+	// actual difference between SMA5 and SMA20
+	public Insight I002b(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i002b = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		if (numberOfLines <= 0)
+			return i002b;
+		
+		int lastLine = numberOfLines - 1;
+		
+		BigDecimal b = data.get(lastLine).getLongSma5().subtract(data.get(lastLine).getBigDecimalSma20());
+		
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		insightValue = b.toString();
+		insightNote = "Actual difference between SMA5 and SMA20";
+		insightRec = "N/A";
+		
+		i002b.setInstrument(data.get(lastLine).getInstrument());
+		i002b.setInsightCode("I002b");
+		i002b.setInsightDesc("Actual difference between SMA5 and SMA20");
+		i002b.setDate(data.get(lastLine).getDate());
+		i002b.setInsightValue(insightValue);
+		i002b.setInsightNote(insightNote);
+		i002b.setInsightRec(insightRec);
+		
+		return i002b;
+	}		
+
+
+	// ROC since the last turning point
+	public Insight I002c(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i002c = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		//number of lines in the file
+		if (numberOfLines < 30)//we want to use 30 lines
+			return i002c;
+		//number of lines used from file
+		numberOfLines = numberOfLines - 1;//we're gona use this as indexes - 0-29
+		Double percentage = 0.0;
+		BigDecimal SMA5 = null;
+		BigDecimal SMA20 = null;
+		int index = numberOfLines;
+		for (int i = 0;i < 30; i++){
+			index = numberOfLines - i;
+			SMA5 = data.get(index).getLongSma5();
+			SMA20 = data.get(index).getBigDecimalSma20();
+			percentage = getPercent(SMA20, SMA5);
+			if ((percentage >= 99.00)&&(percentage < 101.00)){
+				i = 32;
+			}
+		}
+
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		insightNote = "The rate of change since the last crossover (using SMA5 and SMA20)";
+		if (index == (numberOfLines - 29)) 
+			insightNote = "The rate of change since 29 days ago";
+			
+		Double percentageValue = getPercent(data.get(index).getLongClose(), data.get(numberOfLines).getLongClose());
+		Double percentageChange = (Math.round((percentageValue - 100) * 100.0) / 100.0);
+		
+		Integer days = numberOfLines - index;
+		
+		if (days == 0){
+			insightValue = "0";
+		}else{
+			Double ROC = (Math.round((percentageChange/days) * 100.0) / 100.0);
+			insightValue = ROC+"";
+		}
+		
+		insightRec = "N/A";
+		
+		i002c.setInstrument(data.get(0).getInstrument());
+		i002c.setInsightCode("I002c");
+		i002c.setInsightDesc("ROC since the last change");
+		i002c.setDate(data.get(0).getDate());
+		i002c.setInsightValue(insightValue);
+		i002c.setInsightNote(insightNote);
+		i002c.setInsightRec(insightRec);
+		//System.out.println(insightNote); 
+		return i002c;
+	}	
+	
+	// % change since the last turning point
+	public Insight I002d(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i002d = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		//number of lines in the file
+		if (numberOfLines < 30)//we want to use 30 lines
+			return i002d;
+		//number of lines used from file
+		numberOfLines = numberOfLines - 1;//we're gona use this as indexes - 0-29
+		Double percentage = 0.0;
+		BigDecimal SMA5 = null;
+		BigDecimal SMA20 = null;
+		int index = numberOfLines;
+		for (int i = 0;i < 30; i++){
+			index = numberOfLines - i;
+			SMA5 = data.get(index).getLongSma5();
+			SMA20 = data.get(index).getBigDecimalSma20();
+			percentage = getPercent(SMA20, SMA5);
+			if ((percentage >= 99.00)&&(percentage < 101.00)){
+				i = 32;
+			}
+		}
+
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		insightNote = "The percentage change since the last crossover (using SMA5 and SMA20)";
+		if (index == (numberOfLines - 29)) 
+			insightNote = "The percentage of change since 29 days ago";
+			
+		Double percentageValue = getPercent(data.get(index).getLongClose(), data.get(numberOfLines).getLongClose());
+		Double percentageChange = (Math.round((percentageValue - 100) * 100.0) / 100.0);
+		
+		insightValue = percentageChange+"";
+		
+		insightRec = "N/A";
+		
+		i002d.setInstrument(data.get(0).getInstrument());
+		i002d.setInsightCode("I002c");
+		i002d.setInsightDesc("ROC since the last change");
+		i002d.setDate(data.get(0).getDate());
+		i002d.setInsightValue(insightValue);
+		i002d.setInsightNote(insightNote);
+		i002d.setInsightRec(insightRec);
+		//System.out.println(insightNote); 
+		return i002d;
 	}	
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
@@ -213,6 +358,13 @@ public class InstrumentInsights {
 	public Double getPercent(Long val1, BigDecimal val2){
 		BigDecimal bigVal1 = new BigDecimal(val1);
 		Double percent = (val2.divide(bigVal1,4,RoundingMode.HALF_UP)).doubleValue()*100;
+		return Math.round(percent * 100D) / 100D;
+	}
+
+	public Double getPercent(Long val1, Long val2){
+		BigDecimal bigVal1 = new BigDecimal(val1);
+		BigDecimal bigVal2 = new BigDecimal(val2);
+		Double percent = (bigVal2.divide(bigVal1,4,RoundingMode.HALF_UP)).doubleValue()*100;
 		return Math.round(percent * 100D) / 100D;
 	}
 
