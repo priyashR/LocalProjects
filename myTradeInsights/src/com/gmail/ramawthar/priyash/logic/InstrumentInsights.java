@@ -19,9 +19,6 @@ public class InstrumentInsights {
 		
 		int lastLine = numberOfLines - 1;
 		
-		String date = data.get(lastLine).getDate();
-		String instrument = data.get(lastLine).getInstrument();
-		
 		BigDecimal SMA5 = data.get(lastLine).getLongSma5();
 		BigDecimal SMA20 = data.get(lastLine).getBigDecimalSma20();
 		/*
@@ -108,13 +105,13 @@ public class InstrumentInsights {
 	// To get the distance away from the last turning point
 	public Insight I001b(ArrayList<ProcessedInstrumentData> data){
 
-		Insight i001 = new Insight();
+		Insight i001b = new Insight();
 		
 		int numberOfLines = data.size();
 		
 		//number of lines in the file
 		if (numberOfLines < 20)//we want to use 20 lines
-			return i001;
+			return i001b;
 		//number of lines used from file
 		numberOfLines = numberOfLines - 1;//we're gona use this as indexes - 0-19
 		Double percentage = 0.0;
@@ -161,15 +158,50 @@ public class InstrumentInsights {
 			insightNote = "Last crossover occured between 0 and 3 trading days ago";
 			insightRec = "";
 		}
-		i001.setInstrument(data.get(0).getInstrument());
-		i001.setInsightCode("I001b");
-		i001.setInsightDesc("Last crossover of SMA5 on SMA20");
-		i001.setDate(data.get(0).getDate());
-		i001.setInsightValue(insightValue);
-		i001.setInsightNote(insightNote);
-		i001.setInsightRec(insightRec);
-		System.out.println(insightNote); 
-		return i001;
+		i001b.setInstrument(data.get(0).getInstrument());
+		i001b.setInsightCode("I001b");
+		i001b.setInsightDesc("Last crossover of SMA5 on SMA20");
+		i001b.setDate(data.get(0).getDate());
+		i001b.setInsightValue(insightValue);
+		i001b.setInsightNote(insightNote);
+		i001b.setInsightRec(insightRec);
+		//System.out.println(insightNote); 
+		return i001b;
+	}	
+	
+	// % difference between SMA5 and SMA20
+	public Insight I002a(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i002a = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		if (numberOfLines <= 0)
+			return i002a;
+		
+		int lastLine = numberOfLines - 1;
+		
+		BigDecimal SMA5 = data.get(lastLine).getLongSma5();
+		BigDecimal SMA20 = data.get(lastLine).getBigDecimalSma20();
+
+		Double percentage = getPercent(SMA20, SMA5);
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		insightValue = (Math.round((percentage - 100) * 100.0) / 100.0) + "";
+		insightNote = "Percentage difference between SMA5 and SMA20";
+		insightRec = "N/A";
+		
+		i002a.setInstrument(data.get(lastLine).getInstrument());
+		i002a.setInsightCode("I002");
+		i002a.setInsightDesc("SMA5 crossover SMA20");
+		i002a.setDate(data.get(lastLine).getDate());
+		i002a.setInsightValue(insightValue);
+		i002a.setInsightNote(insightNote);
+		i002a.setInsightRec(insightRec);
+		
+		return i002a;
 	}	
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
