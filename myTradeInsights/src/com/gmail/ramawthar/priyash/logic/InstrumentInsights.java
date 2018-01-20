@@ -45,23 +45,23 @@ public class InstrumentInsights {
 		String insightRec = "";
 		
 		if ((percentage > 110.00)) {
-			insightValue = "5";
+			insightValue = "-5";
 			insightNote = "SMA5 is much higher than SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage > 105.00)){
-			insightValue = "4";
+			insightValue = "-4";
 			insightNote = "SMA5 is higher than SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage > 103.00)){
-			insightValue = "3";
+			insightValue = "-3";
 			insightNote = "SMA5 is approaching SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage > 102.00)){
-			insightValue = "2";
+			insightValue = "-2";
 			insightNote = "SMA5 is moving close to SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage > 101.00)){
-			insightValue = "1";
+			insightValue = "-1";
 			insightNote = "SMA5 is almost touching SMA20";
 			insightRec = "Analyse";
 		}else if ((percentage >= 100.00)){
@@ -69,23 +69,23 @@ public class InstrumentInsights {
 			insightNote = "SMA5 is crossing SMA20";
 			insightRec = "Consider BUY or SELL - check the price direction";
 		}else if ((percentage < 90.00)) {
-			insightValue = "-5";
+			insightValue = "5";
 			insightNote = "SMA5 is much lower than SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage < 95.00)){
-			insightValue = "-4";
+			insightValue = "4";
 			insightNote = "SMA5 is lower than SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage < 97.00)){
-			insightValue = "-3";
+			insightValue = "3";
 			insightNote = "SMA5 is approaching SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage < 98.00)){
-			insightValue = "-2";
+			insightValue = "2";
 			insightNote = "SMA5 is moving close to SMA20";
 			insightRec = "Monitor";
 		}else if ((percentage < 99.00)){
-			insightValue = "-1";
+			insightValue = "1";
 			insightNote = "SMA5 is almost touching SMA20";
 			insightRec = "Analyse";
 		}else if ((percentage <= 100.00)){
@@ -113,25 +113,24 @@ public class InstrumentInsights {
 		int numberOfLines = data.size();
 		
 		//number of lines in the file
-		if (numberOfLines <= 21)//we want to use 20 lines
+		if (numberOfLines < 20)//we want to use 20 lines
 			return i001;
-		
 		//number of lines used from file
-		numberOfLines = 19;//20 lines -> 19 to 0
+		numberOfLines = numberOfLines - 1;//we're gona use this as indexes - 0-19
 		Double percentage = 0.0;
 		BigDecimal SMA5 = null;
 		BigDecimal SMA20 = null;
 		int index = numberOfLines;
-		for (int i = numberOfLines;i >= 0; i-- ){
-			SMA5 = data.get(i).getLongSma5();
-			SMA20 = data.get(i).getBigDecimalSma20();
+		for (int i = 0;i < 20; i++){
+			index = numberOfLines - i;
+			SMA5 = data.get(index).getLongSma5();
+			SMA20 = data.get(index).getBigDecimalSma20();
 			percentage = getPercent(SMA20, SMA5);
 			if ((percentage >= 99.00)&&(percentage < 101.00)){
 				index = i;
-				i = -1;
+				i = 22;
 			}
 		}
-
 
 		String insightValue = "";
 		String insightNote = "";
@@ -162,7 +161,6 @@ public class InstrumentInsights {
 			insightNote = "Last crossover occured between 0 and 3 trading days ago";
 			insightRec = "";
 		}
-		
 		i001.setInstrument(data.get(0).getInstrument());
 		i001.setInsightCode("I001b");
 		i001.setInsightDesc("Last crossover of SMA5 on SMA20");
@@ -170,7 +168,7 @@ public class InstrumentInsights {
 		i001.setInsightValue(insightValue);
 		i001.setInsightNote(insightNote);
 		i001.setInsightRec(insightRec);
-		
+		System.out.println(insightNote); 
 		return i001;
 	}	
 	

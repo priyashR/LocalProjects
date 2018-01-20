@@ -124,11 +124,14 @@ public class AnalyseProcessedData {
 		 
 		Insight i = new Insight();
 		// apply the the rules and create the general insights
+		
+		//how far from turning
 		i = getInsight.I001a(data);
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);
 		System.out.println(i.getInsightValue());
 		
+		// when was the last turning point
 		i = getInsight.I001b(data);
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);			
