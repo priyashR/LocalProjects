@@ -403,6 +403,53 @@ public class InstrumentInsights {
 		
 		return i004;
 	}		
+	
+	// moving average SMA20 turning point
+	public Insight I005(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i005 = new Insight();
+		
+		int thirdIndex = (data.size()-1);
+		
+		
+		if (thirdIndex <= 3)
+			return i005;
+		
+		int secondIndex = thirdIndex - 2;
+		int firstIndex = secondIndex - 2;
+		
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+
+		if (((data.get(thirdIndex).getBigDecimalSma20().compareTo(data.get(secondIndex).getBigDecimalSma20()) == 1)||//greater
+			 (data.get(thirdIndex).getBigDecimalSma20().compareTo(data.get(secondIndex).getBigDecimalSma20()) == 0))//or equal
+	       &&(data.get(secondIndex).getBigDecimalSma20().compareTo(data.get(firstIndex).getBigDecimalSma20()) == -1)){
+			insightValue = "0";
+			insightNote = "SMA20 turned to positive from negative";
+			insightRec = "BUY";
+		}else if (((data.get(thirdIndex).getBigDecimalSma20().compareTo(data.get(secondIndex).getBigDecimalSma20()) == -1)||//less
+				   (data.get(thirdIndex).getBigDecimalSma20().compareTo(data.get(secondIndex).getBigDecimalSma20()) == 0))//or equal
+			     &&(data.get(secondIndex).getBigDecimalSma20().compareTo(data.get(firstIndex).getBigDecimalSma20()) == 1)){
+			insightValue = "5";
+			insightNote = "SMA20 turned to negative from positive";
+			insightRec = "SELL";
+		}else{
+			insightValue = "3";
+			insightNote = "Nothing indicated";
+			insightRec = "N/A";
+		}
+		
+		i005.setInstrument(data.get(thirdIndex).getInstrument());
+		i005.setInsightCode("I002b");
+		i005.setInsightDesc("Actual difference between SMA5 and SMA20");
+		i005.setDate(data.get(thirdIndex).getDate());
+		i005.setInsightValue(insightValue);
+		i005.setInsightNote(insightNote);
+		i005.setInsightRec(insightRec);
+		
+		return i005;
+	}		
 
 
 	

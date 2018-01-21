@@ -166,7 +166,13 @@ public class AnalyseProcessedData {
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);
 		System.out.println(i.getInsightValue());
-												
+
+		// moving average SMA20 turning point
+		i = getInsight.I005(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+		System.out.println(i.getInsightValue());
+		
 		// check if I have this instrument and apply the trending insights
 		
 	}
