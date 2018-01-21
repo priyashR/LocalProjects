@@ -172,6 +172,12 @@ public class AnalyseProcessedData {
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);
 		System.out.println(i.getInsightValue());
+
+		// Three moving averages
+		i = getInsight.I006(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+		System.out.println(i.getInsightValue());
 		
 		// check if I have this instrument and apply the trending insights
 		

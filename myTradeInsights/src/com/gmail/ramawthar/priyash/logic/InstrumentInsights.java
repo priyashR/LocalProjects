@@ -339,8 +339,8 @@ public class InstrumentInsights {
 		insightRec = "N/A";
 		
 		i002d.setInstrument(data.get(0).getInstrument());
-		i002d.setInsightCode("I002c");
-		i002d.setInsightDesc("ROC since the last change");
+		i002d.setInsightCode("I002d");
+		i002d.setInsightDesc("% change since the last turing point");
 		i002d.setDate(data.get(0).getDate());
 		i002d.setInsightValue(insightValue);
 		i002d.setInsightNote(insightNote);
@@ -394,8 +394,8 @@ public class InstrumentInsights {
 		}
 		
 		i004.setInstrument(data.get(lastLine).getInstrument());
-		i004.setInsightCode("I002b");
-		i004.setInsightDesc("Actual difference between SMA5 and SMA20");
+		i004.setInsightCode("I004");
+		i004.setInsightDesc("Highest high or lowest low - 14 days");
 		i004.setDate(data.get(lastLine).getDate());
 		i004.setInsightValue(insightValue);
 		i004.setInsightNote(insightNote);
@@ -441,8 +441,8 @@ public class InstrumentInsights {
 		}
 		
 		i005.setInstrument(data.get(thirdIndex).getInstrument());
-		i005.setInsightCode("I002b");
-		i005.setInsightDesc("Actual difference between SMA5 and SMA20");
+		i005.setInsightCode("I005");
+		i005.setInsightDesc("Moving average SMA20 turning point");
 		i005.setDate(data.get(thirdIndex).getDate());
 		i005.setInsightValue(insightValue);
 		i005.setInsightNote(insightNote);
@@ -450,7 +450,47 @@ public class InstrumentInsights {
 		
 		return i005;
 	}		
+	
+	// Three moving averages
+	public Insight I006(ArrayList<ProcessedInstrumentData> data){
 
+		Insight i006 = new Insight();
+		
+		int lastIndex = (data.size()-1);
+		
+		
+		if (lastIndex < 0)
+			return i006;
+				
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+
+		if ((data.get(lastIndex).getBigDecimalSma10().compareTo(data.get(lastIndex).getBigDecimalSma20()) == 1)&&//greater
+			(data.get(lastIndex).getLongSma5().compareTo(data.get(lastIndex).getBigDecimalSma20()) == 1)){//and greater
+			insightValue = "0";
+			insightNote = "SMA5 and SMA10 are bigger than SMA20";
+			insightRec = "BUY";
+		}else if (data.get(lastIndex).getLongSma5().compareTo(data.get(lastIndex).getBigDecimalSma20()) == -1){//less{
+			insightValue = "5";
+			insightNote = "SMA5 is less than SMA20";
+			insightRec = "SELL";
+		}else{
+			insightValue = "3";
+			insightNote = "Nothing indicated";
+			insightRec = "N/A";
+		}
+		
+		i006.setInstrument(data.get(lastIndex).getInstrument());
+		i006.setInsightCode("I006");
+		i006.setInsightDesc("Three moving averages and turn overs");
+		i006.setDate(data.get(lastIndex).getDate());
+		i006.setInsightValue(insightValue);
+		i006.setInsightNote(insightNote);
+		i006.setInsightRec(insightRec);
+		
+		return i006;
+	}		
 
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
