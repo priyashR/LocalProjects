@@ -388,7 +388,7 @@ public class InstrumentInsights {
 			insightNote = "Closing price lower than the lower low in the last 14 days.";
 			insightRec = "SELL";
 		}else{
-			insightValue = "5";
+			insightValue = "3";
 			insightNote = "Nothing indicated";
 			insightRec = "N/A";
 		}
