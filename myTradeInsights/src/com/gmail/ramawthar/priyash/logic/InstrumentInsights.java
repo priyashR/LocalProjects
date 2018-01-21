@@ -491,7 +491,69 @@ public class InstrumentInsights {
 		
 		return i006;
 	}		
+	
+	// Trends and market sentiment against the trend - also check th ADX to confirm the trend
+	public Insight I007(ArrayList<ProcessedInstrumentData> data){
 
+		Insight i007 = new Insight();
+		
+		int lastIndex = (data.size()-1);
+		
+		if (lastIndex < 5)
+			return i007;
+
+		int indexLessFive = (lastIndex-5);
+				
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		BigDecimal diffFiveDaysAgo = (data.get(indexLessFive).getLongSma5().subtract(data.get(indexLessFive).getBigDecimalSma20())).abs();
+		BigDecimal diffToday = (data.get(lastIndex).getLongSma5().subtract(data.get(lastIndex).getBigDecimalSma20())).abs();
+		
+		boolean withTrend = true;//equal is with trend
+		if (diffFiveDaysAgo.compareTo(diffToday) == 1){
+			withTrend = false;			
+		}else if (diffFiveDaysAgo.compareTo(diffToday) == -1){
+			withTrend = true;
+		}
+
+		if ((data.get(lastIndex).getLongClose() > data.get(indexLessFive).getLongClose())&&
+			(withTrend)){
+			insightValue = "0";
+			insightNote = "Market sentiment is with the trend and its going up";
+			insightRec = "BUY";
+		}else if ((data.get(lastIndex).getLongClose() > data.get(indexLessFive).getLongClose())&&
+				  (!withTrend)){
+			insightValue = "4";
+			insightNote = "Market sentiment is against the trend and its going up";
+			insightRec = "Consider SELL";
+		}else if ((data.get(lastIndex).getLongClose() < data.get(indexLessFive).getLongClose())&&
+				  (withTrend)){
+			insightValue = "5";
+			insightNote = "Market sentiment is with the trend and its going down";
+			insightRec = "SELL";
+		}else if ((data.get(lastIndex).getLongClose() < data.get(indexLessFive).getLongClose())&&
+				  (!withTrend)){
+			insightValue = "2";
+			insightNote = "Market sentiment is against the trend and its going down";
+			insightRec = "Consider BUY";
+		}else{
+			insightValue = "3";
+			insightNote = "Nothing indicated";
+			insightRec = "N/A";
+		}
+		
+		i007.setInstrument(data.get(lastIndex).getInstrument());
+		i007.setInsightCode("I007");
+		i007.setInsightDesc("Trends and market sentiment against the trend - also check th ADX to confirm the trend");
+		i007.setDate(data.get(lastIndex).getDate());
+		i007.setInsightValue(insightValue);
+		i007.setInsightNote(insightNote);
+		i007.setInsightRec(insightRec);
+		
+		return i007;
+	}		
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		
