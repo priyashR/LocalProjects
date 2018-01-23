@@ -186,13 +186,19 @@ public class AnalyseProcessedData {
 		System.out.println(i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
-		// Three moving averages
+		// MACD crossover
 		i = getInsight.I008a(data);
 		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
 			insights.add(i);
 		System.out.println(i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
+		// ration of signal to MACD
+		i = getInsight.I008a(data);
+		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+			insights.add(i);
+		System.out.println(i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
 	}
 	
 	private ArrayList<ProcessedInstrumentData> fetchProcessedData(String instrumentDataPath){
