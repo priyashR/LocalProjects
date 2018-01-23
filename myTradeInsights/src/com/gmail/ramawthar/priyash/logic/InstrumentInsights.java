@@ -44,27 +44,27 @@ public class InstrumentInsights {
 		if ((percentage > 110.00)) {
 			insightValue = "-5";
 			insightNote = "SMA5 is much higher than SMA20";
-			insightRec = "Monitor";
+			insightRec = "HOLD";
 		}else if ((percentage > 105.00)){
 			insightValue = "-4";
 			insightNote = "SMA5 is higher than SMA20";
-			insightRec = "Monitor";
+			insightRec = "HOLD";
 		}else if ((percentage > 103.00)){
 			insightValue = "-3";
 			insightNote = "SMA5 is approaching SMA20";
-			insightRec = "Monitor";
+			insightRec = "HOLD";
 		}else if ((percentage > 102.00)){
 			insightValue = "-2";
 			insightNote = "SMA5 is moving close to SMA20";
-			insightRec = "Monitor";
+			insightRec = "consider SELL";
 		}else if ((percentage > 101.00)){
 			insightValue = "-1";
 			insightNote = "SMA5 is almost touching SMA20";
-			insightRec = "Analyse";
+			insightRec = "SELL";
 		}else if ((percentage >= 100.00)){
 			insightValue = "0";
 			insightNote = "SMA5 is crossing SMA20";
-			insightRec = "Consider BUY or SELL - check the price direction";
+			insightRec = "Consider SELL - check the price direction";
 		}else if ((percentage < 90.00)) {
 			insightValue = "5";
 			insightNote = "SMA5 is much lower than SMA20";
@@ -80,15 +80,15 @@ public class InstrumentInsights {
 		}else if ((percentage < 98.00)){
 			insightValue = "2";
 			insightNote = "SMA5 is moving close to SMA20";
-			insightRec = "Monitor";
+			insightRec = "Consider BUY";
 		}else if ((percentage < 99.00)){
 			insightValue = "1";
 			insightNote = "SMA5 is almost touching SMA20";
-			insightRec = "Analyse";
+			insightRec = "BUY";
 		}else if ((percentage <= 100.00)){
 			insightValue = "0";
 			insightNote = "SMA5 is crossing SMA20";
-			insightRec = "Consider BUY or SELL - check the price direction";
+			insightRec = "Consider BUY - check the price direction";
 		}
 		
 		i001.setInstrument(data.get(lastLine).getInstrument());
@@ -606,6 +606,87 @@ public class InstrumentInsights {
 		
 		return i008a;
 	}	
+	
+	// To check how far from turning point we are using MACD
+	public Insight I008b(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i008b = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		if (numberOfLines <= 0)
+			return i008b;
+		
+		int lastLine = numberOfLines - 1;
+		
+		BigDecimal MACD = data.get(lastLine).getLongMacd();
+		BigDecimal signal = data.get(lastLine).getLongMacdsig();
+
+		Double percentage = getPercent(signal, MACD);
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		if ((percentage > 110.00)) {
+			insightValue = "-5";
+			insightNote = "MACD is much higher than the signal - should be bullish";
+			insightRec = "HOLD";
+		}else if ((percentage > 105.00)){
+			insightValue = "-4";
+			insightNote = "MACD is higher than the signal - should be bullish";
+			insightRec = "HOLD";
+		}else if ((percentage > 103.00)){
+			insightValue = "-3";
+			insightNote = "MACD is approaching signal - should be bullish";
+			insightRec = "HOLD";
+		}else if ((percentage > 102.00)){
+			insightValue = "-2";
+			insightNote = "MACD is moving close to signal - possible end to bullish, moving to bearish";
+			insightRec = "Consider SELL";
+		}else if ((percentage > 101.00)){
+			insightValue = "-1";
+			insightNote = "MACD is almost touching signal - possible end to bullish, moving to bearish";
+			insightRec = "SELL";
+		}else if ((percentage >= 100.00)){
+			insightValue = "0";
+			insightNote = "MACD is crossing signal";
+			insightRec = "Consider SELL - check the price direction";
+		}else if ((percentage < 90.00)) {
+			insightValue = "5";
+			insightNote = "MACD is much lower than signal - should be bearish";
+			insightRec = "Monitor";
+		}else if ((percentage < 95.00)){
+			insightValue = "4";
+			insightNote = "MACD is lower than signal - should be bearish";
+			insightRec = "Monitor";
+		}else if ((percentage < 97.00)){
+			insightValue = "3";
+			insightNote = "MACD is approaching signal - should be bearish";
+			insightRec = "Monitor";
+		}else if ((percentage < 98.00)){
+			insightValue = "2";
+			insightNote = "MACD is moving close to signal - possible end to bearish, moving to bullish";
+			insightRec = "Consider BUY";
+		}else if ((percentage < 99.00)){
+			insightValue = "1";
+			insightNote = "MACD is almost touching signal - possible end to bearish, moving to bullish";
+			insightRec = "BUY";
+		}else if ((percentage <= 100.00)){
+			insightValue = "0";
+			insightNote = "MACD is crossing signal";
+			insightRec = "Consider BUY - check the price direction";
+		}
+		
+		i008b.setInstrument(data.get(lastLine).getInstrument());
+		i008b.setInsightCode("I008b");
+		i008b.setInsightDesc("MACD crossover signal");
+		i008b.setDate(data.get(lastLine).getDate());
+		i008b.setInsightValue(insightValue);
+		i008b.setInsightNote(insightNote);
+		i008b.setInsightRec(insightRec);
+		
+		return i008b;
+	}
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		
