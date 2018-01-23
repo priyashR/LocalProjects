@@ -553,7 +553,59 @@ public class InstrumentInsights {
 		i007.setInsightRec(insightRec);
 		
 		return i007;
-	}		
+	}	
+	
+	// MACD crossover signal
+	public Insight I008a(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i008a = new Insight();
+		
+		int lastIndex = data.size();
+		
+		if (lastIndex < 5)
+			return i008a;
+		
+		lastIndex = lastIndex - 1;
+		int secondLastIndex = lastIndex - 1;
+				
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		Double percentage = getPercent(data.get(lastIndex).getLongMacdsig(),data.get(lastIndex).getLongMacd());
+		Double prevPercentage = getPercent(data.get(secondLastIndex).getLongMacdsig(),data.get(secondLastIndex).getLongMacd());
+		
+		if ((percentage > 96)&&(percentage < 104)){
+			if (prevPercentage < 100){
+				insightValue = "0";
+				insightNote = "MACD touching the siganl line with the previous day being less than the signal";
+				insightRec = "BUY";
+			}else if (prevPercentage > 100){
+				insightValue = "5";
+				insightNote = "MACD touching the siganl line with the previous day being more than the signal";
+				insightRec = "SELL";
+			}else if (prevPercentage == 100){
+				insightValue = "-3";
+				insightNote = "MACD touching the siganl line with the previous day being equal to the signal";
+				insightRec = "Unknown";
+			}
+		}
+		else{
+			insightValue = "3";
+			insightNote = "Nothing indicated";
+			insightRec = "N/A";
+		}
+		
+		i008a.setInstrument(data.get(lastIndex).getInstrument());
+		i008a.setInsightCode("I008a");
+		i008a.setInsightDesc("MACD crossover signal");
+		i008a.setDate(data.get(lastIndex).getDate());
+		i008a.setInsightValue(insightValue);
+		i008a.setInsightNote(insightNote);
+		i008a.setInsightRec(insightRec);
+		
+		return i008a;
+	}	
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		
