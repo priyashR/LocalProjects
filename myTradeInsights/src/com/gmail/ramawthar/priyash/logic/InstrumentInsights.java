@@ -689,18 +689,27 @@ public class InstrumentInsights {
 	}
 	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
+		if (val1.compareTo(new BigDecimal(0)) == 0){
+			return Math.round(0 * 100D) / 100D;
+		}
 		
 		Double percent = (val2.divide(val1,4,RoundingMode.HALF_UP)).doubleValue()*100;
 		return Math.round(percent * 100D) / 100D;
 	}
 
 	public Double getPercent(Long val1, BigDecimal val2){
+		if (val1 == 0){
+			return Math.round(0 * 100D) / 100D;
+		}
 		BigDecimal bigVal1 = new BigDecimal(val1);
 		Double percent = (val2.divide(bigVal1,4,RoundingMode.HALF_UP)).doubleValue()*100;
 		return Math.round(percent * 100D) / 100D;
 	}
 
 	public Double getPercent(Long val1, Long val2){
+		if (val1 == 0){
+			return Math.round(0 * 100D) / 100D;
+		}
 		BigDecimal bigVal1 = new BigDecimal(val1);
 		BigDecimal bigVal2 = new BigDecimal(val2);
 		Double percent = (bigVal2.divide(bigVal1,4,RoundingMode.HALF_UP)).doubleValue()*100;

@@ -119,7 +119,8 @@ public class AnalyseProcessedData {
 			//Double d2 = getInsight.getPercent(data.get(i).getLongClose(), data.get(i).getBigDecimalSma20());
 			//System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+d1 +" : "+d2+" : "+(d1-d2));
 			Double d1 = getInsight.getPercent(data.get(i).getBigDecimalSma20(), data.get(i).getLongSma5() );
-			System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+data.get(i).getLongSma5() +" : "+data.get(i).getBigDecimalSma20()+" : "+b+" : "+d1);
+			//System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+data.get(i).getLongSma5() +" : "+data.get(i).getBigDecimalSma20()+" : "+b+" : "+d1);
+			System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+data.get(i).getLongMacd() +" : "+data.get(i).getLongMacdsig());
 		}
 		 
 		Insight i = new Insight();
