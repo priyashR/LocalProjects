@@ -555,7 +555,7 @@ public class InstrumentInsights {
 		return i007;
 	}	
 	
-	// MACD crossover signal
+	// MACD crossover signal --- INCORRECT - need to fix
 	public Insight I008a(ArrayList<ProcessedInstrumentData> data){
 
 		Insight i008a = new Insight();
@@ -607,7 +607,7 @@ public class InstrumentInsights {
 		return i008a;
 	}	
 	
-	// To check how far from turning point we are using MACD
+	// To check how far from turning point we are using MACD --- INCORRECT - need to fix
 	public Insight I008b(ArrayList<ProcessedInstrumentData> data){
 
 		Insight i008b = new Insight();
