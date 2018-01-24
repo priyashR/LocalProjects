@@ -10,7 +10,7 @@ public class MyTradeInsightsApplication {
 		//setup test files
 		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
 		sd.readMetaData("priyash", "priyashteststart");
-		sd.createTestData("\"05-Jan-18\"");
+		sd.createTestData("\"20-Dec-17\"");
 		
 		
 //		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
