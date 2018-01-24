@@ -201,12 +201,41 @@ public class AnalyseProcessedData {
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
-		// MACD
+		// MACD state and movement
 		i = getInsight.I008c(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
+		
+		// signal state and movement
+		i = getInsight.I008d(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+
+		// Check if the MACD and signal are positive
+		i = getInsight.I008e(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+
+		// Check the RSI
+		i = getInsight.I009(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+
+		// Check the ADX
+		i = getInsight.I010(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+		
 	}
 	
 	private ArrayList<ProcessedInstrumentData> fetchProcessedData(String instrumentDataPath){

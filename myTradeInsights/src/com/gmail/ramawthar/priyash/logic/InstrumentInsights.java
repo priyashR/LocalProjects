@@ -661,7 +661,7 @@ public class InstrumentInsights {
 		
 		return i008b;
 	}	
-	// MACD crossover signal - works best of both positive or negative
+	// MACD movement and state
 	public Insight I008c(ArrayList<ProcessedInstrumentData> data){
 
 		Insight i008c = new Insight();
@@ -702,8 +702,8 @@ public class InstrumentInsights {
 		}
 		
 		i008c.setInstrument(data.get(lastIndex).getInstrument());
-		i008c.setInsightCode("I008b");
-		i008c.setInsightDesc("MACD crossover signal");
+		i008c.setInsightCode("I008c");
+		i008c.setInsightDesc("MACD movement and state");
 		i008c.setDate(data.get(lastIndex).getDate());
 		i008c.setInsightValue(insightValue);
 		i008c.setInsightNote(insightNote);
@@ -711,6 +711,175 @@ public class InstrumentInsights {
 		
 		return i008c;
 	}	
+	// Signal movement and state
+		public Insight I008d(ArrayList<ProcessedInstrumentData> data){
+
+			Insight i008d = new Insight();
+			
+			int lastIndex = data.size();
+			
+			if (lastIndex < 5)
+				return i008d;
+			
+			lastIndex = lastIndex - 1;
+			int secondLastIndex = lastIndex - 2;
+					
+			String insightValue = "";
+			String insightNote = "";
+			String insightRec = "";
+			
+			
+			if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
+			  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
+				insightValue = "999";
+				insightNote = "Signal is positive and went up from before";
+				insightRec = "N/A";
+			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
+					  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
+				insightValue = "999";
+				insightNote = "Signal is positive but went down from before";
+				insightRec = "N/A";
+			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == -1)
+					  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
+				insightValue = "999";
+				insightNote = "Signal is negative but went up from before";
+				insightRec = "N/A";
+			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == -1)
+					  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
+				insightValue = "999";
+				insightNote = "Signal is negative and went down from before";
+				insightRec = "N/A";
+			}
+			
+			i008d.setInstrument(data.get(lastIndex).getInstrument());
+			i008d.setInsightCode("I008d");
+			i008d.setInsightDesc("Signal movement and state");
+			i008d.setDate(data.get(lastIndex).getDate());
+			i008d.setInsightValue(insightValue);
+			i008d.setInsightNote(insightNote);
+			i008d.setInsightRec(insightRec);
+			
+			return i008d;
+		}
+		
+		// Check if the MACD and signal are positive
+		public Insight I008e(ArrayList<ProcessedInstrumentData> data){
+
+			Insight i008e = new Insight();
+			
+			int lastIndex = data.size();
+			
+			if (lastIndex < 5)
+				return i008e;
+			
+			lastIndex = lastIndex - 1;
+					
+			String insightValue = "";
+			String insightNote = "";
+			String insightRec = "";
+			
+			
+			if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
+			  &&(data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
+			  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 1)){
+				insightValue = "0";
+				insightNote = "MACD and Signal are positive and MACD is higher";
+				insightRec = "N/A";
+			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
+					  &&(data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
+					  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == -1)){
+				insightValue = "0";
+				insightNote = "MACD and Signal are positive but MACD is lower";
+				insightRec = "N/A";
+			} 
+			
+			i008e.setInstrument(data.get(lastIndex).getInstrument());
+			i008e.setInsightCode("I008e");
+			i008e.setInsightDesc("Signal and MACD positive check");
+			i008e.setDate(data.get(lastIndex).getDate());
+			i008e.setInsightValue(insightValue);
+			i008e.setInsightNote(insightNote);
+			i008e.setInsightRec(insightRec);
+			
+			return i008e;
+		}	
+
+		// Check the RSI
+		public Insight I009(ArrayList<ProcessedInstrumentData> data){
+
+			Insight i009 = new Insight();
+			
+			int lastIndex = data.size();
+			
+			if (lastIndex < 5)
+				return i009;
+			
+			lastIndex = lastIndex - 1;
+					
+			String insightValue = "";
+			String insightNote = "";
+			String insightRec = "";
+			
+			
+			if (data.get(lastIndex).getLongRsi14().compareTo(new BigDecimal(70)) == 1){
+				insightValue = "5";
+				insightNote = "RSI indicates overbaught";
+				insightRec = "Consider SELL";
+			} else if (data.get(lastIndex).getLongRsi14().compareTo(new BigDecimal(30)) == -1){
+				insightValue = "0";
+				insightNote = "RSI indicates oversold";
+				insightRec = "Consider BUY";
+			} 
+			
+			i009.setInstrument(data.get(lastIndex).getInstrument());
+			i009.setInsightCode("I009");
+			i009.setInsightDesc("RSI evaluation");
+			i009.setDate(data.get(lastIndex).getDate());
+			i009.setInsightValue(insightValue);
+			i009.setInsightNote(insightNote);
+			i009.setInsightRec(insightRec);
+			
+			return i009;
+		}	
+		
+		// Check the ADX
+		public Insight I010(ArrayList<ProcessedInstrumentData> data){
+
+			Insight i010 = new Insight();
+			
+			int lastIndex = data.size();
+			
+			if (lastIndex < 5)
+				return i010;
+			
+			lastIndex = lastIndex - 1;
+					
+			String insightValue = "";
+			String insightNote = "";
+			String insightRec = "";
+			
+			
+			if (data.get(lastIndex).getBigAdx().compareTo(new BigDecimal(25)) == 1){
+				insightValue = "0";
+				insightNote = "ADX indicates currently in trend";
+				insightRec = "N/A";
+			} else if (data.get(lastIndex).getLongRsi14().compareTo(new BigDecimal(30)) == -1){
+				insightValue = "5";
+				insightNote = "ADX indicates currently no trend";
+				insightRec = "N/A";
+			} 
+			
+			i010.setInstrument(data.get(lastIndex).getInstrument());
+			i010.setInsightCode("I010");
+			i010.setInsightDesc("ADX trend evaluation");
+			i010.setDate(data.get(lastIndex).getDate());
+			i010.setInsightValue(insightValue);
+			i010.setInsightNote(insightNote);
+			i010.setInsightRec(insightRec);
+			
+			return i010;
+		}	
+		
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		if (val1.compareTo(new BigDecimal(0)) == 0){
 			return Math.round(0 * 100D) / 100D;
