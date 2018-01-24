@@ -128,77 +128,84 @@ public class AnalyseProcessedData {
 		
 		//how far from turning
 		i = getInsight.I001a(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 		
 		// when was the last turning point
 		i = getInsight.I001b(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);			
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		//Percentage difference between SMA5 and SMA20
 		i = getInsight.I002a(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Actual difference between SMA5 and SMA20
 		i = getInsight.I002b(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// ROC since the last turning point
 		i = getInsight.I002c(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// % change since the last turning point
 		i = getInsight.I002d(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// % highest high / lowest low check
 		i = getInsight.I004(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// moving average SMA20 turning point
 		i = getInsight.I005(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Three moving averages
 		i = getInsight.I006(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Three moving averages
 		i = getInsight.I007(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());		
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// MACD crossover
 		i = getInsight.I008a(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());		
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
-		// ration of signal to MACD
-		i = getInsight.I008a(data);
-		if (!(i.getInsightCode().equalsIgnoreCase("NONE")))
+		// MACD
+		i = getInsight.I008b(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightValue());		
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+		
+		// MACD
+		i = getInsight.I008c(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 	}
 	

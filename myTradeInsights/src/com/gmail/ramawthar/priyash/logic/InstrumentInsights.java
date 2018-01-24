@@ -3,7 +3,11 @@ package com.gmail.ramawthar.priyash.logic;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-
+/*
+ * Need to make messages more  consistent
+ * Need to remove and insights of now value - ie. if it's not applicable or no data, etc.
+ * Need to make the insight value more meaningful
+ */
 public class InstrumentInsights {
 	
 	//Insights:
@@ -555,7 +559,7 @@ public class InstrumentInsights {
 		return i007;
 	}	
 	
-	// MACD crossover signal --- INCORRECT - need to fix
+	// MACD crossover signal - works best of both positive or negative
 	public Insight I008a(ArrayList<ProcessedInstrumentData> data){
 
 		Insight i008a = new Insight();
@@ -578,20 +582,20 @@ public class InstrumentInsights {
 		if ((percentage > 96)&&(percentage < 104)){
 			if (prevPercentage < 100){
 				insightValue = "0";
-				insightNote = "MACD touching the siganl line with the previous day being less than the signal";
-				insightRec = "BUY";
+				insightNote = "MACD touching the siganl line with the previous day being less than the signal, consider buying if both MACD and signal are positive";
+				insightRec = "Consider BUY";
 			}else if (prevPercentage > 100){
 				insightValue = "5";
-				insightNote = "MACD touching the siganl line with the previous day being more than the signal";
+				insightNote = "MACD touching the siganl line with the previous day being more than the signal, consider selling";
 				insightRec = "SELL";
-			}else if (prevPercentage == 100){
-				insightValue = "-3";
-				insightNote = "MACD touching the siganl line with the previous day being equal to the signal";
+			}else {
+				insightValue = "3";
+				insightNote = "MACD touching the siganl line with the previous day being equal or very close to the signal";
 				insightRec = "Unknown";
 			}
 		}
 		else{
-			insightValue = "3";
+			insightValue = "-3";
 			insightNote = "Nothing indicated";
 			insightRec = "N/A";
 		}
@@ -607,87 +611,106 @@ public class InstrumentInsights {
 		return i008a;
 	}	
 	
-	// To check how far from turning point we are using MACD --- INCORRECT - need to fix
+	// MACD crossover signal - works best of both positive or negative
 	public Insight I008b(ArrayList<ProcessedInstrumentData> data){
 
 		Insight i008b = new Insight();
 		
-		int numberOfLines = data.size();
+		int lastIndex = data.size();
 		
-		if (numberOfLines <= 0)
+		if (lastIndex < 5)
 			return i008b;
 		
-		int lastLine = numberOfLines - 1;
-		
-		BigDecimal MACD = data.get(lastLine).getLongMacd();
-		BigDecimal signal = data.get(lastLine).getLongMacdsig();
-
-		Double percentage = getPercent(signal, MACD);
+		lastIndex = lastIndex - 1;
+		int secondLastIndex = lastIndex - 2;
+				
 		String insightValue = "";
 		String insightNote = "";
 		String insightRec = "";
 		
-		if ((percentage > 110.00)) {
-			insightValue = "-5";
-			insightNote = "MACD is much higher than the signal - should be bullish";
-			insightRec = "HOLD";
-		}else if ((percentage > 105.00)){
-			insightValue = "-4";
-			insightNote = "MACD is higher than the signal - should be bullish";
-			insightRec = "HOLD";
-		}else if ((percentage > 103.00)){
-			insightValue = "-3";
-			insightNote = "MACD is approaching signal - should be bullish";
-			insightRec = "HOLD";
-		}else if ((percentage > 102.00)){
-			insightValue = "-2";
-			insightNote = "MACD is moving close to signal - possible end to bullish, moving to bearish";
-			insightRec = "Consider SELL";
-		}else if ((percentage > 101.00)){
-			insightValue = "-1";
-			insightNote = "MACD is almost touching signal - possible end to bullish, moving to bearish";
-			insightRec = "SELL";
-		}else if ((percentage >= 100.00)){
+		
+		if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 0)
+		  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
 			insightValue = "0";
-			insightNote = "MACD is crossing signal";
-			insightRec = "Consider SELL - check the price direction";
-		}else if ((percentage < 90.00)) {
-			insightValue = "5";
-			insightNote = "MACD is much lower than signal - should be bearish";
-			insightRec = "Monitor";
-		}else if ((percentage < 95.00)){
-			insightValue = "4";
-			insightNote = "MACD is lower than signal - should be bearish";
-			insightRec = "Monitor";
-		}else if ((percentage < 97.00)){
-			insightValue = "3";
-			insightNote = "MACD is approaching signal - should be bearish";
-			insightRec = "Monitor";
-		}else if ((percentage < 98.00)){
-			insightValue = "2";
-			insightNote = "MACD is moving close to signal - possible end to bearish, moving to bullish";
+			insightNote = "MACD touching the siganl line with previously being less than the signal, consider buying";
 			insightRec = "Consider BUY";
-		}else if ((percentage < 99.00)){
-			insightValue = "1";
-			insightNote = "MACD is almost touching signal - possible end to bearish, moving to bullish";
-			insightRec = "BUY";
-		}else if ((percentage <= 100.00)){
+		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 0)
+				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
+			insightValue = "5";
+			insightNote = "MACD touching the siganl line with previously being more than the signal, consider selling";
+			insightRec = "SELL";
+		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 1)
+				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
 			insightValue = "0";
-			insightNote = "MACD is crossing signal";
-			insightRec = "Consider BUY - check the price direction";
+			insightNote = "MACD crossed the siganl line with previously being less than the signal, consider buying";
+			insightRec = "Consider BUY";
+		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == -1)
+				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
+			insightValue = "0";
+			insightNote = "MACD crossed the siganl line with previously being more than the signal, consider selling";
+			insightRec = "Consider BUY";
 		}
 		
-		i008b.setInstrument(data.get(lastLine).getInstrument());
+		i008b.setInstrument(data.get(lastIndex).getInstrument());
 		i008b.setInsightCode("I008b");
 		i008b.setInsightDesc("MACD crossover signal");
-		i008b.setDate(data.get(lastLine).getDate());
+		i008b.setDate(data.get(lastIndex).getDate());
 		i008b.setInsightValue(insightValue);
 		i008b.setInsightNote(insightNote);
 		i008b.setInsightRec(insightRec);
 		
 		return i008b;
-	}
-	
+	}	
+	// MACD crossover signal - works best of both positive or negative
+	public Insight I008c(ArrayList<ProcessedInstrumentData> data){
+
+		Insight i008c = new Insight();
+		
+		int lastIndex = data.size();
+		
+		if (lastIndex < 5)
+			return i008c;
+		
+		lastIndex = lastIndex - 1;
+		int secondLastIndex = lastIndex - 2;
+				
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		
+		if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
+		  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == 1)){
+			insightValue = "999";
+			insightNote = "MACD is positive and went up from before";
+			insightRec = "N/A";
+		} else if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
+				  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == -1)){
+			insightValue = "999";
+			insightNote = "MACD is positive but went down from before";
+			insightRec = "N/A";
+		} else if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == -1)
+				  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == 1)){
+			insightValue = "999";
+			insightNote = "MACD is negative but went up from before";
+			insightRec = "N/A";
+		} else if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == -1)
+				  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == -1)){
+			insightValue = "999";
+			insightNote = "MACD is negative and went down from before";
+			insightRec = "N/A";
+		}
+		
+		i008c.setInstrument(data.get(lastIndex).getInstrument());
+		i008c.setInsightCode("I008b");
+		i008c.setInsightDesc("MACD crossover signal");
+		i008c.setDate(data.get(lastIndex).getDate());
+		i008c.setInsightValue(insightValue);
+		i008c.setInsightNote(insightNote);
+		i008c.setInsightRec(insightRec);
+		
+		return i008c;
+	}	
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		if (val1.compareTo(new BigDecimal(0)) == 0){
 			return Math.round(0 * 100D) / 100D;
