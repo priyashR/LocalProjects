@@ -19,6 +19,9 @@ public class AnalyseProcessedData {
 	
 
 	private String metaInstFile = "";
+	private String metaInsightFile = "";
+	private String InsightFilePath = "";
+	private String instance = "";
 	private ArrayList<InstrumentMetaData> instrumentData = new ArrayList<InstrumentMetaData>();
 	private ReturnClass rc = new ReturnClass("Init");
 	
@@ -27,8 +30,9 @@ public class AnalyseProcessedData {
 	private InstrumentInsights getInsight = new InstrumentInsights();
 	
 	
-	public AnalyseProcessedData(String metaFile){
+	public AnalyseProcessedData(String metaFile, String metaInsightFile){
 		this.metaInstFile = metaFile;
+		this.metaInsightFile = metaInsightFile;
 	}
 	
 	/*
@@ -37,6 +41,8 @@ public class AnalyseProcessedData {
 	
 	public ReturnClass readMetaData(String instance){
 		//read instrument data
+		
+		this.instance = instance;
 		File instrumentFile = new File(metaInstFile);
         try (BufferedReader b = new BufferedReader(new FileReader(instrumentFile))){
         	
@@ -46,7 +52,7 @@ public class AnalyseProcessedData {
             String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
-                processFileLine(readLine, instance);
+                processFileLine(readLine);
             }
             b.close();
         } catch (Exception e) {
@@ -54,11 +60,35 @@ public class AnalyseProcessedData {
         	rc.setStatus("Error");
         	rc.setDescription(e.getMessage());
             e.printStackTrace();
-        }		
+        }	
+        
+        //read insight path data
+		File insightFile = new File(metaInsightFile);
+        try (BufferedReader b = new BufferedReader(new FileReader(insightFile))){
+        	
+            String readLine = "";
+            String token = "";
+            while ((readLine = b.readLine()) != null) {
+        		StringTokenizer defaultTokenizer = new StringTokenizer(readLine,"<*>");
+	        		while (defaultTokenizer.hasMoreTokens()){
+	        			token = defaultTokenizer.nextToken();
+	        		}
+    		}
+            b.close(); 
+            InsightFilePath = token;
+        if (!(instance.equalsIgnoreCase("priyash.ramawthar")))
+        	InsightFilePath = token.replace("priyash.ramawthar", "priyash");//+"test\\"+instance;  
+        
+        } catch (Exception e) {
+        	rc.addLog("Error processing the file: "+e.getMessage());
+        	rc.setStatus("Error");
+        	rc.setDescription(e.getMessage());
+            e.printStackTrace();
+        }	
 		return rc;
 	}
 	
-	private ReturnClass processFileLine(String line, String instance){
+	private ReturnClass processFileLine(String line){
 
 		String token = "";
         int pos = 0;
@@ -98,17 +128,18 @@ public class AnalyseProcessedData {
 
 		for (int i = 0; i < instrumentData.size(); i++) {
 
+			insights = new ArrayList<Insight>();
 			System.out.println(instrumentData.get(i).getOutFile());
 			analyzeProcessedData(fetchProcessedData(instrumentData.get(i).getOutFile()));
+			
+			//write out to file
+			writeInsightToFile();
 			
 		}
 		return rc;
 	}
 	
 	private void analyzeProcessedData(ArrayList<ProcessedInstrumentData> data){
-		
-		
-		
 
 		int numberOfLines = data.size() - 10;
 		for (int i = numberOfLines;i < data.size(); i++ ){
@@ -233,7 +264,7 @@ public class AnalyseProcessedData {
 		i = getInsight.I010(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
 	}
@@ -336,12 +367,61 @@ public class AnalyseProcessedData {
 	}
 	
 	private String getInstrumentName(String instrumentPath){
-		
+		//System.out.println("instrumentPath: "+instrumentPath);
 		String instrumentName = instrumentPath;
-		if(instrumentPath.lastIndexOf("priyash.ramawthar") >= 0){
-			instrumentName = instrumentPath.replace("priyash.ramawthar", "priyash");
+		if(!(instance.equalsIgnoreCase("priyash.ramawthar"))){
+			instrumentName = instrumentPath.replace(instance, "priyash.ramawthar");
+		}
+		//System.out.println("instrumentPath: "+instrumentPath);
+		//System.out.println("instrumentName: "+instrumentName);
+		
+		return instrumentName.substring(68, instrumentPath.indexOf("_proc.txt"));
+	}
+	
+	private void writeInsightToFile(){
+		
+		if (insights.size() <= 0){
+			return; // nothing to write
+		}
+
+        
+		ArrayList<String> linesOut = new ArrayList<String>();
+		String fileName = insights.get(0).getInstrument()+"_"+insights.get(0).getDate().replaceAll("\"", "");
+		System.out.println("fileName: "+fileName);
+		String filePath = InsightFilePath+fileName;
+		System.out.println("filePath: "+filePath);
+		Path path = Paths.get(filePath);
+		
+		String line = "";
+		
+		/*
+		 * 	x	this.instrument = instrument;
+			x	this.insightCode = insightCode;
+			x	this.insightDesc = insightDesc;
+			x	this.date = date;
+				this.insightValue = insightValue;
+				this.insightNote = insightNote;
+				this.insightRec = insightRec;
+		 */
+		for (int i = 0; i < insights.size(); i++){
+			line = insights.get(i).getInstrument()+","+
+				   insights.get(i).getDate()+","+
+				   insights.get(i).getInsightCode()+","+
+				   insights.get(i).getInsightDesc()+","+
+				   insights.get(i).getInsightValue()+","+
+				   insights.get(i).getInsightNote()+","+
+				   insights.get(i).getInsightRec()+",";
+			linesOut.add(line);
 		}
 		
-		return instrumentName.substring(58, instrumentPath.indexOf("_proc.txt"));
+		
+		try {
+			System.out.println(path);
+		//	Files.write(path, linesOut);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+		}
+		
 	}
 }

@@ -5,10 +5,12 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 /*
  * Need to make messages more  consistent
- * Need to remove and insights of now value - ie. if it's not applicable or no data, etc.
+ * Need to remove the insights of no value - ie. if it's not applicable or no data, etc.
  * Need to make the insight value more meaningful
  * 
  * NEED TO fix the last data batch!!! see the metadata file and output files
+ * 
+ * USE Qlik sense to visualize when testing the insights
  */
 public class InstrumentInsights {
 	
