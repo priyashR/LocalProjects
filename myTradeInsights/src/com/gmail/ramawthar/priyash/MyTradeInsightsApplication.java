@@ -24,7 +24,7 @@ public class MyTradeInsightsApplication {
 		/*
 		 * for production:
 		 */
-//		ad.readMetaData("priyash");
+		//ad.readMetaData("priyash");
 		/*
 		 * for test start date to create insights and predications:
 		 */

@@ -375,7 +375,7 @@ public class AnalyseProcessedData {
 		//System.out.println("instrumentPath: "+instrumentPath);
 		//System.out.println("instrumentName: "+instrumentName);
 		
-		return instrumentName.substring(68, instrumentPath.indexOf("_proc.txt"));
+		return instrumentName.substring(68, instrumentName.indexOf("_proc.txt"));
 	}
 	
 	private void writeInsightToFile(){
