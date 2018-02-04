@@ -266,6 +266,27 @@ public class AnalyseProcessedData {
 			insights.add(i);
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
+
+		// Percentage change since two days ago
+		i = getInsight.V001_2(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+
+		// Percentage change since two days ago
+		i = getInsight.V001_5(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
+
+		// Percentage change since two days ago
+		i = getInsight.V001_10(data);
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
+		// check if I have this instrument and apply the trending insights
 		
 	}
 	

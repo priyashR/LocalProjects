@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * Need to remove the insights of no value - ie. if it's not applicable or no data, etc.
  * Need to make the insight value more meaningful
  * 
- * NEED TO fix the last data batch!!! see the metadata file and output files
  * 
  * USE Qlik sense to visualize when testing the insights
  */
@@ -883,6 +882,49 @@ public class InstrumentInsights {
 			
 			return i010;
 		}	
+		
+		// Check the percentage change from 2 days ago
+		public Insight V001_2(ArrayList<ProcessedInstrumentData> data){
+			
+			return percDiff(data,2);
+		}	
+
+		// Check the percentage change from 5 days ago
+		public Insight V001_5(ArrayList<ProcessedInstrumentData> data){
+			
+			return percDiff(data,5);
+		}	
+
+		// Check the percentage change from 10 days ago
+		public Insight V001_10(ArrayList<ProcessedInstrumentData> data){
+			
+			return percDiff(data,10);
+		}	
+		
+		// Check the percentage difference
+		private Insight percDiff(ArrayList<ProcessedInstrumentData> data, int days){
+
+			Insight v001 = new Insight();
+			
+			int lastIndex = data.size();
+			
+			if (lastIndex < 5)
+				return v001;
+			
+			lastIndex = lastIndex - 1;
+					
+			Double percChange = getPercent(data.get(lastIndex-days).getLongClose(),data.get(lastIndex).getLongClose());
+			
+			v001.setInstrument(data.get(lastIndex).getInstrument());
+			v001.setInsightCode("V001_"+days);
+			v001.setInsightDesc("Percentage change since "+days+" days ago");
+			v001.setDate(data.get(lastIndex).getDate());
+			v001.setInsightValue(percChange.toString());
+			v001.setInsightNote("Percentage change since "+days+" days ago");
+			v001.setInsightRec("N/A");
+			
+			return v001;
+		}
 		
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		if (val1.compareTo(new BigDecimal(0)) == 0){
