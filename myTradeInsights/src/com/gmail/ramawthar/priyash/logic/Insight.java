@@ -2,16 +2,17 @@ package com.gmail.ramawthar.priyash.logic;
 
 public class Insight {
 	
-	private String instrument = ""; 	// ADI
-	private String insightCode = ""; 	// I001a
-	private String insightDesc = ""; 	// SMA5 crossover SMA20
+	private String instrument = ""; 	// ADI or General
+	private String insightCode = ""; 	// I001a, V001, K001
+	private String insightDesc = ""; 	// SMA5 crossover SMA20, Highest climber for the last x days, etc.
 	private String date = ""; 			// "29-Dec-17"
-	private String insightValue = ""; 	// 0 -> can be between 5 and 0, 5 is far from the event 0 is the event 
+	private String insightValue = ""; 	// 0 -> can be between 5 and 0, 5 is far from the event 0 is the event, ADI
 	private String insightNote = "";	// Crossover reached
-	private String insightRec = ""; 	// Possibly BUY/SELL - check the price direction
+	private String insightRec = ""; 	// Possibly BUY/SELL - check the price direction, N/A
+	private String insightType = ""; 	// I = individual insight, V = value insight per instrument, K = key-pair, for the set of instruments
 	
 	public Insight(String instrument, String insightCode, String insightDesc, String date, String insightValue,
-			String insightNote, String insightRec) {
+			String insightNote, String insightRec, String insightType) {
 		super();
 		this.instrument = instrument;
 		this.insightCode = insightCode;
@@ -20,6 +21,8 @@ public class Insight {
 		this.insightValue = insightValue;
 		this.insightNote = insightNote;
 		this.insightRec = insightRec;
+		this.insightType = insightType;
+		
 	}
 
 	public Insight() {
@@ -80,6 +83,14 @@ public class Insight {
 
 	public void setInsightRec(String insightRec) {
 		this.insightRec = insightRec;
+	}
+
+	public String getInsightType() {
+		return insightType;
+	}
+
+	public void setInsightType(String insightType) {
+		this.insightType = insightType;
 	}
 	
 	

@@ -170,25 +170,25 @@ public class AnalyseProcessedData {
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		//Percentage difference between SMA5 and SMA20
-		i = getInsight.I002a(data);
+		i = getInsight.V002a(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Actual difference between SMA5 and SMA20
-		i = getInsight.I002b(data);
+		i = getInsight.V002b(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// ROC since the last turning point
-		i = getInsight.I002c(data);
+		i = getInsight.V002c(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// % change since the last turning point
-		i = getInsight.I002d(data);
+		i = getInsight.V002d(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
@@ -233,14 +233,14 @@ public class AnalyseProcessedData {
 		// check if I have this instrument and apply the trending insights
 		
 		// MACD state and movement
-		i = getInsight.I008c(data);
+		i = getInsight.V008c(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
 		// signal state and movement
-		i = getInsight.I008d(data);
+		i = getInsight.V008d(data);
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
@@ -438,7 +438,7 @@ public class AnalyseProcessedData {
 		
 		try {
 			System.out.println(path);
-		//	Files.write(path, linesOut);
+			Files.write(path, linesOut);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();	

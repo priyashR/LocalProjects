@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 /*
- * Need to make messages more  consistent
+ * New rules:
+ * 0 means take action(BUY or SELL), 5 means no action(HOLD)
  * Need to remove the insights of no value - ie. if it's not applicable or no data, etc.
  * Need to make the insight value more meaningful
  * 
@@ -37,11 +38,11 @@ public class InstrumentInsights {
 		 * 		>102 then insightValue =2 
 		 * 		>101 then insightValue =1 
 		 * 		<= 100 or >100 then insightValue =0 
-		 * 		< 90 then insightValue =-5 
-		 * 		< 95 then insightValue =-4 
-		 * 		< 97 then insightValue =-3 
-		 * 		< 98 then insightValue =-2 
-		 * 		< 99 then insightValue =-1 
+		 * 		< 90 then insightValue =5 
+		 * 		< 95 then insightValue =4 
+		 * 		< 97 then insightValue =3 
+		 * 		< 98 then insightValue =2 
+		 * 		< 99 then insightValue =1 
 		 */
 		Double percentage = getPercent(SMA20, SMA5);
 		String insightValue = "";
@@ -49,45 +50,45 @@ public class InstrumentInsights {
 		String insightRec = "";
 		
 		if ((percentage > 110.00)) {
-			insightValue = "-5";
+			insightValue = "5";
 			insightNote = "SMA5 is much higher than SMA20";
 			insightRec = "HOLD";
 		}else if ((percentage > 105.00)){
-			insightValue = "-4";
+			insightValue = "4";
 			insightNote = "SMA5 is higher than SMA20";
 			insightRec = "HOLD";
 		}else if ((percentage > 103.00)){
-			insightValue = "-3";
+			insightValue = "3";
 			insightNote = "SMA5 is approaching SMA20";
 			insightRec = "HOLD";
 		}else if ((percentage > 102.00)){
-			insightValue = "-2";
+			insightValue = "2";
 			insightNote = "SMA5 is moving close to SMA20";
-			insightRec = "consider SELL";
+			insightRec = "SELL";
 		}else if ((percentage > 101.00)){
-			insightValue = "-1";
+			insightValue = "1";
 			insightNote = "SMA5 is almost touching SMA20";
 			insightRec = "SELL";
 		}else if ((percentage >= 100.00)){
 			insightValue = "0";
 			insightNote = "SMA5 is crossing SMA20";
-			insightRec = "Consider SELL - check the price direction";
+			insightRec = "SELL";
 		}else if ((percentage < 90.00)) {
 			insightValue = "5";
 			insightNote = "SMA5 is much lower than SMA20";
-			insightRec = "Monitor";
+			insightRec = "HOLD";
 		}else if ((percentage < 95.00)){
 			insightValue = "4";
 			insightNote = "SMA5 is lower than SMA20";
-			insightRec = "Monitor";
+			insightRec = "HOLD";
 		}else if ((percentage < 97.00)){
 			insightValue = "3";
 			insightNote = "SMA5 is approaching SMA20";
-			insightRec = "Monitor";
+			insightRec = "HOLD";
 		}else if ((percentage < 98.00)){
 			insightValue = "2";
 			insightNote = "SMA5 is moving close to SMA20";
-			insightRec = "Consider BUY";
+			insightRec = "BUY";
 		}else if ((percentage < 99.00)){
 			insightValue = "1";
 			insightNote = "SMA5 is almost touching SMA20";
@@ -95,7 +96,7 @@ public class InstrumentInsights {
 		}else if ((percentage <= 100.00)){
 			insightValue = "0";
 			insightNote = "SMA5 is crossing SMA20";
-			insightRec = "Consider BUY - check the price direction";
+			insightRec = "BUY";
 		}
 		
 		i001.setInstrument(data.get(lastLine).getInstrument());
@@ -105,6 +106,7 @@ public class InstrumentInsights {
 		i001.setInsightValue(insightValue);
 		i001.setInsightNote(insightNote);
 		i001.setInsightRec(insightRec);
+		i001.setInsightType("I");
 		
 		return i001;
 	}
@@ -143,27 +145,27 @@ public class InstrumentInsights {
 		if (index == 19) {
 			insightValue = "5";
 			insightNote = "Last crossover occured very 19 or more trading days ago";
-			insightRec = "";
+			insightRec = "HOLD";
 		}else if (index > 15){
 			insightValue = "4";
 			insightNote = "Last crossover occured between 16 and 19 trading days ago";
-			insightRec = "";
+			insightRec = "HOLD";
 		}else if (index > 10){
 			insightValue = "3";
 			insightNote = "Last crossover occured between 11 and 15 trading days ago";
-			insightRec = "";
+			insightRec = "HOLD";
 		}else if (index > 6){
 			insightValue = "2";
-			insightNote = "Last crossover occured between 7 and 10 trading days ago";
-			insightRec = "";
+			insightNote = "Last crossover occured between 7 and 10 trading days ago - consider buy or sell";
+			insightRec = "ACT";//BUY or SELL
 		}else if (index > 3){
 			insightValue = "1";
-			insightNote = "Last crossover occured between 4 and 6 trading days ago";
-			insightRec = "";
+			insightNote = "Last crossover occured between 4 and 6 trading days ago - consider buy or sell";
+			insightRec = "ACT";//BUY or SELL
 		}else if (index >= 0){
 			insightValue = "0";
-			insightNote = "Last crossover occured between 0 and 3 trading days ago";
-			insightRec = "";
+			insightNote = "Last crossover occured between 0 and 3 trading days ago - consider buy or sell";
+			insightRec = "ACT";//BUY or SELL
 		}
 		i001b.setInstrument(data.get(0).getInstrument());
 		i001b.setInsightCode("I001b");
@@ -172,19 +174,20 @@ public class InstrumentInsights {
 		i001b.setInsightValue(insightValue);
 		i001b.setInsightNote(insightNote);
 		i001b.setInsightRec(insightRec);
+		i001b.setInsightType("I");
 		//System.out.println(insightNote); 
 		return i001b;
 	}	
 	
 	// % difference between SMA5 and SMA20
-	public Insight I002a(ArrayList<ProcessedInstrumentData> data){
+	public Insight V002a(ArrayList<ProcessedInstrumentData> data){
 
-		Insight i002a = new Insight();
+		Insight v002a = new Insight();
 		
 		int numberOfLines = data.size();
 		
 		if (numberOfLines <= 0)
-			return i002a;
+			return v002a;
 		
 		int lastLine = numberOfLines - 1;
 		
@@ -200,26 +203,27 @@ public class InstrumentInsights {
 		insightNote = "Percentage difference between SMA5 and SMA20";
 		insightRec = "N/A";
 		
-		i002a.setInstrument(data.get(lastLine).getInstrument());
-		i002a.setInsightCode("I002a");
-		i002a.setInsightDesc("Percentage difference between SMA5 and SMA20");
-		i002a.setDate(data.get(lastLine).getDate());
-		i002a.setInsightValue(insightValue);
-		i002a.setInsightNote(insightNote);
-		i002a.setInsightRec(insightRec);
+		v002a.setInstrument(data.get(lastLine).getInstrument());
+		v002a.setInsightCode("V002a");
+		v002a.setInsightDesc("Percentage difference between SMA5 and SMA20");
+		v002a.setDate(data.get(lastLine).getDate());
+		v002a.setInsightValue(insightValue);
+		v002a.setInsightNote(insightNote);
+		v002a.setInsightRec(insightRec);
+		v002a.setInsightType("V");
 		
-		return i002a;
+		return v002a;
 	}	
 
 	// actual difference between SMA5 and SMA20
-	public Insight I002b(ArrayList<ProcessedInstrumentData> data){
+	public Insight V002b(ArrayList<ProcessedInstrumentData> data){
 
-		Insight i002b = new Insight();
+		Insight v002b = new Insight();
 		
 		int numberOfLines = data.size();
 		
 		if (numberOfLines <= 0)
-			return i002b;
+			return v002b;
 		
 		int lastLine = numberOfLines - 1;
 		
@@ -233,28 +237,29 @@ public class InstrumentInsights {
 		insightNote = "Actual difference between SMA5 and SMA20";
 		insightRec = "N/A";
 		
-		i002b.setInstrument(data.get(lastLine).getInstrument());
-		i002b.setInsightCode("I002b");
-		i002b.setInsightDesc("Actual difference between SMA5 and SMA20");
-		i002b.setDate(data.get(lastLine).getDate());
-		i002b.setInsightValue(insightValue);
-		i002b.setInsightNote(insightNote);
-		i002b.setInsightRec(insightRec);
+		v002b.setInstrument(data.get(lastLine).getInstrument());
+		v002b.setInsightCode("V002b");
+		v002b.setInsightDesc("Actual difference between SMA5 and SMA20");
+		v002b.setDate(data.get(lastLine).getDate());
+		v002b.setInsightValue(insightValue);
+		v002b.setInsightNote(insightNote);
+		v002b.setInsightRec(insightRec);
+		v002b.setInsightType("V");
 		
-		return i002b;
+		return v002b;
 	}		
 
 
 	// ROC since the last turning point
-	public Insight I002c(ArrayList<ProcessedInstrumentData> data){
+	public Insight V002c(ArrayList<ProcessedInstrumentData> data){
 
-		Insight i002c = new Insight();
+		Insight v002c = new Insight();
 		
 		int numberOfLines = data.size();
 		
 		//number of lines in the file
 		if (numberOfLines < 30)//we want to use 30 lines
-			return i002c;
+			return v002c;
 		//number of lines used from file
 		numberOfLines = numberOfLines - 1;//we're gona use this as indexes - 0-29
 		Double percentage = 0.0;
@@ -293,27 +298,28 @@ public class InstrumentInsights {
 		
 		insightRec = "N/A";
 		
-		i002c.setInstrument(data.get(0).getInstrument());
-		i002c.setInsightCode("I002c");
-		i002c.setInsightDesc("ROC since the last change");
-		i002c.setDate(data.get(0).getDate());
-		i002c.setInsightValue(insightValue);
-		i002c.setInsightNote(insightNote);
-		i002c.setInsightRec(insightRec);
+		v002c.setInstrument(data.get(0).getInstrument());
+		v002c.setInsightCode("V002c");
+		v002c.setInsightDesc("ROC since the last change");
+		v002c.setDate(data.get(0).getDate());
+		v002c.setInsightValue(insightValue);
+		v002c.setInsightNote(insightNote);
+		v002c.setInsightRec(insightRec);
+		v002c.setInsightType("V");
 		//System.out.println(insightNote); 
-		return i002c;
+		return v002c;
 	}	
 	
 	// % change since the last turning point
-	public Insight I002d(ArrayList<ProcessedInstrumentData> data){
+	public Insight V002d(ArrayList<ProcessedInstrumentData> data){
 
-		Insight i002d = new Insight();
+		Insight v002d = new Insight();
 		
 		int numberOfLines = data.size();
 		
 		//number of lines in the file
 		if (numberOfLines < 30)//we want to use 30 lines
-			return i002d;
+			return v002d;
 		//number of lines used from file
 		numberOfLines = numberOfLines - 1;//we're gona use this as indexes - 0-29
 		Double percentage = 0.0;
@@ -345,15 +351,16 @@ public class InstrumentInsights {
 		
 		insightRec = "N/A";
 		
-		i002d.setInstrument(data.get(0).getInstrument());
-		i002d.setInsightCode("I002d");
-		i002d.setInsightDesc("% change since the last turing point");
-		i002d.setDate(data.get(0).getDate());
-		i002d.setInsightValue(insightValue);
-		i002d.setInsightNote(insightNote);
-		i002d.setInsightRec(insightRec);
+		v002d.setInstrument(data.get(0).getInstrument());
+		v002d.setInsightCode("V002d");
+		v002d.setInsightDesc("% change since the last turing point");
+		v002d.setDate(data.get(0).getDate());
+		v002d.setInsightValue(insightValue);
+		v002d.setInsightNote(insightNote);
+		v002d.setInsightRec(insightRec);
+		v002d.setInsightType("V");
 		//System.out.println(insightNote); 
-		return i002d;
+		return v002d;
 	}	
 
 	// highest high or lowest low - 14 days
@@ -391,13 +398,13 @@ public class InstrumentInsights {
 			insightNote = "Closing price higher than the higest high in the last 14 days.";
 			insightRec = "BUY";
 		}else if (data.get(lastLine).getLongClose() < lowest){
-			insightValue = "5";
+			insightValue = "0";
 			insightNote = "Closing price lower than the lower low in the last 14 days.";
 			insightRec = "SELL";
 		}else{
-			insightValue = "3";
+			insightValue = "5";
 			insightNote = "Nothing indicated";
-			insightRec = "N/A";
+			insightRec = "HOLD";
 		}
 		
 		i004.setInstrument(data.get(lastLine).getInstrument());
@@ -407,6 +414,7 @@ public class InstrumentInsights {
 		i004.setInsightValue(insightValue);
 		i004.setInsightNote(insightNote);
 		i004.setInsightRec(insightRec);
+		i004.setInsightType("I");
 		
 		return i004;
 	}		
@@ -438,13 +446,13 @@ public class InstrumentInsights {
 		}else if (((data.get(thirdIndex).getBigDecimalSma20().compareTo(data.get(secondIndex).getBigDecimalSma20()) == -1)||//less
 				   (data.get(thirdIndex).getBigDecimalSma20().compareTo(data.get(secondIndex).getBigDecimalSma20()) == 0))//or equal
 			     &&(data.get(secondIndex).getBigDecimalSma20().compareTo(data.get(firstIndex).getBigDecimalSma20()) == 1)){
-			insightValue = "5";
+			insightValue = "0";
 			insightNote = "SMA20 turned to negative from positive";
 			insightRec = "SELL";
 		}else{
-			insightValue = "3";
+			insightValue = "5";
 			insightNote = "Nothing indicated";
-			insightRec = "N/A";
+			insightRec = "HOLD";
 		}
 		
 		i005.setInstrument(data.get(thirdIndex).getInstrument());
@@ -454,6 +462,7 @@ public class InstrumentInsights {
 		i005.setInsightValue(insightValue);
 		i005.setInsightNote(insightNote);
 		i005.setInsightRec(insightRec);
+		i005.setInsightType("I");
 		
 		return i005;
 	}		
@@ -479,13 +488,13 @@ public class InstrumentInsights {
 			insightNote = "SMA5 and SMA10 are bigger than SMA20";
 			insightRec = "BUY";
 		}else if (data.get(lastIndex).getLongSma5().compareTo(data.get(lastIndex).getBigDecimalSma20()) == -1){//less{
-			insightValue = "5";
+			insightValue = "0";
 			insightNote = "SMA5 is less than SMA20";
 			insightRec = "SELL";
 		}else{
-			insightValue = "3";
+			insightValue = "5";
 			insightNote = "Nothing indicated";
-			insightRec = "N/A";
+			insightRec = "HOLD";
 		}
 		
 		i006.setInstrument(data.get(lastIndex).getInstrument());
@@ -495,6 +504,7 @@ public class InstrumentInsights {
 		i006.setInsightValue(insightValue);
 		i006.setInsightNote(insightNote);
 		i006.setInsightRec(insightRec);
+		i006.setInsightType("I");
 		
 		return i006;
 	}		
@@ -528,27 +538,27 @@ public class InstrumentInsights {
 		if ((data.get(lastIndex).getLongClose() > data.get(indexLessFive).getLongClose())&&
 			(withTrend)){
 			insightValue = "0";
-			insightNote = "Market sentiment is with the trend and its going up";
+			insightNote = "Market sentiment is with the trend(gowing up) and its trending up";
 			insightRec = "BUY";
 		}else if ((data.get(lastIndex).getLongClose() > data.get(indexLessFive).getLongClose())&&
 				  (!withTrend)){
-			insightValue = "4";
-			insightNote = "Market sentiment is against the trend and its going up";
-			insightRec = "Consider SELL";
+			insightValue = "0";
+			insightNote = "Market sentiment is against the trend(going down) and its trending up";
+			insightRec = "SELL";
 		}else if ((data.get(lastIndex).getLongClose() < data.get(indexLessFive).getLongClose())&&
 				  (withTrend)){
-			insightValue = "5";
-			insightNote = "Market sentiment is with the trend and its going down";
+			insightValue = "0";
+			insightNote = "Market sentiment is with the trend(going down) and its trending down";
 			insightRec = "SELL";
 		}else if ((data.get(lastIndex).getLongClose() < data.get(indexLessFive).getLongClose())&&
 				  (!withTrend)){
-			insightValue = "2";
-			insightNote = "Market sentiment is against the trend and its going down";
-			insightRec = "Consider BUY";
+			insightValue = "0";
+			insightNote = "Market sentiment is against the trend(gowing up) and its trending down";
+			insightRec = "BUY";
 		}else{
-			insightValue = "3";
+			insightValue = "5";
 			insightNote = "Nothing indicated";
-			insightRec = "N/A";
+			insightRec = "HOLD";
 		}
 		
 		i007.setInstrument(data.get(lastIndex).getInstrument());
@@ -558,6 +568,7 @@ public class InstrumentInsights {
 		i007.setInsightValue(insightValue);
 		i007.setInsightNote(insightNote);
 		i007.setInsightRec(insightRec);
+		i007.setInsightType("I");
 		
 		return i007;
 	}	
@@ -586,21 +597,21 @@ public class InstrumentInsights {
 			if (prevPercentage < 100){
 				insightValue = "0";
 				insightNote = "MACD touching the siganl line with the previous day being less than the signal, consider buying if both MACD and signal are positive";
-				insightRec = "Consider BUY";
+				insightRec = "BUY";
 			}else if (prevPercentage > 100){
-				insightValue = "5";
+				insightValue = "0";
 				insightNote = "MACD touching the siganl line with the previous day being more than the signal, consider selling";
 				insightRec = "SELL";
 			}else {
-				insightValue = "3";
+				insightValue = "5";
 				insightNote = "MACD touching the siganl line with the previous day being equal or very close to the signal";
-				insightRec = "Unknown";
+				insightRec = "HOLD";
 			}
 		}
 		else{
-			insightValue = "-3";
+			insightValue = "5";
 			insightNote = "Nothing indicated";
-			insightRec = "N/A";
+			insightRec = "HOLD";
 		}
 		
 		i008a.setInstrument(data.get(lastIndex).getInstrument());
@@ -610,6 +621,7 @@ public class InstrumentInsights {
 		i008a.setInsightValue(insightValue);
 		i008a.setInsightNote(insightNote);
 		i008a.setInsightRec(insightRec);
+		i008a.setInsightType("I");
 		
 		return i008a;
 	}	
@@ -636,22 +648,22 @@ public class InstrumentInsights {
 		  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
 			insightValue = "0";
 			insightNote = "MACD touching the siganl line with previously being less than the signal, consider buying";
-			insightRec = "Consider BUY";
+			insightRec = "BUY";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 0)
 				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
-			insightValue = "5";
+			insightValue = "0";
 			insightNote = "MACD touching the siganl line with previously being more than the signal, consider selling";
 			insightRec = "SELL";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 1)
 				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
 			insightValue = "0";
 			insightNote = "MACD crossed the siganl line with previously being less than the signal, consider buying";
-			insightRec = "Consider BUY";
+			insightRec = "BUY";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == -1)
 				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
 			insightValue = "0";
 			insightNote = "MACD crossed the siganl line with previously being more than the signal, consider selling";
-			insightRec = "Consider BUY";
+			insightRec = "SELL";
 		}
 		
 		i008b.setInstrument(data.get(lastIndex).getInstrument());
@@ -661,108 +673,95 @@ public class InstrumentInsights {
 		i008b.setInsightValue(insightValue);
 		i008b.setInsightNote(insightNote);
 		i008b.setInsightRec(insightRec);
+		i008b.setInsightType("I");
 		
 		return i008b;
 	}	
 	// MACD movement and state
-	public Insight I008c(ArrayList<ProcessedInstrumentData> data){
+	public Insight V008c(ArrayList<ProcessedInstrumentData> data){
 
-		Insight i008c = new Insight();
+		Insight v008c = new Insight();
 		
 		int lastIndex = data.size();
 		
 		if (lastIndex < 5)
-			return i008c;
+			return v008c;
 		
 		lastIndex = lastIndex - 1;
 		int secondLastIndex = lastIndex - 2;
 				
 		String insightValue = "";
 		String insightNote = "";
-		String insightRec = "";
+		String insightRec = "N/A";
 		
 		
 		if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
 		  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == 1)){
-			insightValue = "999";
 			insightNote = "MACD is positive and went up from before";
-			insightRec = "N/A";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
 				  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == -1)){
-			insightValue = "999";
 			insightNote = "MACD is positive but went down from before";
-			insightRec = "N/A";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == -1)
 				  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == 1)){
-			insightValue = "999";
 			insightNote = "MACD is negative but went up from before";
-			insightRec = "N/A";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == -1)
 				  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacd()) == -1)){
-			insightValue = "999";
 			insightNote = "MACD is negative and went down from before";
-			insightRec = "N/A";
 		}
 		
-		i008c.setInstrument(data.get(lastIndex).getInstrument());
-		i008c.setInsightCode("I008c");
-		i008c.setInsightDesc("MACD movement and state");
-		i008c.setDate(data.get(lastIndex).getDate());
-		i008c.setInsightValue(insightValue);
-		i008c.setInsightNote(insightNote);
-		i008c.setInsightRec(insightRec);
+		v008c.setInstrument(data.get(lastIndex).getInstrument());
+		v008c.setInsightCode("V008c");
+		v008c.setInsightDesc("MACD movement and state");
+		v008c.setDate(data.get(lastIndex).getDate());
+		v008c.setInsightValue(insightValue);
+		v008c.setInsightNote(insightNote);
+		v008c.setInsightRec(insightRec);
+		v008c.setInsightType("V");
 		
-		return i008c;
+		return v008c;
 	}	
 	// Signal movement and state
-		public Insight I008d(ArrayList<ProcessedInstrumentData> data){
+		public Insight V008d(ArrayList<ProcessedInstrumentData> data){
 
-			Insight i008d = new Insight();
+			Insight v008d = new Insight();
 			
 			int lastIndex = data.size();
 			
 			if (lastIndex < 5)
-				return i008d;
+				return v008d;
 			
 			lastIndex = lastIndex - 1;
 			int secondLastIndex = lastIndex - 2;
 					
 			String insightValue = "";
 			String insightNote = "";
-			String insightRec = "";
+			String insightRec = "N/A";
 			
 			
 			if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
 			  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
-				insightValue = "999";
 				insightNote = "Signal is positive and went up from before";
-				insightRec = "N/A";
 			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
 					  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
-				insightValue = "999";
 				insightNote = "Signal is positive but went down from before";
-				insightRec = "N/A";
 			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == -1)
 					  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
-				insightValue = "999";
 				insightNote = "Signal is negative but went up from before";
-				insightRec = "N/A";
 			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == -1)
 					  &&(data.get(lastIndex).getLongMacdsig().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
-				insightValue = "999";
 				insightNote = "Signal is negative and went down from before";
-				insightRec = "N/A";
 			}
 			
-			i008d.setInstrument(data.get(lastIndex).getInstrument());
-			i008d.setInsightCode("I008d");
-			i008d.setInsightDesc("Signal movement and state");
-			i008d.setDate(data.get(lastIndex).getDate());
-			i008d.setInsightValue(insightValue);
-			i008d.setInsightNote(insightNote);
-			i008d.setInsightRec(insightRec);
+			v008d.setInstrument(data.get(lastIndex).getInstrument());
+			v008d.setInsightCode("V008d");
+			v008d.setInsightDesc("Signal movement and state");
+			v008d.setDate(data.get(lastIndex).getDate());
+			v008d.setInsightValue(insightValue);
+			v008d.setInsightNote(insightNote);
+			v008d.setInsightRec(insightRec);
+			v008d.setInsightType("V");
 			
-			return i008d;
+			return v008d;
 		}
 		
 		// Check if the MACD and signal are positive
@@ -787,13 +786,13 @@ public class InstrumentInsights {
 			  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 1)){
 				insightValue = "0";
 				insightNote = "MACD and Signal are positive and MACD is higher";
-				insightRec = "N/A";
+				insightRec = "ACT";
 			} else if ((data.get(lastIndex).getLongMacdsig().compareTo(new BigDecimal(0)) == 1)
 					  &&(data.get(lastIndex).getLongMacd().compareTo(new BigDecimal(0)) == 1)
 					  &&(data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == -1)){
 				insightValue = "0";
 				insightNote = "MACD and Signal are positive but MACD is lower";
-				insightRec = "N/A";
+				insightRec = "ACT";
 			} 
 			
 			i008e.setInstrument(data.get(lastIndex).getInstrument());
@@ -803,6 +802,7 @@ public class InstrumentInsights {
 			i008e.setInsightValue(insightValue);
 			i008e.setInsightNote(insightNote);
 			i008e.setInsightRec(insightRec);
+			i008e.setInsightType("I");
 			
 			return i008e;
 		}	
@@ -825,13 +825,17 @@ public class InstrumentInsights {
 			
 			
 			if (data.get(lastIndex).getLongRsi14().compareTo(new BigDecimal(70)) == 1){
-				insightValue = "5";
+				insightValue = "0";
 				insightNote = "RSI indicates overbaught";
-				insightRec = "Consider SELL";
+				insightRec = "SELL";
 			} else if (data.get(lastIndex).getLongRsi14().compareTo(new BigDecimal(30)) == -1){
 				insightValue = "0";
 				insightNote = "RSI indicates oversold";
-				insightRec = "Consider BUY";
+				insightRec = "BUY";
+			} else {
+				insightValue = "5";
+				insightNote = "RSI indicates a fair volume";
+				insightRec = "HOLD";
 			} 
 			
 			i009.setInstrument(data.get(lastIndex).getInstrument());
@@ -841,6 +845,7 @@ public class InstrumentInsights {
 			i009.setInsightValue(insightValue);
 			i009.setInsightNote(insightNote);
 			i009.setInsightRec(insightRec);
+			i009.setInsightType("I");
 			
 			return i009;
 		}	
@@ -865,11 +870,15 @@ public class InstrumentInsights {
 			if (data.get(lastIndex).getBigAdx().compareTo(new BigDecimal(25)) == 1){
 				insightValue = "0";
 				insightNote = "ADX indicates currently in trend";
-				insightRec = "N/A";
+				insightRec = "ACT";
 			} else if (data.get(lastIndex).getLongRsi14().compareTo(new BigDecimal(30)) == -1){
-				insightValue = "5";
+				insightValue = "0";
 				insightNote = "ADX indicates currently no trend";
-				insightRec = "N/A";
+				insightRec = "HOLD";
+			} else {
+				insightValue = "5";
+				insightNote = "ADX indicates no trend";
+				insightRec = "HOLD";
 			} 
 			
 			i010.setInstrument(data.get(lastIndex).getInstrument());
@@ -879,6 +888,7 @@ public class InstrumentInsights {
 			i010.setInsightValue(insightValue);
 			i010.setInsightNote(insightNote);
 			i010.setInsightRec(insightRec);
+			i010.setInsightType("I");
 			
 			return i010;
 		}	
@@ -922,9 +932,12 @@ public class InstrumentInsights {
 			v001.setInsightValue(percChange.toString());
 			v001.setInsightNote("Percentage change since "+days+" days ago");
 			v001.setInsightRec("N/A");
+			v001.setInsightType("V");
 			
 			return v001;
 		}
+		
+		//add K insights for stats like highest climber, or biggest dropper since a certain date,etc.
 		
 	public Double getPercent(BigDecimal val1, BigDecimal val2){
 		if (val1.compareTo(new BigDecimal(0)) == 0){
