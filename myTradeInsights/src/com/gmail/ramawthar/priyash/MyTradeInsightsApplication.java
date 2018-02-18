@@ -11,8 +11,8 @@ public class MyTradeInsightsApplication {
 		/*
 		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
 		sd.readMetaData("priyash", "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\test_files\\testInsightsFiles\\");
-		sd.createTestData("\"20-Dec-17\"");
-		*/
+		sd.createTestData("\"12-Feb-18\"");
+		/**/
 		//need to copy test files from:
 		//C:\Users\Priyash\Dropbox\trader\appData\masterdata\test_files\testInsightsFiles
 		//to the test directory:
@@ -28,6 +28,8 @@ public class MyTradeInsightsApplication {
 		/*
 		 * for test start date to create insights and predications:
 		 */
+		
+		
 		ad.readMetaData("priyashteststart");
 			
 		ad.createInsights();

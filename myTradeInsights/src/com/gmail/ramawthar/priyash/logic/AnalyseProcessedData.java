@@ -135,6 +135,9 @@ public class AnalyseProcessedData {
 			//write out to file
 			writeInsightToFile();
 			
+			//push to cloud
+			//to do
+			
 		}
 		return rc;
 	}
@@ -429,9 +432,10 @@ public class AnalyseProcessedData {
 				   insights.get(i).getDate()+","+
 				   insights.get(i).getInsightCode()+","+
 				   insights.get(i).getInsightDesc()+","+
+				   insights.get(i).getInsightType()+","+
 				   insights.get(i).getInsightValue()+","+
 				   insights.get(i).getInsightNote()+","+
-				   insights.get(i).getInsightRec()+",";
+				   insights.get(i).getInsightRec();
 			linesOut.add(line);
 		}
 		
