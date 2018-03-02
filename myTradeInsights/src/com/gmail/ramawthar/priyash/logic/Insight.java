@@ -93,7 +93,10 @@ public class Insight {
 		this.insightType = insightType;
 	}
 	
-	
+	public String getParamString(){
+		
+	return "{\"instrument\":\""+instrument+"\",\"date\":\""+date+"\",\"code\":\""+insightCode+"\",\"desc\":\""+insightDesc+"\",\"type\":\""+insightType+"\",\"value\":\""+insightValue+"\",\"note\":\""+insightNote+"\",\"rec\":\""+insightRec+"\"}";
+	}	
 	
 
 }

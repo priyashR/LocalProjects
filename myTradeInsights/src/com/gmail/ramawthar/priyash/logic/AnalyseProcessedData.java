@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.gmail.ramawthar.priyash.WS.AWS;
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
 
 public class AnalyseProcessedData {
@@ -470,8 +471,12 @@ public class AnalyseProcessedData {
             String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
-            	//call aws.pushInsightToDB
-                System.out.println(readLine);
+                //System.out.println(readLine);
+
+            	//call 
+            	AWS aws = new AWS();
+            	aws.pushInsightToDB(loadInsightObject(readLine));
+                loadInsightObject(readLine);
             }
             b.close();
         } catch (Exception e) {
@@ -480,6 +485,51 @@ public class AnalyseProcessedData {
         	rc.setDescription(e.getMessage());
             e.printStackTrace();
         }
+	}
+	
+	private Insight loadInsightObject(String line){
+		
+		String token = "";
+        int pos = 0;
+		//System.out.println(line);
+        Insight insight = new Insight();
+		StringTokenizer defaultTokenizer = new StringTokenizer(line,",");
+		while (defaultTokenizer.hasMoreTokens()){
+			token = defaultTokenizer.nextToken();
+			pos++;
+			switch (pos){
+	        	case 1:
+	        		insight.setInstrument(token);
+	        		break;
+	        	case 2:
+	        		insight.setDate(token.replace("\"", ""));
+	        		//System.out.println("token: "+insight.getDate());
+	        		break;
+	        	case 3:
+	        		insight.setInsightCode(token);
+	        		break;
+	        	case 4:
+	        		insight.setInsightDesc(token);
+	        		break;
+	        	case 5:
+	        		insight.setInsightType(token);
+	        		break;
+	        	case 6:
+	        		insight.setInsightValue(token);
+	        		break;
+	        	case 7:
+	        		insight.setInsightNote(token);
+	        		break;
+	        	case 8:
+	        		insight.setInsightRec(token);
+	        		break;
+	        	default:
+	        		break;
+			}
+			//System.out.println("token: "+token);
+		}
+		
+		return insight;
 	}
 	
 	public void pushBatchOfFilesToCloud(){
