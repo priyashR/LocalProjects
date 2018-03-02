@@ -532,9 +532,69 @@ public class AnalyseProcessedData {
 		return insight;
 	}
 	
-	public void pushBatchOfFilesToCloud(){
-		//read the batch file unprocessed directory
-		//for each file call pushFileToCloud
-		//move processed files to the processed directory
+	public void pushBatchOfFilesToCloud(String inputPath, String processedPath, String errorPath){
+		
+		File folder = new File(inputPath);
+		//read the input directory
+	    for (final File fileEntry : folder.listFiles()) {
+	            //System.out.println(fileEntry.getName());
+	            //System.out.println(getDate(fileEntry, rc));
+	    		rc.addLog("Processing file: "+fileEntry.getName());
+	    		pushFileToCloud(fileEntry.toPath());
+	            if (!(rc.getStatus().equalsIgnoreCase("ERROR"))){
+	            	//copy the file to processed folder
+	            	copyFile(inputPath, processedPath, fileEntry.getName());
+	            }else{
+	            	//copy the file to error folder
+	            	copyFile(inputPath, errorPath, fileEntry.getName());
+	            }
+	            deleteFile(inputPath, fileEntry.getName());
+	            rc.setStatus("Init");
+	            
+	    }
+	}
+	
+	private ReturnClass copyFile(String currPath, String newPath, String file){
+    	try{
+
+     	   //File afile =new File(currPath+"\\"+file);
+     	   
+     	   //afile.renameTo(new File(newPath+"\\"+file));
+     	   Path source = Paths.get(currPath+"\\"+file);
+     	   Path destination = Paths.get(newPath+"\\"+file);
+     	   
+     	   List<String> lines;
+			
+     	   lines = Files.readAllLines(source, StandardCharsets.UTF_8);
+     	   
+     	   Files.write(destination, lines, StandardCharsets.UTF_8);
+     	   
+     	   lines.clear();
+
+     	   System.out.println(currPath+"\\"+file);
+     	   System.out.println(newPath+"\\"+file);
+
+     	}catch(Exception e){
+     		rc.setStatus("Error");
+     		rc.setDescription(e.getMessage());
+     		e.printStackTrace();
+     	}
+		return rc;
+	}	
+	
+	
+	private ReturnClass deleteFile(String currPath, String file){
+    	try{
+    		
+    		Path source = Paths.get(currPath+"\\"+file);
+    		Files.deleteIfExists(source);
+    		
+
+     	}catch(Exception e){
+     		rc.setStatus("Error");
+     		rc.setDescription(e.getMessage());
+     		e.printStackTrace();
+     	}
+		return rc;
 	}
 }
