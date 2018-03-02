@@ -117,6 +117,7 @@ public class InstrumentInsights {
 		Insight i001b = new Insight();
 		
 		int numberOfLines = data.size();
+		int lastLine = numberOfLines - 1;
 		
 		//number of lines in the file
 		if (numberOfLines < 20)//we want to use 20 lines
@@ -170,7 +171,8 @@ public class InstrumentInsights {
 		i001b.setInstrument(data.get(0).getInstrument());
 		i001b.setInsightCode("I001b");
 		i001b.setInsightDesc("Last crossover of SMA5 on SMA20");
-		i001b.setDate(data.get(0).getDate());
+		//i001b.setDate(data.get(0).getDate());
+		i001b.setDate(data.get(lastLine).getDate());
 		i001b.setInsightValue(insightValue);
 		i001b.setInsightNote(insightNote);
 		i001b.setInsightRec(insightRec);
@@ -256,6 +258,7 @@ public class InstrumentInsights {
 		Insight v002c = new Insight();
 		
 		int numberOfLines = data.size();
+		int lastLine = numberOfLines - 1;
 		
 		//number of lines in the file
 		if (numberOfLines < 30)//we want to use 30 lines
@@ -301,7 +304,8 @@ public class InstrumentInsights {
 		v002c.setInstrument(data.get(0).getInstrument());
 		v002c.setInsightCode("V002c");
 		v002c.setInsightDesc("ROC since the last change");
-		v002c.setDate(data.get(0).getDate());
+		//v002c.setDate(data.get(0).getDate());
+		v002c.setDate(data.get(lastLine).getDate());
 		v002c.setInsightValue(insightValue);
 		v002c.setInsightNote(insightNote);
 		v002c.setInsightRec(insightRec);
@@ -316,6 +320,7 @@ public class InstrumentInsights {
 		Insight v002d = new Insight();
 		
 		int numberOfLines = data.size();
+		int lastLine = numberOfLines - 1;
 		
 		//number of lines in the file
 		if (numberOfLines < 30)//we want to use 30 lines
@@ -354,7 +359,8 @@ public class InstrumentInsights {
 		v002d.setInstrument(data.get(0).getInstrument());
 		v002d.setInsightCode("V002d");
 		v002d.setInsightDesc("% change since the last turing point");
-		v002d.setDate(data.get(0).getDate());
+		//v002d.setDate(data.get(0).getDate());
+		v002d.setDate(data.get(lastLine).getDate());
 		v002d.setInsightValue(insightValue);
 		v002d.setInsightNote(insightNote);
 		v002d.setInsightRec(insightRec);
