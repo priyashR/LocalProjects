@@ -136,7 +136,7 @@ public class AnalyseProcessedData {
 			writeInsightToFile();
 			
 			//push to cloud
-			//to do
+			pushToCloud();
 			
 		}
 		return rc;
@@ -448,5 +448,43 @@ public class AnalyseProcessedData {
 			e.printStackTrace();	
 		}
 		
+	}
+	private void pushToCloud(){
+		String fileName = insights.get(0).getInstrument()+"_"+insights.get(0).getDate().replaceAll("\"", "");
+		System.out.println("fileName: "+fileName);
+		String filePath = InsightFilePath+fileName;
+		System.out.println("filePath: "+filePath);
+		Path path = Paths.get(filePath);
+		pushFileToCloud(path);
+		
+	}
+	private void pushFileToCloud(Path filePath){
+		//read each line and call aws.pushInsightToDB
+		System.out.println("Push to cloud");
+		File insightFile = new File(filePath.toString());
+        try (BufferedReader b = new BufferedReader(new FileReader(insightFile))){
+        	
+        	rc.addLog("Lets begin reading the insight file metadata");
+            System.out.println("read insight file");
+            
+            String readLine = "";
+
+            while ((readLine = b.readLine()) != null) {
+            	//call aws.pushInsightToDB
+                System.out.println(readLine);
+            }
+            b.close();
+        } catch (Exception e) {
+        	rc.addLog("Error processing the file: "+e.getMessage());
+        	rc.setStatus("Error");
+        	rc.setDescription(e.getMessage());
+            e.printStackTrace();
+        }
+	}
+	
+	public void pushBatchOfFilesToCloud(){
+		//read the batch file unprocessed directory
+		//for each file call pushFileToCloud
+		//move processed files to the processed directory
 	}
 }
