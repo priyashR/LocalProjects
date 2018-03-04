@@ -251,8 +251,6 @@ System.out.println("start: writeIntrumentDataToCloud");
 			Path path = Paths.get(instrumentData.outFile);
 			List<String> lines;
 			
-
-			
 			lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 			boolean dateFound = false;
 			for (int j = 0; j < lines.size(); j++) {
