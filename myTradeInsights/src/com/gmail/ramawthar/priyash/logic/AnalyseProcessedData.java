@@ -394,7 +394,7 @@ public class AnalyseProcessedData {
 		//System.out.println("instrumentPath: "+instrumentPath);
 		String instrumentName = instrumentPath;
 		if(!(instance.equalsIgnoreCase("priyash.ramawthar"))){
-			instrumentName = instrumentPath.replace(instance, "priyash.ramawthar");
+			instrumentName = instrumentPath.replace(instance, "priyash.ramawthar");   
 		}
 		//System.out.println("instrumentPath: "+instrumentPath);
 		//System.out.println("instrumentName: "+instrumentName);
