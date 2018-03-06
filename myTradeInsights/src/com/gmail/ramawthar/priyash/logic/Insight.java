@@ -10,9 +10,10 @@ public class Insight {
 	private String insightNote = "";	// Crossover reached
 	private String insightRec = ""; 	// Possibly BUY/SELL - check the price direction, N/A
 	private String insightType = ""; 	// I = individual insight, V = value insight per instrument, K = key-pair, for the set of instruments
+	private String owned = "";			// Do I own this trade
 	
 	public Insight(String instrument, String insightCode, String insightDesc, String date, String insightValue,
-			String insightNote, String insightRec, String insightType) {
+			String insightNote, String insightRec, String insightType, String owned) {
 		super();
 		this.instrument = instrument;
 		this.insightCode = insightCode;
@@ -22,11 +23,13 @@ public class Insight {
 		this.insightNote = insightNote;
 		this.insightRec = insightRec;
 		this.insightType = insightType;
+		this.owned = owned;
 		
 	}
 
 	public Insight() {
 		this.insightCode = "NONE";
+		this.owned = "N";
 	}
 
 	public String getInstrument() {
@@ -93,9 +96,19 @@ public class Insight {
 		this.insightType = insightType;
 	}
 	
+	
+	
+	public String getOwned() {
+		return owned;
+	}
+
+	public void setOwned(String owned) {
+		this.owned = owned;
+	}
+
 	public String getParamString(){
 		
-	return "{\"instrument\":\""+instrument+"\",\"date\":\""+date+"\",\"code\":\""+insightCode+"\",\"desc\":\""+insightDesc+"\",\"type\":\""+insightType+"\",\"value\":\""+insightValue+"\",\"note\":\""+insightNote+"\",\"rec\":\""+insightRec+"\"}";
+	return "{\"instrument\":\""+instrument+"\",\"date\":\""+date+"\",\"code\":\""+insightCode+"\",\"desc\":\""+insightDesc+"\",\"type\":\""+insightType+"\",\"value\":\""+insightValue+"\",\"note\":\""+insightNote+"\",\"rec\":\""+insightRec+"\",\"owned\":\""+owned+"\"}";
 	}	
 	
 

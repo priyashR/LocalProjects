@@ -249,6 +249,40 @@ public class InstrumentInsights {
 		v002b.setInsightType("V");
 		
 		return v002b;
+	}	
+	
+	// return the closing price
+	public Insight V003(ArrayList<ProcessedInstrumentData> data){
+
+		Insight v003 = new Insight();
+		
+		int numberOfLines = data.size();
+		
+		if (numberOfLines <= 0)
+			return v003;
+		
+		int lastLine = numberOfLines - 1;
+		
+		Long b = data.get(lastLine).getLongClose();
+		
+		String insightValue = "";
+		String insightNote = "";
+		String insightRec = "";
+		
+		insightValue = b.toString();
+		insightNote = "Closing price";
+		insightRec = "N/A";
+		
+		v003.setInstrument(data.get(lastLine).getInstrument());
+		v003.setInsightCode("V003");
+		v003.setInsightDesc("Closing price");
+		v003.setDate(data.get(lastLine).getDate());
+		v003.setInsightValue(insightValue);
+		v003.setInsightNote(insightNote);
+		v003.setInsightRec(insightRec);
+		v003.setInsightType("V");
+		
+		return v003;
 	}		
 
 

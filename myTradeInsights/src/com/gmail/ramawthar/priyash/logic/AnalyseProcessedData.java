@@ -157,140 +157,203 @@ public class AnalyseProcessedData {
 			System.out.println(data.get(i).getDate()+" : "+data.get(i).getLongClose()+" : "+data.get(i).getLongMacd() +" : "+data.get(i).getLongMacdsig());
 		}
 		 
-		Insight i = new Insight();
+		Insight i;
+		
+		// check if you own the instrument
+		boolean owned = checkIfOwned(data.get(0).getInstrument());
+		
 		// apply the the rules and create the general insights
 		
 		//how far from turning
+		i = new Insight();
 		i = getInsight.I001a(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 		
 		// when was the last turning point
+		i = new Insight();
 		i = getInsight.I001b(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);			
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		//Percentage difference between SMA5 and SMA20
+		i = new Insight();
 		i = getInsight.V002a(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Actual difference between SMA5 and SMA20
+		i = new Insight();
 		i = getInsight.V002b(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// ROC since the last turning point
+		i = new Insight();
 		i = getInsight.V002c(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// % change since the last turning point
+		i = new Insight();
 		i = getInsight.V002d(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// % highest high / lowest low check
+		i = new Insight();
 		i = getInsight.I004(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// moving average SMA20 turning point
+		i = new Insight();
 		i = getInsight.I005(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Three moving averages
+		i = new Insight();
 		i = getInsight.I006(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 
 		// Three moving averages
+		i = new Insight();
 		i = getInsight.I007(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// MACD crossover
+		i = new Insight();
 		i = getInsight.I008a(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
 		// MACD
+		i = new Insight();
 		i = getInsight.I008b(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
 		// MACD state and movement
+		i = new Insight();
 		i = getInsight.V008c(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 		
 		// signal state and movement
+		i = new Insight();
 		i = getInsight.V008d(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// Check if the MACD and signal are positive
+		i = new Insight();
 		i = getInsight.I008e(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// Check the RSI
+		i = new Insight();
 		i = getInsight.I009(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// Check the ADX
+		i = new Insight();
 		i = getInsight.I010(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// Percentage change since two days ago
+		i = new Insight();
 		i = getInsight.V001_2(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// Percentage change since two days ago
+		i = new Insight();
 		i = getInsight.V001_5(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
 		// Percentage change since two days ago
+		i = new Insight();
 		i = getInsight.V001_10(data);
+		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
-		// check if I have this instrument and apply the trending insights
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());	
+
+		// Include the closing price
+		i = new Insight();
+		i = getInsight.V003(data);
+		if (owned) i.setOwned("Y");
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());	
 		
+		// check if I have this instrument and apply the trending insights
+
+		if (owned) {
+			//create the insights here!!!!
+		}
+		
+	}
+	
+	private boolean checkIfOwned(String instrument){
+		// write the logic to check if you own the instrument passed in
+		// use the file of owned instruments to validate
+		return false;
 	}
 	
 	private ArrayList<ProcessedInstrumentData> fetchProcessedData(String instrumentDataPath){
@@ -435,7 +498,8 @@ public class AnalyseProcessedData {
 				   insights.get(i).getInsightType()+","+
 				   insights.get(i).getInsightValue()+","+
 				   insights.get(i).getInsightNote()+","+
-				   insights.get(i).getInsightRec();
+				   insights.get(i).getInsightRec()+","+
+				   insights.get(i).getOwned();
 			linesOut.add(line);
 		}
 		
@@ -522,6 +586,9 @@ public class AnalyseProcessedData {
 	        	case 8:
 	        		insight.setInsightRec(token);
 	        		break;
+	        	case 9:
+	        		insight.setOwned(token);
+	        		break;
 	        	default:
 	        		break;
 			}
@@ -596,4 +663,16 @@ public class AnalyseProcessedData {
      	}
 		return rc;
 	}
+	/*public static void main(String args[]){
+		
+		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt");
+		
+		ad.readMetaData("priyashteststart");
+		ad.pushBatchOfFilesToCloud("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\uncopied", 
+								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done", 
+								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done");
+		
+		
+	}*/
 }

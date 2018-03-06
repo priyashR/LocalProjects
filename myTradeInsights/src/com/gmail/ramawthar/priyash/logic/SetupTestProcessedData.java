@@ -124,7 +124,7 @@ public class SetupTestProcessedData {
 			System.out.println("Fize size: "+fileSize);
 			for (int j = 0; j < fileSize; j++) {
 				String token = "";
-//				int pos = 0;
+//-				int pos = 0;
 				StringTokenizer defaultTokenizer = new StringTokenizer(linesIn.get(j),",");
 				
 				token = defaultTokenizer.nextToken();
