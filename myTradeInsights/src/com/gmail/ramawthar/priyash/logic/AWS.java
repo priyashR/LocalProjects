@@ -13,11 +13,12 @@ import java.net.URL;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass; 
 
+
 public class AWS {
 //	static byte[] HmacSHA256(String data, byte[] key) throws Exception {
 //	    String algorithm="HmacSHA256";
 //	    Mac mac = Mac.getInstance(algorithm);
-//	    mac.init(new SecretKeySpec(key, algorithm));   
+//	    mac.init(new SecretKeySpec(key, algorithm));
 //	    return mac.doFinal(data.getBytes("UTF8"));
 //	}
 //
@@ -60,7 +61,7 @@ public class AWS {
 						(conn.getInputStream())));
 
 				String output;
-				System.out.println("Output from Server .... \n"); 
+				System.out.println("Output from Server .... \n");
 				while ((output = br.readLine()) != null) { 
 					System.out.println(output);
 				}
@@ -76,14 +77,14 @@ public class AWS {
 				e.printStackTrace();
 
 			 }
-		  
+		   
 		rc.setStatus("Success");
 		return rc;
 	}
 
-	//public static void main(String [] args){
+	public static void main(String [] args){
 		
-	//	AWS aws = new AWS();
+		AWS aws = new AWS();
 		//aws.pushInsightToDB();
-	//}
+	}
 }
