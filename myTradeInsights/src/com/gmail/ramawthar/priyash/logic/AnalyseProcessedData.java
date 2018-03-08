@@ -586,7 +586,7 @@ public class AnalyseProcessedData {
 
             	//call 
             	AWS aws = new AWS();
-            	//aws.pushInsightToDB(loadInsightObject(readLine));
+            	aws.pushInsightToDB(loadInsightObject(readLine));
                 
             }
             b.close();
