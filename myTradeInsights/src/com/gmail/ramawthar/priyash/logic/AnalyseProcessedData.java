@@ -581,7 +581,7 @@ public class AnalyseProcessedData {
             
             String readLine = "";
 
-            while ((readLine = b.readLine()) != null) {
+            while ((readLine = b.readLine()) != null) { 
                 //System.out.println(readLine);
 
             	//call 
