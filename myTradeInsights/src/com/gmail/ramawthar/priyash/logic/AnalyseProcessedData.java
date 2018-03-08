@@ -20,9 +20,11 @@ public class AnalyseProcessedData {
 
 	private String metaInstFile = "";
 	private String metaInsightFile = "";
+	private String metaOwnedInstruments = "";
 	private String InsightFilePath = "";
 	private String instance = "";
 	private ArrayList<InstrumentMetaData> instrumentData = new ArrayList<InstrumentMetaData>();
+	private ArrayList<OwnedInstrument> myInstruments = new ArrayList<OwnedInstrument>();
 	private ReturnClass rc = new ReturnClass("Init");
 	
 	private ArrayList<Insight> insights = new ArrayList<Insight>();
@@ -30,9 +32,10 @@ public class AnalyseProcessedData {
 	private InstrumentInsights getInsight = new InstrumentInsights();
 	
 	
-	public AnalyseProcessedData(String metaFile, String metaInsightFile){
+	public AnalyseProcessedData(String metaFile, String metaInsightFile, String metaOwnedInstruments){
 		this.metaInstFile = metaFile;
 		this.metaInsightFile = metaInsightFile;
+		this.metaOwnedInstruments = metaOwnedInstruments;
 	}
 	
 	/*
@@ -85,6 +88,43 @@ public class AnalyseProcessedData {
         	rc.setDescription(e.getMessage());
             e.printStackTrace();
         }	
+        
+        
+        //read my share data
+        File ownedInstruments = new File(metaOwnedInstruments);
+        try (BufferedReader b = new BufferedReader(new FileReader(ownedInstruments))){
+        	
+            String readLine = "";
+            String token = "";
+            OwnedInstrument owned;
+            int pos;
+            while ((readLine = b.readLine()) != null) {
+            	owned = new OwnedInstrument();
+            	pos = 0;
+        		StringTokenizer defaultTokenizer = new StringTokenizer(readLine,",");
+	        		while (defaultTokenizer.hasMoreTokens()){
+	        			token = defaultTokenizer.nextToken();
+	        			pos++;
+	        			switch (pos){
+	        	        	case 1:
+	        	        		owned.setInstrument(token);
+	        	        		break;
+	        	        	case 2:
+	        	        		owned.setClosePrice(new Double(token));
+	        	        		break;
+	        	        	default:
+	        	        		break;
+	        			}
+	        		}
+	        		myInstruments.add(owned);
+    		}
+            b.close(); 
+        } catch (Exception e) {
+        	rc.addLog("Error processing the file: "+e.getMessage());
+        	rc.setStatus("Error");
+        	rc.setDescription(e.getMessage());
+            e.printStackTrace();
+        }
 		return rc;
 	}
 	
@@ -92,7 +132,7 @@ public class AnalyseProcessedData {
 
 		String token = "";
         int pos = 0;
-		//System.out.println(line);
+		System.out.println(line);
 		InstrumentMetaData instrumentMetaData = new InstrumentMetaData();
 		StringTokenizer defaultTokenizer = new StringTokenizer(line,"<*>");
 		while (defaultTokenizer.hasMoreTokens()){
@@ -357,6 +397,10 @@ public class AnalyseProcessedData {
 	private boolean checkIfOwned(String instrument){
 		// write the logic to check if you own the instrument passed in
 		// use the file of owned instruments to validate
+		for (int index = 0; index < myInstruments.size(); index ++){
+			if (myInstruments.get(index).getInstrument().equalsIgnoreCase(instrument))
+				return true;
+		}
 		return false;
 	}
 	
@@ -542,7 +586,7 @@ public class AnalyseProcessedData {
 
             	//call 
             	AWS aws = new AWS();
-            	aws.pushInsightToDB(loadInsightObject(readLine));
+            	//aws.pushInsightToDB(loadInsightObject(readLine));
                 
             }
             b.close();
@@ -673,10 +717,11 @@ public class AnalyseProcessedData {
 		return rc;
 	}
 	
-	public static void main(String args[]){
+	/*public static void main(String args[]){
 		
 		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
-				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt");
+				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
 		
 		ad.readMetaData("priyashteststart");
 		ad.pushBatchOfFilesToCloud("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\uncopied", 
@@ -684,5 +729,5 @@ public class AnalyseProcessedData {
 								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done");
 		
 		
-	}
+	}*/
 }

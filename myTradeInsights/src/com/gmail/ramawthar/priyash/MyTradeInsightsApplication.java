@@ -26,20 +26,22 @@ public class MyTradeInsightsApplication {
 		
 		  //Step 3
 		
-		/*
+		/**/
 		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
-				   										   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt");
+				   										   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
 
 		ad.readMetaData("priyashteststart");
 		ad.createInsights();
-		*/
+		
 		//*********for testing.	
 
 
 		//*********for production:
 		//
 		//AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
-		//		   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt");
+		//		   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+		//		   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
 		
 		//ad.readMetaData("priyash");
 		//ad.createInsights();
