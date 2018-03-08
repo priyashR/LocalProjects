@@ -45,7 +45,7 @@ public class AWS {
 				conn.setRequestProperty("x-api-key", "7gCbESbtUZ2NuVymjAFR373VpT47q9Ud8xNhkHPj");
 
 				//String input = "{\"qty\":100,\"name\":\"iPad 4\"}";
-				//String input = "{\"instrument\":\"ADI\",\"date\":\"12-Feb-18\",\"code\":\"I005\",\"desc\":\"Moving average SMA20 turning point - postman\",\"type\":\"I\",\"value\":\"100.0\",\"note\":\"Nothing indicated\",\"rec\":\"HOLD\"}";
+				//String input = "{\"instrument\":\"ADI\",\"date\":\"12-Feb-18\",\"code\":\"I005\",\"desc\":\"Moving average SMA20 turning point - postman\",\"type\":\"I\",\"value\":\"100.0\",\"note\":\"Nothing indicated\",\"rec\":\"HOLD\",\"owned\":\"owned\"}";
 				String input = insight.getParamString();
 				OutputStream os = conn.getOutputStream();
 				os.write(input.getBytes());
@@ -61,11 +61,11 @@ public class AWS {
 						(conn.getInputStream())));
 
 				String output;
-				System.out.println("Output from Server .... \n");
+				/*System.out.println("Output from Server .... \n");
 				while ((output = br.readLine()) != null) { 
 					System.out.println(output);
 				}
-
+*/
 				conn.disconnect();
 
 			  } catch (MalformedURLException e) {

@@ -127,16 +127,20 @@ public class AnalyseProcessedData {
 	public ReturnClass createInsights(){
 
 		for (int i = 0; i < instrumentData.size(); i++) {
-
-			insights = new ArrayList<Insight>();
-			System.out.println(instrumentData.get(i).getOutFile());
-			analyzeProcessedData(fetchProcessedData(instrumentData.get(i).getOutFile()));
-			
-			//write out to file
-			writeInsightToFile();
-			
-			//push to cloud
-			pushToCloud();
+			try {
+				insights = new ArrayList<Insight>();
+				System.out.println(instrumentData.get(i).getOutFile());
+				analyzeProcessedData(fetchProcessedData(instrumentData.get(i).getOutFile()));
+				
+				//write out to file
+				writeInsightToFile();
+				
+				//push to cloud
+				pushToCloud();
+			}
+			catch (Exception e){
+				
+			}
 			
 		}
 		return rc;
@@ -538,8 +542,9 @@ public class AnalyseProcessedData {
 
             	//call 
             	AWS aws = new AWS();
-            	aws.pushInsightToDB(loadInsightObject(readLine));
-                loadInsightObject(readLine);
+            	//while testing
+            	//aws.pushInsightToDB(loadInsightObject(readLine));
+                //loadInsightObject(readLine);
             }
             b.close();
         } catch (Exception e) {
