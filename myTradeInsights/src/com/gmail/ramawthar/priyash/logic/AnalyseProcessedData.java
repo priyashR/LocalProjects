@@ -533,7 +533,7 @@ public class AnalyseProcessedData {
         try (BufferedReader b = new BufferedReader(new FileReader(insightFile))){
         	
         	rc.addLog("Lets begin reading the insight file metadata");
-            System.out.println("read insight file");
+            //System.out.println("read insight file");
             
             String readLine = "";
 
@@ -542,9 +542,8 @@ public class AnalyseProcessedData {
 
             	//call 
             	AWS aws = new AWS();
-            	//while testing
-            	//aws.pushInsightToDB(loadInsightObject(readLine));
-                //loadInsightObject(readLine);
+            	aws.pushInsightToDB(loadInsightObject(readLine));
+                
             }
             b.close();
         } catch (Exception e) {
@@ -610,6 +609,7 @@ public class AnalyseProcessedData {
 	    for (final File fileEntry : folder.listFiles()) {
 	            //System.out.println(fileEntry.getName());
 	            //System.out.println(getDate(fileEntry, rc));
+	    	try{
 	    		rc.addLog("Processing file: "+fileEntry.getName());
 	    		pushFileToCloud(fileEntry.toPath());
 	            if (!(rc.getStatus().equalsIgnoreCase("ERROR"))){
@@ -621,6 +621,10 @@ public class AnalyseProcessedData {
 	            }
 	            deleteFile(inputPath, fileEntry.getName());
 	            rc.setStatus("Init");
+	    	}
+	    	catch (Exception e){
+	    		
+	    	}
 	            
 	    }
 	}
@@ -668,7 +672,8 @@ public class AnalyseProcessedData {
      	}
 		return rc;
 	}
-	/*public static void main(String args[]){
+	
+	public static void main(String args[]){
 		
 		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt");
@@ -679,5 +684,5 @@ public class AnalyseProcessedData {
 								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done");
 		
 		
-	}*/
+	}
 }
