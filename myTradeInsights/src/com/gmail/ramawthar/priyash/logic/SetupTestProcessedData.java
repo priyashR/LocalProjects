@@ -3,6 +3,7 @@ package com.gmail.ramawthar.priyash.logic;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 //import java.io.IOException;
 //import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -147,5 +148,34 @@ public class SetupTestProcessedData {
 			e.printStackTrace();
 		}	
 		return instrumentDataArray;
+	}
+	
+	public void moveFiles(){
+		System.out.println("move the files!");
+		
+		
+		try {
+			//Runtime.getRuntime().exec("cmd.exe /c C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable\\moveFiles.bat");
+			Runtime.getRuntime().exec("cmd /c start C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable\\moveFiles.bat");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		/*
+		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "moveFiles.bat");
+		File dir = new File("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable");
+		pb.directory(dir);
+		try {
+			Process p = pb.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+	}
+	
+	public static void main(String args[]){
+		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
+		sd.readMetaData("priyash", "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\test_files\\testInsightsFiles\\");
+		sd.moveFiles();
 	}
 }
