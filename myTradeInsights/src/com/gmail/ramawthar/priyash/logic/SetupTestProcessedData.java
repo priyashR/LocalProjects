@@ -173,7 +173,7 @@ public class SetupTestProcessedData {
 		sd.moveFiles();
 		
 	    Scanner scanner = new Scanner(System.in);
-	    System.out.print("Please press enter when the files have completed copying");
+	    System.out.print("Have the files completed copying?");
 	    String name = scanner.next();
 		scanner.close();
 	    
