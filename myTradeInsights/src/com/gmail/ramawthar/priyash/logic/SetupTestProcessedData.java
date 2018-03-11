@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import com.gmail.ramawthar.priyash.responses.ReturnClass;
@@ -161,21 +162,31 @@ public class SetupTestProcessedData {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		/*
-		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "moveFiles.bat");
-		File dir = new File("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable");
-		pb.directory(dir);
-		try {
-			Process p = pb.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+
 	}
 	
 	public static void main(String args[]){
 		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
 		sd.readMetaData("priyash", "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\test_files\\testInsightsFiles\\");
+		sd.createTestData("\"10-Jan-18\"");
+	    
 		sd.moveFiles();
+		
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.print("Please press enter when the files have completed copying");
+	    String name = scanner.next();
+		scanner.close();
+	    
+		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
+		
+		ad.readMetaData("priyashteststart");
+		ArrayList<String> instruments = new ArrayList<String>();
+		instruments.add("ADI");
+		//instruments.add("MTN");
+		//instruments.add("AFH");
+		//instruments.add("EOH");
+		ad.createSetInsights(instruments);
 	}
 }

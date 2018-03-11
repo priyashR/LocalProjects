@@ -186,6 +186,31 @@ public class AnalyseProcessedData {
 		return rc;
 	}
 	
+	public ReturnClass createSetInsights(ArrayList<String> instruments){
+
+		for (int i = 0; i < instrumentData.size(); i++) {
+			try {
+				if (instruments.contains(instrumentData.get(i).getInstrumentName())){
+					System.out.println(instrumentData.get(i).getInstrumentName());
+					insights = new ArrayList<Insight>();
+					System.out.println(instrumentData.get(i).getOutFile());
+					analyzeProcessedData(fetchProcessedData(instrumentData.get(i).getOutFile()));
+					
+					//write out to file
+					writeInsightToFile();
+					
+					//push to cloud
+					pushToCloud();
+				}
+			}
+			catch (Exception e){
+				
+			}
+			
+		}
+		return rc;
+	}
+	
 	private void analyzeProcessedData(ArrayList<ProcessedInstrumentData> data){
 
 		int numberOfLines = data.size() - 10;
