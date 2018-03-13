@@ -167,31 +167,66 @@ public class SetupTestProcessedData {
 
 	}
 	
+	public void createTestDataBatch(){
+		ArrayList<String> dates = getDateBatch();
+		ArrayList<String> instruments = getInstrumentBatch();
+		for(int i = 0; i < dates.size(); i++){
+			//createTestData("\"11-Jan-18\"", instruments);	
+			createTestData(dates.get(i), instruments);
+			moveFiles();
+			AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+							   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+							   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
+			
+			ad.readMetaData("priyashteststart");
+			ad.createSetInsights(instruments);
+		}
+	}
+	
+	private ArrayList<String> getDateBatch(){
+		//to maybe read from file
+		ArrayList<String> dates = new ArrayList<String>();
+		dates.add("\"15-Jan-18\"");
+		dates.add("\"16-Jan-18\"");
+		dates.add("\"17-Jan-18\"");
+		return dates;
+	}
+	
+	private ArrayList<String> getInstrumentBatch(){
+		//to maybe read from file
+		ArrayList<String> instruments = new ArrayList<String>();
+		//instruments.add("MTN");
+		//instruments.add("AFH");
+		//instruments.add("EOH");
+		instruments.add("ADI");
+		return instruments;
+	}	
+	
 	public static void main(String args[]){
 		
 		
 		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
 		sd.readMetaData("priyash", "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\test_files\\testInsightsFiles\\");
 		
-
-
+		sd.createTestDataBatch();
+		/*
 		ArrayList<String> instruments = new ArrayList<String>();
 		instruments.add("ADI");
 		//instruments.add("MTN");
 		//instruments.add("AFH");
-		//instruments.add("EOH");
-		sd.createTestData("\"10-Jan-18\"", instruments);	    
+		//instruments.add("EOH");/*
+		sd.createTestData("\"09-Jan-18\"", instruments);	    
 		sd.moveFiles();
 		/*
 	    Scanner scanner = new Scanner(System.in);
 	    System.out.print("Have the files completed copying");
 	    String name = scanner.next();
-		scanner.close();*/	    
+		scanner.close();*   
 		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
 						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
 		
 		ad.readMetaData("priyashteststart");
-		ad.createSetInsights(instruments);
+		ad.createSetInsights(instruments);*/
 	}
 }
