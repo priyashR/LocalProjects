@@ -230,7 +230,7 @@ public class AnalyseProcessedData {
 		
 		// check if you own the instrument
 		boolean owned = checkIfOwned(data.get(0).getInstrument());
-		
+		//-------------------------------------------------------------------------------------------------------------------
 		// apply the the rules and create the general insights
 		
 		//how far from turning
@@ -416,6 +416,7 @@ public class AnalyseProcessedData {
 		if (owned) {
 			//create the insights here!!!!
 		}
+		//-------------------------------------------------------------------------------------------------------------------
 		
 	}
 	
