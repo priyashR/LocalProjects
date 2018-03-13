@@ -98,13 +98,13 @@ public class SetupTestProcessedData {
 		return rc;
 	}
 	
-	public ReturnClass createTestData(String date){
+	public ReturnClass createTestData(String date,ArrayList<String> instruments){
 
 		for (int i = 0; i < instrumentData.size(); i++) {
-
-			System.out.println(instrumentData.get(i).getOutFile());
-			createNewFile(instrumentData.get(i).getOutFile(), date, instrumentData.get(i).getInstrumentName());
-			
+			if (instruments.contains(instrumentData.get(i).getInstrumentName())){
+				System.out.println(instrumentData.get(i).getOutFile());
+				createNewFile(instrumentData.get(i).getOutFile(), date, instrumentData.get(i).getInstrumentName());
+			}
 		}
 		return rc;
 	}
@@ -157,8 +157,10 @@ public class SetupTestProcessedData {
 		
 		try {
 			//Runtime.getRuntime().exec("cmd.exe /c C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable\\moveFiles.bat");
-			Runtime.getRuntime().exec("cmd /c start C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable\\moveFiles.bat");
-		} catch (IOException e1) {
+			//Process p = Runtime.getRuntime().exec("cmd /c start C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable\\moveFiles.bat");
+			Process p = Runtime.getRuntime().exec("cmd /c C:\\Users\\Priyash\\Dropbox\\trader\\appData\\runnable\\moveFiles.bat");
+			p.waitFor();
+		} catch (IOException | InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -166,27 +168,30 @@ public class SetupTestProcessedData {
 	}
 	
 	public static void main(String args[]){
+		
+		
 		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
 		sd.readMetaData("priyash", "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\test_files\\testInsightsFiles\\");
-		sd.createTestData("\"10-Jan-18\"");
-	    
-		sd.moveFiles();
 		
-	    Scanner scanner = new Scanner(System.in);
-	    System.out.print("Have the files completed copying");
-	    String name = scanner.next();
-		scanner.close();
-	    
-		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
-						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
-						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
-		
-		ad.readMetaData("priyashteststart");
+
+
 		ArrayList<String> instruments = new ArrayList<String>();
 		instruments.add("ADI");
 		//instruments.add("MTN");
 		//instruments.add("AFH");
 		//instruments.add("EOH");
+		sd.createTestData("\"10-Jan-18\"", instruments);	    
+		sd.moveFiles();
+		/*
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.print("Have the files completed copying");
+	    String name = scanner.next();
+		scanner.close();*/	    
+		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+						   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
+		
+		ad.readMetaData("priyashteststart");
 		ad.createSetInsights(instruments);
 	}
 }
