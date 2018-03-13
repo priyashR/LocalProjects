@@ -234,52 +234,63 @@ public class AnalyseProcessedData {
 		// apply the the rules and create the general insights
 		
 		//how far from turning
+/*
 		i = new Insight();
 		i = getInsight.I001a(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
-		
+*/
 		// when was the last turning point
+/*		
 		i = new Insight();
 		i = getInsight.I001b(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);			
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
-
+*/
+		
 		//Percentage difference between SMA5 and SMA20
+/*
 		i = new Insight();
 		i = getInsight.V002a(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
+*/
 
 		// Actual difference between SMA5 and SMA20
+/*
 		i = new Insight();
 		i = getInsight.V002b(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
+*/
 
 		// ROC since the last turning point
+/*
 		i = new Insight();
 		i = getInsight.V002c(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
+*/
 
 		// % change since the last turning point
+/*
 		i = new Insight();
 		i = getInsight.V002d(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
+*/
 
 		// % highest high / lowest low check
 		i = new Insight();
@@ -386,7 +397,7 @@ public class AnalyseProcessedData {
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
-		// Percentage change since two days ago
+		// Percentage change since five days ago
 		i = new Insight();
 		i = getInsight.V001_5(data);
 		if (owned) i.setOwned("Y");
@@ -395,7 +406,7 @@ public class AnalyseProcessedData {
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
-		// Percentage change since two days ago
+		// Percentage change since ten days ago
 		i = new Insight();
 		i = getInsight.V001_10(data);
 		if (owned) i.setOwned("Y");

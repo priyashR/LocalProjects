@@ -185,10 +185,56 @@ public class SetupTestProcessedData {
 	
 	private ArrayList<String> getDateBatch(){
 		//to maybe read from file
+		
 		ArrayList<String> dates = new ArrayList<String>();
-		dates.add("\"15-Jan-18\"");
-		dates.add("\"16-Jan-18\"");
-		dates.add("\"17-Jan-18\"");
+		dates.add("\"1-Jan-16\"");
+		dates.add("\"4-Jan-16\"");
+		dates.add("\"14-Jan-16\"");
+		dates.add("\"15-Jan-16\"");
+		dates.add("\"29-Jan-16\"");
+		dates.add("\"1-Feb-16\"");
+		dates.add("\"15-Feb-16\"");
+		dates.add("\"16-Feb-16\"");
+		dates.add("\"1-Mar-16\"");
+		dates.add("\"15-Mar-16\"");
+		dates.add("\"16-Mar-16\"");
+		dates.add("\"30-Mar-16\"");
+		dates.add("\"31-Mar-16\"");
+		dates.add("\"14-Apr-16\"");
+		dates.add("\"15-Apr-16\"");
+		dates.add("\"29-Apr-16\"");
+		dates.add("\"2-May-16\"");
+		dates.add("\"16-May-16\"");
+		dates.add("\"17-May-16\"");
+		dates.add("\"31-May-16\"");
+		dates.add("\"10-Jun-16\"");
+		dates.add("\"13-Jun-16\"");
+		dates.add("\"27-Jun-16\"");
+		dates.add("\"28-Jun-16\"");
+		dates.add("\"12-Jul-16\"");
+		dates.add("\"13-Jul-16\"");
+		dates.add("\"27-Jul-16\"");
+		dates.add("\"28-Jul-16\"");
+		dates.add("\"11-Aug-16\"");
+		dates.add("\"12-Aug-16\"");
+		dates.add("\"29-Aug-16\"");
+		dates.add("\"30-Aug-16\"");
+		dates.add("\"13-Sep-16\"");
+		dates.add("\"14-Sep-16\"");
+		dates.add("\"28-Sep-16\"");
+		dates.add("\"29-Sep-16\"");
+		dates.add("\"13-Oct-16\"");
+		dates.add("\"14-Oct-16\"");
+		dates.add("\"28-Oct-16\"");
+		dates.add("\"31-Oct-16\"");
+		dates.add("\"14-Nov-16\"");
+		dates.add("\"15-Nov-16\"");
+		dates.add("\"29-Nov-16\"");
+		dates.add("\"30-Nov-16\"");
+		dates.add("\"14-Dec-16\"");
+		dates.add("\"15-Dec-16\"");
+		dates.add("\"29-Dec-16\"");
+		dates.add("\"30-Dec-16\"");
 		return dates;
 	}
 	
