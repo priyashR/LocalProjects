@@ -184,19 +184,20 @@ public class SetupTestProcessedData {
 	}
 	
 	public ArrayList<String> getDateBatch(String dateFile){
-		//to maybe read from file
+		
+		ArrayList<String> dates = new ArrayList<String>();
 		File dateFilePath = new File(dateFile);
         try (BufferedReader b = new BufferedReader(new FileReader(dateFilePath))){
         	String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
                 System.out.println(readLine);
+                dates.add(readLine);
             }
             b.close();
         } catch (Exception e) {
         	e.printStackTrace();
-        }	
-		ArrayList<String> dates = new ArrayList<String>();
+        }	/*
 		dates.add("\"1-Jan-16\"");
 		dates.add("\"4-Jan-16\"");
 		dates.add("\"14-Jan-16\"");
@@ -244,7 +245,7 @@ public class SetupTestProcessedData {
 		dates.add("\"14-Dec-16\"");
 		dates.add("\"15-Dec-16\"");
 		dates.add("\"29-Dec-16\"");
-		dates.add("\"30-Dec-16\"");
+		dates.add("\"30-Dec-16\"");*/
 		return dates;
 	}
 	
