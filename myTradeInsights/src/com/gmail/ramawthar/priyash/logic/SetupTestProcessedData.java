@@ -167,8 +167,8 @@ public class SetupTestProcessedData {
 
 	}
 	
-	public void createTestDataBatch(){
-		ArrayList<String> dates = getDateBatch();
+	public void createTestDataBatch(String dateFile){
+		ArrayList<String> dates = getDateBatch(dateFile);
 		ArrayList<String> instruments = getInstrumentBatch();
 		for(int i = 0; i < dates.size(); i++){
 			//createTestData("\"11-Jan-18\"", instruments);	
@@ -183,9 +183,19 @@ public class SetupTestProcessedData {
 		}
 	}
 	
-	private ArrayList<String> getDateBatch(){
+	public ArrayList<String> getDateBatch(String dateFile){
 		//to maybe read from file
-		
+		File dateFilePath = new File(dateFile);
+        try (BufferedReader b = new BufferedReader(new FileReader(dateFilePath))){
+        	String readLine = "";
+
+            while ((readLine = b.readLine()) != null) {
+                System.out.println(readLine);
+            }
+            b.close();
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }	
 		ArrayList<String> dates = new ArrayList<String>();
 		dates.add("\"1-Jan-16\"");
 		dates.add("\"4-Jan-16\"");
@@ -241,10 +251,17 @@ public class SetupTestProcessedData {
 	private ArrayList<String> getInstrumentBatch(){
 		//to maybe read from file
 		ArrayList<String> instruments = new ArrayList<String>();
+		
+		//instruments.add("ADI");
+		//instruments.add("MRP");
 		//instruments.add("MTN");
-		//instruments.add("AFH");
+		//instruments.add("ACE");
 		//instruments.add("EOH");
-		instruments.add("ADI");
+		//instruments.add("ACG");
+		
+		//to do
+		instruments.add("ABSP");
+		
 		return instruments;
 	}	
 	
@@ -254,7 +271,9 @@ public class SetupTestProcessedData {
 		SetupTestProcessedData sd = new SetupTestProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt");
 		sd.readMetaData("priyash", "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\test_files\\testInsightsFiles\\");
 		
-		sd.createTestDataBatch();
+		//sd.createTestDataBatch("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\metaData\\testDates.txt");
+		
+		sd.getDateBatch("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\metaData\\testDates.txt");//testing
 		/*
 		ArrayList<String> instruments = new ArrayList<String>();
 		instruments.add("ADI");
