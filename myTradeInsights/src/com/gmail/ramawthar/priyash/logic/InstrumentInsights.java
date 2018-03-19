@@ -636,11 +636,11 @@ public class InstrumentInsights {
 		if ((percentage > 96)&&(percentage < 104)){
 			if (prevPercentage < 100){
 				insightValue = "0";
-				insightNote = "MACD touching the siganl line with the previous day being less than the signal, consider buying if both MACD and signal are positive";
+				insightNote = "MACD touching the siganl line with the previous day being less than the signal consider buying if both MACD and signal are positive";
 				insightRec = "BUY";
 			}else if (prevPercentage > 100){
 				insightValue = "0";
-				insightNote = "MACD touching the siganl line with the previous day being more than the signal, consider selling";
+				insightNote = "MACD touching the siganl line with the previous day being more than the signal consider selling";
 				insightRec = "SELL";
 			}else {
 				insightValue = "5";
@@ -687,22 +687,22 @@ public class InstrumentInsights {
 		if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 0)
 		  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
 			insightValue = "0";
-			insightNote = "MACD touching the siganl line with previously being less than the signal, consider buying";
+			insightNote = "MACD touching the siganl line with previously being less than the signal consider buying";
 			insightRec = "BUY";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 0)
 				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
 			insightValue = "0";
-			insightNote = "MACD touching the siganl line with previously being more than the signal, consider selling";
+			insightNote = "MACD touching the siganl line with previously being more than the signal consider selling";
 			insightRec = "SELL";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == 1)
 				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == -1)){
 			insightValue = "0";
-			insightNote = "MACD crossed the siganl line with previously being less than the signal, consider buying";
+			insightNote = "MACD crossed the siganl line with previously being less than the signal consider buying";
 			insightRec = "BUY";
 		} else if ((data.get(lastIndex).getLongMacd().compareTo(data.get(lastIndex).getLongMacdsig()) == -1)
 				  &&(data.get(secondLastIndex).getLongMacd().compareTo(data.get(secondLastIndex).getLongMacdsig()) == 1)){
 			insightValue = "0";
-			insightNote = "MACD crossed the siganl line with previously being more than the signal, consider selling";
+			insightNote = "MACD crossed the siganl line with previously being more than the signal consider selling";
 			insightRec = "SELL";
 		}
 		

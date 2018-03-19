@@ -234,33 +234,33 @@ public class AnalyseProcessedData {
 		// apply the the rules and create the general insights
 		
 		//how far from turning
-/*
+/*added*/
 		i = new Insight();
 		i = getInsight.I001a(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
-*/
+
 		// when was the last turning point
-/*		
+/*added*/		
 		i = new Insight();
 		i = getInsight.I001b(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);			
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
-*/
+
 		
 		//Percentage difference between SMA5 and SMA20
-/*
+/*added*/
 		i = new Insight();
 		i = getInsight.V002a(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
-*/
+
 
 		// Actual difference between SMA5 and SMA20
 /*
@@ -273,14 +273,14 @@ public class AnalyseProcessedData {
 */
 
 		// ROC since the last turning point
-/*
+/*added*/
 		i = new Insight();
 		i = getInsight.V002c(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
-*/
+
 
 		// % change since the last turning point
 /*
@@ -291,7 +291,7 @@ public class AnalyseProcessedData {
 			insights.add(i);
 		System.out.println(i.getInsightCode()+" : "+i.getInsightValue());
 */
-
+/*Original set*/
 		// % highest high / lowest low check
 		i = new Insight();
 		i = getInsight.I004(data);
