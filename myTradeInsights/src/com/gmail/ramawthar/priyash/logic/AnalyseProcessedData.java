@@ -410,14 +410,23 @@ public class AnalyseProcessedData {
 		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());		
 		// check if I have this instrument and apply the trending insights
 
+		// Percentage change since 260 trade days ago
+		i = new Insight();
+		i = getInsight.V001_260(data);
+		if (owned) i.setOwned("Y");
+		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
+			insights.add(i);
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());	
+
+
 		// Percentage change since ten days ago
 		i = new Insight();
 		i = getInsight.V001_10(data);
 		if (owned) i.setOwned("Y");
 		if ((!(i.getInsightCode().equalsIgnoreCase("NONE")))&&(!(i.getInsightValue().equalsIgnoreCase(""))))
 			insights.add(i);
-		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());	
-
+		System.out.println(i.getInstrument()+" : "+i.getInsightCode()+" : "+i.getInsightValue());			
+		
 		// Include the closing price
 		i = new Insight();
 		i = getInsight.V003(data);
@@ -721,8 +730,8 @@ public class AnalyseProcessedData {
      	   
      	   //afile.renameTo(new File(newPath+"\\"+file));
     		
-    	   //String slash = "\\";
-    	   String slash = "/";
+    	   String slash = "\\";
+    	   //String slash = "/";
     	   
      	   Path source = Paths.get(currPath+slash+file);
      	   Path destination = Paths.get(newPath+slash+file);
@@ -749,8 +758,8 @@ public class AnalyseProcessedData {
 	
 	private ReturnClass deleteFile(String currPath, String file){
     	try{
-     	    //String slash = "\\";
-     	    String slash = "/";    		
+     	    String slash = "\\";
+     	    //String slash = "/";    		
     		Path source = Paths.get(currPath+slash+file);
     		Files.deleteIfExists(source);
     		

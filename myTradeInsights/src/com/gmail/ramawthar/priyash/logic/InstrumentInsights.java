@@ -950,6 +950,11 @@ public class InstrumentInsights {
 			
 			return percDiff(data,10);
 		}	
+		// Check the percentage change from 260 trade days(1 year) ago
+		public Insight V001_260(ArrayList<ProcessedInstrumentData> data){
+			
+			return percDiff(data,260);
+		}		
 		
 		// Check the percentage difference
 		private Insight percDiff(ArrayList<ProcessedInstrumentData> data, int days){
