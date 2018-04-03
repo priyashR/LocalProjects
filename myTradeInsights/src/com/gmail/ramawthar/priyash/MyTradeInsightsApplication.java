@@ -9,13 +9,42 @@ public class MyTradeInsightsApplication {
 		System.out.println("Lets begin");
 		//*********for production:
 		//
-		//AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
-		//		   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
-		//		   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
 		
-		//ad.readMetaData("priyash");
-		//ad.createInsights();
-		//
+		
+		 //windows
+		  String uncopied = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights";
+		  String done = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights\\done";
+		  String err = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights\\err";
+		  
+		  String instrumentMetaData = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt"; 
+		  String insightMetaData = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt"; 
+		  String myShares = "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\myShares.txt"; 
+		  
+		  String instance = "priyash.ramawthar";
+		
+		
+		/* 
+		 //Ubuntu
+		  String uncopied = "/home/priyash/Dropbox/trader/appData/masterdata/insights";
+		  String done = "/home/priyash/Dropbox/trader/appData/masterdata/insights/done";
+		  String err = "/home/priyash/Dropbox/trader/appData/masterdata/insights/err";
+		  
+		  String instrumentMetaData = "/home/priyash/Dropbox/trader/appData/metaData/instrumentsMetaData.txt"; 
+		  String insightMetaData = "/home/priyash/Dropbox/trader/appData/metaData/insightMetaData.txt"; 
+		  String myShares = "/home/priyash/Dropbox/trader/appData/metaData/myShares.txt"; 
+		  
+		  String instance = "priyash";
+		  */
+		//*********for production.
+		AnalyseProcessedData ad = new AnalyseProcessedData(instrumentMetaData,
+				   											 insightMetaData,
+				   											 myShares);
+		
+		ad.readMetaData(instance);
+		ad.createInsights(uncopied, 
+							done, 
+							err);
+		
 		//*********for production.
 
 		

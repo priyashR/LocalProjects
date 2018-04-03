@@ -174,12 +174,17 @@ public class SetupTestProcessedData {
 			//createTestData("\"11-Jan-18\"", instruments);	
 			createTestData(dates.get(i), instruments);
 			moveFiles();
+			System.out.println("moves file done");
 			AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
 							   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
 							   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
-			
+
+			System.out.println("init done");
 			ad.readMetaData("priyashteststart");
+			System.out.println("read done");
 			ad.createSetInsights(instruments);
+
+			System.out.println("Done.");
 		}
 	}
 	

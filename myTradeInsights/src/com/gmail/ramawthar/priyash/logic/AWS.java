@@ -35,6 +35,7 @@ public class AWS {
 		
 		  try {
 
+				rc.setStatus("Success");
 				//URL url = new URL("http://localhost:8080/RESTfulExample/json/product/post");
 				
 				URL url = new URL("https://4s0q0hhyt2.execute-api.eu-west-1.amazonaws.com/production/insightInsert");
@@ -69,16 +70,19 @@ public class AWS {
 				conn.disconnect();
 
 			  } catch (MalformedURLException e) {
-
+				rc.setStatus("ERROR");
 				e.printStackTrace();
 
 			  } catch (IOException e) {
-
+				rc.setStatus("ERROR");
 				e.printStackTrace();
 
-			 }
+			 }  catch (Exception er) {
+					rc.setStatus("ERROR");
+					er.printStackTrace();
+
+				 }
 		   
-		rc.setStatus("Success");
 		return rc;
 	}
 

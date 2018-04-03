@@ -164,7 +164,7 @@ public class AnalyseProcessedData {
 		return rc;
 	}
 	
-	public ReturnClass createInsights(){
+	public ReturnClass createInsights(String uncopied, String done, String err){
 
 		for (int i = 0; i < instrumentData.size(); i++) {
 			try {
@@ -176,13 +176,17 @@ public class AnalyseProcessedData {
 				writeInsightToFile();
 				
 				//push to cloud
-				pushToCloud();
+				//change this to use the batch method
+				//pushToCloud();
 			}
 			catch (Exception e){
 				
 			}
 			
 		}
+		// push to cloud in batch
+		pushBatchOfFilesToCloud(uncopied, done, err);
+		
 		return rc;
 	}
 	
@@ -623,7 +627,7 @@ public class AnalyseProcessedData {
 
             	//call 
             	AWS aws = new AWS();
-            	aws.pushInsightToDB(loadInsightObject(readLine));
+            	rc = aws.pushInsightToDB(loadInsightObject(readLine));
                 
             }
             b.close();
@@ -716,8 +720,12 @@ public class AnalyseProcessedData {
      	   //File afile =new File(currPath+"\\"+file);
      	   
      	   //afile.renameTo(new File(newPath+"\\"+file));
-     	   Path source = Paths.get(currPath+"\\"+file);
-     	   Path destination = Paths.get(newPath+"\\"+file);
+    		
+    	   //String slash = "\\";
+    	   String slash = "/";
+    	   
+     	   Path source = Paths.get(currPath+slash+file);
+     	   Path destination = Paths.get(newPath+slash+file);
      	   
      	   List<String> lines;
 			
@@ -727,8 +735,8 @@ public class AnalyseProcessedData {
      	   
      	   lines.clear();
 
-     	   System.out.println(currPath+"\\"+file);
-     	   System.out.println(newPath+"\\"+file);
+     	   System.out.println(currPath+slash+file);
+     	   System.out.println(newPath+slash+file);
 
      	}catch(Exception e){
      		rc.setStatus("Error");
@@ -741,8 +749,9 @@ public class AnalyseProcessedData {
 	
 	private ReturnClass deleteFile(String currPath, String file){
     	try{
-    		
-    		Path source = Paths.get(currPath+"\\"+file);
+     	    //String slash = "\\";
+     	    String slash = "/";    		
+    		Path source = Paths.get(currPath+slash+file);
     		Files.deleteIfExists(source);
     		
 
@@ -752,19 +761,59 @@ public class AnalyseProcessedData {
      		e.printStackTrace();
      	}
 		return rc;
-	}
+	}//
 	
-	/*public static void main(String args[]){
+	public static void main(String args[]){		
+		/*
+		  //windows
+		 String instrumentsMetaData = "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt";
+		 String insightMetaData = "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt";
+		 String myShares = "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt";
+		 
+		 
+		 String uncopied = "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\uncopied";
+		 String done = "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done";
+		 String err = "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\err";
+		 		 
+		 /* /
+
 		
+		  //unix
+		 String instrumentsMetaData = "/home/priyash/Dropbox/trader/appData/metaData/instrumentsMetaData.txt";
+		 String insightMetaData = "/home/priyash/Dropbox/trader/appData/metaData/insightMetaData.txt";
+		 String myShares = "/home/priyash/Dropbox/trader/appData/metaData/myShares.txt";
+		 
+		 
+		 //String uncopied = "/home/priyash/Dropbox/trader/appData/masterdata/insights/batch/uncopied";
+		 //String done = "/home/priyash/Dropbox/trader/appData/masterdata/insights/batch/done";
+		 //String err = "/home/priyash/Dropbox/trader/appData/masterdata/insights/batch/err";
+		 String uncopied = "/media/priyash/Acer/Users/Priyash/Dropbox/trader/appData/masterdata/insights/batch/uncopied";
+		 String done = "/media/priyash/Acer/Users/Priyash/Dropbox/trader/appData/masterdata/insights/batch/done";
+		 String err = "/media/priyash/Acer/Users/Priyash/Dropbox/trader/appData/masterdata/insights/batch/err";
+		 
+		 //
+		AnalyseProcessedData ad = new AnalyseProcessedData(instrumentsMetaData,insightMetaData,myShares);
+
+		String newFiles = uncopied;
+		if (!(args[0].isEmpty())){
+			newFiles = "/media/priyash/Acer/Users/Priyash/Dropbox/trader/appData/masterdata/insights/batch/" +args[0];
+		}
+		ad.readMetaData("priyashteststart");
+		ad.pushBatchOfFilesToCloud(newFiles, done, err);
+		System.out.println("Done!");
+		 
+		 
+		/* Old hardcoded
 		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
-				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
-				   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
+														   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+														   "C:\\Users\\priyash\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
 		
 		ad.readMetaData("priyashteststart");
 		ad.pushBatchOfFilesToCloud("C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\uncopied", 
 								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done", 
-								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\done");
+								   "C:\\Users\\Priyash\\Dropbox\\trader\\appData\\masterdata\\insights\\batch\\err");
+		System.out.println("Done!");
+		*/
 		
-		
-	}*/
+	}
 }
