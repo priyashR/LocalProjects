@@ -45,6 +45,11 @@ public class MyTradeInsightsApplication {
 							done, 
 							err);
 		
+//also done in create insights
+		ad.pushBatchOfFilesToCloud("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights", 
+		"C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights\\done", 
+		"C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights\\err");		
+		
 		//*********for production.
 
 		

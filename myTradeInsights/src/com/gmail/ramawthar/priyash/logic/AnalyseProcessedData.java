@@ -824,5 +824,16 @@ public class AnalyseProcessedData {
 		System.out.println("Done!");
 		*/
 		
+
+		AnalyseProcessedData ad = new AnalyseProcessedData("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\instrumentsMetaData.txt",
+														   "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\insightMetaData.txt",
+														   "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\metaData\\myShares.txt");
+		
+		ad.readMetaData("priyash.ramawthar");
+		ad.pushBatchOfFilesToCloud("C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights", 
+								   "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights\\done", 
+								   "C:\\Users\\priyash.ramawthar\\Dropbox\\trader\\appData\\masterdata\\insights\\err");
+		System.out.println("Done!");
+		
 	}
 }
